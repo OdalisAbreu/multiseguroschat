@@ -31,3 +31,7 @@ export default {
     },
 }
 </script>
+<!--Este bloque sirve para crear clases personalizadas-->
+<style scoped>
+
+</style>
