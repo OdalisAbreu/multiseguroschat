@@ -31,6 +31,8 @@ Route::get('/', function () {
 
 Route::get('client/{phone}', [ClientController::class, 'show'])->name('client');
 
+Route::get('seguros/{idclien}/{idseller}', [ClientController::class, 'seller'])->name('seguros'); //Configurar seguro
+
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->name('dashboard');

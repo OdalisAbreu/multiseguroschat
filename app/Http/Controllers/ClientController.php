@@ -63,7 +63,7 @@ class ClientController extends Controller
             return Inertia::render('Clients/Index', [
                 'client' => $client,
                 'token' => $token,
-                'seller' => $seller
+                'sellers' => $seller
             ]);
 
         }else{
@@ -104,5 +104,9 @@ class ClientController extends Controller
     public function destroy(Client $client)
     {
         //
+    }
+
+    public function seller($idclient, $idseller){
+        return 'Estoy en la otra vaina';
     }
 }
