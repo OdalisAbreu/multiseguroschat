@@ -1,19 +1,25 @@
 <template>
     <h1>Nuestros Seguros</h1>
 
+<div v-for="seller in sellers" :key="seller.id">
+    {{seller.id}} -
+    {{seller.insuranceCarrierName}}
+   <Link> Seleccionar </Link>
 
+</div>
 
 </template>
 <script>
+    import { Link } from '@inertiajs/inertia-vue3'
 
 export default {
     components:{
-
+        Link
     },
     props: {
         client: Object,
         token: Object,
-        seller: Array
+        sellers: Array
     },
     data(){
         return {
