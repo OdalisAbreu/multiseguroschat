@@ -6,6 +6,8 @@ use App\Models\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Inertia\Inertia;
+use PhpParser\Node\Stmt\TryCatch;
+
 
 class ClientController extends Controller
 {
@@ -57,6 +59,12 @@ class ClientController extends Controller
         $seller = Http::withToken($token['token'])->get('http://multiseguros.com.do:5000/api/Seguros/InsuranceCarrier');
 
        $seller = $seller->json();
+
+       $string = array("-"," ");
+       $phone = str_replace($string,"",$phone); // Quita los espacios en blanco y los guiones
+
+       // Falta validar si tiene 1
+
         $client = Client::where('phonenumber', $phone)->first();
 
         if($client){
@@ -106,7 +114,25 @@ class ClientController extends Controller
         //
     }
 
-    public function seller($idclient, $idseller){
-        return 'Estoy en la otra vaina';
+    public function seller(Request $request){
+
+        $token = $request['token'];
+
+            $tipos = Http::withToken($token)->get('http://multiseguros.com.do:5000/api/Seguros/Make');
+            $tipos = $tipos->json();
+
+            $marcas = Http::withToken($token)->get('http://multiseguros.com.do:5000/api/Seguros/Make');
+            $marcas = $marcas->json();
+
+            $modelos = Http::withToken($token)->get('http://multiseguros.com.do:5000/api/Seguros/Model');
+            $modelos = $modelos->json();
+
+            return Inertia::render('Vehiculo/index', [
+                'tipos' => $tipos,
+                'marcas' => $marcas,
+                'modelos' => $modelos,
+                'token' => $token
+            ]);
+
     }
 }
