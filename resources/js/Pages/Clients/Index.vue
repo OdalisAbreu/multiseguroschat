@@ -14,7 +14,7 @@
                     <div class="relative pb-48 overflow-hidden">
                         <img class="absolute  inset-0 h-full w-full object-cover" src="https://images.unsplash.com/photo-1605152276897-4f618f831968?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80">
                     </div>
-                    <div class="p-4">
+                    <div class="p-2">
                         <span class="inline-block px-2 py-1 leading-none bg-orange-200 text-orange-800 rounded-full font-semibold uppercase tracking-wide text-xs">{{seller.id}} -
                             {{seller.insuranceCarrierName}}</span>
                         <h2 class="mt-2 mb-2  font-bold">Compañía De Seguros en Santo Domingo</h2>
