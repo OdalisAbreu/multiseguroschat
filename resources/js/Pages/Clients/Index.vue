@@ -4,13 +4,13 @@
             <a href="#" class="text-white text-3xl font-semibold uppercase hover:text-gray-300">Multiseguros</a>
         </div>
     </div>
-    
+
 
 <div class="antialiased bg-gray-200 text-gray-900 font-sans p-6" v-for="seller in sellers" :key="seller.id">
     <div class="container mx-auto">
         <div class="flex flex-wrap -mx-1 md:flex flex-col">
             <div class="w-full p-4 sm:w-1/4 md:w-1/2 xl:w-1/3">
-                <a href="#" class="c-card block bg-white shadow-md  hover:shadow-xl rounded-lg overflow-hidden">
+                <a @click.prevent="sentDate(seller.id)" class="c-card block bg-white shadow-md  hover:shadow-xl rounded-lg overflow-hidden">
                     <div class="relative pb-48 overflow-hidden">
                         <img class="absolute  inset-0 h-full w-full object-cover" src="https://images.unsplash.com/photo-1605152276897-4f618f831968?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80">
                     </div>
@@ -20,7 +20,7 @@
                         <h2 class="mt-2 mb-2  font-bold">Compañía De Seguros en Santo Domingo</h2>
                         <p class="text-sm">Calle Doctor Jacinto Ignacio Mañón 15 Santo Domingo República Dominicana.</p>
                             <div class="mt-3 flex items-center">
-                            <!--<span class="font-bold text-xl">Click Aqui</span>-->            
+                            <!--<span class="font-bold text-xl">Click Aqui</span>-->
                             </div>
                     </div>
                 </a>
@@ -36,10 +36,12 @@
 
 </template>
 <script>
-    import { Link } from '@inertiajs/inertia-vue3'
+
+    import { Head, Link } from '@inertiajs/inertia-vue3';
 
 export default {
     components:{
+        Head,
         Link
     },
     props: {
@@ -52,14 +54,18 @@ export default {
             auto: 'Toyota',
         }
     },
-    mounted(){
-        console.log('Hola Entro el asunto')
-        this.getSeller();
-    },
     methods: {
         getSeller(){
-            console.log( this.seller)
+            console.log( this.seller.id)
         },
+        sentDate(sellerId){
+          var info = new Object();
+            info.phone = this.client.phonenumber;
+            info.token = this.token.token;
+            info.sellerId = sellerId;
+
+           this.$inertia.post(this.route('seguros'), info);
+        }
     },
 }
 </script>
