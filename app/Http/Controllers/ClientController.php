@@ -118,7 +118,7 @@ class ClientController extends Controller
 
         $token = $request['token'];
 
-            $tipos = Http::withToken($token)->get('http://multiseguros.com.do:5000/api/Seguros/Make');
+            $tipos = Http::withToken($token)->get('http://multiseguros.com.do:5000/api/Seguros/VehicleType');
             $tipos = $tipos->json();
 
             $marcas = Http::withToken($token)->get('http://multiseguros.com.do:5000/api/Seguros/Make');

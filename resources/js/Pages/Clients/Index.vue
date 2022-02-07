@@ -1,4 +1,5 @@
 <template>
+    <div class="bg-gray-200">
     <div class="w-full mb-4 rounded  overflow-x-hidden border-t flex flex-col bg-blue-600 shadow-lg shadow-blue-500/50">
         <div class="p-3">
             <a href="#" class="text-white text-3xl font-semibold uppercase hover:text-gray-300">Multiseguros</a>
@@ -6,10 +7,11 @@
     </div>
 
 
-<div class="antialiased bg-gray-200 text-gray-900 font-sans p-6" v-for="seller in sellers" :key="seller.id">
+
+<div class="antialiased  text-gray-900 font-sans p-6" v-for="seller in sellers" :key="seller.id">
     <div class="container mx-auto">
         <div class="flex flex-wrap -mx-1 md:flex flex-col">
-            <div class="w-full p-4 sm:w-1/4 md:w-1/2 xl:w-1/3">
+            <div class="w-full p-4 ms:w-1/4 md:w-1/4 xl:w-1/4">
                 <a @click.prevent="sentDate(seller.id)" class="c-card block bg-white shadow-md  hover:shadow-xl rounded-lg overflow-hidden">
                     <div class="relative pb-48 overflow-hidden">
                         <img class="absolute  inset-0 h-full w-full object-cover" src="https://images.unsplash.com/photo-1605152276897-4f618f831968?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80">
@@ -32,17 +34,21 @@
     {{seller.insuranceCarrierName}}
    <Link> Seleccionar </Link>-->
 
+    </div>
 </div>
-
 </template>
 <script>
 
+
+
     import { Head, Link } from '@inertiajs/inertia-vue3';
+ 
 
 export default {
     components:{
         Head,
-        Link
+        Link,
+        
     },
     props: {
         client: Object,
@@ -65,9 +71,11 @@ export default {
             info.sellerId = sellerId;
 
            this.$inertia.post(this.route('seguros'), info);
-        }
-    },
+        },
+
+    }    
 }
+
 </script>
 <!--Este bloque sirve para crear clases personalizadas-->
 <style scoped>
