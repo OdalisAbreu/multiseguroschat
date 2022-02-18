@@ -1,12 +1,6 @@
 <template>
-<div id="app">
-    <div class="bg-gray-200">
-        <!--<div class="flex flex-auto bg-blue-500 rounded-b-lg drop-shadow-xl">
-            <a class="py-3 p-3 text-xl text-white font-bold md:text-3xl">Multiseguros</a>
-        </div>-->
-
-        <cabecera></cabecera>
-      <div class="antialiased  text-gray-900 font-sans p-6" v-for="seller in sellers" :key="seller.id">
+    <div>
+        <div class="antialiased  text-gray-900 font-sans p-6" v-for="seller in sellers" :key="seller.id">
             <div class="container mx-auto">
                 <div class="flex flex-wrap -mx-1 md:flex flex-col">
                     <div class="w-full p-4 ms:w-1/4 md:w-1/4 xl:w-1/4">
@@ -21,7 +15,7 @@
                                 <p class="text-sm">Calle Doctor Jacinto Ignacio Mañón 15 Santo Domingo República Dominicana.</p>
                                     <div class="mt-3 flex items-center">
                                     <!--<span class="font-bold text-xl">Click Aqui</span>-->
-                                   </div>
+                                    </div>
                             </div>
                         </a>
                     </div>
@@ -32,49 +26,9 @@
             <Link> Seleccionar </Link>-->
         </div>
     </div>
-</div>    
 </template>
 <script>
-
-
-import { Head, Link } from '@inertiajs/inertia-vue3';
-import Cabecera from '../../../components/Cabecera.vue';
-
-
 export default {
-    name: 'app',
-    components:{
-        Head,
-        Link,
-        Cabecera,
-        
-    },
-   props: {
-        client: Object,
-        token: Object,
-        sellers: Array
-    },
-     data(){
-        
-    },
-    methods: {
-        getSeller(){
-            console.log( this.seller.id)
-        },
-        sentDate(sellerId){
-          var info = new Object();
-            info.phone = this.client.phonenumber;
-            info.token = this.token.token;
-            info.sellerId = sellerId;
-
-           this.$inertia.post(this.route('seguros'), info);
-        },
-
-    }   
+    name: 'Cuerpo'
 }
-
 </script>
-<!--Este bloque sirve para crear clases personalizadas-->
-<style scoped>
-
-</style>

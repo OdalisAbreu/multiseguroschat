@@ -1,8 +1,10 @@
 <template>
 <div id="app">
-    <div class="flex flex-auto bg-blue-500 rounded-b-lg drop-shadow-xl">
+    <!--<div class="flex flex-auto bg-blue-500 rounded-b-lg drop-shadow-xl">
             <a class="py-3 p-3 text-xl text-white font-bold md:text-3xl">Multiseguros</a>
-        </div>
+        </div>-->
+
+        <cabecera></cabecera>
 
     <div class="px-12 py-8 ml-4 mr-4 mt-10  flex-auto rounded bg-gray-300"> 
         
@@ -30,7 +32,7 @@
 
                 <input class="w-72 p-2 mt-4 md:mx-2 bg-white border-2 border-gray-600 box-content rounded-lg" type="number" placeholder="Año">
             </form>
-                <button class="h-10 py-3 px-5 mt-2 text-white font-bold bg-blue-600 rounded-lg hover:bg-blue-700">Siguiente</button>
+                <button class="h-10 py-2 px-5 mt-2 text-white font-bold bg-blue-600 rounded-lg hover:bg-blue-700">Siguiente</button>
     </div>
 </div>     
 </template>
@@ -39,6 +41,8 @@
 import { Head, Link } from '@inertiajs/inertia-vue3';
 import { watch } from '@vue/runtime-core';
 import Input from '../../Jetstream/Input.vue';
+import Cabecera from '../../../components/Cabecera.vue';
+
 
 
 export default {
@@ -46,8 +50,8 @@ export default {
     components:{
         Head,
         Link,
-       
-        
+        Cabecera,
+   
     },
    
     props:{
@@ -59,7 +63,7 @@ export default {
     },
 
     data(){
-        return {q:''
+        return {q:'- Marca -'
         } 
     },
 
