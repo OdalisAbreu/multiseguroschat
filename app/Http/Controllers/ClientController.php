@@ -50,13 +50,13 @@ class ClientController extends Controller
      */
     public function show($phone)
     {
-        $token = Http::post('http://multiseguros.com.do:5000/api/User/Authenticate',[
+        $token = Http::post('http://multiseguros.com.do:5050/api/User/Authenticate',[
             'username' => 'sendiu_desarrollo',
             'password' => 'dev1234'
         ]);
         sleep(1);
         $token = $token->json();
-        $seller = Http::withToken($token['token'])->get('http://multiseguros.com.do:5000/api/Seguros/InsuranceCarrier');
+        $seller = Http::withToken($token['token'])->get('http://multiseguros.com.do:5050/api/Seguros/InsuranceCarrier');
 
        $seller = $seller->json();
 
@@ -118,13 +118,13 @@ class ClientController extends Controller
 
         $token = $request['token'];
 
-            $tipos = Http::withToken($token)->get('http://multiseguros.com.do:5000/api/Seguros/Make');
+            $tipos = Http::withToken($token)->get('http://multiseguros.com.do:5050/api/Seguros/Make');
             $tipos = $tipos->json();
 
-            $marcas = Http::withToken($token)->get('http://multiseguros.com.do:5000/api/Seguros/Make');
+            $marcas = Http::withToken($token)->get('http://multiseguros.com.do:5050/api/Seguros/Make');
             $marcas = $marcas->json();
 
-            $modelos = Http::withToken($token)->get('http://multiseguros.com.do:5000/api/Seguros/Model');
+            $modelos = Http::withToken($token)->get('http://multiseguros.com.do:5050/api/Seguros/Model');
             $modelos = $modelos->json();
 
             return Inertia::render('Vehiculo/index', [
