@@ -20674,22 +20674,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @inertiajs/inertia-vue3 */ "./node_modules/@inertiajs/inertia-vue3/dist/index.js");
-<<<<<<< Updated upstream
 /* harmony import */ var _components_Cabecera_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../components/Cabecera.vue */ "./resources/components/Cabecera.vue");
 
-=======
->>>>>>> Stashed changes
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'app',
   components: {
     Head: _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_0__.Head,
-<<<<<<< Updated upstream
     Link: _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_0__.Link,
     Cabecera: _components_Cabecera_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
-=======
-    Link: _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_0__.Link
->>>>>>> Stashed changes
   },
   props: {
     client: Object,
@@ -24703,11 +24696,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     /* TEXT */
     ), _hoisted_10, _hoisted_11, _hoisted_12])], 8
     /* PROPS */
-<<<<<<< Updated upstream
     , _hoisted_6)])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("{{seller.id}} -\r\n                {{seller.insuranceCarrierName}}\r\n            <Link> Seleccionar </Link>")]);
-=======
-    , _hoisted_5)])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("{{seller.id}} -\r\n    {{seller.insuranceCarrierName}}\r\n   <Link> Seleccionar </Link>")]);
->>>>>>> Stashed changes
   }), 128
   /* KEYED_FRAGMENT */
   ))])]);
