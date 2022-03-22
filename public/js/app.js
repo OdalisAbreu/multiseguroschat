@@ -20674,15 +20674,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @inertiajs/inertia-vue3 */ "./node_modules/@inertiajs/inertia-vue3/dist/index.js");
+<<<<<<< HEAD
 /* harmony import */ var _components_Cabecera_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../components/Cabecera.vue */ "./resources/components/Cabecera.vue");
 
+=======
+>>>>>>> bffd48360e60e9437d4f7f3f8a60db6a2a6f08be
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'app',
   components: {
     Head: _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_0__.Head,
+<<<<<<< HEAD
     Link: _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_0__.Link,
     Cabecera: _components_Cabecera_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+=======
+    Link: _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_0__.Link
+>>>>>>> bffd48360e60e9437d4f7f3f8a60db6a2a6f08be
   },
   props: {
     client: Object,
