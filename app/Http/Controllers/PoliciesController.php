@@ -74,9 +74,36 @@ class PoliciesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
-        //
+        $serviciosActivos = $request->servicios;
+        $servicos = $request->services;
+        $totalServicios = 0;
+        foreach($serviciosActivos as $serviciosActivo){
+            foreach($servicos as $servicio){
+               if($servicio['id'] == $serviciosActivo){
+                   $totalServicios = $totalServicios + $servicio['servicePrice'];
+               }
+            }
+        }
+        $totalGeneral = $totalServicios + $request->tarifa[$request->policyTime];
+        if($request->policyTime == 'threeMonths'){
+            $policyTime = '3 Meses';
+        }elseif($request->policyTime == 'sixMonths'){
+            $policyTime = '6 Meses';
+        }else{
+            $policyTime = '12 Meses';
+        }
+
+        return Inertia::render('Policy/approve', [
+            'car' => $request->car,
+            'tarifa' => $request->tarifa,
+            'token' => $request->token,
+            'sellers' => $request->seller,
+            'totalGeneral' => $totalGeneral,
+            'policyTime' => $policyTime
+        ]);
+
     }
 
     /**
@@ -126,14 +153,21 @@ class PoliciesController extends Controller
                 if($servicio['id'] == $service){
                     $service2 = array(
                         'serviceName' => $servicio['serviceName'],
-                        'policyTime' => $servicio[$request->policyTime],
+                        'servicePrice' => $servicio[$request->policyTime],
                         'id' => $servicio['id']
                     );
                     array_push($services, $service2);
                 }
             }
         }
-        var_dump($services);
+        return Inertia::render('Policy/create', [
+            'car' => $request->car,
+            'tarifa' => $request->tarifa,
+            'token' => $request->$token,
+            'sellers' => $request->seller,
+            'services' => $services,
+            'policyTime' => $request->policyTime
+        ]);
 
     }
 }
