@@ -32,7 +32,7 @@ Route::get('/', function () {
 
 //Route::get('client/{phone}', [ClientController::class, 'show'])->name('client');
 Route::resource('client', ClientController::class);
-Route::get('policy/{marcaid}', [PoliciesController::class, 'index'])->name('policy');
+Route::post('policy/{marcaid}', [PoliciesController::class, 'index'])->name('policy');
 Route::post('services', [PoliciesController::class, 'services'])->name('services');
 Route::post('servicespolicy', [PoliciesController::class, 'show'])->name('servicespolicy');
 
