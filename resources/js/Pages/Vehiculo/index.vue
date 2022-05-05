@@ -8,26 +8,27 @@
             <div class="text-2xl font-bold sm:text-2xl md:text-3xl xl:text-3xl">Registra los datos de tu vehículo</div>
         </div>
 
-    <div class="mt-5">
-        <form class="px-5" @submit.prevent="submit">
-            <select v-model="form.tipo">
+    <div class="p-3 px-5 sm:px-5 md:px-5 xl:px-5">
+        <form @submit.prevent="submit">
+            <select class="rounded-lg w-full mt-4 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80" v-model="form.tipo">
                 <option v-for="tipo in tipos" :value="tipo.id" :key="tipo.id">{{tipo.vehicleTypeName}} </option>
             </select>
-            <br> <br>
-            <select v-model="marca">
+            <select class="rounded-lg w-full mt-4 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80" v-model="marca">
                 <option v-for="marca in marcas" :value="marca.id" :key="marca.id">{{marca.makeName}} </option>
             </select>
-            <br> <br>
-            <select v-model="form.modelo">
+            <select class="rounded-lg w-full mt-4 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80" v-model="form.modelo">
                 <option value="0" selected></option>
                 <option v-for="modelo in models" :value="modelo.id" :key="modelo.id">{{modelo.modelName}} </option>
             </select>
-            <br> <br>
-            <input type="text" placeholder="Placa" v-model="form.placa">
-            <br> <br>
-            <input type="text" placeholder="Chasis" v-model="form.chasis">
-            <br> <br>
-            <button class="bg-blue-500 py-2 px-4" >Continuar</button>
+
+            <input class="rounded-lg w-full mt-4 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80" type="text" placeholder="Año" v-model="form.Año">
+            <input class="rounded-lg w-full mt-4 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80" type="text" placeholder="Placa" v-model="form.placa">
+            <input class="rounded-lg w-full mt-4 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80" type="text" placeholder="Chasis" v-model="form.chasis">
+                
+                <div class="mt-5">
+                    <button class="bg-blue-500 hover:bg-blue-600 shadow-lg shadow-blue-500/50 text-white font-bold rounded-lg w-full py-3 mt-5 sm:m-3 sm:w-30 md:m-3 md:w-40 xl:m-3 xl:w-50">Continuar</button>
+                </div>
+
         </form>
     </div> 
 </template>
@@ -54,11 +55,12 @@ export default {
     },
     data(){
         return {
-            models: '',
+            models: '', 
             marca: '',
             form: {
                 tipo:'',
                 modelo: '',
+                Año: '',
                 placa: '',
                 chasis: '',
                 token: this.token
