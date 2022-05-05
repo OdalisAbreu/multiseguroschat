@@ -43,7 +43,7 @@
         },
         methods: {
             submit(){
-                this.$inertia.get(this.route('client', this.form.phone))
+                this.$inertia.get(this.route('client.show', this.form.phone))
             }
         }
     })

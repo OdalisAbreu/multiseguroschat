@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\PoliciesController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -29,7 +30,12 @@ Route::get('/', function () {
     return Inertia::render('index');
 });
 
-Route::get('client/{phone}', [ClientController::class, 'show'])->name('client');
+//Route::get('client/{phone}', [ClientController::class, 'show'])->name('client');
+Route::resource('client', ClientController::class);
+Route::get('policy/{marcaid}', [PoliciesController::class, 'index'])->name('policy');
+Route::post('services', [PoliciesController::class, 'services'])->name('services');
+
+Route::get('car', [ClientController::class, 'index'])->name('car');//Esto no va
 
 Route::post('seguros', [ClientController::class, 'seller'])->name('seguros'); //Configurar seguro
 

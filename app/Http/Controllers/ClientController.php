@@ -18,7 +18,28 @@ class ClientController extends Controller
      */
     public function index()
     {
-        //
+
+        //Esto no va
+        $token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyTmFtZSI6InBhZ29zX3Rpdm9fZGVzIiwibmJmIjoxNjUxMTk5MTI4LCJleHAiOjE2NTE4MDM5MjgsImlhdCI6MTY1MTE5OTEyOH0.AmC6rqFtfk7UUpVGMNm7IZPtNPLOwEPAW78i17mKW1g';
+        /*$token = Http::post('http://multiseguros.com.do:5050/api/User/Authenticate',[
+            'username' => 'sendiu_desarrollo',
+            'password' => 'dev1234'
+        ]);*/
+        $tipos = Http::withToken($token)->get('http://multiseguros.com.do:5050/api/Seguros/VehicleType');
+        $tipos = $tipos->json();
+
+        $marcas = Http::withToken($token)->get('http://multiseguros.com.do:5050/api/Seguros/Make');
+        $marcas = $marcas->json();
+
+        $modelos = Http::withToken($token)->get('http://multiseguros.com.do:5050/api/Seguros/Model');
+        $modelos = $modelos->json();
+
+        return Inertia::render('Vehiculo/index', [
+            'tipos' => $tipos,
+            'marcas' => $marcas,
+            'modelos' => $modelos,
+            'token' => $token
+        ]);
     }
 
     /**
@@ -68,7 +89,7 @@ class ClientController extends Controller
         $client = Client::where('phonenumber', $phone)->first();
 
         if($client){
-            return Inertia::render('Clients/Index', [
+            return Inertia::render('Clients/Edit', [
                 'client' => $client,
                 'token' => $token,
                 'sellers' => $seller
@@ -98,9 +119,41 @@ class ClientController extends Controller
      * @param  \App\Models\Client  $client
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Client $client)
+    public function update(Request $request, $id)
     {
-        //
+       $request->validate([
+            'name' => 'required'
+        ]);
+
+        $client = Client::find($id);
+        $client->name = $request->name;
+        $client->lastname = $request->lastname;
+        $client->email = $request->email;
+        $client->adrress = $request->adrress;
+        $client->cardnumber = $request->cardnumber;
+        $client->city = $request->city;
+        $client->passportnumber = $request->passportnumber;
+        $client->phonenumber = $request->phonenumber;
+        $client->save();
+
+        $token = $request->token;
+
+        $tipos = Http::withToken($token)->get('http://multiseguros.com.do:5050/api/Seguros/Make');
+        $tipos = $tipos->json();
+
+        $marcas = Http::withToken($token)->get('http://multiseguros.com.do:5050/api/Seguros/Make');
+        $marcas = $marcas->json();
+
+        $modelos = Http::withToken($token)->get('http://multiseguros.com.do:5050/api/Seguros/Model');
+        $modelos = $modelos->json();
+
+        return Inertia::render('Vehiculo/index', [
+            'tipos' => $tipos,
+            'marcas' => $marcas,
+            'modelos' => $modelos,
+            'token' => $token
+        ]);
+
     }
 
     /**
