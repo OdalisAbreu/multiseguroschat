@@ -4,28 +4,32 @@
             <a href="#" class="text-white text-3xl font-semibold uppercase hover:text-gray-300">Multiseguros</a>
         </div>
     </div>
-    <h1>Registra los datos de tu vehículo</h1>
+        <div class="mt-5 p-3">
+            <div class="text-2xl font-bold sm:text-2xl md:text-3xl xl:text-3xl">Registra los datos de tu vehículo</div>
+        </div>
 
-    <form class="px-5" @submit.prevent="submit">
-        <select v-model="form.tipo">
-            <option v-for="tipo in tipos" :value="tipo.id" :key="tipo.id">{{tipo.vehicleTypeName}} </option>
-        </select>
-        <br> <br>
-        <select v-model="marca">
-            <option v-for="marca in marcas" :value="marca.id" :key="marca.id">{{marca.makeName}} </option>
-        </select>
-        <br> <br>
-        <select v-model="form.modelo">
-            <option value="0" selected></option>
-            <option v-for="modelo in models" :value="modelo.id" :key="modelo.id">{{modelo.modelName}} </option>
-        </select>
-        <br> <br>
-        <input type="text" placeholder="Placa" v-model="form.placa">
-        <br> <br>
-        <input type="text" placeholder="Chasis" v-model="form.chasis">
-        <br> <br>
-        <button class="bg-blue-500 py-2 px-4" >Continuar</button>
-    </form>
+    <div class="mt-5">
+        <form class="px-5" @submit.prevent="submit">
+            <select v-model="form.tipo">
+                <option v-for="tipo in tipos" :value="tipo.id" :key="tipo.id">{{tipo.vehicleTypeName}} </option>
+            </select>
+            <br> <br>
+            <select v-model="marca">
+                <option v-for="marca in marcas" :value="marca.id" :key="marca.id">{{marca.makeName}} </option>
+            </select>
+            <br> <br>
+            <select v-model="form.modelo">
+                <option value="0" selected></option>
+                <option v-for="modelo in models" :value="modelo.id" :key="modelo.id">{{modelo.modelName}} </option>
+            </select>
+            <br> <br>
+            <input type="text" placeholder="Placa" v-model="form.placa">
+            <br> <br>
+            <input type="text" placeholder="Chasis" v-model="form.chasis">
+            <br> <br>
+            <button class="bg-blue-500 py-2 px-4" >Continuar</button>
+        </form>
+    </div> 
 </template>
 <script>
     import { Head, Link } from '@inertiajs/inertia-vue3';
