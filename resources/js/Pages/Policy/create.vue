@@ -28,7 +28,8 @@ export default {
        sellers: Array,
        token: String,
        services: Array,
-       policyTime: String
+       policyTime: String,
+       clien_id: String,
     },
     mounted(){
     },
@@ -42,6 +43,7 @@ export default {
                 token: this.token,
                 services: this.services,
                 policyTime: this.policyTime,
+                clien_id: this.clien_id,
                 servicios: []
 
             }

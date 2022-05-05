@@ -57,6 +57,7 @@ export default {
        tarifa: Array,
        sellers: Array,
        token: String,
+       clien_id: String,
     },
     mounted(){
 
@@ -68,7 +69,9 @@ export default {
                 tarifa:this.tarifa,
                 seller: this.sellers,
                 token: this.token,
-                policyTime: ''
+                policyTime: '',
+                clien_id: this.clien_id
+
             }
         }
     },

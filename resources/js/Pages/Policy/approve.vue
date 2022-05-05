@@ -4,8 +4,15 @@
             <a href="#" class="text-white text-3xl font-semibold uppercase hover:text-gray-300">Multiseguros</a>
         </div>
     </div>
+    <h1>CERTIFICADO DE SEGURO </h1>
 
+    <h2>Dtos del asegurado</h2>
 
+    Asegurado:
+    Cédula:
+    Dirección:
+    Teléfono:
+    Aseguradora: {{sellers.insuranceCarrierName}}
 
 </template>
 <script>
@@ -22,7 +29,10 @@ export default {
        sellers: Array,
        token: String,
        services: Array,
-       policyTime: String
+       policyTime: String,
+       marca: String,
+       tipo: String,
+       modelo: String,
     },
     mounted(){
     },

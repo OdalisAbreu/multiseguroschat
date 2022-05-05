@@ -40,6 +40,7 @@ export default {
        marcas: Array,
        modelos: Array,
        token: String,
+       clien_id: String,
     },
     methods: {
 
@@ -57,7 +58,8 @@ export default {
                 modelo: '',
                 placa: '',
                 chasis: '',
-                token: this.token
+                token: this.token,
+                clien_id: this.clien_id,
             }
         }
     },

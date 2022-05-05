@@ -20788,7 +20788,10 @@ __webpack_require__.r(__webpack_exports__);
     sellers: Array,
     token: String,
     services: Array,
-    policyTime: String
+    policyTime: String,
+    marca: String,
+    tipo: String,
+    modelo: String
   },
   mounted: function mounted() {},
   data: function data() {
@@ -20844,7 +20847,8 @@ __webpack_require__.r(__webpack_exports__);
     sellers: Array,
     token: String,
     services: Array,
-    policyTime: String
+    policyTime: String,
+    clien_id: String
   },
   mounted: function mounted() {},
   data: function data() {
@@ -20857,6 +20861,7 @@ __webpack_require__.r(__webpack_exports__);
         token: this.token,
         services: this.services,
         policyTime: this.policyTime,
+        clien_id: this.clien_id,
         servicios: []
       }
     };
@@ -20898,7 +20903,8 @@ __webpack_require__.r(__webpack_exports__);
     car: Array,
     tarifa: Array,
     sellers: Array,
-    token: String
+    token: String,
+    clien_id: String
   },
   mounted: function mounted() {},
   data: function data() {
@@ -20908,7 +20914,8 @@ __webpack_require__.r(__webpack_exports__);
         tarifa: this.tarifa,
         seller: this.sellers,
         token: this.token,
-        policyTime: ''
+        policyTime: '',
+        clien_id: this.clien_id
       }
     };
   },
@@ -21474,7 +21481,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     tipos: Array,
     marcas: Array,
     modelos: Array,
-    token: String
+    token: String,
+    clien_id: String
   },
   methods: {
     modelosMarca: function modelosMarca() {
@@ -21492,7 +21500,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         modelo: '',
         placa: '',
         chasis: '',
-        token: this.token
+        token: this.token,
+        clien_id: this.clien_id
       }
     };
   },
@@ -25064,22 +25073,32 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
-var _hoisted_1 = {
-  "class": "w-full mb-4 rounded overflow-x-hidden border-t flex flex-col bg-blue-600 shadow-lg shadow-blue-500/50"
-};
 
-var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  "class": "w-full mb-4 rounded overflow-x-hidden border-t flex flex-col bg-blue-600 shadow-lg shadow-blue-500/50"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "p-3"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
   href: "#",
   "class": "text-white text-3xl font-semibold uppercase hover:text-gray-300"
-}, "Multiseguros")], -1
+}, "Multiseguros")])], -1
 /* HOISTED */
 );
 
-var _hoisted_3 = [_hoisted_2];
+var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", null, "CERTIFICADO DE SEGURO ", -1
+/* HOISTED */
+);
+
+var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", null, "Dtos del asegurado", -1
+/* HOISTED */
+);
+
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, _hoisted_3);
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [_hoisted_1, _hoisted_2, _hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Asegurado: Cédula: Dirección: Teléfono: Aseguradora: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.sellers.insuranceCarrierName), 1
+  /* TEXT */
+  )], 64
+  /* STABLE_FRAGMENT */
+  );
 }
 
 /***/ }),

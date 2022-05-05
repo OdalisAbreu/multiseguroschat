@@ -151,7 +151,8 @@ class ClientController extends Controller
             'tipos' => $tipos,
             'marcas' => $marcas,
             'modelos' => $modelos,
-            'token' => $token
+            'token' => $token,
+            'clien_id' => $id
         ]);
 
     }

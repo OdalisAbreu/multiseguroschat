@@ -15,21 +15,13 @@ class PoliciesController extends Controller
      */
     public function index(Request $request, $marcaid)
     {
-        /*$car = array(
+        $car = array(
             'tipo' => $request->tipo,
             'modelo' => $request->modelo,
             'marca' => $marcaid,
             'placa' => $request->placa,
             'chasis' => $request->chasis,
-        );*/
-        $car = array(
-            'tipo' => 2,
-            'modelo' => 3,
-            'marca' => "1",
-            'placa' => "A101010101",
-            'chasis' => "1231658164",
         );
-
        // $token = $request->token;
         $token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyTmFtZSI6InBhZ29zX3Rpdm9fZGVzIiwibmJmIjoxNjUxMTk5MTI4LCJleHAiOjE2NTE4MDM5MjgsImlhdCI6MTY1MTE5OTEyOH0.AmC6rqFtfk7UUpVGMNm7IZPtNPLOwEPAW78i17mKW1g';
         $tarifa = Http::withToken($token)->get('http://multiseguros.com.do:5050/api/Seguros/Tariff/'.$car['tipo']);
@@ -42,7 +34,8 @@ class PoliciesController extends Controller
             'car' => $car,
             'tarifa' => $tarifa,
             'token' => $token,
-            'sellers' => $seller
+            'sellers' => $seller,
+            'clien_id' => $request->clien_id,
         ]);
 
     }
@@ -79,6 +72,29 @@ class PoliciesController extends Controller
         $serviciosActivos = $request->servicios;
         $servicos = $request->services;
         $totalServicios = 0;
+        $token = $request->token;
+        echo $request->clien_id;
+        exit();
+
+        $marca = Http::withToken($token)->get('http://multiseguros.com.do:5050/api/Seguros/Make/'.$request->car['marca']);
+        $marca = $marca->json();
+    //   echo $marca['makeName'];
+
+        $modeloMarca = Http::withToken($token)->get('http://multiseguros.com.do:5050/api/Seguros/Model/Make/'.$request->car['marca']);
+        $modeloMarca = $modeloMarca->json();
+
+
+        $tipo = Http::withToken($token)->get('http://multiseguros.com.do:5050/api/Seguros/VehicleType/'.$request->car['tipo']);
+        $tipo = $tipo->json();
+   //     echo $tipo['vehicleTypeName'];
+
+        foreach($modeloMarca as $modelos){
+            if($modelos['id'] == $request->car['modelo']){
+                $modelo = $modelos['modelName'];
+            }
+        }
+
+
         foreach($serviciosActivos as $serviciosActivo){
             foreach($servicos as $servicio){
                if($servicio['id'] == $serviciosActivo){
@@ -101,7 +117,10 @@ class PoliciesController extends Controller
             'token' => $request->token,
             'sellers' => $request->seller,
             'totalGeneral' => $totalGeneral,
-            'policyTime' => $policyTime
+            'policyTime' => $policyTime,
+            'marca' => $marca['makeName'],
+            'tipo' => $tipo['vehicleTypeName'],
+            'modelo' => $modelo,
         ]);
 
     }
@@ -160,13 +179,16 @@ class PoliciesController extends Controller
                 }
             }
         }
+
+
         return Inertia::render('Policy/create', [
             'car' => $request->car,
             'tarifa' => $request->tarifa,
-            'token' => $request->$token,
+            'token' => $token,
             'sellers' => $request->seller,
             'services' => $services,
-            'policyTime' => $request->policyTime
+            'policyTime' => $request->policyTime,
+            'clien_id' => $request->clien_id
         ]);
 
     }
