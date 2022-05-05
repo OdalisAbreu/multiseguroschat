@@ -59,7 +59,7 @@ export default {
        token: String,
     },
     mounted(){
-        console.log(this.tarifa)
+
     },
     data(){
         return{
