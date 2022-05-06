@@ -2,7 +2,7 @@
 <main class="bg-white max-w-lg mx-auto p-8 md:p-12 my-10 rounded-lg shadow-2xl">
         <div class="text-center">
             <img class="inline" src="ima/Botpro-logo.png">
-            <h3 class="font-bold text-2xl text-center">Multiseguros</h3>
+            <h3 class="font-bold text-2xl text-center">Seguros Chat</h3>
         </div>
 
         <div @submit.prevent="submit" class="mt-10">
