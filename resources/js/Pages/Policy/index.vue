@@ -60,7 +60,7 @@ export default {
        clien_id: String,
     },
     mounted(){
-
+        console.log(this.car)
     },
     data(){
         return{

@@ -21,16 +21,16 @@
                 <option v-for="modelo in models" :value="modelo.id" :key="modelo.id">{{modelo.modelName}} </option>
             </select>
 
-            <input class="rounded-lg w-full mt-4 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80" type="text" placeholder="Año" v-model="form.Año">
+            <input class="rounded-lg w-full mt-4 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80" type="text" placeholder="Año" v-model="form.year">
             <input class="rounded-lg w-full mt-4 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80" type="text" placeholder="Placa" v-model="form.placa">
             <input class="rounded-lg w-full mt-4 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80" type="text" placeholder="Chasis" v-model="form.chasis">
-                
+
                 <div class="mt-5">
                     <button class="bg-blue-500 hover:bg-blue-600 shadow-lg shadow-blue-500/50 text-white font-bold rounded-lg w-full py-3 mt-5 sm:m-3 sm:w-30 md:m-3 md:w-40 xl:m-3 xl:w-50">Continuar</button>
                 </div>
 
         </form>
-    </div> 
+    </div>
 </template>
 <script>
     import { Head, Link } from '@inertiajs/inertia-vue3';
@@ -56,12 +56,12 @@ export default {
     },
     data(){
         return {
-            models: '', 
+            models: '',
             marca: '',
             form: {
                 tipo:'',
                 modelo: '',
-                Año: '',
+                year: '',
                 placa: '',
                 chasis: '',
                 token: this.token,
