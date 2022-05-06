@@ -1,12 +1,18 @@
 <template>
     <div class="w-full mb-4 rounded  overflow-x-hidden border-t flex flex-col bg-blue-600 shadow-lg shadow-blue-500/50">
         <div class="p-3">
-            <a href="#" class="text-white text-3xl font-semibold uppercase hover:text-gray-300">Multiseguros</a>
+            <a href="#" class="text-white text-3xl font-semibold uppercase hover:text-gray-300">Seguros Chat</a>
+        </div>
+    </div>
+
+    <div class="mx-3 mt-8 mb-4 sm:mx-20 lg:mx-20 xl:mx-20">
+        <div class=" bg-gray-200 rounded-full">
+            <div class="bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-l-full" style="width: 75%"> 75%</div>
         </div>
     </div>
 
 
-    <div class="antialiased bg-gray-200 text-gray-900 font-sans p-6" v-for="seller in sellers" :key="seller.id">
+    <div class="antialiased text-gray-900 font-sans p-6" v-for="seller in sellers" :key="seller.id">
     <div class="container mx-auto">
         <div class="flex flex-wrap -mx-1 md:flex flex-col">
             <div class="w-full p-4 sm:w-1/4 md:w-1/2 xl:w-1/3">
@@ -29,12 +35,14 @@
     </div>
     </div>
 
+    <div class="mt-5 p-3">
+        <div class="text-2xl font-bold sm:text-2xl md:text-3xl xl:text-3xl">Selecciona El tiempo para tu poliza de {{tarifa.tariffName}}</div>
+    </div>
 
-    <h1>Selecciona El tiempo para tu poliza de {{tarifa.tariffName}}</h1>
+    <div class="p-3 px-5 sm:px-5 md:px-5 xl:px-5">
      <form class="px-5" @submit.prevent="submit">
-         <br>
-         <input type="radio" value="threeMonths" name="poliza" v-model="form.policyTime">
-         <label>  3 Meses -> {{tarifa.threeMonths}}</label><br><br>
+         <input class="text-lg font-semibold sm:text-xl md:text-xl xl:text-xl" type="radio" value="threeMonths" name="poliza" v-model="form.policyTime">
+         <label class="text-lg font-semibold sm:text-xl md:text-xl xl:text-xl">  3 Meses -> {{tarifa.threeMonths}}</label><br><br>
          <input type="radio" value="sixMonths" name="poliza" v-model="form.policyTime">
          <label>  6 Meses -> {{tarifa.sixMonths}}</label><br><br>
          <input type="radio" value="twelveMonths" name="poliza" v-model="form.policyTime">
@@ -42,7 +50,7 @@
 
         <button class="bg-blue-500 py-2 px-4" >Continuar</button>
     </form>
-
+    </div>
 </template>
 <script>
     import { Head, Link } from '@inertiajs/inertia-vue3';

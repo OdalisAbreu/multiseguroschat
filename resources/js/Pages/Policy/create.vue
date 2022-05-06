@@ -5,6 +5,7 @@
         </div>
     </div>
 
+
     <h1>Cuales servicios deseas agregarle a tu seguro </h1><br><br>
     <form @submit.prevent="submit">
         <div v-for="service in services" :key="service.id" class="px-5">

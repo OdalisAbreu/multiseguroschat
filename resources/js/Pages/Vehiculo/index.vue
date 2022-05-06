@@ -1,12 +1,20 @@
 <template>
     <div class="w-full mb-4 rounded  overflow-x-hidden border-t flex flex-col bg-blue-600 shadow-lg shadow-blue-500/50">
         <div class="p-3">
-            <a href="#" class="text-white text-3xl font-semibold uppercase hover:text-gray-300">Multiseguros</a>
+            <a href="#" class="text-white text-3xl font-semibold uppercase hover:text-gray-300">Seguros Chat</a>
+        </div>
+        
+    </div>
+
+    <div class="mx-3 mt-8 mb-4 sm:mx-20 lg:mx-20 xl:mx-20">
+        <div class=" bg-gray-200 rounded-full">
+            <div class="bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-l-full" style="width: 50%"> 50%</div>
         </div>
     </div>
-        <div class="mt-5 p-3">
-            <div class="text-2xl font-bold sm:text-2xl md:text-3xl xl:text-3xl">Registra los datos de tu vehículo</div>
-        </div>
+    
+    <div class="mt-5 p-3">
+        <div class="text-2xl font-bold sm:text-2xl md:text-3xl xl:text-3xl">Registra los datos de tu vehículo</div>
+    </div>
 
     <div class="p-3 px-5 sm:px-5 md:px-5 xl:px-5">
         <form @submit.prevent="submit">
