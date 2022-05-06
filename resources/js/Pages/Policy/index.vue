@@ -39,18 +39,24 @@
         <div class="text-2xl font-bold sm:text-2xl md:text-3xl xl:text-3xl">Selecciona El tiempo para tu poliza de {{tarifa.tariffName}}</div>
     </div>
 
-    <div class="p-3 px-5 sm:px-5 md:px-5 xl:px-5">
+    
      <form class="px-5" @submit.prevent="submit">
-         <input class="text-lg font-semibold sm:text-xl md:text-xl xl:text-xl" type="radio" value="threeMonths" name="poliza" v-model="form.policyTime">
-         <label class="text-lg font-semibold sm:text-xl md:text-xl xl:text-xl">  3 Meses -> {{tarifa.threeMonths}}</label><br><br>
+         <a class="mx-4 block p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+         <input type="radio" value="threeMonths" name="poliza" v-model="form.policyTime">
+         <label class="mb-1 text-xl font-semibold tracking-tight text-gray-900 dark:text-white">  3 Meses -> {{tarifa.threeMonths}}</label><br><br>
          <input type="radio" value="sixMonths" name="poliza" v-model="form.policyTime">
-         <label>  6 Meses -> {{tarifa.sixMonths}}</label><br><br>
+         <label class="mb-1 text-xl font-semibold tracking-tight text-gray-900 dark:text-white">  6 Meses -> {{tarifa.sixMonths}}</label><br><br>
          <input type="radio" value="twelveMonths" name="poliza" v-model="form.policyTime">
-         <label>  12 Meses -> {{tarifa.twelveMonths}}</label><br><br>
-
-        <button class="bg-blue-500 py-2 px-4" >Continuar</button>
-    </form>
+         <label class="mb-1 text-xl font-semibold tracking-tight text-gray-900 dark:text-white">  12 Meses -> {{tarifa.twelveMonths}}</label><br><br>
+        </a>
+    <div class="mt-5 mb-5">
+        <button class="bg-blue-500 hover:bg-blue-600 shadow-lg shadow-blue-500/50 text-white font-bold rounded-lg w-full py-3 mt-5 sm:m-3 sm:w-30 md:m-3 md:w-40 xl:m-3 xl:w-50">Continuar</button>
     </div>
+    </form>
+
+
+    
+    
 </template>
 <script>
     import { Head, Link } from '@inertiajs/inertia-vue3';

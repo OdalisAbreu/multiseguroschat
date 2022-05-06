@@ -15,6 +15,7 @@
             </form>
         </div>
     </main>
+    
 </template>
 
 <style scoped>

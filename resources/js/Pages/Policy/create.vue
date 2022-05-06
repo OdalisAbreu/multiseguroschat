@@ -1,19 +1,37 @@
 <template>
     <div class="w-full mb-4 rounded  overflow-x-hidden border-t flex flex-col bg-blue-600 shadow-lg shadow-blue-500/50">
         <div class="p-3">
-            <a href="#" class="text-white text-3xl font-semibold uppercase hover:text-gray-300">Multiseguros</a>
+            <a href="#" class="text-white text-3xl font-semibold uppercase hover:text-gray-300">Seguros Chat</a>
         </div>
     </div>
 
+    <div class="mx-3 mt-8 mb-4 sm:mx-20 lg:mx-20 xl:mx-20">
+        <div class=" bg-gray-200 rounded-full">
+            <div class="bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-l-full" style="width: 100%"> 100%</div>
+        </div>
+    </div>
 
-    <h1>Cuales servicios deseas agregarle a tu seguro </h1><br><br>
+    <div class="p-3">
+            <div class="text-black font-bold text-2xl sm:text-2xl md:text-3xl xl:text-3xl">Cuales servicios deseas agregarle a tu seguro </div>
+    </div>
+    
+    
     <form @submit.prevent="submit">
+        <a class="mx-4 block p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
         <div v-for="service in services" :key="service.id" class="px-5">
             <input type="checkbox" :checked="suma" :value="service.id" v-model="form.servicios"  name="poliza" >
-            <label> - {{ service.serviceName }} -> RD$ {{service.servicePrice}}</label><br><br>
-        </div> <br><br>
-          <button class="bg-blue-500 py-2 px-4" >Continuar</button>
+            <label class="mb-1 text-xl font-semibold tracking-tight text-gray-900 dark:text-white" > - {{ service.serviceName }} -> RD$ {{service.servicePrice}}</label><br><br>
+        </div>
+        </a>
+        <br><br>
+    <div class="mt-5">
+        <button class="bg-blue-500 hover:bg-blue-600 shadow-lg shadow-blue-500/50 text-white font-bold rounded-lg w-full py-3 mt-5 sm:m-3 sm:w-30 md:m-3 md:w-40 xl:m-3 xl:w-50">Continuar</button>
+    </div>   
     </form>
+    
+    
+   
+
 </template>
 <script>
     import { Head, Link } from '@inertiajs/inertia-vue3';
