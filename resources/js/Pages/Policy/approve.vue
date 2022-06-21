@@ -1,12 +1,17 @@
 <template>
     <div class="w-full mb-4 rounded  overflow-x-hidden border-t flex flex-col bg-blue-600 shadow-lg shadow-blue-500/50">
         <div class="p-3">
-            <a href="#" class="text-white text-3xl font-semibold uppercase hover:text-gray-300">Multiseguros</a>
+            <a href="#" class="text-white text-3xl font-semibold uppercase hover:text-gray-300">Seguros Chat</a>
         </div>
     </div>
-    <h1>DATOS DEL SEGURO </h1>
-    <br><br>
-    <h2>Datos del asegurado</h2>
+    
+    <div class="p-4 w-full text-center bg-white rounded-lg border shadow-md sm:p-8 dark:bg-gray-100 dark:border-gray-700">
+    <h5 class="mb-2 text-3xl font-bold text-gray-900 dark:text-black">DATOS DEL SEGURO </h5>
+    <div  class="w-full mb-4 rounded  overflow-x-hidden border-t flex flex-col">
+        <div class="p1">
+            <p class="text-center text-black font-semibold text-xl">Datos del asegurado</p>
+        </div>
+    </div>
     <br>
     Asegurado: {{cliente.name}} {{cliente.lastname}} <br>
     Cédula: {{cliente.cardnumber}} <br>
@@ -30,10 +35,11 @@
     </div>
     <br>
     Total a pagar: {{totalGeneral}}<br>
+    </div>
     <form @submit.prevent="submit">
         <div class="mt-5">
             <button class="bg-blue-500 hover:bg-blue-600 shadow-lg shadow-blue-500/50 text-white font-bold rounded-lg w-full py-3 mt-5 sm:m-3 sm:w-30 md:m-3 md:w-40 xl:m-3 xl:w-50">
-                Generar Poliza
+                Confirmar
             </button>
         </div>
     </form>

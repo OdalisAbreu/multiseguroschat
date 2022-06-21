@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Client;
+use App\Models\Invoices;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Http;
 use Inertia\Inertia;
@@ -17,6 +18,7 @@ class PoliciesController extends Controller
      */
     public function index(Request $request, $marcaid)
     {
+      
         $car = array(
             'tipo' => $request->tipo,
             'modelo' => $request->modelo,
@@ -31,12 +33,11 @@ class PoliciesController extends Controller
 
         $seller = Http::withToken($token)->get('http://multiseguros.com.do:5050/api/Seguros/InsuranceCarrier');
         $seller = $seller->json();
-
         return Inertia::render('Policy/index', [
             'car' => $car,
             'tarifa' => $tarifa,
-            'token' => $token,
             'sellers' => $seller,
+            'token' => $token,
             'clien_id' => $request->clien_id,
         ]);
 
@@ -60,6 +61,7 @@ class PoliciesController extends Controller
      */
     public function store(Request $request)
     {
+        $urlReturn = 'http://multiseguros.com.do:85/api/statusPayment';
         $servicios = [];
         $token = $request->token;
         if($request->policyTime == '3 Meses'){
@@ -73,41 +75,77 @@ class PoliciesController extends Controller
         foreach($request->services as $service){
             array_push($servicios, $service['id']);
         }
+        $serviciosString = json_encode($servicios); //transforma los id de los servicios para guardarlos en la Base de Datos 
 
 
-        $poliza = Http::withToken($token)->post('http://multiseguros.com.do:5050/api/Seguros/Policy', [
-            'sellerInternalId' => '89',
-            'policyStartDate' => Carbon::now(),
-            'policyValidity' => $policyTime,
-            'total' => $request->totalGeneral,
-            'insuranceCarrierId' => $request->sellers['id'],
-            'vehicle' => [
-                "vehicleTypeId" => $request->car['tipo'],
-                "vehicleMakeId" => $request->car['marca'],
-                "vehicleModelId" => $request->car['modelo'],
-                "year" => $request->car['year'],
-                "chassis" => '"'.$request->car['chasis'].'"',
-                "licensePlate" => '"'.$request->car['placa'].'"'
-            ],
-            'insured' => [
-                "name" => '"'.$request->cliente['name'].'"',
-                "lastName" => '"'.$request->cliente['lastname'].'"',
-                "identificationCardNumber" => '"'.$request->cliente['cardnumber'].'"',
-                "passportNumber" => '"'.$request->cliente['passportnumber'].'"',
-                "emailAddress" => '"'.$request->cliente['email'].'"',
-                "phoneNumber" => $request->cliente['phonenumber'],
-                "residenceAddress" => '"'.$request->cliente['adrress'].'"',
-                "cityOfResidence" => '"'.$request->cliente['city'].'"',
-                "nationality" => ""
-            ],
-            'services' => $servicios,
+        $invoice = new Invoices();
+        $invoice->policyTime = $policyTime;
+        $invoice->chassis = $request->car['chasis'];
+        $invoice->licensePlate = $request->car['placa'];
+        $invoice->year = $request->car['year'];
+        $invoice->totalGeneral = $request->totalGeneral;
+        $invoice->sellers_id = $request->sellers['id'];
+        $invoice->car_tipe = $request->car['tipo'];
+        $invoice->car_brand = $request->car['marca'];
+        $invoice->car_model = $request->car['modelo'];
+        $invoice->client_id = $request->cliente['cardnumber'];
+        $invoice->services = $serviciosString;
+        $invoice->payment_status = 'peding';
+        $invoice->save();
 
-        ]);
-        $poliza = $poliza->json();
+        //------------------------- Toma los parametros para crear signature para procesar el pago --------------------------------------
+        $params = [
+            "access_key"=>"444844d8ec5b36acbad80fefbdc8e4b0",
+            "profile_id"=>"D0151565-28A7-4113-8F9B-402D4491B59E",
+            "transaction_uuid"=>'bot2022'.$invoice->id,
+            "signed_field_names"=>"access_key,profile_id,transaction_uuid,signed_field_names,unsigned_field_names,signed_date_time,locale,transaction_type,reference_number,amount,currency,override_custom_cancel_page,override_custom_receipt_page",
+            "unsigned_field_names"=>"",
+            "signed_date_time"=>gmdate("Y-m-d\TH:i:s\Z"),
+            "locale"=>"es",
+            "override_custom_cancel_page"=>$urlReturn,
+            "override_custom_receipt_page"=>$urlReturn,
+            "transaction_type"=>"authorization",
+            "reference_number"=>$invoice->id,
+            "amount"=>$request->totalGeneral,
+            "currency"=>"DOP",
+            "submit"=>"Submit",
+        ];
+        //------------------------------------------------------------------------------------------------------------------------------------------
 
-        return Inertia::render('end', [
-            'cliente' => $request->cliente,
-        ]);
+        //---------------------------------Proceso para redirigir a la URL de pago Visanet-------------------------------------------------------
+            define ('HMAC_SHA256', 'sha256');
+            define ('SECRET_KEY', '01ff20172fb94c3d83f8a291f296755d0f6004adddbf44d4b31e55cffb13d99e5a800080fb5849ce84746d349aa51a83e564e92f81f24badb20f606027fbf9efef7df7cda3a643d4ba78bf6572cf3d91f57089e137b348dea09a705870807716c150b0e3a8dc4e288527209d3d90c7649f680f8b6da44ecfbf943785b812d524');
+
+            function sign ($params) {
+            return signData(buildDataToSign($params), SECRET_KEY);
+            }
+
+            function signData($data, $secretKey) {
+                return base64_encode(hash_hmac('sha256', $data, $secretKey, true));
+            }
+
+            function buildDataToSign($params) {
+                    $signedFieldNames = explode(",",$params["signed_field_names"]);
+                    foreach ($signedFieldNames as $field) {
+                    $dataToSign[] = $field . "=" . $params[$field];
+                    }
+                    return commaSeparate($dataToSign);
+            }
+
+            function commaSeparate ($dataToSign) {
+                return implode(",",$dataToSign);
+            }
+            
+            $signature = sign($params);
+
+            return Inertia::render('Payment/index', [
+                'total' => $request->totalGeneral,
+                'invoice_id' => $invoice->id,
+                'signature' => $signature,
+                'urlreturn' => $urlReturn,
+                'date' => gmdate("Y-m-d\TH:i:s\Z"),
+            ]);
+    
     }
 
     /**
@@ -123,6 +161,7 @@ class PoliciesController extends Controller
         $services = array();
         $totalServicios = 0;
         $token = $request->token;
+        $sericesId = '';
 
         $clente = Client::find($request->clien_id);
 

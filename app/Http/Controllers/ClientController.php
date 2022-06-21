@@ -20,10 +20,10 @@ class ClientController extends Controller
     {
 
         //Esto no va
-        $token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyTmFtZSI6InBhZ29zX3Rpdm9fZGVzIiwibmJmIjoxNjUxMTk5MTI4LCJleHAiOjE2NTE4MDM5MjgsImlhdCI6MTY1MTE5OTEyOH0.AmC6rqFtfk7UUpVGMNm7IZPtNPLOwEPAW78i17mKW1g';
+       $token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyTmFtZSI6InNlbmRpdV9kZXNhcnJvbGxvIiwibmJmIjoxNjU1NDgwODg5LCJleHAiOjE2NTYwODU2ODksImlhdCI6MTY1NTQ4MDg4OX0.z0KshbCzm9aQiFR7rDYp3sqJacbZ7R6aKZ6zcq2w8Ok';
         /*$token = Http::post('http://multiseguros.com.do:5050/api/User/Authenticate',[
             'username' => 'sendiu_desarrollo',
-            'password' => 'dev1234'
+            'password' => 'Admin1234'
         ]);*/
         $tipos = Http::withToken($token)->get('http://multiseguros.com.do:5050/api/Seguros/VehicleType');
         $tipos = $tipos->json();
@@ -73,7 +73,7 @@ class ClientController extends Controller
     {
         $token = Http::post('http://multiseguros.com.do:5050/api/User/Authenticate',[
             'username' => 'sendiu_desarrollo',
-            'password' => 'dev1234'
+            'password' => 'Admin1234'
         ]);
         sleep(1);
         $token = $token->json();

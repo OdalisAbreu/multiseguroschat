@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\InvoicesController;
 use App\Http\Controllers\PoliciesController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -40,6 +41,7 @@ Route::post('generatepolicy', [PoliciesController::class, 'store'])->name('gener
 Route::get('car', [ClientController::class, 'index'])->name('car');//Esto no va
 
 Route::post('seguros', [ClientController::class, 'seller'])->name('seguros'); //Configurar seguro
+Route::post('statusPayment', [InvoicesController::class, 'statusPayment'])->name('statusPayment'); //Configurar Pago
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return Inertia::render('Dashboard');
