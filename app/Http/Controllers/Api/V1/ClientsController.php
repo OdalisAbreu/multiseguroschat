@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Models\Client;
+use App\Models\Invoices;
 use Illuminate\Http\Request;
 
 class ClientsController extends Controller
@@ -37,7 +38,11 @@ class ClientsController extends Controller
        $client->email = $request->email;
        $client->save();
 
-       return $client;
+       if($client){
+            return ['status' => '00', 'message' => 'Usuario creado correctamente'];
+        }else{
+            return ['status' => '01', 'message' => 'No tiene póliza registrada'];
+        }
 
     }
 
@@ -50,10 +55,22 @@ class ClientsController extends Controller
     public function show($id)
     {
         $client = Client::where('cardnumber', $id)->first();
-        if(is_null($client)){
+        if($client){
+            return [
+                    'status' => '00', 
+                    'id' => $client->id,
+                    'name' => $client->name,
+                    'lastname' => $client->lastname,
+                    'cardnumber' => $client->cardnumber,
+                    'passportnumber' => $client->passportnumber,
+                    'phonenumber' => $client->phonenumber,
+                    'adrress' => $client->adrress,
+                    'city' => $client->city,
+                    'email' => $client->email,
+                  ];
+        }else{
             return ['status' => '01', 'message' => 'El cliente no se encuentra registrado'];
         }
-        return $client;
 
     }
 
@@ -79,4 +96,18 @@ class ClientsController extends Controller
     {
         //
     }
+
+    public function clientPilicy($cedula)
+    {
+        $invoince = Invoices::where([['client_id', $cedula],['payment_status', 'ACCEPT']])->get()->last();
+
+        if($invoince){
+            return ['status' => '00', 'url' => 'https://multiseguros.com.do/Seg_V2Dev/Admin/Sist.Administrador/Revisiones/Imprimir/Accion/Imprimir.php?polizaNum='.$invoince->police_number];
+        }else{
+            return ['status' => '01', 'message' => 'No tiene póliza registrada'];
+        }
+    }
+
+
+
 }
