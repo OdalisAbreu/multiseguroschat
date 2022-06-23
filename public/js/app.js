@@ -27194,7 +27194,7 @@ var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
   src: "ima/Botpro-logo.png"
 }), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", {
   "class": "font-bold text-2xl text-center"
-}, "Seguros Chat 1.3.3")], -1
+}, "Seguros Chat 1.3.4")], -1
 /* HOISTED */
 );
 
