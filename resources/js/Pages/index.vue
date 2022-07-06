@@ -2,10 +2,9 @@
 <main class="bg-white max-w-lg mx-auto p-8 md:p-12 my-10 rounded-lg shadow-2xl">
         <div class="text-center">
             <img class="inline" src="ima/Botpro-logo.png">
-<<<<<<< HEAD
+
             <h3 class="font-bold text-2xl text-center">Seguros Chat 1.5.1</h3>
-=======
->>>>>>> e4d157c50ff5b1a7d5aaa10d3f30e9b91b83a80b
+
         </div>
 
         <div @submit.prevent="submit" class="mt-10">
