@@ -2,7 +2,10 @@
 <main class="bg-white max-w-lg mx-auto p-8 md:p-12 my-10 rounded-lg shadow-2xl">
         <div class="text-center">
             <img class="inline" src="ima/Botpro-logo.png">
+<<<<<<< HEAD
             <h3 class="font-bold text-2xl text-center">Seguros Chat 1.5.1</h3>
+=======
+>>>>>>> e4d157c50ff5b1a7d5aaa10d3f30e9b91b83a80b
         </div>
 
         <div @submit.prevent="submit" class="mt-10">
@@ -15,6 +18,10 @@
             </form>
         </div>
     </main>
+
+    <footer class="bg-white rounded-lg shadow md:flex md:items-center md:justify-between dark:bg-gray-800">
+        <div class="absolute inset-x-0 bottom-0 h-10 pl-4 text-gray-500 dark:text-gray-400">Seguros Chat 1.3.4</div>
+    </footer>
 
 </template>
 
