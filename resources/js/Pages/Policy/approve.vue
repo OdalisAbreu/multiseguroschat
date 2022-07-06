@@ -17,7 +17,7 @@
     Cédula: {{cliente.cardnumber}} <br>
     Dirección: {{cliente.adrress}} <br>
     Teléfono: {{cliente.phonenumber}} <br>
-    Aseguradora: {{sellers.insuranceCarrierName}}<br><br><br>
+    Aseguradora: {{sellers.nombre}}<br><br><br>
 
     <h2>Datos del vehículo  </h2><br>
 
@@ -77,7 +77,6 @@ export default {
                 totalGeneral: this.totalGeneral,
                 policyTime: this.policyTime,
                 sellers: this.sellers,
-                token: this.token
 
             }
         }

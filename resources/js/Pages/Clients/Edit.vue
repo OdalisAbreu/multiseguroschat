@@ -43,8 +43,6 @@ export default {
     },
     props: {
         client: Object,
-        token: Object,
-        sellers: Array
     },
     data(){
         return {
@@ -56,8 +54,7 @@ export default {
                 cardnumber: this.client.cardnumber,
                 city: this.client.city,
                 passportnumber: this.client.passportnumber,
-                phonenumber: this.client.phonenumber,
-                token: this.token.token
+                phonenumber: this.client.phonenumber
             }
         }
     },

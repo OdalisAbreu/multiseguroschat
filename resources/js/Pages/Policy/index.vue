@@ -22,7 +22,7 @@
                     </div>
                     <div class="p-4">
                         <span class="inline-block px-2 py-1 leading-none bg-orange-200 text-orange-800 rounded-full font-semibold uppercase tracking-wide text-xs">{{seller.id}} -
-                            {{seller.insuranceCarrierName}}</span>
+                            {{seller.nombre}}</span>
                         <h2 class="mt-2 mb-2  font-bold">Compañía De Seguros en Santo Domingo</h2>
                         <p class="text-sm">Calle Doctor Jacinto Ignacio Mañón 15 Santo Domingo República Dominicana.</p>
                             <div class="mt-3 flex items-center">
@@ -42,12 +42,12 @@
     
      <form class="px-5" @submit.prevent="submit">
          <a class="mx-4 block p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-         <input type="radio" value="threeMonths" name="poliza" v-model="form.policyTime">
-         <label class="mb-1 text-xl font-semibold tracking-tight text-gray-900 dark:text-white">  3 Meses -> {{tarifa.threeMonths}}</label><br><br>
-         <input type="radio" value="sixMonths" name="poliza" v-model="form.policyTime">
-         <label class="mb-1 text-xl font-semibold tracking-tight text-gray-900 dark:text-white">  6 Meses -> {{tarifa.sixMonths}}</label><br><br>
-         <input type="radio" value="twelveMonths" name="poliza" v-model="form.policyTime">
-         <label class="mb-1 text-xl font-semibold tracking-tight text-gray-900 dark:text-white">  12 Meses -> {{tarifa.twelveMonths}}</label><br><br>
+         <input type="radio" value="tresmeses" name="poliza" v-model="form.policyTime">
+         <label class="mb-1 text-xl font-semibold tracking-tight text-gray-900 dark:text-white">  3 Meses -> {{tarifa.tresmeses}}</label><br><br>
+         <input type="radio" value="seismeses" name="poliza" v-model="form.policyTime">
+         <label class="mb-1 text-xl font-semibold tracking-tight text-gray-900 dark:text-white">  6 Meses -> {{tarifa.seismeses}}</label><br><br>
+         <input type="radio" value="docemeses" name="poliza" v-model="form.policyTime">
+         <label class="mb-1 text-xl font-semibold tracking-tight text-gray-900 dark:text-white">  12 Meses -> {{tarifa.docemeses}}</label><br><br>
         </a>
     <div class="mt-5 mb-5">
         <button class="bg-blue-500 hover:bg-blue-600 shadow-lg shadow-blue-500/50 text-white font-bold rounded-lg w-full py-3 mt-5 sm:m-3 sm:w-30 md:m-3 md:w-40 xl:m-3 xl:w-50">Continuar</button>

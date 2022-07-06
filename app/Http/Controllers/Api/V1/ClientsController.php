@@ -102,7 +102,7 @@ class ClientsController extends Controller
         $invoince = Invoices::where([['client_id', $cedula],['payment_status', 'ACCEPT']])->get()->last();
 
         if($invoince){
-            return ['status' => '00', 'url' => 'https://multiseguros.com.do/Seg_V2Dev/Admin/Sist.Administrador/Revisiones/Imprimir/Accion/Imprimir.php?polizaNum='.$invoince->police_number];
+            return ['status' => '00', 'url' => 'https://multiseguros.com.do/ws_dev/TareasProg/GenerarReporteAseguradoraPdfUnico.php?sms=0&id_trans='.$invoince->police_transactionId];
         }else{
             return ['status' => '01', 'message' => 'No tiene póliza registrada'];
         }

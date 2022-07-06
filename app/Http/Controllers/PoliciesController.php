@@ -3,7 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Client;
+use App\Models\Insurance;
 use App\Models\Invoices;
+use App\Models\Service;
+use App\Models\Vehicle_brands;
+use App\Models\Vehicle_models;
+use App\Models\Vehicle_type_tarif;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Http;
 use Inertia\Inertia;
@@ -27,17 +32,13 @@ class PoliciesController extends Controller
             'chasis' => $request->chasis,
             'year' => $request->year,
         );
-        $token = $request->token;
-        $tarifa = Http::withToken($token)->get('http://multiseguros.com.do:5050/api/Seguros/Tariff/'.$car['tipo']);
-        $tarifa = $tarifa->json();
-
-        $seller = Http::withToken($token)->get('http://multiseguros.com.do:5050/api/Seguros/InsuranceCarrier');
-        $seller = $seller->json();
+        $tarifa = Vehicle_type_tarif::find($car['tipo']);
+        $seller = Insurance::where('activo', 'si')->get();
         return Inertia::render('Policy/index', [
             'car' => $car,
             'tarifa' => $tarifa,
             'sellers' => $seller,
-            'token' => $token,
+
             'clien_id' => $request->clien_id,
         ]);
 
@@ -71,7 +72,6 @@ class PoliciesController extends Controller
         }else{
             $policyTime = 12;
         }
-
         foreach($request->services as $service){
             array_push($servicios, $service['id']);
         }
@@ -160,30 +160,11 @@ class PoliciesController extends Controller
         $servicos = $request->services;
         $services = array();
         $totalServicios = 0;
-        $token = $request->token;
         $sericesId = '';
-
         $clente = Client::find($request->clien_id);
-
-        $marca = Http::withToken($token)->get('http://multiseguros.com.do:5050/api/Seguros/Make/'.$request->car['marca']);
-        $marca = $marca->json();
-    //   echo $marca['makeName'];
-
-        $modeloMarca = Http::withToken($token)->get('http://multiseguros.com.do:5050/api/Seguros/Model/Make/'.$request->car['marca']);
-        $modeloMarca = $modeloMarca->json();
-
-
-        $tipo = Http::withToken($token)->get('http://multiseguros.com.do:5050/api/Seguros/VehicleType/'.$request->car['tipo']);
-        $tipo = $tipo->json();
-   //     echo $tipo['vehicleTypeName'];
-
-        foreach($modeloMarca as $modelos){
-            if($modelos['id'] == $request->car['modelo']){
-                $modelo = $modelos['modelName'];
-            }
-        }
-
-
+        $tipo = Vehicle_type_tarif::find($request->car['tipo']);
+        $marca = Vehicle_brands::find($request->car['marca']);
+        $modelo = Vehicle_models::find($request->car['modelo']);
         foreach($serviciosActivos as $serviciosActivo){
             foreach($servicos as $servicio){
                if($servicio['id'] == $serviciosActivo){
@@ -196,26 +177,23 @@ class PoliciesController extends Controller
                }
             }
         }
-
         $totalGeneral = $totalServicios + $request->tarifa[$request->policyTime];
-        if($request->policyTime == 'threeMonths'){
+        if($request->policyTime == 'tresmeses'){
             $policyTime = '3 Meses';
-        }elseif($request->policyTime == 'sixMonths'){
+        }elseif($request->policyTime == 'seismeses'){
             $policyTime = '6 Meses';
         }else{
             $policyTime = '12 Meses';
         }
-
         return Inertia::render('Policy/approve', [
             'car' => $request->car,
             'tarifa' => $request->tarifa,
-            'token' => $request->token,
             'sellers' => $request->seller[0],
             'totalGeneral' => $totalGeneral,
             'policyTime' => $policyTime,
-            'marca' => $marca['makeName'],
-            'tipo' => $tipo['vehicleTypeName'],
-            'modelo' => $modelo,
+            'marca' => $marca['DESCRIPCION'],
+            'tipo' => $tipo['nombre'],
+            'modelo' => $modelo['descripcion'],
             'cliente' => $clente,
             'services' => $services
         ]);
@@ -257,18 +235,16 @@ class PoliciesController extends Controller
     }
 
     public function services(Request $request){
-        $tarifaServices = $request->tarifa['availableServices'];
+        
+        $tarifaServices = explode("-",$request->tarifa['id_serv']);
         $services = array();
-        $token = $request->token;
-
-        $servicios = Http::withToken($token)->get('http://multiseguros.com.do:5050/api/Seguros/Service');
-        $servicios = $servicios->json();
+        $servicios = Service::all();
 
         foreach($tarifaServices as $service){
             foreach($servicios as $servicio){
                 if($servicio['id'] == $service){
                     $service2 = array(
-                        'serviceName' => $servicio['serviceName'],
+                        'serviceName' => $servicio['nombre'],
                         'servicePrice' => $servicio[$request->policyTime],
                         'id' => $servicio['id']
                     );
@@ -280,7 +256,6 @@ class PoliciesController extends Controller
         return Inertia::render('Policy/create', [
             'car' => $request->car,
             'tarifa' => $request->tarifa,
-            'token' => $token,
             'sellers' => $request->seller,
             'services' => $services,
             'policyTime' => $request->policyTime,

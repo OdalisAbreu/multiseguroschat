@@ -3,7 +3,7 @@
         class="bg-white max-w-lg mx-auto p-8 md:p-12 my-10 rounded-lg shadow-2xl"
     >
         <div class="text-center">
-            <img class="inline" src="ima/Botpro-logo.png" />
+            <img class="inline" src="http://multiseguros.com.do:85/ima/Botpro-logo.png" />
             <h3 class="font-bold text-2xl text-center">Seguros Chat 1.3.2</h3>
         </div>
         <div class="text-center">
