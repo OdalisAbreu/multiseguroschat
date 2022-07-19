@@ -46,3 +46,9 @@ Route::post('statusPayment', [InvoicesController::class, 'statusPayment'])->name
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->name('dashboard');
+
+
+// Solo para pruebas
+Route::get('/end', function () {
+    return Inertia::render('end');
+});
