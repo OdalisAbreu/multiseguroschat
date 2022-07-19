@@ -1,10 +1,9 @@
 <template>
-    <div class="w-full mb-4 rounded  overflow-x-hidden border-t flex flex-col bg-black shadow-lg shadow-black-500/50">
-        <div class="p-4">
-            <img class="inline" src="ima/seguros-chat.png">
+    <div class="w-full mb-2 rounded  overflow-x-hidden border-t flex flex-col bg-black shadow-lg shadow-black-500/50">
+        <div class="p-2"> 
+           <img class="inline h-12 w-25"  src="/ima/seguros_icon.png" alt="">
         </div>
     </div>
-
     
     <div class="mx-3 mt-8 mb-4 sm:mx-20 lg:mx-20 xl:mx-20">
         <div class=" bg-gray-200 rounded-full">
@@ -33,7 +32,6 @@
     </div>
 </template>
 <script>
-
     import { Head, Link } from '@inertiajs/inertia-vue3';
 
 export default {

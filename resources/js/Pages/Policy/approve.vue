@@ -1,7 +1,7 @@
 <template>
-    <div class="w-full mb-4 rounded  overflow-x-hidden border-t flex flex-col bg-blue-600 shadow-lg shadow-blue-500/50">
-        <div class="p-3">
-            <a href="#" class="text-white text-3xl font-semibold uppercase hover:text-gray-300">Seguros Chat</a>
+    <div class="w-full mb-2 rounded  overflow-x-hidden border-t flex flex-col bg-black shadow-lg shadow-black-500/50">
+        <div class="p-2"> 
+           <img class="inline h-12 w-25"  src="/ima/seguros_icon.png" alt="">
         </div>
     </div>
     
@@ -38,7 +38,7 @@
     </div>
     <form @submit.prevent="submit">
         <div class="mt-5">
-            <button class="bg-blue-500 hover:bg-blue-600 shadow-lg shadow-blue-500/50 text-white font-bold rounded-lg w-full py-3 mt-5 sm:m-3 sm:w-30 md:m-3 md:w-40 xl:m-3 xl:w-50">
+            <button class="bg-lime-600 hover:bg-lime-700 shadow-lg shadow-lime-500/50 text-white font-bold rounded-lg w-full py-3 mt-5 sm:m-3 sm:w-30 md:m-3 md:w-40 xl:m-3 xl:w-50">
                 Confirmar
             </button>
         </div>

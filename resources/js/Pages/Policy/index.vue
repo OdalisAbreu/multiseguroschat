@@ -1,13 +1,13 @@
 <template>
-    <div class="w-full mb-4 rounded  overflow-x-hidden border-t flex flex-col bg-blue-600 shadow-lg shadow-blue-500/50">
-        <div class="p-3">
-            <a href="#" class="text-white text-3xl font-semibold uppercase hover:text-gray-300">Seguros Chat</a>
+     <div class="w-full mb-2 rounded  overflow-x-hidden border-t flex flex-col bg-black shadow-lg shadow-black-500/50">
+        <div class="p-2"> 
+           <img class="inline h-12 w-25"  src="/ima/seguros_icon.png" alt="">
         </div>
     </div>
 
     <div class="mx-3 mt-8 mb-4 sm:mx-20 lg:mx-20 xl:mx-20">
         <div class=" bg-gray-200 rounded-full">
-            <div class="bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-l-full" style="width: 75%"> 75%</div>
+            <div class="bg-lime-600 text-xs font-medium text-blue-100 text-center p-1 leading-none rounded-l-full" style="width: 75%"></div>
         </div>
     </div>
 
@@ -50,7 +50,7 @@
          <label class="mb-1 text-xl font-semibold tracking-tight text-gray-900 dark:text-white">  12 Meses -> {{tarifa.docemeses}}</label><br><br>
         </a>
     <div class="mt-5 mb-5">
-        <button class="bg-blue-500 hover:bg-blue-600 shadow-lg shadow-blue-500/50 text-white font-bold rounded-lg w-full py-3 mt-5 sm:m-3 sm:w-30 md:m-3 md:w-40 xl:m-3 xl:w-50">Continuar</button>
+        <button class="bg-lime-600 hover:bg-lime-700 shadow-lg shadow-lime-500/50 text-white font-bold rounded-lg w-full py-3 mt-5 sm:m-3 sm:w-30 md:m-3 md:w-40 xl:m-3 xl:w-50">Continuar</button>
     </div>
     </form>
 
