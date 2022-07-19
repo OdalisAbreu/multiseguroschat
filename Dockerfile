@@ -91,7 +91,7 @@ RUN mkdir /var/log/php
 RUN touch /var/log/php/errors.log && chmod 777 /var/log/php/errors.log
 
 #copy.env
-COPY docker/.env.dev /var/www/html/.env
+#COPY docker/.env.dev /var/www/html/.env
 
 # Deployment steps
 RUN composer install --optimize-autoloader --no-dev

@@ -4,7 +4,7 @@
     >
         <div class="text-center">
             <img class="inline" src="http://multiseguros.com.do:85/ima/Botpro-logo.png" />
-            <h3 class="font-bold text-2xl text-center">Seguros Chat 1.3.2</h3>
+            <h3 class="font-bold text-2xl text-center">Seguros Chat</h3>
         </div>
         <div class="text-center">
             <h3 class="font-bold text-2xl text-center">
@@ -16,6 +16,9 @@
             </h3>
         </div>
     </main>
+    <footer class="bg-white rounded-lg shadow md:flex md:items-center md:justify-between dark:bg-gray-800">
+        <div class="absolute inset-x-0 bottom-0 h-10 pl-4 text-gray-500 dark:text-gray-400">Seguros Chat 1.5.3</div>
+    </footer>
 </template>
 
 <style scoped></style>

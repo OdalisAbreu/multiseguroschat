@@ -62,7 +62,7 @@ class PoliciesController extends Controller
      */
     public function store(Request $request)
     {
-        $urlReturn = 'http://multiseguros.com.do:85/api/statusPayment';
+        $urlReturn = 'https://multiseguros.botpropanel.com/api/statusPayment';
         $servicios = [];
         $token = $request->token;
         if($request->policyTime == '3 Meses'){
@@ -109,6 +109,10 @@ class PoliciesController extends Controller
             "amount"=>$request->totalGeneral,
             "currency"=>"DOP",
             "submit"=>"Submit",
+            "merchant_defined_data1"=> 'Retail',
+            "merchant_defined_data2"=> 'visanetdr_000000432438001',
+            "merchant_defined_data3"=> 'Web',
+            "merchant_defined_data29"=> 'Cedula'
         ];
         //------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -141,6 +145,7 @@ class PoliciesController extends Controller
             return Inertia::render('Payment/index', [
                 'total' => $request->totalGeneral,
                 'invoice_id' => $invoice->id,
+                'client_id' => $invoice->client_id,
                 'signature' => $signature,
                 'urlreturn' => $urlReturn,
                 'date' => gmdate("Y-m-d\TH:i:s\Z"),

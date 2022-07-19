@@ -20784,7 +20784,8 @@ __webpack_require__.r(__webpack_exports__);
     invoice_id: String,
     signature: String,
     urlreturn: String,
-    date: String
+    date: String,
+    client_id: String
   },
   mounted: function mounted() {
     console.log(this.total);
@@ -20798,10 +20799,22 @@ __webpack_require__.r(__webpack_exports__);
       form: {
         total: this.total,
         invoice_id: this.invoice_id,
+        client_id: this.client_id,
         signature: this.signature,
         urlreturn: this.urlreturn,
         date: this.date,
-        transaction_uuid: 'bot2022' + this.invoice_id
+        transaction_uuid: 'bot2022' + this.invoice_id,
+        access_key: '444844d8ec5b36acbad80fefbdc8e4b0',
+        profile_id: 'D0151565-28A7-4113-8F9B-402D4491B59E',
+        signed_field_names: 'access_key,profile_id,transaction_uuid,signed_field_names,unsigned_field_names,signed_date_time,locale,transaction_type,reference_number,amount,currency,override_custom_cancel_page,override_custom_receipt_page',
+        locale: 'es',
+        transaction_type: 'authorization',
+        currency: 'DOP',
+        submit: 'Submit',
+        merchant_defined_data1: 'Retail',
+        merchant_defined_data2: 'visanetdr_000000432438001',
+        merchant_defined_data3: 'Web',
+        merchant_defined_data29: 'Cedula'
       }
     };
   },
@@ -25155,7 +25168,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 
-var _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"w-full mb-4 rounded overflow-x-hidden border-t flex flex-col bg-blue-600 shadow-lg shadow-blue-500/50\"><div class=\"p-3\"><a href=\"#\" class=\"text-white text-3xl font-semibold uppercase hover:text-gray-300\">Seguros Chat</a></div></div><div class=\"mx-3 mt-8 mb-4 sm:mx-20 lg:mx-20 xl:mx-20\"><div class=\"bg-gray-200 rounded-full\"><div class=\"bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-l-full\" style=\"width:100%;\"> 100%</div></div></div><div class=\"text-center\"><img class=\"inline\" src=\"ima/Botpro-logo.png\"><h3 class=\"font-bold text-2xl text-center\">Seguros Chat 1.3.2</h3></div><div class=\"p-3\"><div class=\"text-black font-bold text-2xl sm:text-2xl md:text-3xl xl:text-3xl\">Para procesar tu pago de manera segura pulsa Continuar </div></div>", 4);
+var _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"w-full mb-4 rounded overflow-x-hidden border-t flex flex-col bg-blue-600 shadow-lg shadow-blue-500/50\"><div class=\"p-3\"><a href=\"#\" class=\"text-white text-3xl font-semibold uppercase hover:text-gray-300\">Seguros Chat</a></div></div><div class=\"mx-3 mt-8 mb-4 sm:mx-20 lg:mx-20 xl:mx-20\"><div class=\"bg-gray-200 rounded-full\"><div class=\"bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-l-full\" style=\"width:100%;\"> 100%</div></div></div><div class=\"text-center\"><img class=\"inline\" src=\"ima/Botpro-logo.png\"><h3 class=\"font-bold text-2xl text-center\">Seguros Chat 1.5.2</h3></div><div class=\"p-3\"><div class=\"text-black font-bold text-2xl sm:text-2xl md:text-3xl xl:text-3xl\">Para procesar tu pago de manera segura pulsa Continuar </div></div>", 4);
 
 var _hoisted_5 = {
   action: "https://testsecureacceptance.cybersource.com/pay",
@@ -25234,7 +25247,42 @@ var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 /* HOISTED */
 );
 
-var _hoisted_14 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_14 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  type: "hidden",
+  id: "merchant_defined_data1",
+  name: "merchant_defined_data1",
+  value: "Retail"
+}, null, -1
+/* HOISTED */
+);
+
+var _hoisted_15 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  type: "hidden",
+  id: "merchant_defined_data2",
+  name: "merchant_defined_data2",
+  value: "visanetdr_000000432438001"
+}, null, -1
+/* HOISTED */
+);
+
+var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  type: "hidden",
+  id: "merchant_defined_data3",
+  name: "merchant_defined_data3",
+  value: "Web"
+}, null, -1
+/* HOISTED */
+);
+
+var _hoisted_17 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  type: "hidden",
+  id: "merchant_defined_data29",
+  value: "Cedula"
+}, null, -1
+/* HOISTED */
+);
+
+var _hoisted_18 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "mt-5"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
   "class": "bg-blue-500 hover:bg-blue-600 shadow-lg shadow-blue-500/50 text-white font-bold rounded-lg w-full py-3 mt-5 sm:m-3 sm:w-30 md:m-3 md:w-40 xl:m-3 xl:w-50"
@@ -25306,7 +25354,16 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     })
   }, null, 512
   /* NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.form.signature]]), _hoisted_14])], 64
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.form.signature]]), _hoisted_14, _hoisted_15, _hoisted_16, _hoisted_17, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    type: "hidden",
+    id: "merchant_defined_data30",
+    name: "merchant_defined_data30",
+    "onUpdate:modelValue": _cache[7] || (_cache[7] = function ($event) {
+      return $data.form.client_id = $event;
+    })
+  }, null, 512
+  /* NEED_PATCH */
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.form.client_id]]), _hoisted_18])], 64
   /* STABLE_FRAGMENT */
   );
 }
@@ -27160,15 +27217,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
-var _hoisted_1 = {
-  "class": "bg-white max-w-lg mx-auto p-8 md:p-12 my-10 rounded-lg shadow-2xl"
-};
 
-var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"text-center\"><img class=\"inline\" src=\"http://multiseguros.com.do:85/ima/Botpro-logo.png\"><h3 class=\"font-bold text-2xl text-center\">Seguros Chat 1.3.2</h3></div><div class=\"text-center\"><h3 class=\"font-bold text-2xl text-center\"> Gracias por utilizar Multiseguros chats </h3><h3 class=\"font-bold text-2xl text-center\"> Para poder visualizar tu póliza dirígete al Bot y escribe “Quiero ver mi póliza” </h3></div>", 2);
+var _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<main class=\"bg-white max-w-lg mx-auto p-8 md:p-12 my-10 rounded-lg shadow-2xl\"><div class=\"text-center\"><img class=\"inline\" src=\"http://multiseguros.com.do:85/ima/Botpro-logo.png\"><h3 class=\"font-bold text-2xl text-center\">Seguros Chat</h3></div><div class=\"text-center\"><h3 class=\"font-bold text-2xl text-center\"> Gracias por utilizar Multiseguros chats </h3><h3 class=\"font-bold text-2xl text-center\"> Para poder visualizar tu póliza dirígete al Bot y escribe “Quiero ver mi póliza” </h3></div></main><footer class=\"bg-white rounded-lg shadow md:flex md:items-center md:justify-between dark:bg-gray-800\"><div class=\"absolute inset-x-0 bottom-0 h-10 pl-4 text-gray-500 dark:text-gray-400\">Seguros Chat 1.5.3</div></footer>", 2);
 
-var _hoisted_4 = [_hoisted_2];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("main", _hoisted_1, _hoisted_4);
+  return _hoisted_1;
 }
 
 /***/ }),
@@ -27195,7 +27248,9 @@ var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
   "class": "inline",
   src: "ima/segchat.jpg"
-})], -1
+}), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", {
+  "class": "font-bold text-2xl text-center"
+}, "Seguros Chat")], -1
 /* HOISTED */
 );
 
@@ -27223,7 +27278,7 @@ var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
   "class": "bg-white rounded-lg shadow md:flex md:items-center md:justify-between dark:bg-gray-800"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "absolute inset-x-0 bottom-0 h-10 pl-4 text-gray-500 dark:text-gray-400"
-}, "Seguros Chat 1.5.1")], -1
+}, "Seguros Chat 1.5.3")], -1
 /* HOISTED */
 );
 
