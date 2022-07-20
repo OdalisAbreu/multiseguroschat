@@ -30,6 +30,9 @@
                 </div>
         </form>
     </div>
+     <footer class="bg-white rounded-lg shadow md:flex md:items-center md:justify-between dark:bg-gray-800">
+        <div class="absolute inset-x-0 bottom-0 h-10 pl-4 text-gray-500 dark:text-gray-400">Seguros Chat 1.5.3</div>
+    </footer>
 </template>
 <script>
     import { Head, Link } from '@inertiajs/inertia-vue3';

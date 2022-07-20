@@ -28,10 +28,13 @@
                 <input type="hidden" id="merchant_defined_data30" name="merchant_defined_data30" v-model="form.client_id">
 
                     <div class="flex flex-col">
-                        <button class="bg-lime-600 hover:bg-lime-700 text-white font-bold py-2 rounded shadow-lg hover:shadow-xl transition duration-200" >Continuar</button>
+                        <button class="bg-lime-600 hover:bg-lime-700 text-white font-bold py-2 rounded shadow-lg hover:shadow-xl transition duration-200">Continuar</button>
                     </div>
         </form>
      </main>
+      <footer class="bg-white rounded-lg shadow md:flex md:items-center md:justify-between dark:bg-gray-800">
+        <div class="absolute inset-x-0 bottom-0 h-10 pl-4 text-gray-500 dark:text-gray-400">Seguros Chat 1.5.3</div>
+    </footer>
 </template>
 <script>
     import { Head, Link } from '@inertiajs/inertia-vue3';
