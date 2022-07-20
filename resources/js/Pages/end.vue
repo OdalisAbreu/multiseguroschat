@@ -13,7 +13,7 @@
                Para poder visualizar tu póliza dirígete WhatsApp haciendo clic en el botón y selecciona la opción “Quiero ver mi póliza”
             </h3>
              <div class="mt-5">
-                    <button class="bg-lime-600 hover:bg-lime-700 shadow-lg shadow-lime-500/50 text-white font-bold rounded-lg w-full py-3 mt-5 sm:m-3 sm:w-30 md:m-3 md:w-40 xl:m-3 xl:w-50">WhatsApp</button>
+                    <a class="bg-lime-600 hover:bg-lime-700 shadow-lg shadow-lime-500/50 text-white font-bold rounded-lg w-full py-3 px-6 mt-5 sm:m-3 sm:w-30 md:m-3 md:w-40 xl:m-3 xl:w-50" href="https://api.whatsapp.com/send/?phone=18297624444&text&type=phone_number&app_absent=0">WhatsApp</a>
                 </div>
         </div>
     </main>
