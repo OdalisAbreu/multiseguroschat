@@ -13,6 +13,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Http;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
+use Illuminate\Support\Js;
 
 class PoliciesController extends Controller
 {
@@ -98,7 +99,7 @@ class PoliciesController extends Controller
             "access_key"=>"444844d8ec5b36acbad80fefbdc8e4b0",
             "profile_id"=>"D0151565-28A7-4113-8F9B-402D4491B59E",
             "transaction_uuid"=>'bot2022'.$invoice->id,
-            "signed_field_names"=>"access_key,profile_id,transaction_uuid,signed_field_names,unsigned_field_names,signed_date_time,locale,transaction_type,reference_number,amount,currency,override_custom_cancel_page,override_custom_receipt_page",
+            "signed_field_names"=>"access_key,profile_id,transaction_uuid,signed_field_names,unsigned_field_names,signed_date_time,locale,transaction_type,reference_number,amount,currency,override_custom_cancel_page,override_custom_receipt_page,merchant_defined_data1,merchant_defined_data2,merchant_defined_data3,merchant_defined_data29,merchant_defined_data30",
             "unsigned_field_names"=>"",
             "signed_date_time"=>gmdate("Y-m-d\TH:i:s\Z"),
             "locale"=>"es",
@@ -112,7 +113,8 @@ class PoliciesController extends Controller
             "merchant_defined_data1"=> 'Retail',
             "merchant_defined_data2"=> 'visanetdr_000000432438001',
             "merchant_defined_data3"=> 'Web',
-            "merchant_defined_data29"=> 'Cedula'
+            "merchant_defined_data29"=> 'Cedula',
+            "merchant_defined_data30"=> $invoice->client_id
         ];
         //------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -267,5 +269,11 @@ class PoliciesController extends Controller
             'clien_id' => $request->clien_id
         ]);
 
+    }
+
+    public function test(Request $request){
+
+
+        return json_decode($request);
     }
 }

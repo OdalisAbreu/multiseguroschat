@@ -38,6 +38,7 @@ Route::post('services', [PoliciesController::class, 'services'])->name('services
 Route::post('servicespolicy', [PoliciesController::class, 'show'])->name('servicespolicy');
 Route::post('generatepolicy', [PoliciesController::class, 'store'])->name('generatepolicy');
 
+
 Route::get('car', [ClientController::class, 'index'])->name('car');//Esto no va
 
 Route::post('seguros', [ClientController::class, 'seller'])->name('seguros'); //Configurar seguro
@@ -48,7 +49,11 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 })->name('dashboard');
 
 
-// Solo para pruebas
+// ----------------Solo para pruebas-------------------------------------------
 Route::get('/end', function () {
     return Inertia::render('end');
 });
+
+Route::post('/test', [PoliciesController::class, 'test'])->name('test');
+
+//----------------------------------------------------------------------------

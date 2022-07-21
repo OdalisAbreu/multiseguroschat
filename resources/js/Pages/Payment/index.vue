@@ -9,7 +9,7 @@
                 <input type="hidden" id="access_key" name="access_key" value="444844d8ec5b36acbad80fefbdc8e4b0"/>
                 <input type="hidden" id="profile_id" name="profile_id" value="D0151565-28A7-4113-8F9B-402D4491B59E"/>
                 <input type="hidden" id="transaction_uuid" name="transaction_uuid" v-model="form.transaction_uuid"/>
-                <input type="hidden" id="signed_field_names" name="signed_field_names" value="access_key,profile_id,transaction_uuid,signed_field_names,unsigned_field_names,signed_date_time,locale,transaction_type,reference_number,amount,currency,override_custom_cancel_page,override_custom_receipt_page"/>
+                <input type="hidden" id="signed_field_names" name="signed_field_names" value="access_key,profile_id,transaction_uuid,signed_field_names,unsigned_field_names,signed_date_time,locale,transaction_type,reference_number,amount,currency,override_custom_cancel_page,override_custom_receipt_page,merchant_defined_data1,merchant_defined_data2,merchant_defined_data3,merchant_defined_data29,merchant_defined_data30"/>
                 <input type="hidden" id="unsigned_field_names" name="unsigned_field_names" value=""/>
                 <input type="hidden" id="signed_date_time" name="signed_date_time" v-model="form.date"/>
                 <input type="hidden" id="locale" name="locale" value="es"/>
@@ -76,13 +76,14 @@ export default {
                 merchant_defined_data1: 'Retail',
                 merchant_defined_data2: 'visanetdr_000000432438001',
                 merchant_defined_data3: 'Web',
-                merchant_defined_data29: 'Cedula'
+                merchant_defined_data29: 'Cedula',
             }
         }
     },
     methods:{
         submit(){
-            axios.post(this.route('https://testsecureacceptance.cybersource.com/pay'), this.form)
+           // axios.post(this.route('https://testsecureacceptance.cybersource.com/pay'), this.form)
+           this.$inertia.psot(this.route('test.test', this.this.form))
         }
     },
 
