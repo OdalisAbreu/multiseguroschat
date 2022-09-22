@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\InvoicesController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PoliciesController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -34,9 +35,10 @@ Route::get('/', function () {
 //Route::get('client/{phone}', [ClientController::class, 'show'])->name('client');
 Route::resource('client', ClientController::class);
 Route::post('policy/{marcaid}', [PoliciesController::class, 'index'])->name('policy');
-Route::post('services', [PoliciesController::class, 'services'])->name('services');
+//Route::post('services', [PoliciesController::class, 'services'])->name('services');
+Route::post('services/{insuresId}', [PoliciesController::class, 'services'])->name('services');
 Route::post('servicespolicy', [PoliciesController::class, 'show'])->name('servicespolicy');
-Route::post('generatepolicy', [PoliciesController::class, 'store'])->name('generatepolicy');
+Route::post('generatepolicy', [PaymentController::class, 'cardNet'])->name('generatepolicy');
 
 
 Route::get('car', [ClientController::class, 'index'])->name('car');//Esto no va

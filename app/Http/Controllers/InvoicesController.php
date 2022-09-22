@@ -10,7 +10,7 @@ use Inertia\Inertia;
 
 class InvoicesController extends Controller
 {
-    public function statusPayment(Request $request)
+    public function statusPaymentVisaNet(Request $request)
     {
         $invoiceId = $request->req_reference_number;
 
@@ -107,5 +107,24 @@ class InvoicesController extends Controller
             $respuesta = $request->message;
             echo 'transacción Cancelada';
         }
+    }
+
+    public function statusPaymentCardNet(Request $request){
+
+        echo 'ResponseCode:'. $request->ResponseCode. '<br/>';
+        echo 'TransactionID:'. $request->TransactionID. '<br/>';
+        echo 'RemoteResponseCode:'. $request->RemoteResponseCode. '<br/>';
+        echo 'AuthorizationCode:'. $request->AuthorizationCode. '<br/>';
+        echo 'RetrivalReferenceNumber:'. $request->RetrivalReferenceNumber. '<br/>';
+        echo 'TxToken:'. $request->TxToken. '<br/>';
+/*
+        return Inertia::render('end', [
+            'ResponseCode' => $request->ResponseCode,
+            'TransactionID' => $request->TransactionID,
+            'RemoteResponseCode' => $request->RemoteResponseCode,
+            'AuthorizationCode' => $request->AuthorizationCode,
+            'RetrivalReferenceNumber'=> $request->RetrivalReferenceNumber,
+            'TxToken'=>  $request->TxToken
+        ]);*/
     }
 }

@@ -19,48 +19,52 @@
 
     <div class="p-3 px-5 sm:px-5 md:px-5 xl:px-5">
         <form @submit.prevent="submit">
-            <select class="rounded-lg w-full mt-4 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80" v-model="form.tipo">
+            <select class="rounded-lg w-full mt-4 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80" v-model="form.tipo" required>
+                <option value="" disabled selected hidden>TIPO DE VEHEHÍCULO</option>
                 <option v-for="tipo in tipos" :value="tipo.id" :key="tipo.id">{{tipo.nombre}} </option>
             </select>
-            <select class="rounded-lg w-full mt-4 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80" v-model="marca">
+            <select class="rounded-lg w-full mt-4 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80" v-model="marca" required>
+                <option value="" disabled selected hidden>MARCA</option>
                 <option v-for="marca in marcas" :value="marca.ID" :key="marca.ID">{{marca.DESCRIPCION}} </option>
             </select>
-            <select class="rounded-lg w-full mt-4 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80" v-model="form.modelo">
-                <option value="0" selected></option>
-                <option v-for="modelo in models" :value="modelo.ID" :key="modelo.ID">{{modelo.descripcion}} </option>
+            <select class="rounded-lg w-full mt-4 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80" v-model="form.modelo" required>
+                <option value="" disabled selected hidden>MODELO</option>
+                <option v-for="modelo in models" :value="modelo.ID" :key="modelo.ID">{{modelo.descripcion}} </option >
             </select>
-             <select class="rounded-lg w-full mt-4 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80" v-model="form.year">
-                <option value="2022" selected>2022</option>
-                <option value="2021" selected>2021</option>
-                <option value="2020" selected>2020</option>
-                <option value="2019" selected>2019</option>
-                <option value="2018" selected>2018</option>
-                <option value="2017" selected>2017</option>
-                <option value="2016" selected>2016</option>
-                <option value="2015" selected>2015</option>
-                <option value="2014" selected>2014</option>
-                <option value="2013" selected>2013</option>
-                <option value="2012" selected>2012</option>
-                <option value="2011" selected>2011</option>
-                <option value="2010" selected>2010</option>
-                <option value="2009" selected>2009</option>
-                <option value="2008" selected>2008</option>
-                <option value="2007" selected>2007</option>
-                <option value="2006" selected>2006</option>
-                <option value="2005" selected>2005</option>
-                <option value="2004" selected>2004</option>
-                <option value="2003" selected>2003</option>
-                <option value="2002" selected>2002</option>
-                <option value="2001" selected>2001</option>
-                <option value="2000" selected>2000</option>
-                <option value="1999" selected>1999</option>
-                <option value="1998" selected>1998</option>
-                <option value="1997" selected>1997</option>
-                <option value="1996" selected>1996</option>
+             <select class="rounded-lg w-full mt-4 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80" v-model="form.year" required>
+                <option value="" disabled selected hidden>AÑO</option>
+                <option value="2022" >2023</option>
+                <option value="2022" >2022</option>
+                <option value="2021" >2021</option>
+                <option value="2020" >2020</option>
+                <option value="2019" >2019</option>
+                <option value="2018" >2018</option>
+                <option value="2017" >2017</option>
+                <option value="2016" >2016</option>
+                <option value="2015" >2015</option>
+                <option value="2014" >2014</option>
+                <option value="2013" >2013</option>
+                <option value="2012" >2012</option>
+                <option value="2011" >2011</option>
+                <option value="2010" >2010</option>
+                <option value="2009" >2009</option>
+                <option value="2008" >2008</option>
+                <option value="2007" >2007</option>
+                <option value="2006" >2006</option>
+                <option value="2005" >2005</option>
+                <option value="2004" >2004</option>
+                <option value="2003" >2003</option>
+                <option value="2002" >2002</option>
+                <option value="2001" >2001</option>
+                <option value="2000" >2000</option>
+                <option value="1999" >1999</option>
+                <option value="1998" >1998</option>
+                <option value="1997" >1997</option>
+                <option value="1996" >1996</option>
 
             </select>
-            <input class="rounded-lg w-full mt-4 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80" style="text-transform:uppercase;" type="text" placeholder="Placa" v-model="form.placa">
-            <input class="rounded-lg w-full mt-4 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80" style="text-transform:uppercase;" type="text" placeholder="Chasis" v-model="form.chasis">
+            <input class="rounded-lg w-full mt-4 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80" style="text-transform:uppercase;" type="text" placeholder="PLACA" v-model="form.placa" required>
+            <input class="rounded-lg w-full mt-4 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80" style="text-transform:uppercase;" type="text" placeholder="CHASSIS" v-model="form.chasis" required>
 
                 <div class="mt-5">
                     <button class="bg-lime-600 hover:bg-lime-700 shadow-lg shadow-lime-500/50 text-white font-bold rounded-lg w-full py-3 mt-5 sm:m-3 sm:w-30 md:m-3 md:w-40 xl:m-3 xl:w-50">Continuar</button>
@@ -68,9 +72,7 @@
 
         </form>
     </div>
-     <footer class="bg-white rounded-lg shadow md:flex md:items-center md:justify-between dark:bg-gray-800">
-        <div class="absolute inset-x-0 bottom-0 h-10 pl-4 text-gray-500 dark:text-gray-400">Seguros Chat 1.5.3</div>
-    </footer>
+
 </template>
 <script>
     import { Head, Link } from '@inertiajs/inertia-vue3';

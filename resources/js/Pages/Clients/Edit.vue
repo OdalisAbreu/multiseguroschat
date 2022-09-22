@@ -17,22 +17,26 @@
         </div>
     <div class="px-5 sm:px-5 md:px-5 xl:px-5">
         <form @submit.prevent="submit">
+            <label>Nombres</label><br>
             <input class="rounded-lg w-full mt-4 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80" type="text" placeholder="Nombre" v-model="form.name">
+            <br><label>Apellidos</label><br>
             <input class="rounded-lg w-full mt-4 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80" type="text" placeholder="Apellido" v-model="form.lastname">
+            <br><label>No. de Cédula</label><br>
             <input class="rounded-lg w-full mt-4 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80" type="text" placeholder="Cédula" v-model="form.cardnumber">
+            <br><label>Celular</label><br>
             <input class="rounded-lg w-full mt-4 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80" type="text" placeholder="Telefono" v-model="form.phonenumber">
+            <br><label>Correo Electrónico</label><br>
             <input class="rounded-lg w-full mt-4 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80" type="text" placeholder="Email" v-model="form.email">
-            <input class="rounded-lg w-full mt-4 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80" type="text" placeholder="Ciudad" v-model="form.city">
-            <input class="rounded-lg w-full mt-4 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80" type="text" placeholder="Pasaporte" v-model="form.passportnumber">
+            <br><label>Dirección</label><br>
             <input class="rounded-lg w-full mt-4 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80" type="text" placeholder="Dirección" v-model="form.adrress">
+            <br><label>Ciudad</label><br>
+            <input class="rounded-lg w-full mt-4 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80" type="text" placeholder="Ciudad" v-model="form.city">
                 <div class="mt-5">
                     <button class="bg-lime-600 hover:bg-lime-700 shadow-lg shadow-lime-500/50 text-white font-bold rounded-lg w-full py-3 mt-5 sm:m-3 sm:w-30 md:m-3 md:w-40 xl:m-3 xl:w-50" >Continuar</button>
                 </div>
         </form>
     </div>
-     <footer class="bg-white rounded-lg shadow md:flex md:items-center md:justify-between dark:bg-gray-800">
-        <div class="absolute inset-x-0 bottom-0 h-10 pl-4 text-gray-500 dark:text-gray-400">Seguros Chat 1.5.3</div>
-    </footer>
+
 </template>
 <script>
     import { Head, Link } from '@inertiajs/inertia-vue3';
@@ -54,7 +58,6 @@ export default {
                 email: this.client.email,
                 cardnumber: this.client.cardnumber,
                 city: this.client.city,
-                passportnumber: this.client.passportnumber,
                 phonenumber: this.client.phonenumber
             }
         }

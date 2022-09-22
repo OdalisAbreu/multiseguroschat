@@ -28,9 +28,7 @@
         <button class="bg-lime-600 hover:bg-lime-700 shadow-lg shadow-lime-500/50 text-white font-bold rounded-lg w-full py-3 mt-5 sm:m-3 sm:w-30 md:m-3 md:w-40 xl:m-3 xl:w-50">Continuar</button>
     </div>   
     </form>
-     <footer class="bg-white rounded-lg shadow md:flex md:items-center md:justify-between dark:bg-gray-800">
-        <div class="absolute inset-x-0 bottom-0 h-10 pl-4 text-gray-500 dark:text-gray-400">Seguros Chat 1.5.3</div>
-    </footer>
+
 </template>
 <script>
     import { Head, Link } from '@inertiajs/inertia-vue3';
@@ -44,10 +42,10 @@ export default {
        car: Array,
        tarifa: Array,
        sellers: Array,
-       token: String,
        services: Array,
        policyTime: String,
        clien_id: String,
+       aseguradora: String,
     },
     mounted(){
     },
@@ -58,11 +56,11 @@ export default {
                 car: this.car,
                 tarifa:this.tarifa,
                 seller: this.sellers,
-                token: this.token,
                 services: this.services,
                 policyTime: this.policyTime,
                 clien_id: this.clien_id,
-                servicios: []
+                servicios: [],
+                aseguradora: this.aseguradora
 
             }
         }

@@ -124,14 +124,13 @@ class ClientController extends Controller
         $client->adrress = $request->adrress;
         $client->cardnumber = $request->cardnumber;
         $client->city = $request->city;
-        $client->passportnumber = $request->passportnumber;
         $client->phonenumber = $request->phonenumber;
         $client->save();
 
 
-        $tipos = Vehicle_type_tarif::all();
-        $marcas = Vehicle_brands::all();
-        $modelos = Vehicle_models::all();
+        $tipos = Vehicle_type_tarif::orderBy('nombre')->get();
+        $marcas = Vehicle_brands::orderBy('DESCRIPCION')->get();
+        $modelos = Vehicle_models::orderBy('descripcion')->get();
        return Inertia::render('Vehiculo/index', [
             'tipos' => $tipos,
             'marcas' => $marcas,
