@@ -1,7 +1,7 @@
 <template>
     <main class="bg-white max-w-lg mx-auto p-8 md:p-12 my-10 rounded-lg shadow-2xl">
         <div class="text-center">
-            <img class="inline" src="ima/segchat.jpg">
+            <img class="inline" src="ima/sc_ic.png">
             <h3 class="font-bold text-2xl text-center">Para procesar tu pago de manera segura pulsa Continuar </h3>
             <img class="inline"  src="/ima/secutity.png" alt="">
         </div> 
@@ -26,7 +26,7 @@
                     <input type="hidden" name='seqid' id='seqid' Value='001'/>
 
                 <div class="flex flex-col">
-                    <button class="bg-lime-600 hover:bg-lime-700 text-white font-bold py-2 rounded shadow-lg hover:shadow-xl transition duration-200">Continuar</button>
+                    <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold mx-3 py-4 rounded-lg shadow-lg hover:shadow-xl transition duration-200 sm:mx-3">Continuar</button>
                 </div>
         </form>
      </main>

@@ -1,76 +1,51 @@
 <template>
-    <div class="w-full mb-2 rounded  overflow-x-hidden border-t flex flex-col bg-black shadow-lg shadow-black-500/50">
-        <div class="p-2"> 
-           <img class="inline h-12 w-25"  src="/ima/seguros_icon.png" alt="">
+    <main
+        class="bg-white max-w-lg mx-auto p-8 md:p-12 my-10 rounded-lg shadow-2xl"
+    >
+        <div class="text-center">
+            <img class="inline" src="/ima/sc_ic.png">
         </div>
-    </div>
-    
-    <div class="p-4 w-full text-center bg-white rounded-lg border shadow-md sm:p-8 dark:bg-gray-100 dark:border-gray-700">
-        <h5 class="mb-2 text-3xl font-bold text-gray-900 dark:text-black">DATOS DEL SEGURO </h5>
-  
-        <div class="grid grid-rows-4 grid-flow-col gap-4">
-            <div class="col-span-1">
-                <div  class="w-full mb-4 rounded  overflow-x-hidden border-t flex flex-col">
-                    <div class="p1">
-                        <p class="text-center text-black font-semibold text-xl">Datos del asegurado</p>
-                    </div>
+        <div class="text-center">
+            <h3 class="font-bold text-2xl text-center">
+               ¡Gracias por confiar en nosotros!
+            </h3>
+            <h3 class="font-bold text-2xl text-center">
+               Para poder visualizar tu póliza dirígete a WhatsApp haciendo clic en el botón y selecciona la opción “Quiero ver mi póliza”
+            </h3>
+             <div class="mt-5">
+                    <a class="bg-blue-500 hover:bg-blue-600 shadow-lg shadow-blue-500/50 text-white font-bold rounded-lg w-full py-3 px-6 mt-5 sm:m-3 sm:w-30 md:m-3 md:w-40 xl:m-3 xl:w-50" href="https://api.whatsapp.com/send/?phone=18297624444&text&type=phone_number&app_absent=0">WhatsApp</a>
                 </div>
-                Asegurado: Dariel Abreu <br>
-                Cédula: 22400274092 <br>
-                Dirección: Las Cobas <br>
-                Teléfono: 8294428902 <br>
-                Aseguradora: Sura<br><br>
-            </div>
-        
-            <div class="col-span-1">
-                <div  class="w-full mb-4 rounded  overflow-x-hidden border-t flex flex-col">
-                    <div class="p1">
-                        <p class="text-center text-black font-semibold text-xl">Datos del vehículo</p>
-                    </div>
-                </div>
-                Tipo: Automovil <br>
-                Marca: ACURA <br>
-                Modelo: ACURA <br>
-                Año: 2022 <br>
-                Chassis: A48949849 <br>
-                Registro: A6566 <br><br><br>
-            </div>
-
-            <div class="col-span-1">
-                <div  class="w-full mb-4 rounded  overflow-x-hidden border-t flex flex-col">
-                    <div class="p1">
-                        <p class="text-center text-black font-semibold text-xl">Servicios</p>
-                    </div>
-                </div>
-                <div >
-                    Casa del Conductor<br>
-                    Asistencia Vial (Grua) <br>
-                </div>
-            </div>
-
-            <div class="col-span-1">
-                Total a pagar: 2085<br>
-                <form @submit.prevent="submit">
-                    <input class="rounded-lg w-full mt-4 sm:m-3 sm:w-30 md:m-3 md:w-50 xl:m-3 xl:w-80" type="text" placeholder="Códigos de descuento" >
-                    <div class="mt-5">
-                        <button class="bg-lime-600 hover:bg-lime-700 shadow-lg shadow-lime-500/50 text-white font-bold rounded-lg w-full py-3 mt-5 sm:m-3 sm:w-30 md:m-3 md:w-40 xl:m-3 xl:w-50">
-                            Confirmar
-                        </button>
-                    </div>
-                </form>
-            </div>
-            
         </div>
-  </div>
+    </main>
 
 </template>
+
+<style scoped></style>
+
 <script>
-    import { Head, Link } from '@inertiajs/inertia-vue3';
-import { watch } from '@vue/runtime-core';
-export default {
-    components:{
+import { defineComponent } from "vue";
+import { Head, Link } from "@inertiajs/inertia-vue3";
+
+export default defineComponent({
+    components: {
         Head,
-        Link
+        Link,
+    /*    ResponseCode,
+        TransactionID,
+        RemoteResponseCode,
+        AuthorizationCode,
+        RetrivalReferenceNumber,
+        TxToken*/
     },
-}
+
+    props: {},
+    mounted(){
+       /* console.log('ResponseCode: ' + this.ResponseCode)
+        console.log('TransactionID: ' + this.TransactionID)
+        console.log('RemoteResponseCode: ' + this.RemoteResponseCode)
+        console.log('AuthorizationCode: ' + this.AuthorizationCode)
+        console.log('RetrivalReferenceNumber: ' + this.RetrivalReferenceNumber)
+        console.log('TxToken: ' + this.TxToken)*/
+    }
+});
 </script>

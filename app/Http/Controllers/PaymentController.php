@@ -106,9 +106,18 @@ class PaymentController extends Controller
 
     public function cardNet(Request $request){
         
-        $codigo = Discounts::where([['code',$request->descuento],['active', 1]])->get();
-        return $codigo[0]->id;
-        
+        $codigo = 0 ;
+        if($request->descuento != ''){
+            $value = Discounts::where([['code',$request->descuento],['active', 1]])->count();
+  
+            if($value == 0){
+                $codigo = 0 ;
+            }else{
+               $value = Discounts::where([['code',$request->descuento],['active', 1]])->get();
+               $codigo = $value[0]->id;
+           }
+        }
+
         $urlReturn = 'https://multiseguros.botpropanel.com/api/statusPayment';
         $servicios = [];
         if($request->policyTime == '3 Meses'){
@@ -137,7 +146,7 @@ class PaymentController extends Controller
         $invoice->car_model = $request->car['modelo'];
         $invoice->client_id = $request->cliente['cardnumber'];
         $invoice->services = $serviciosString;
-        $invoice->discount_id = $codigo[0]->id;
+        $invoice->discount_id = $codigo;
         $invoice->payment_status = 'peding';
         $invoice->save();
         
