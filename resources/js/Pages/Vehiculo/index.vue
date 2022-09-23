@@ -13,7 +13,7 @@
         </div>
     </div>
     
-    <div class="mt-5 p-3">
+    <div class="text-center mt-5 p-3">
         <div class="text-2xl font-bold sm:text-2xl md:text-3xl xl:text-3xl">Registra los datos de tu vehículo</div>
     </div>
 

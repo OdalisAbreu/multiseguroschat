@@ -48,20 +48,19 @@
                         </div>
                         <div class="p-1">
                             <span class="inline-block px-2 py-1 leading-none bg-blue-200 text-blue-800 rounded-full font-semibold uppercase tracking-wide text-xs">{{seller.insurace}}</span>
-                            <h2 class="mt-2 mb-2  font-bold">Compañía De Seguros en Santo Domingo</h2>
+                            <h2 class="mt-2 mb-1 font-bold">Compañía De Seguros en Santo Domingo</h2>
                         </div>
                                     <input type="hidden" id="servicios" :value="seller.servicios" >
                                     <a class="mx-4 block p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
                                     <input type="radio" value="tresmeses" name="poliza" v-model="form.policyTime">
-                                    <label class="mb-1 text-xl font-semibold tracking-tight text-gray-900 dark:text-white"> 3 Meses -> {{seller.tresmeses}}</label><br><br>
+                                    <label class="mb-1 text-xl font-semibold tracking-tight text-gray-900 dark:text-white"> 3 Meses -> RD$ {{seller.tresmeses}}</label><br><br>
                                     <input type="radio" value="seismeses" name="poliza" v-model="form.policyTime">
-                                    <label class="mb-1 text-xl font-semibold tracking-tight text-gray-900 dark:text-white"> 6 Meses -> {{seller.seismeses}}</label><br><br>
+                                    <label class="mb-1 text-xl font-semibold tracking-tight text-gray-900 dark:text-white"> 6 Meses -> RD$ {{seller.seismeses}}</label><br><br>
                                     <input type="radio" value="docemeses" name="poliza" v-model="form.policyTime">
-                                    <label class="mb-1 text-xl font-semibold tracking-tight text-gray-900 dark:text-white"> 12 Meses -> {{seller.docemeses}}</label><br><br>
-
+                                    <label class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white"> 12 Meses -> RD$ {{seller.docemeses}}</label>
                                     </a>
-                                <div class="mt-5 mb-5 mx-5 my-4" style='text-align: center'>
-                                    <button @click="procesar(seller.insurances_id, seller.vehicle_type_id)" class="bg-blue-500 hover:bg-blue-600 shadow-lg shadow-blue-500/50 text-white font-bold rounded-lg w-full py-3 mt-5 sm:m-3 sm:w-30 md:m-3 md:w-40 xl:m-3 xl:w-50" >Continuar</button>
+                                <div class="" style='text-align: center'>
+                                    <button @click="procesar(seller.insurances_id, seller.vehicle_type_id)" class="bg-blue-500 hover:bg-blue-600 shadow-lg shadow-blue-500/50 text-white font-bold rounded-lg w-full py-3 mt-1 sm:m-3 sm:w-30 md:m-3 md:w-40 xl:m-3 xl:w-50" >Continuar</button>
                                 </div>
             </div>
         </div>

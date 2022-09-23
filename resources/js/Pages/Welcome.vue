@@ -1,51 +1,86 @@
 <template>
-    <main
-        class="bg-white max-w-lg mx-auto p-8 md:p-12 my-10 rounded-lg shadow-2xl"
-    >
-        <div class="text-center">
-            <img class="inline" src="/ima/sc_ic.png">
-        </div>
-        <div class="text-center">
-            <h3 class="font-bold text-2xl text-center">
-               ¡Gracias por confiar en nosotros!
-            </h3>
-            <h3 class="font-bold text-2xl text-center">
-               Para poder visualizar tu póliza dirígete a WhatsApp haciendo clic en el botón y selecciona la opción “Quiero ver mi póliza”
-            </h3>
-             <div class="mt-5">
-                    <a class="bg-blue-500 hover:bg-blue-600 shadow-lg shadow-blue-500/50 text-white font-bold rounded-lg w-full py-3 px-6 mt-5 sm:m-3 sm:w-30 md:m-3 md:w-40 xl:m-3 xl:w-50" href="https://api.whatsapp.com/send/?phone=18297624444&text&type=phone_number&app_absent=0">WhatsApp</a>
-                </div>
-        </div>
-    </main>
+    <div class="w-full mb-2 rounded  overflow-x-hidden border-t flex flex-col bg-black shadow-lg shadow-black-500/50">
+       <div class="p-2"> 
+          <img class="inline h-12 w-25"  src="/ima/sc2_ic.png" alt="">
+       </div>
+   </div>
+
+   <div class="mx-3 mt-8 mb-4 sm:mx-20 lg:mx-20 xl:mx-20">
+       <div class=" bg-gray-200 rounded-full">
+           <div class="bg-blue-500 text-xs font-medium text-blue-100 text-center p-1 leading-none rounded-l-full" style="width: 75%"></div>
+       </div>
+   </div>
+
+   <div class="p-3">
+           <div class="text-center text-black font-bold text-2xl sm:text-2xl md:text-3xl xl:text-3xl">Seleccione el seguro de su preferencia</div>
+       </div>
+
+  <div class="bg-white max-w-lg mx-auto p-8 my-10 rounded-lg shadow-2xl" v-for="seller in sellers" :key="seller.id">
+   <div class="w-full p-2">
+       <div class="container mx-auto">
+           <div class="flex flex-wrap -mx-1 md:flex flex-col">
+                       <div class="relative pb-15 overflow-hidden">
+                           <img class="inline h-12 w-25" :src="seller.logo">
+                       </div>
+                       <div class="p-1">
+                           <span class="inline-block px-2 py-1 leading-none bg-blue-200 text-blue-800 rounded-full font-semibold uppercase tracking-wide text-xs">Seguro</span>
+                           <h2 class="mt-2 mb-2  font-bold">Compañía De Seguros en Santo Domingo</h2>
+                       </div>
+                                   
+                                   <a class="mx-4 block p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+                                   
+                                   <label class="mb-1 text-xl font-semibold tracking-tight text-gray-900 dark:text-white"> 3 Meses -> RD$ 600</label><br><br>
+                                   
+                                   <label class="mb-1 text-xl font-semibold tracking-tight text-gray-900 dark:text-white"> 6 Meses -> RD$ 6000</label><br><br>
+                                   
+                                   <label class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white"> 12 Meses -> RD$ 60000</label>
+                                   </a>
+                               <div class="" style='text-align: center'>
+                                   <button @click="procesar(seller.insurances_id, seller.vehicle_type_id)" class="bg-blue-500 hover:bg-blue-600 shadow-lg shadow-blue-500/50 text-white font-bold rounded-lg w-12 py-2 mt-1 sm:m-3 sm:w-30 md:m-3 md:w-40 xl:m-3 xl:w-50" >Continuar</button>
+                               </div>
+           </div>
+       </div>
+      </div>
+   </div>
+  
 
 </template>
-
-<style scoped></style>
-
 <script>
-import { defineComponent } from "vue";
-import { Head, Link } from "@inertiajs/inertia-vue3";
+   import { Head, Link } from '@inertiajs/inertia-vue3';
+import { watch } from '@vue/runtime-core';
+export default {
+   components:{
+       Head,
+       Link
+   },
+   props:{
+     /* car: Array,
+      sellers: Array,
+      token: String,
+      clien_id: String,*/
+   },
+   mounted(){
+       /*this.form.servicios = document.getElementById('servicios').value*/
 
-export default defineComponent({
-    components: {
-        Head,
-        Link,
-    /*    ResponseCode,
-        TransactionID,
-        RemoteResponseCode,
-        AuthorizationCode,
-        RetrivalReferenceNumber,
-        TxToken*/
-    },
+   },
+   data(){
+       /*return{
+           form:{
+               car: this.car,
+               seller: this.sellers,
+               token: this.token,
+               policyTime: '',
+               clien_id: this.clien_id,
+               servicios: ''
+           }
+       }*/
+   },
+   methods:{
+       /* procesar: function (insurances_id, vehicle_type_id) {
+           this.$inertia.post(this.route('services',insurances_id), this.form)
+       } */
+   },
 
-    props: {},
-    mounted(){
-       /* console.log('ResponseCode: ' + this.ResponseCode)
-        console.log('TransactionID: ' + this.TransactionID)
-        console.log('RemoteResponseCode: ' + this.RemoteResponseCode)
-        console.log('AuthorizationCode: ' + this.AuthorizationCode)
-        console.log('RetrivalReferenceNumber: ' + this.RetrivalReferenceNumber)
-        console.log('TxToken: ' + this.TxToken)*/
-    }
-});
+}
 </script>
+
