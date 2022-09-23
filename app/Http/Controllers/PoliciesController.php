@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Client;
+use App\Models\Discounts;
 use App\Models\Insurance;
 use App\Models\Invoices;
 use App\Models\Price;
@@ -10,12 +11,9 @@ use App\Models\Service;
 use App\Models\Vehicle_brands;
 use App\Models\Vehicle_models;
 use App\Models\Vehicle_type_tarif;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\Http;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Js;
 
 use function PHPUnit\Framework\isEmpty;
 use function PHPUnit\Framework\isNull;
@@ -117,6 +115,8 @@ class PoliciesController extends Controller
         }else{
             $policyTime = '12 Meses';
         }
+        //Traer los coddigos de descuentos activos
+        $codigosDescuento = Discounts::where('active','1')->get();
         return Inertia::render('Policy/approve', [
             'car' => $request->car,
             'tarifa' => $request->tarifa,
@@ -128,7 +128,8 @@ class PoliciesController extends Controller
             'modelo' => $modelo['descripcion'],
             'cliente' => $clente,
             'services' => $services,
-            'aseguradora' => $request->aseguradora
+            'aseguradora' => $request->aseguradora,
+            'codigosDescuento' => $codigosDescuento
         ]);
 
     }
@@ -188,6 +189,7 @@ class PoliciesController extends Controller
                 }
             }
         }
+        
         return Inertia::render('Policy/create', [
             'car' => $request->car,
            'tarifa' => $request->tarifa,

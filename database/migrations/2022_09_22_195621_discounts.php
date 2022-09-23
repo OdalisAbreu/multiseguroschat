@@ -16,7 +16,7 @@ class Discounts extends Migration
         Schema::create('discounts', function (Blueprint $table) {
             $table->id();
             $table->string('code');
-            $table->string('discount_amount');
+            $table->integer('discount_amount');
             $table->integer('active');
             $table->timestamps();
         });

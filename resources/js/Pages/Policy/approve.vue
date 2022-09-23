@@ -50,9 +50,14 @@
             </div>
 
             <div class="col-span-1">
-                Total a pagar: {{totalGeneral}}<br>
+                Sub Total: {{totalGeneral}}<br>
+                Descuento: {{form.descontar}}<br>
+                Total a pagar:  {{form.totalGeneral}}<br>
                 <form @submit.prevent="submit">
-                    <input class="rounded-lg w-full mt-4 sm:m-3 sm:w-30 md:m-3 md:w-50 xl:m-3 xl:w-80" type="text" placeholder="Códigos de descuento" v-model="form.descuento">
+                    <input class="rounded-lg w-full mt-4 sm:m-3 sm:w-30 md:m-3 md:w-50 xl:m-3 xl:w-80" type="text" id="codigo" placeholder="Códigos de descuento" v-model="form.descuento">
+                   <a @click="descuento()" class="bg-blue-600 hover:bg-blue-700 shadow-lg shadow-lime-500/50 text-white font-bold rounded-lg w-full py-3 px-3 mt-5 sm:m-3 sm:w-30 md:m-3 md:w-40 xl:m-3 xl:w-50"> 
+                   Aplicar Descuento 
+                   </a>
                     <div class="mt-5">
                         <button class="bg-lime-600 hover:bg-lime-700 shadow-lg shadow-lime-500/50 text-white font-bold rounded-lg w-full py-3 mt-5 sm:m-3 sm:w-30 md:m-3 md:w-40 xl:m-3 xl:w-50">
                             Confirmar
@@ -91,8 +96,10 @@ export default {
        cliente: Array,
        totalGeneral: String,
        aseguradora: String,
+       codigosDescuento: Array
     },
     mounted(){
+   //     console.log(this.codigosDescuento)
     },
     data(){
         return{
@@ -103,7 +110,8 @@ export default {
                 totalGeneral: this.totalGeneral,
                 policyTime: this.policyTime,
                 sellers: this.sellers,
-                descuento:'',
+                descuento: '',
+                descontar: 0
 
             }
         }
@@ -111,6 +119,27 @@ export default {
     methods:{
         submit(){
             this.$inertia.post(this.route('generatepolicy'), this.form)
+        },
+        descuento(){
+            var codigoIngresado = document.getElementById('codigo').value
+            var count = 0
+            var percentage = 0 
+           this.codigosDescuento.forEach(function(codigo) {
+                if(codigoIngresado == codigo.code){
+                    count++
+                    percentage = codigo.discount_amount
+                }
+            });
+            console.log(percentage)
+            this.form.descontar = this.totalGeneral * percentage / 100
+            var aplicado =  this.totalGeneral - this.form.descontar
+            console.log(aplicado)
+            if(count > 0){
+                this.form.totalGeneral = aplicado
+            }else{
+                alert('Código vencido o invalido, favor de verificar su código e introducirlo nuevamente')
+                document.getElementById('codigo').value = ''
+            }
         }
     },
     watch: {

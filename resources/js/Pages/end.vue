@@ -40,12 +40,12 @@ export default defineComponent({
 
     props: {},
     mounted(){
-        console.log('ResponseCode: ' + ResponseCode)
-        console.log('TransactionID: ' + TransactionID)
-        console.log('RemoteResponseCode: ' + RemoteResponseCode)
-        console.log('AuthorizationCode: ' + AuthorizationCode)
-        console.log('RetrivalReferenceNumber: ' + RetrivalReferenceNumber)
-        console.log('TxToken: ' + TxToken)
+        console.log('ResponseCode: ' + this.ResponseCode)
+        console.log('TransactionID: ' + this.TransactionID)
+        console.log('RemoteResponseCode: ' + this.RemoteResponseCode)
+        console.log('AuthorizationCode: ' + this.AuthorizationCode)
+        console.log('RetrivalReferenceNumber: ' + this.RetrivalReferenceNumber)
+        console.log('TxToken: ' + this.TxToken)
     }
 });
 </script>

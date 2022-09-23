@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Discounts;
 use App\Models\Invoices;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -9,6 +10,8 @@ use Inertia\Inertia;
 class PaymentController extends Controller
 {
     public function visaNet(Request $request){
+        $codigo = Discounts::where([['code',$request->descuento],['active', 1]])->get();
+        return $codigo[0]->id;
         $urlReturn = 'https://multiseguros.botpropanel.com/api/statusPayment';
         $servicios = [];
         $token = $request->token;
@@ -37,6 +40,7 @@ class PaymentController extends Controller
         $invoice->car_model = $request->car['modelo'];
         $invoice->client_id = $request->cliente['cardnumber'];
         $invoice->services = $serviciosString;
+        $invoice->discount_id = $codigo[0]->id;
         $invoice->payment_status = 'peding';
         $invoice->save();
 
@@ -101,6 +105,10 @@ class PaymentController extends Controller
     }
 
     public function cardNet(Request $request){
+        
+        $codigo = Discounts::where([['code',$request->descuento],['active', 1]])->get();
+        return $codigo[0]->id;
+        
         $urlReturn = 'https://multiseguros.botpropanel.com/api/statusPayment';
         $servicios = [];
         if($request->policyTime == '3 Meses'){
@@ -129,6 +137,7 @@ class PaymentController extends Controller
         $invoice->car_model = $request->car['modelo'];
         $invoice->client_id = $request->cliente['cardnumber'];
         $invoice->services = $serviciosString;
+        $invoice->discount_id = $codigo[0]->id;
         $invoice->payment_status = 'peding';
         $invoice->save();
         

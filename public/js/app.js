@@ -20994,9 +20994,11 @@ __webpack_require__.r(__webpack_exports__);
     modelo: String,
     cliente: Array,
     totalGeneral: String,
-    aseguradora: String
+    aseguradora: String,
+    codigosDescuento: Array
   },
-  mounted: function mounted() {},
+  mounted: function mounted() {//     console.log(this.codigosDescuento)
+  },
   data: function data() {
     return {
       form: {
@@ -21006,13 +21008,36 @@ __webpack_require__.r(__webpack_exports__);
         totalGeneral: this.totalGeneral,
         policyTime: this.policyTime,
         sellers: this.sellers,
-        descuento: ''
+        descuento: '',
+        descontar: 0
       }
     };
   },
   methods: {
     submit: function submit() {
       this.$inertia.post(this.route('generatepolicy'), this.form);
+    },
+    descuento: function descuento() {
+      var codigoIngresado = document.getElementById('codigo').value;
+      var count = 0;
+      var percentage = 0;
+      this.codigosDescuento.forEach(function (codigo) {
+        if (codigoIngresado == codigo.code) {
+          count++;
+          percentage = codigo.discount_amount;
+        }
+      });
+      console.log(percentage);
+      this.form.descontar = this.totalGeneral * percentage / 100;
+      var aplicado = this.totalGeneral - this.form.descontar;
+      console.log(aplicado);
+
+      if (count > 0) {
+        this.form.totalGeneral = aplicado;
+      } else {
+        alert('Código vencido o invalido, favor de verificar su código e introducirlo nuevamente');
+        document.getElementById('codigo').value = '';
+      }
     }
   },
   watch: {
@@ -21774,12 +21799,12 @@ __webpack_require__.r(__webpack_exports__);
   },
   props: {},
   mounted: function mounted() {
-    console.log('ResponseCode: ' + ResponseCode);
-    console.log('TransactionID: ' + TransactionID);
-    console.log('RemoteResponseCode: ' + RemoteResponseCode);
-    console.log('AuthorizationCode: ' + AuthorizationCode);
-    console.log('RetrivalReferenceNumber: ' + RetrivalReferenceNumber);
-    console.log('TxToken: ' + TxToken);
+    console.log('ResponseCode: ' + this.ResponseCode);
+    console.log('TransactionID: ' + this.TransactionID);
+    console.log('RemoteResponseCode: ' + this.RemoteResponseCode);
+    console.log('AuthorizationCode: ' + this.AuthorizationCode);
+    console.log('RetrivalReferenceNumber: ' + this.RetrivalReferenceNumber);
+    console.log('TxToken: ' + this.TxToken);
   }
 }));
 
@@ -25476,16 +25501,8 @@ var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 /* HOISTED */
 );
 
-var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("footer", {
-  "class": "bg-white rounded-lg shadow md:flex md:items-center md:justify-between dark:bg-gray-800"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "absolute inset-x-0 bottom-0 h-10 pl-4 text-gray-500 dark:text-gray-400"
-}, "Seguros Chat 2.0.1")], -1
-/* HOISTED */
-);
-
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("main", _hoisted_1, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", _hoisted_3, [_hoisted_4, _hoisted_5, _hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("main", _hoisted_1, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", _hoisted_3, [_hoisted_4, _hoisted_5, _hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "hidden",
     name: "MerchantType",
     id: "MerchantType",
@@ -25584,9 +25601,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     })
   }, null, 512
   /* NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.form.clientip]]), _hoisted_9, _hoisted_10, _hoisted_11])]), _hoisted_12], 64
-  /* STABLE_FRAGMENT */
-  );
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.form.clientip]]), _hoisted_9, _hoisted_10, _hoisted_11])]);
 }
 
 /***/ }),
@@ -26220,7 +26235,15 @@ var _hoisted_27 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 /* HOISTED */
 );
 
-var _hoisted_28 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_28 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1
+/* HOISTED */
+);
+
+var _hoisted_29 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1
+/* HOISTED */
+);
+
+var _hoisted_30 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "mt-5"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
   "class": "bg-lime-600 hover:bg-lime-700 shadow-lg shadow-lime-500/50 text-white font-bold rounded-lg w-full py-3 mt-5 sm:m-3 sm:w-30 md:m-3 md:w-40 xl:m-3 xl:w-50"
@@ -26259,22 +26282,32 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     ), _hoisted_25]);
   }), 128
   /* KEYED_FRAGMENT */
-  ))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_26, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Total a pagar: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.totalGeneral), 1
+  ))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_26, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Sub Total: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.totalGeneral), 1
   /* TEXT */
-  ), _hoisted_27, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
-    onSubmit: _cache[1] || (_cache[1] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
+  ), _hoisted_27, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Descuento: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.form.descontar), 1
+  /* TEXT */
+  ), _hoisted_28, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Total a pagar: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.form.totalGeneral), 1
+  /* TEXT */
+  ), _hoisted_29, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
+    onSubmit: _cache[2] || (_cache[2] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
       return $options.submit && $options.submit.apply($options, arguments);
     }, ["prevent"]))
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     "class": "rounded-lg w-full mt-4 sm:m-3 sm:w-30 md:m-3 md:w-50 xl:m-3 xl:w-80",
     type: "text",
+    id: "codigo",
     placeholder: "Códigos de descuento",
     "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
       return $data.form.descuento = $event;
     })
   }, null, 512
   /* NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.form.descuento]]), _hoisted_28], 32
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.form.descuento]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+    onClick: _cache[1] || (_cache[1] = function ($event) {
+      return $options.descuento();
+    }),
+    "class": "bg-blue-600 hover:bg-blue-700 shadow-lg shadow-lime-500/50 text-white font-bold rounded-lg w-full py-3 px-3 mt-5 sm:m-3 sm:w-30 md:m-3 md:w-40 xl:m-3 xl:w-50"
+  }, " Aplicar Descuento "), _hoisted_30], 32
   /* HYDRATE_EVENTS */
   )])])])], 64
   /* STABLE_FRAGMENT */
@@ -27986,7 +28019,7 @@ var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
   "class": "bg-white rounded-lg shadow md:flex md:items-center md:justify-between dark:bg-gray-800"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "absolute inset-x-0 bottom-0 h-10 pl-4 text-gray-500 dark:text-gray-400"
-}, "Seguros Chat 2.0.1")], -1
+}, "Seguros Chat 2.0.2")], -1
 /* HOISTED */
 );
 

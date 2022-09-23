@@ -24,9 +24,7 @@ class DataPaymentGateway extends Migration
             //FK
             $table->integer('insurance_id');
             $table->foreign('insurance_id')->references('id')->on('insurances');
-            //FK
             $table->integer('payment_gateway_id');
-            $table->foreign('payment_gateway_id')->references('id')->on('payment_gateway');
 
             $table->timestamps();
         });
