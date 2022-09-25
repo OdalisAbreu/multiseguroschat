@@ -27948,7 +27948,7 @@ var _hoisted_1 = {
   "class": "bg-white max-w-lg mx-auto p-8 md:p-12 my-10 rounded-lg shadow-2xl"
 };
 
-var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"text-center\"><img class=\"inline\" src=\"/ima/sc_ic.png.jpg\"></div><div class=\"text-center\"><h3 class=\"font-bold text-2xl text-center\"> ¡Gracias por confiar en nosotros! </h3><h3 class=\"font-bold text-2xl text-center\"> Para poder visualizar tu póliza dirígete a WhatsApp haciendo clic en el botón y selecciona la opción “Quiero ver mi póliza” </h3><div class=\"mt-5\"><a class=\"bg-blue-500 hover:bg-blue-600 shadow-lg shadow-blue-500/50 text-white font-bold rounded-lg w-full py-3 px-6 mt-5 sm:m-3 sm:w-30 md:m-3 md:w-40 xl:m-3 xl:w-50\" href=\"https://api.whatsapp.com/send/?phone=18297624444&amp;text&amp;type=phone_number&amp;app_absent=0\">WhatsApp</a></div></div>", 2);
+var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"text-center\"><img class=\"inline\" src=\"/ima/sc_ic.png\"></div><div class=\"text-center\"><h3 class=\"font-bold text-2xl text-center\"> ¡Gracias por confiar en nosotros! </h3><h3 class=\"font-bold text-2xl text-center\"> Para poder visualizar tu póliza dirígete a WhatsApp haciendo clic en el botón y selecciona la opción “Quiero ver mi póliza” </h3><div class=\"mt-5\"><a class=\"bg-blue-500 hover:bg-blue-600 shadow-lg shadow-blue-500/50 text-white font-bold rounded-lg w-full py-3 px-6 mt-5 sm:m-3 sm:w-30 md:m-3 md:w-40 xl:m-3 xl:w-50\" href=\"https://api.whatsapp.com/send/?phone=18297624444&amp;text&amp;type=phone_number&amp;app_absent=0\">WhatsApp</a></div></div>", 2);
 
 var _hoisted_4 = [_hoisted_2];
 function render(_ctx, _cache, $props, $setup, $data, $options) {

@@ -207,10 +207,8 @@ class InvoicesController extends Controller
             $descuento = Discounts::find($invoice->discount_id);
             $descuento->active = 0;
             $descuento->update();
-            return $descuento;
         }
     //-------------------------------------------------------------------------------------------
-    return $invoice;
          /*   echo 'ResponseCode:'. $request->ResponseCode. '<br/>';
             echo 'TransactionID:'. $request->TransactionID. '<br/>';
             echo 'RemoteResponseCode:'. $request->RemoteResponseCode. '<br/>';

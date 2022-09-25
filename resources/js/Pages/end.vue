@@ -3,7 +3,7 @@
         class="bg-white max-w-lg mx-auto p-8 md:p-12 my-10 rounded-lg shadow-2xl"
     >
         <div class="text-center">
-            <img class="inline" src="/ima/sc_ic.png.jpg">
+            <img class="inline" src="/ima/sc_ic.png">
         </div>
         <div class="text-center">
             <h3 class="font-bold text-2xl text-center">
