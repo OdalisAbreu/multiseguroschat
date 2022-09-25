@@ -17,20 +17,20 @@
         </div>
     <div class="p-3 px-5 sm:px-5 md:px-5 xl:px-5">
         <form @submit.prevent="submit">
-            <label class="p-5 font-bold">Nombres</label><br>
-            <input class="rounded-lg w-full mt-4 mb-4 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80" type="text" placeholder="Nombre" v-model="form.name">
-            <br><label class="p-5 font-bold">Apellidos</label><br>
-            <input class="rounded-lg w-full mt-4 mb-4  sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80" type="text" placeholder="Apellido" v-model="form.lastname">
-            <br><label class="p-5 font-bold">No. de Cédula</label><br>
-            <input class="rounded-lg w-full mt-4 mb-4  sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80" type="text" placeholder="Cédula" v-model="form.cardnumber">
-            <br><label class="p-5 font-bold">Celular</label><br>
-            <input class="rounded-lg w-full mt-4 mb-4  sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80" type="text" placeholder="Telefono" v-model="form.phonenumber">
-            <br><label class="p-5 font-bold">Correo Electrónico</label><br>
-            <input class="rounded-lg w-full mt-4 mb-4  sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80" type="text" placeholder="Email" v-model="form.email">
-            <br><label class="p-5 font-bold">Dirección</label><br>
-            <input class="rounded-lg w-full mt-4 mb-4  sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80" type="text" placeholder="Dirección" v-model="form.adrress">
-            <br><label class="p-5 font-bold">Ciudad</label><br>
-            <input class="rounded-lg w-full mt-4 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80" type="text" placeholder="Ciudad" v-model="form.city">
+            <label class="p-2 font-bold">Nombres</label><br>
+            <input class="rounded-lg w-full mb-4 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80" type="text" placeholder="Nombre" v-model="form.name" required>
+            <br><label class="p-2 font-bold">Apellidos</label><br>
+            <input class="rounded-lg w-full mb-4  sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80" type="text" placeholder="Apellido" v-model="form.lastname" required>
+            <br><label class="p-2 font-bold">No. de Cédula</label><br>
+            <input class="rounded-lg w-full mb-4  sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80" type="text" placeholder="Cédula" v-model="form.cardnumber" required>
+            <br><label class="p-2 font-bold">Celular</label><br>
+            <input class="rounded-lg w-full mb-4  sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80" type="text" placeholder="Telefono" v-model="form.phonenumber" required>
+            <br><label class="p-2 font-bold">Correo Electrónico</label><br>
+            <input class="rounded-lg w-full mb-4  sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80" type="text" placeholder="Email" v-model="form.email" required>
+            <br><label class="p-2 font-bold">Dirección</label><br>
+            <input class="rounded-lg w-full mb-4  sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80" type="text" placeholder="Dirección" v-model="form.adrress" required>
+            <br><label class="p-2 font-bold">Ciudad</label><br>
+            <input class="rounded-lg w-full sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80" type="text" placeholder="Ciudad" v-model="form.city" required>
                 <div class="mt-5 mx-5 my-4">
                     <button class="bg-blue-500 hover:bg-blue-600 shadow-lg shadow-blue-500/50 text-white font-bold rounded-lg w-full py-3 mt-5 sm:m-3 sm:w-30 md:m-3 md:w-40 xl:m-3 xl:w-50" >Continuar</button>
                 </div>

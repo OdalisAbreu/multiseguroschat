@@ -21759,32 +21759,41 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
-/* harmony import */ var _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @inertiajs/inertia-vue3 */ "./node_modules/@inertiajs/inertia-vue3/dist/index.js");
+/* harmony import */ var _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @inertiajs/inertia-vue3 */ "./node_modules/@inertiajs/inertia-vue3/dist/index.js");
 
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,vue__WEBPACK_IMPORTED_MODULE_0__.defineComponent)({
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
-    Head: _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_1__.Head,
-    Link: _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_1__.Link
-    /*    ResponseCode,
-        TransactionID,
-        RemoteResponseCode,
-        AuthorizationCode,
-        RetrivalReferenceNumber,
-        TxToken*/
-
+    Head: _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_0__.Head,
+    Link: _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_0__.Link
   },
-  props: {},
+  props: {
+    /* car: Array,
+     sellers: Array,
+     token: String,
+     clien_id: String,*/
+  },
   mounted: function mounted() {
-    /* console.log('ResponseCode: ' + this.ResponseCode)
-     console.log('TransactionID: ' + this.TransactionID)
-     console.log('RemoteResponseCode: ' + this.RemoteResponseCode)
-     console.log('AuthorizationCode: ' + this.AuthorizationCode)
-     console.log('RetrivalReferenceNumber: ' + this.RetrivalReferenceNumber)
-     console.log('TxToken: ' + this.TxToken)*/
+    /*this.form.servicios = document.getElementById('servicios').value*/
+  },
+  data: function data() {
+    /*return{
+        form:{
+            car: this.car,
+            seller: this.sellers,
+            token: this.token,
+            policyTime: '',
+            clien_id: this.clien_id,
+            servicios: ''
+        }
+    }*/
+  },
+  methods: {
+    /* procesar: function (insurances_id, vehicle_type_id) {
+        this.$inertia.post(this.route('services',insurances_id), this.form)
+    } */
   }
-}));
+});
 
 /***/ }),
 
@@ -25100,7 +25109,7 @@ var _hoisted_4 = {
 };
 
 var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
-  "class": "p-5 font-bold"
+  "class": "p-2 font-bold"
 }, "Nombres", -1
 /* HOISTED */
 );
@@ -25114,7 +25123,7 @@ var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
 );
 
 var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
-  "class": "p-5 font-bold"
+  "class": "p-2 font-bold"
 }, "Apellidos", -1
 /* HOISTED */
 );
@@ -25128,7 +25137,7 @@ var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 );
 
 var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
-  "class": "p-5 font-bold"
+  "class": "p-2 font-bold"
 }, "No. de Cédula", -1
 /* HOISTED */
 );
@@ -25142,7 +25151,7 @@ var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 );
 
 var _hoisted_14 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
-  "class": "p-5 font-bold"
+  "class": "p-2 font-bold"
 }, "Celular", -1
 /* HOISTED */
 );
@@ -25156,7 +25165,7 @@ var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 );
 
 var _hoisted_17 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
-  "class": "p-5 font-bold"
+  "class": "p-2 font-bold"
 }, "Correo Electrónico", -1
 /* HOISTED */
 );
@@ -25170,7 +25179,7 @@ var _hoisted_19 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 );
 
 var _hoisted_20 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
-  "class": "p-5 font-bold"
+  "class": "p-2 font-bold"
 }, "Dirección", -1
 /* HOISTED */
 );
@@ -25184,7 +25193,7 @@ var _hoisted_22 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 );
 
 var _hoisted_23 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
-  "class": "p-5 font-bold"
+  "class": "p-2 font-bold"
 }, "Ciudad", -1
 /* HOISTED */
 );
@@ -25207,66 +25216,73 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return $options.submit && $options.submit.apply($options, arguments);
     }, ["prevent"]))
   }, [_hoisted_5, _hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    "class": "rounded-lg w-full mt-4 mb-4 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80",
+    "class": "rounded-lg w-full mb-4 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80",
     type: "text",
     placeholder: "Nombre",
     "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
       return $data.form.name = $event;
-    })
+    }),
+    required: ""
   }, null, 512
   /* NEED_PATCH */
   ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.form.name]]), _hoisted_7, _hoisted_8, _hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    "class": "rounded-lg w-full mt-4 mb-4 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80",
+    "class": "rounded-lg w-full mb-4 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80",
     type: "text",
     placeholder: "Apellido",
     "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
       return $data.form.lastname = $event;
-    })
+    }),
+    required: ""
   }, null, 512
   /* NEED_PATCH */
   ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.form.lastname]]), _hoisted_10, _hoisted_11, _hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    "class": "rounded-lg w-full mt-4 mb-4 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80",
+    "class": "rounded-lg w-full mb-4 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80",
     type: "text",
     placeholder: "Cédula",
     "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
       return $data.form.cardnumber = $event;
-    })
+    }),
+    required: ""
   }, null, 512
   /* NEED_PATCH */
   ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.form.cardnumber]]), _hoisted_13, _hoisted_14, _hoisted_15, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    "class": "rounded-lg w-full mt-4 mb-4 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80",
+    "class": "rounded-lg w-full mb-4 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80",
     type: "text",
     placeholder: "Telefono",
     "onUpdate:modelValue": _cache[3] || (_cache[3] = function ($event) {
       return $data.form.phonenumber = $event;
-    })
+    }),
+    required: ""
   }, null, 512
   /* NEED_PATCH */
   ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.form.phonenumber]]), _hoisted_16, _hoisted_17, _hoisted_18, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    "class": "rounded-lg w-full mt-4 mb-4 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80",
+    "class": "rounded-lg w-full mb-4 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80",
     type: "text",
     placeholder: "Email",
     "onUpdate:modelValue": _cache[4] || (_cache[4] = function ($event) {
       return $data.form.email = $event;
-    })
+    }),
+    required: ""
   }, null, 512
   /* NEED_PATCH */
   ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.form.email]]), _hoisted_19, _hoisted_20, _hoisted_21, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    "class": "rounded-lg w-full mt-4 mb-4 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80",
+    "class": "rounded-lg w-full mb-4 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80",
     type: "text",
     placeholder: "Dirección",
     "onUpdate:modelValue": _cache[5] || (_cache[5] = function ($event) {
       return $data.form.adrress = $event;
-    })
+    }),
+    required: ""
   }, null, 512
   /* NEED_PATCH */
   ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.form.adrress]]), _hoisted_22, _hoisted_23, _hoisted_24, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    "class": "rounded-lg w-full mt-4 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80",
+    "class": "rounded-lg w-full sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80",
     type: "text",
     placeholder: "Ciudad",
     "onUpdate:modelValue": _cache[6] || (_cache[6] = function ($event) {
       return $data.form.city = $event;
-    })
+    }),
+    required: ""
   }, null, 512
   /* NEED_PATCH */
   ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.form.city]]), _hoisted_25], 32
@@ -26481,7 +26497,7 @@ var _hoisted_10 = {
 };
 
 var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", {
-  "class": "mt-2 mb-2 font-bold"
+  "class": "mt-2 mb-1 font-bold"
 }, "Compañía De Seguros en Santo Domingo", -1
 /* HOISTED */
 );
@@ -26515,24 +26531,15 @@ var _hoisted_19 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 );
 
 var _hoisted_20 = {
-  "class": "mb-1 text-xl font-semibold tracking-tight text-gray-900 dark:text-white"
+  "class": "text-xl font-semibold tracking-tight text-gray-900 dark:text-white"
 };
-
-var _hoisted_21 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1
-/* HOISTED */
-);
-
-var _hoisted_22 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1
-/* HOISTED */
-);
-
-var _hoisted_23 = {
-  "class": "mt-5 mb-5 mx-5 my-4",
+var _hoisted_21 = {
+  "class": "",
   style: {
     "text-align": "center"
   }
 };
-var _hoisted_24 = ["onClick"];
+var _hoisted_22 = ["onClick"];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [_hoisted_1, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"antialiased text-gray-900 font-sans p-6\" v-for=\"seller in sellers\" :key=\"seller.id\">\r\n    <div class=\"container mx-auto\">\r\n        <div class=\"flex flex-wrap -mx-1 md:flex flex-col\">\r\n            <div class=\"w-full p-4 sm:w-1/4 md:w-1/2 xl:w-1/3\">\r\n                <a @click.prevent=\"sentDate(seller.id)\" class=\"c-card block bg-white shadow-md  hover:shadow-xl rounded-lg overflow-hidden\">\r\n                    <div class=\"relative pb-48 overflow-hidden\">\r\n                        <img class=\"absolute  inset-0 h-full w-full object-cover\" src=\"https://images.unsplash.com/photo-1605152276897-4f618f831968?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80\">\r\n            </div>\r\n                    <div class=\"p-4\">\r\n                        <span class=\"inline-block px-2 py-1 leading-none bg-orange-200 text-orange-800 rounded-full font-semibold uppercase tracking-wide text-xs\">{{seller.id}} -\r\n                            {{seller.insurace}}</span>\r\n                        <h2 class=\"mt-2 mb-2  font-bold\">Compañía De Seguros en Santo Domingo</h2>\r\n                        <p class=\"text-sm\">Calle Doctor Jacinto Ignacio Mañón 15 Santo Domingo República Dominicana.</p>\r\n                            <div class=\"mt-3 flex items-center\">\r\n                            <span class=\"font-bold text-xl\">Click Aqui</span>\r\n                            </div>\r\n                    </div>\r\n                </a>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    </div>"), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.sellers, function (seller) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
@@ -26560,7 +26567,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       })
     }, null, 512
     /* NEED_PATCH */
-    ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelRadio, $data.form.policyTime]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", _hoisted_14, " 3 Meses -> " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(seller.tresmeses), 1
+    ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelRadio, $data.form.policyTime]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", _hoisted_14, " 3 Meses -> RD$ " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(seller.tresmeses), 1
     /* TEXT */
     ), _hoisted_15, _hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
       type: "radio",
@@ -26571,7 +26578,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       })
     }, null, 512
     /* NEED_PATCH */
-    ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelRadio, $data.form.policyTime]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", _hoisted_17, " 6 Meses -> " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(seller.seismeses), 1
+    ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelRadio, $data.form.policyTime]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", _hoisted_17, " 6 Meses -> RD$ " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(seller.seismeses), 1
     /* TEXT */
     ), _hoisted_18, _hoisted_19, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
       type: "radio",
@@ -26582,16 +26589,16 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       })
     }, null, 512
     /* NEED_PATCH */
-    ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelRadio, $data.form.policyTime]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", _hoisted_20, " 12 Meses -> " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(seller.docemeses), 1
+    ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelRadio, $data.form.policyTime]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", _hoisted_20, " 12 Meses -> RD$ " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(seller.docemeses), 1
     /* TEXT */
-    ), _hoisted_21, _hoisted_22]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_23, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_21, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
       onClick: function onClick($event) {
         return $options.procesar(seller.insurances_id, seller.vehicle_type_id);
       },
-      "class": "bg-blue-500 hover:bg-blue-600 shadow-lg shadow-blue-500/50 text-white font-bold rounded-lg w-full py-3 mt-5 sm:m-3 sm:w-30 md:m-3 md:w-40 xl:m-3 xl:w-50"
+      "class": "bg-blue-500 hover:bg-blue-600 shadow-lg shadow-blue-500/50 text-white font-bold rounded-lg w-full py-3 mt-1 sm:m-3 sm:w-30 md:m-3 md:w-40 xl:m-3 xl:w-50"
     }, "Continuar", 8
     /* PROPS */
-    , _hoisted_24)])])])])]);
+    , _hoisted_22)])])])])]);
   }), 128
   /* KEYED_FRAGMENT */
   ))], 64
@@ -27755,7 +27762,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
 
-var _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"w-full mb-2 rounded overflow-x-hidden border-t flex flex-col bg-black shadow-lg shadow-black-500/50\"><div class=\"p-2\"><img class=\"inline h-12 w-25\" src=\"/ima/sc2_ic.png\" alt=\"\"></div></div><div class=\"mx-3 mt-8 mb-4 sm:mx-20 lg:mx-20 xl:mx-20\"><div class=\"bg-gray-200 rounded-full\"><div class=\"bg-blue-500 text-xs font-medium text-blue-100 text-center p-1 leading-none rounded-l-full\" style=\"width:50%;\"></div></div></div><div class=\"mt-5 p-3\"><div class=\"text-2xl font-bold sm:text-2xl md:text-3xl xl:text-3xl\">Registra los datos de tu vehículo</div></div>", 3);
+var _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"w-full mb-2 rounded overflow-x-hidden border-t flex flex-col bg-black shadow-lg shadow-black-500/50\"><div class=\"p-2\"><img class=\"inline h-12 w-25\" src=\"/ima/sc2_ic.png\" alt=\"\"></div></div><div class=\"mx-3 mt-8 mb-4 sm:mx-20 lg:mx-20 xl:mx-20\"><div class=\"bg-gray-200 rounded-full\"><div class=\"bg-blue-500 text-xs font-medium text-blue-100 text-center p-1 leading-none rounded-l-full\" style=\"width:50%;\"></div></div></div><div class=\"text-center mt-5 p-3\"><div class=\"text-2xl font-bold sm:text-2xl md:text-3xl xl:text-3xl\">Registra los datos de tu vehículo</div></div>", 3);
 
 var _hoisted_4 = {
   "class": "p-3 px-5 sm:px-5 md:px-5 xl:px-5"
@@ -27918,15 +27925,55 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
-var _hoisted_1 = {
-  "class": "bg-white max-w-lg mx-auto p-8 md:p-12 my-10 rounded-lg shadow-2xl"
+
+var _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"w-full mb-2 rounded overflow-x-hidden border-t flex flex-col bg-black shadow-lg shadow-black-500/50\"><div class=\"p-2\"><img class=\"inline h-12 w-25\" src=\"/ima/sc2_ic.png\" alt=\"\"></div></div><div class=\"mx-3 mt-8 mb-4 sm:mx-20 lg:mx-20 xl:mx-20\"><div class=\"bg-gray-200 rounded-full\"><div class=\"bg-blue-500 text-xs font-medium text-blue-100 text-center p-1 leading-none rounded-l-full\" style=\"width:75%;\"></div></div></div><div class=\"p-3\"><div class=\"text-center text-black font-bold text-2xl sm:text-2xl md:text-3xl xl:text-3xl\">Seleccione el seguro de su preferencia</div></div>", 3);
+
+var _hoisted_4 = {
+  "class": "w-full p-2"
 };
+var _hoisted_5 = {
+  "class": "container mx-auto"
+};
+var _hoisted_6 = {
+  "class": "flex flex-wrap -mx-1 md:flex flex-col"
+};
+var _hoisted_7 = {
+  "class": "relative pb-15 overflow-hidden"
+};
+var _hoisted_8 = ["src"];
 
-var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"text-center\"><img class=\"inline\" src=\"/ima/sc_ic.png\"></div><div class=\"text-center\"><h3 class=\"font-bold text-2xl text-center\"> ¡Gracias por confiar en nosotros! </h3><h3 class=\"font-bold text-2xl text-center\"> Para poder visualizar tu póliza dirígete a WhatsApp haciendo clic en el botón y selecciona la opción “Quiero ver mi póliza” </h3><div class=\"mt-5\"><a class=\"bg-blue-500 hover:bg-blue-600 shadow-lg shadow-blue-500/50 text-white font-bold rounded-lg w-full py-3 px-6 mt-5 sm:m-3 sm:w-30 md:m-3 md:w-40 xl:m-3 xl:w-50\" href=\"https://api.whatsapp.com/send/?phone=18297624444&amp;text&amp;type=phone_number&amp;app_absent=0\">WhatsApp</a></div></div>", 2);
+var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"p-1\"><span class=\"inline-block px-2 py-1 leading-none bg-blue-200 text-blue-800 rounded-full font-semibold uppercase tracking-wide text-xs\">Seguro</span><h2 class=\"mt-2 mb-2 font-bold\">Compañía De Seguros en Santo Domingo</h2></div><a class=\"mx-4 block p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700\"><label class=\"mb-1 text-xl font-semibold tracking-tight text-gray-900 dark:text-white\"> 3 Meses -&gt; RD$ 600</label><br><br><label class=\"mb-1 text-xl font-semibold tracking-tight text-gray-900 dark:text-white\"> 6 Meses -&gt; RD$ 6000</label><br><br><label class=\"text-xl font-semibold tracking-tight text-gray-900 dark:text-white\"> 12 Meses -&gt; RD$ 60000</label></a>", 2);
 
-var _hoisted_4 = [_hoisted_2];
+var _hoisted_11 = {
+  "class": "",
+  style: {
+    "text-align": "center"
+  }
+};
+var _hoisted_12 = ["onClick"];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("main", _hoisted_1, _hoisted_4);
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [_hoisted_1, ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(_ctx.sellers, function (seller) {
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
+      "class": "bg-white max-w-lg mx-auto p-8 my-10 rounded-lg shadow-2xl",
+      key: seller.id
+    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+      "class": "inline h-12 w-25",
+      src: seller.logo
+    }, null, 8
+    /* PROPS */
+    , _hoisted_8)]), _hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+      onClick: function onClick($event) {
+        return _ctx.procesar(seller.insurances_id, seller.vehicle_type_id);
+      },
+      "class": "bg-blue-500 hover:bg-blue-600 shadow-lg shadow-blue-500/50 text-white font-bold rounded-lg w-12 py-2 mt-1 sm:m-3 sm:w-30 md:m-3 md:w-40 xl:m-3 xl:w-50"
+    }, "Continuar", 8
+    /* PROPS */
+    , _hoisted_12)])])])])]);
+  }), 128
+  /* KEYED_FRAGMENT */
+  ))], 64
+  /* STABLE_FRAGMENT */
+  );
 }
 
 /***/ }),
