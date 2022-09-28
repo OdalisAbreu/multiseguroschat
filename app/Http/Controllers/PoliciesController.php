@@ -45,7 +45,7 @@ class PoliciesController extends Controller
                     ->select('insurances.nombre AS insurace','prefijo', 'logo' , 'color' , 'priceThreeMonths AS tresmeses',
                      'priceSixMonths AS seismeses', 'priceTwelveMonths AS docemeses', 'vehicle_type_tarifs.nombre AS vehicle_type', 
                      'insurances.id AS insurances_id', 'vehicle_type_tarifs.id_serv AS servicios','payment_gateway.value AS payment_gateway'
-                     ,'merchanttype', 'merchantnumber', 'merchantterminal','client_name')
+                     ,'merchanttype', 'merchantnumber', 'merchantterminal','client_name', 'vehicle_type_id')
                     ->get();
         return Inertia::render('Policy/index', [
             'car' => $car,
@@ -117,6 +117,7 @@ class PoliciesController extends Controller
         }
         //Traer los coddigos de descuentos activos
         $codigosDescuento = Discounts::where('active','1')->get();
+
         return Inertia::render('Policy/approve', [
             'car' => $request->car,
             'tarifa' => $request->tarifa,
@@ -128,8 +129,9 @@ class PoliciesController extends Controller
             'modelo' => $modelo['descripcion'],
             'cliente' => $clente,
             'services' => $services,
-            'aseguradora' => $request->aseguradora,
-            'codigosDescuento' => $codigosDescuento
+            'insurresId' => $request->insurresId,
+            'codigosDescuento' => $codigosDescuento,
+            'insurresId' => $request->insurresId
         ]);
 
     }
@@ -170,7 +172,6 @@ class PoliciesController extends Controller
 
     public function services($insurresId, Request $request){
         
-       //return $request->policyTime;
        if ($request->policyTime == ''){
            return 'Debes seleccionar u tiempo de vigencia de la póliza ';
         }
@@ -189,7 +190,6 @@ class PoliciesController extends Controller
                 }
             }
         }
-        
         return Inertia::render('Policy/create', [
             'car' => $request->car,
            'tarifa' => $request->tarifa,
@@ -197,7 +197,7 @@ class PoliciesController extends Controller
             'services' => $services,
             'policyTime' => $request->policyTime,
             'clien_id' => $request->clien_id,
-            'aseguradora' => $insurresId
+            'insurresId' => $insurresId
         ]);
 
     }

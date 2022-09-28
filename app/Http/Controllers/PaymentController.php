@@ -133,14 +133,13 @@ class PaymentController extends Controller
         }
         $serviciosString = json_encode($servicios); //transforma los id de los servicios para guardarlos en la Base de Datos 
        
-      
         $invoice = new Invoices();
         $invoice->policyTime = $policyTime;
         $invoice->chassis = $request->car['chasis'];
         $invoice->licensePlate = $request->car['placa'];
         $invoice->year = $request->car['year'];
         $invoice->totalGeneral = $request->totalGeneral;
-        $invoice->sellers_id = $request->sellers['insurances_id'];
+        $invoice->sellers_id = $request->insurresId;
         $invoice->car_tipe = $request->car['tipo'];
         $invoice->car_brand = $request->car['marca'];
         $invoice->car_model = $request->car['modelo'];

@@ -15,14 +15,22 @@
             <div class="text-black font-bold text-center text-2xl sm:text-2xl md:text-3xl xl:text-3xl">Cuales servicios deseas agregarle a tu seguro </div>
     </div>
    
-    <form @submit.prevent="submit">
-        <a class="mx-4 block p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-        <div v-for="service in services" :key="service.id" class="px-5">
-            <input type="checkbox" :checked="suma" :value="service.id" v-model="form.servicios"  name="poliza" >
-            <label class="mb-1 text-xl font-semibold tracking-tight text-gray-900 dark:text-white" > - {{ service.serviceName }} -> RD$ {{service.servicePrice}}</label><br><br>
-        </div>
-        </a>
-        <br><br>
+     <form @submit.prevent="submit">
+          <div class="mx-4 block p-2 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+            <div class="grid grid-cols-6 gap-4" v-for="service in services" :key="service.id">
+                <div class="col-span-1">
+                    <input type="checkbox" :checked="suma" :value="service.id" v-model="form.servicios"  name="poliza" >
+                </div>
+                <div class="col-span-3">
+                    <label class="" >{{ service.serviceName }}</label>
+                </div>
+                <div class="col-span-2">
+                     <label class="" > -> RD$ {{new Intl.NumberFormat('en-IN').format(service.servicePrice)}}.00</label>
+                </div>
+                <hr class="col-span-6">              
+            </div>
+          </div>
+    <br>
     <div class="mt-2 mx-5 my-4">
         <button class="bg-blue-500 hover:bg-blue-600 shadow-lg shadow-blue-500/50 text-white font-bold rounded-lg w-full py-3 mt-5 sm:m-3 sm:w-30 md:m-3 md:w-40 xl:m-3 xl:w-50" >Continuar</button>
     </div>   
@@ -44,9 +52,10 @@ export default {
        services: Array,
        policyTime: String,
        clien_id: String,
-       aseguradora: String,
+       insurresId: String,
     },
     mounted(){
+        console.log(this.insurresId)
     },
     data(){
         return{
@@ -59,7 +68,7 @@ export default {
                 policyTime: this.policyTime,
                 clien_id: this.clien_id,
                 servicios: [],
-                aseguradora: this.aseguradora
+                insurresId: this.insurresId
 
             }
         }

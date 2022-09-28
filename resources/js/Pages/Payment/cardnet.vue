@@ -2,7 +2,7 @@
     <main class="bg-white max-w-lg mx-auto p-8 md:p-12 my-10 rounded-lg shadow-2xl">
         <div class="text-center">
             <img class="inline" src="ima/sc_ic.png">
-            <h3 class="font-bold text-2xl text-center">Para procesar tu pago de manera segura pulsa Continuar </h3>
+            <h3 class="font-bold text-2xl text-center">Pulsa <i>CONTINUAR</i><br> para procesar tu pago de manera segura</h3>
             <img class="inline"  src="/ima/secutity.png" alt="">
         </div> 
             <form action='https://lab.cardnet.com.do/authorize' method='POST' name='CardNet' class='CardNet' id='CardNet'>
@@ -84,8 +84,8 @@ export default {
     },
     methods:{
         submit(){
-           // axios.post(this.route('https://testsecureacceptance.cybersource.com/pay'), this.form)
-           this.$inertia.psot(this.route('test.test', this.this.form))
+           axios.post(this.route('https://testsecureacceptance.cybersource.com/pay'), this.form)
+           //this.$inertia.psot(this.route('test.test', this.this.form))
         }
     },
 

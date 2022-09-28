@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\cities;
 use App\Models\Client;
+use App\Models\Municipalities;
+use App\Models\Province;
 use App\Models\Vehicle_brands;
 use App\Models\Vehicle_models;
 use App\Models\Vehicle_type_tarif;
+use Faker\Provider\sv_SE\Municipality;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Inertia\Inertia;
@@ -83,8 +87,14 @@ class ClientController extends Controller
         $client = Client::where('phonenumber', $phone)->first();
 
         if($client){
+            $cities = Municipalities::orderBy('descrip')->get();
+            $provinces = Province::orderBy('descrip')->get();
+            $clientProvince = Province::find($client->province);
             return Inertia::render('Clients/Edit', [
                 'client' => $client,
+                'cities' => $cities,
+                'provinces' => $provinces,
+                'clientProvince' => $clientProvince
             ]);
 
         }else{
@@ -113,6 +123,7 @@ class ClientController extends Controller
      */
     public function update(Request $request, $id)
     {
+
        $request->validate([
             'name' => 'required'
         ]);
@@ -124,10 +135,10 @@ class ClientController extends Controller
         $client->adrress = $request->adrress;
         $client->cardnumber = $request->cardnumber;
         $client->city = $request->city;
+        $client->province = $request->provincia;
         $client->phonenumber = $request->phonenumber;
         $client->save();
-
-
+                
         $tipos = Vehicle_type_tarif::orderBy('nombre')->get();
         $marcas = Vehicle_brands::orderBy('DESCRIPCION')->get();
         $modelos = Vehicle_models::orderBy('descripcion')->get();

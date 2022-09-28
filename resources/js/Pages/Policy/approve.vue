@@ -54,18 +54,21 @@
                 </div>
                 </div>
             </div>
- 
-            <div class="col-span-1">
-                <div class="w-full font-bold rounded  overflow-x-hidden border-t flex flex-col bg-gray-200"> 
-                    Sub Total: {{totalGeneral}}<br>
-                    Descuento: {{form.descontar}}<br>
-                    Total a pagar:  {{form.totalGeneral}}<br>
-                </div>
-                    <form @submit.prevent="submit">
-                        <input class="rounded-lg w-full mt-4 mb-4 sm:m-3 sm:w-30 md:m-3 md:w-50 xl:m-3 xl:w-80" type="text" id="codigo" placeholder="Códigos de descuento" v-model="form.descuento">
+            <div class="pb-5">
+                    <label>¿Tienes código de descuento? Digítalo acá</label>
+                    <input class="rounded-lg w-full mt-4 mb-4 sm:m-3 sm:w-30 md:m-3 md:w-50 xl:m-3 xl:w-80" type="text" id="codigo" placeholder="Códigos de descuento" v-model="form.descuento">
                     <a @click="descuento()" class="bg-blue-600 hover:bg-blue-700 shadow-lg shadow-lime-500/50 text-white font-bold rounded-lg w-full py-3 px-3 mt-5 sm:m-3 sm:w-30 md:m-3 md:w-40 xl:m-3 xl:w-50"> 
                     Aplicar Descuento 
                     </a>
+            </div>
+ 
+            <div class="col-span-1">
+                <div class="w-full font-bold rounded  overflow-x-hidden border-t flex flex-col bg-gray-200"> 
+                    Sub Total: {{new Intl.NumberFormat('en-IN').format(totalGeneral)}}<br>
+                    Descuento: {{new Intl.NumberFormat('en-IN').format(form.descontar)}}<br>
+                    Total a pagar:  {{new Intl.NumberFormat('en-IN').format(form.totalGeneral)}}<br>
+                </div>
+                    <form @submit.prevent="submit">
                         <div class="mt-5">
                             <button class="bg-blue-500 hover:bg-blue-600 shadow-lg shadow-blue-500/50 text-white font-bold rounded-lg w-full py-3 mt-5 sm:m-3 sm:w-30 md:m-3 md:w-40 xl:m-3 xl:w-50">
                                 Confirmar
@@ -103,7 +106,7 @@ export default {
        modelo: String,
        cliente: Array,
        totalGeneral: String,
-       aseguradora: String,
+       insurresId: String,
        codigosDescuento: Array
     },
     mounted(){
@@ -119,7 +122,8 @@ export default {
                 policyTime: this.policyTime,
                 sellers: this.sellers,
                 descuento: '',
-                descontar: 0
+                descontar: 0,
+                insurresId: this.insurresId
 
             }
         }

@@ -18,20 +18,24 @@
     </div>
 
     <div class="p-3 px-5 sm:px-5 md:px-5 xl:px-5">
-        <form @submit.prevent="submit">
-            <select class="rounded-lg w-full mt-4 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80" v-model="form.tipo" required>
-                <option value="" disabled selected hidden>TIPO DE VEHEHÍCULO</option>
+        <form @submit.prevent="submit"> 
+            <br><label class="p-2 font-bold">Tipo de Vehículo <label class="text-red-500">*</label> </label><br>
+            <select class="rounded-lg w-full mb-4 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80" v-model="form.tipo" required>
+                <option value="" disabled selected hidden>TIPO DE VEHÍCULO</option>
                 <option v-for="tipo in tipos" :value="tipo.id" :key="tipo.id">{{tipo.nombre}} </option>
             </select>
-            <select class="rounded-lg w-full mt-4 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80" v-model="marca" required>
+            <br><label class="p-2 font-bold">Marca <label class="text-red-500">*</label> </label><br>
+            <select class="rounded-lg w-full mb-4 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80" v-model="marca" required>
                 <option value="" disabled selected hidden>MARCA</option>
                 <option v-for="marca in marcas" :value="marca.ID" :key="marca.ID">{{marca.DESCRIPCION}} </option>
             </select>
-            <select class="rounded-lg w-full mt-4 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80" v-model="form.modelo" required>
+            <br><label class="p-2 font-bold">Modelo <label class="text-red-500">*</label> </label><br>
+            <select class="rounded-lg w-full bt-4 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80" v-model="form.modelo" required>
                 <option value="" disabled selected hidden>MODELO</option>
                 <option v-for="modelo in models" :value="modelo.ID" :key="modelo.ID">{{modelo.descripcion}} </option >
             </select>
-             <select class="rounded-lg w-full mt-4 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80" v-model="form.year" required>
+            <br><label class="p-2 font-bold">Año <label class="text-red-500">*</label> </label><br>
+             <select class="rounded-lg w-full mb-4 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80" v-model="form.year" required>
                 <option value="" disabled selected hidden>AÑO</option>
                 <option value="2022" >2023</option>
                 <option value="2022" >2022</option>
@@ -63,8 +67,10 @@
                 <option value="1996" >1996</option>
 
             </select>
-            <input class="rounded-lg w-full mt-4 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80" style="text-transform:uppercase;" type="text" placeholder="PLACA" v-model="form.placa" required>
-            <input class="rounded-lg w-full mt-4 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80" style="text-transform:uppercase;" type="text" placeholder="CHASSIS" v-model="form.chasis" required>
+            <br><label class="p-2 font-bold">No. de Placa <label class="text-red-500">*</label> </label><br>
+            <input class="rounded-lg w-full mb-4 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80" style="text-transform:uppercase;" type="text" placeholder="PLACA" v-model="form.placa" required>
+            <br><label class="p-2 font-bold">No. de Chassis <label class="text-red-500">*</label> </label><br>
+            <input class="rounded-lg w-full mb-4 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80" style="text-transform:uppercase;" type="text" placeholder="CHASSIS" v-model="form.chasis" required>
 
                 <div class="mt-5 mx-5 my-4">
                     <button class="bg-blue-500 hover:bg-blue-600 shadow-lg shadow-blue-500/50 text-white font-bold rounded-lg w-full py-3 mt-5 sm:m-3 sm:w-30 md:m-3 md:w-40 xl:m-3 xl:w-50" >Continuar</button>
@@ -88,13 +94,6 @@ export default {
        modelos: Array,
        clien_id: String,
        years: [2022, 2021, 2020]
-    },
-    methods: {
-
-         modelosMarca: function(){
-             this.models = this.modelos.filter(model => model.IDMARCA == 1)
-         },
-
     },
     data(){
         return {
@@ -121,6 +120,7 @@ export default {
     watch: {
              marca: function (value){
              this.models = this.modelos.filter(model => model.IDMARCA == value)
+             console.log('Entro')
          }
 
     }

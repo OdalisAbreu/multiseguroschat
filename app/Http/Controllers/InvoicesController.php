@@ -73,7 +73,7 @@ class InvoicesController extends Controller
                                             "cityOfResidence": "'.$city .'",
                                             "nationality": ""
                                         },
-                                        "insuranceCarrierId": 4,
+                                        "insuranceCarrierId": '.$invoices->sellers_id.',
                                         "services":  '.$invoices->services.',
                                         "policyStartDate": "'.gmdate("Y-m-d\TH:i:s\Z").'",
                                         "policyValidity": '.$invoices->policyTime.',
@@ -168,7 +168,7 @@ class InvoicesController extends Controller
                                         "cityOfResidence": "'.$city .'",
                                         "nationality": ""
                                     },
-                                    "insuranceCarrierId": 4,
+                                    "insuranceCarrierId": '.$invoices->sellers_id.',
                                     "services":  '.$invoices->services.',
                                     "policyStartDate": "'.gmdate("Y-m-d\TH:i:s\Z").'",
                                     "policyValidity": '.$invoices->policyTime.'
