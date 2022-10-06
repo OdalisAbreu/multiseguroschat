@@ -6,8 +6,11 @@
     </div>
     
      <div class="p-4 w-full text-center bg-white rounded-lg border shadow-md sm:p-8 dark:bg-gray-100 dark:border-gray-700">
+       
         <h5 class="mb-2 text-3xl font-bold text-gray-900 dark:text-black">DATOS DEL SEGURO </h5>
-  
+               <div class="relative pb-15 overflow-hidden">
+                  <img class="inline h-12 w-25" :src="insurres.logo">
+                </div> 
         <div class="">
             <div class="col-span-1">
                 <div  class="w-full rounded  overflow-x-hidden border-t flex flex-col">
@@ -20,14 +23,13 @@
                     Cédula: {{cliente.cardnumber}} <br>
                     Dirección: {{cliente.adrress}} <br>
                     Teléfono: {{cliente.phonenumber}} <br>
-                    Aseguradora: {{sellers.nombre}}<br><br>
                 </div>
             </div>
         
             <div class="col-span-1">
                 <div  class="w-full rounded  overflow-x-hidden border-t flex flex-col">
                     <div class="w-full rounded  overflow-x-hidden border-t flex flex-col bg-blue-500">
-                        <p class="text-center text-white font-semibold text-xl">Datos del vehículo</p>
+                        <p class="text-center text-white font-semibold text-xl">Datos del Vehículo</p>
                     </div>
                 </div>
                     <div class="w-full font-bold rounded  overflow-x-hidden border-t flex flex-col bg-gray-200">
@@ -35,8 +37,8 @@
                         Marca: {{marca}} <br>
                         Modelo: {{modelo}} <br>
                         Año: {{car.year}} <br>
-                        Chassis: {{car.chasis}} <br>
-                        Registro: {{car.placa}} <br><br><br>
+                        Chassis: <label style="text-transform: uppercase">{{car.chasis}} </label>
+                        Registro: <label style="text-transform: uppercase"> {{car.placa}} </label>
                     </div>
             </div>
 
@@ -50,6 +52,7 @@
                     <div class="w-full mb-8 font-bold rounded  overflow-x-hidden border-t flex flex-col bg-gray-200">
                       <div v-for="servicio in services" :key="servicio.id">
                       {{servicio.serviceName}} <br>
+                      RD$ {{new Intl.NumberFormat('en-IN').format(servicio.servicePrice)}}<br>
                     </div>
                 </div>
                 </div>
@@ -106,11 +109,11 @@ export default {
        modelo: String,
        cliente: Array,
        totalGeneral: String,
-       insurresId: String,
+       insurres: Array,
        codigosDescuento: Array
     },
     mounted(){
-   //     console.log(this.codigosDescuento)
+       console.log(this.insurres)
     },
     data(){
         return{
@@ -123,7 +126,7 @@ export default {
                 sellers: this.sellers,
                 descuento: '',
                 descontar: 0,
-                insurresId: this.insurresId
+                insurres: this.insurres
 
             }
         }

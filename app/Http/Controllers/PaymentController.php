@@ -105,7 +105,6 @@ class PaymentController extends Controller
     }
 
     public function cardNet(Request $request){
-        
         $codigo = 0 ;
         if($request->descuento != ''){
             $value = Discounts::where([['code',$request->descuento],['active', 1]])->count();
@@ -139,7 +138,7 @@ class PaymentController extends Controller
         $invoice->licensePlate = $request->car['placa'];
         $invoice->year = $request->car['year'];
         $invoice->totalGeneral = $request->totalGeneral;
-        $invoice->sellers_id = $request->insurresId;
+        $invoice->sellers_id = $request->insurres['id'];
         $invoice->car_tipe = $request->car['tipo'];
         $invoice->car_brand = $request->car['marca'];
         $invoice->car_model = $request->car['modelo'];

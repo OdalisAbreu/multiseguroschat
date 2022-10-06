@@ -14,6 +14,7 @@ use App\Models\Vehicle_type_tarif;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use PhpParser\Node\Stmt\Return_;
 
 use function PHPUnit\Framework\isEmpty;
 use function PHPUnit\Framework\isNull;
@@ -45,7 +46,7 @@ class PoliciesController extends Controller
                     ->select('insurances.nombre AS insurace','prefijo', 'logo' , 'color' , 'priceThreeMonths AS tresmeses',
                      'priceSixMonths AS seismeses', 'priceTwelveMonths AS docemeses', 'vehicle_type_tarifs.nombre AS vehicle_type', 
                      'insurances.id AS insurances_id', 'vehicle_type_tarifs.id_serv AS servicios','payment_gateway.value AS payment_gateway'
-                     ,'merchanttype', 'merchantnumber', 'merchantterminal','client_name', 'vehicle_type_id')
+                     ,'merchanttype', 'merchantnumber', 'merchantterminal','client_name', 'vehicle_type_id' )
                     ->get();
         return Inertia::render('Policy/index', [
             'car' => $car,
@@ -94,27 +95,34 @@ class PoliciesController extends Controller
         $tipo = Vehicle_type_tarif::find($request->car['tipo']);
         $marca = Vehicle_brands::find($request->car['marca']);
         $modelo = Vehicle_models::find($request->car['modelo']);
+        $price = Price::where([['insurances_id', $request->insurresId],['vehicle_type_id', $request->car['tipo']]])->get();
+        $insurres = Insurance::find($request->insurresId);
         foreach($serviciosActivos as $serviciosActivo){
             foreach($servicos as $servicio){
                 if($servicio['id'] == $serviciosActivo){
                     $totalServicios = $totalServicios + $servicio['servicePrice'];
                     $service2 = array(
                         'serviceName' => $servicio['serviceName'],
-                        'id' => $servicio['id']
+                        'id' => $servicio['id'],
+                        'servicePrice' => $servicio['servicePrice']
                     );
                     array_push($services, $service2);
                 }
             }
         }
-       // return $request->seller;
-        $totalGeneral = $totalServicios + $request->seller[0][$request->policyTime];
-        if($request->policyTime == 'tresmeses'){
-            $policyTime = '3 Meses';
-        }elseif($request->policyTime == 'seismeses'){
-            $policyTime = '6 Meses';
-        }else{
-            $policyTime = '12 Meses';
-        }
+     //   return $services;
+       if($request->policyTime == 'tresmeses'){
+           $policyTime = '3 Meses';
+           $time = 'priceThreeMonths';
+       }elseif($request->policyTime == 'seismeses'){
+           $policyTime = '6 Meses';
+           $time = 'priceSixMonths';
+       }else{
+           $policyTime = '12 Meses';
+           $time = 'priceTwelveMonths';
+       }
+        //$totalGeneral = $totalServicios + $request->seller[0][$time];
+        $totalGeneral = $totalServicios + $price[0][$time];
         //Traer los coddigos de descuentos activos
         $codigosDescuento = Discounts::where('active','1')->get();
 
@@ -129,9 +137,8 @@ class PoliciesController extends Controller
             'modelo' => $modelo['descripcion'],
             'cliente' => $clente,
             'services' => $services,
-            'insurresId' => $request->insurresId,
-            'codigosDescuento' => $codigosDescuento,
-            'insurresId' => $request->insurresId
+            'insurres' => $insurres,
+            'codigosDescuento' => $codigosDescuento
         ]);
 
     }
@@ -170,8 +177,7 @@ class PoliciesController extends Controller
         //
     }
 
-    public function services($insurresId, Request $request){
-        
+    public function services($insurresId, $vehId, Request $request){
        if ($request->policyTime == ''){
            return 'Debes seleccionar u tiempo de vigencia de la póliza ';
         }
@@ -201,7 +207,6 @@ class PoliciesController extends Controller
         ]);
 
     }
-
     public function test(Request $request){
 
 

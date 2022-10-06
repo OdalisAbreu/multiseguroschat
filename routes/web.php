@@ -18,7 +18,7 @@ use Inertia\Inertia;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+/*
 Route::get('/welcome', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
@@ -26,7 +26,7 @@ Route::get('/welcome', function () {
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
-});
+});*/
 
 Route::get('/', function () {
     return Inertia::render('index');
@@ -36,7 +36,7 @@ Route::get('/', function () {
 Route::resource('client', ClientController::class);
 Route::post('policy/{marcaid}', [PoliciesController::class, 'index'])->name('policy');
 //Route::post('services', [PoliciesController::class, 'services'])->name('services');
-Route::post('services/{insuresId}', [PoliciesController::class, 'services'])->name('services');
+Route::post('services/{insuresId}/{vihId}', [PoliciesController::class, 'services'])->name('services');
 Route::post('servicespolicy', [PoliciesController::class, 'show'])->name('servicespolicy');
 Route::post('generatepolicy', [PaymentController::class, 'cardNet'])->name('generatepolicy');
 
@@ -45,6 +45,7 @@ Route::get('car', [ClientController::class, 'index'])->name('car');//Esto no va
 
 Route::post('seguros', [ClientController::class, 'seller'])->name('seguros'); //Configurar seguro
 Route::post('statusPayment', [InvoicesController::class, 'statusPayment'])->name('statusPayment'); //Configurar Pago
+Route::post('generatePolicy', [InvoicesController::class, 'statusPaymentCardNet'])->name('generatePolicy'); //Genera la poliza
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return Inertia::render('Dashboard');
@@ -55,7 +56,11 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 Route::get('/end', function () {
     return Inertia::render('end');
 });
+Route::get('/dashboard', function () {
+    return Inertia::render('Dashboard');
+});
 
 Route::post('/test', [PoliciesController::class, 'test'])->name('test');
+//Route::post('statusPayment', [InvoicesController::class, 'waitingRoom'])->name('statusPayment'); //Ir al area de cargar
 
 //----------------------------------------------------------------------------

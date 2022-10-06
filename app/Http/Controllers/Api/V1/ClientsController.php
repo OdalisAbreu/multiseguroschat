@@ -28,13 +28,14 @@ class ClientsController extends Controller
     public function store(Request $request)
     {
        $client = new Client();
-       $client->name = $request->name;
-       $client->lastname = $request->lastname;
+       $client->name = strtoupper($request->name);
+       $client->lastname = strtoupper($request->lastname);
        $client->cardnumber = $request->cardnumber;
        $client->passportnumber = $request->passportnumber;
        $client->phonenumber = $request->phonenumber;
-       $client->adrress = $request->adrress;
-       $client->city = $request->city;
+       $client->adrress = strtoupper($request->adrress);
+       $client->city = strtoupper($request->city);
+       $client->province = 33;
        $client->email = $request->email;
        $client->save();
 
@@ -100,9 +101,8 @@ class ClientsController extends Controller
     public function clientPilicy($cedula)
     {
         $invoince = Invoices::where([['client_id', $cedula],['payment_status', 'ACCEPT']])->get()->last();
-
         if($invoince){
-            return ['status' => '00', 'url' => 'https://multiseguros.com.do/ws_dev/TareasProg/GenerarReporteAseguradoraPdfUnico.php?sms=0&id_trans='.$invoince->police_transactionId];
+            return ['status' => '00', 'url' => 'https://multiseguros.com.do/Seg_V2Dev/ticket.php?id='.$invoince->police_transactionId];
         }else{
             return ['status' => '01', 'message' => 'No tiene póliza registrada'];
         }

@@ -33,7 +33,7 @@
             <select class="rounded-lg w-full bt-4 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80" v-model="form.modelo" required>
                 <option value="" disabled selected hidden>MODELO</option>
                 <option v-for="modelo in models" :value="modelo.ID" :key="modelo.ID">{{modelo.descripcion}} </option >
-            </select>
+            </select><br>
             <br><label class="p-2 font-bold">Año <label class="text-red-500">*</label> </label><br>
              <select class="rounded-lg w-full mb-4 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80" v-model="form.year" required>
                 <option value="" disabled selected hidden>AÑO</option>

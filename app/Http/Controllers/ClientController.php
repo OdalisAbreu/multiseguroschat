@@ -123,19 +123,17 @@ class ClientController extends Controller
      */
     public function update(Request $request, $id)
     {
-
        $request->validate([
             'name' => 'required'
         ]);
-
         $client = Client::find($id);
-        $client->name = $request->name;
-        $client->lastname = $request->lastname;
-        $client->email = $request->email;
-        $client->adrress = $request->adrress;
+        $client->name = strtoupper($request->name);
+        $client->lastname = strtoupper($request->lastname);
+        $client->email = strtoupper($request->email);
+        $client->adrress = strtoupper($request->adrress);
         $client->cardnumber = $request->cardnumber;
-        $client->city = $request->city;
-        $client->province = $request->provincia;
+        $client->city = strtoupper($request->city);
+        $client->province = strtoupper($request->provincia);
         $client->phonenumber = $request->phonenumber;
         $client->save();
                 

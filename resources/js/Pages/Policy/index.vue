@@ -21,20 +21,20 @@
             <div class="flex flex-wrap -mx-1 md:flex flex-col">
                         <div class="relative pb-15 overflow-hidden">
                             <img class="inline h-12 w-25" :src="seller.logo">
-                        </div>
+                        </div> 
                         <div class="p-1">
-                            <span class="inline-block px-2 py-1 leading-none bg-blue-200 text-blue-800 rounded-full font-semibold uppercase tracking-wide text-xs">{{seller.insurace}}</span>
+                            <span class="inline-block px-2 py-1 leading-none text-blue-800 rounded-full font-semibold uppercase tracking-wide text-xs">{{seller.insurace}}</span>
                         </div>
                                     <input type="hidden" id="servicios" :value="seller.servicios" >
-                                    <a class="mx-4 block p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+                                    <a class="mx-4 block p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:border-gray-700 ">
                                     <input type="radio" value="tresmeses" name="poliza" v-model="form.policyTime">
-                                    <label class="mb-1 text-sm font-semibold tracking-tight text-gray-900 dark:text-white"> 3 Meses -> RD$ {{new Intl.NumberFormat('en-IN').format(seller.tresmeses)}}.00</label><br>
+                                    <label class="mb-1 text-sm font-semibold tracking-tight text-gray-900 "> 3 Meses -> RD$ {{new Intl.NumberFormat('en-IN').format(seller.tresmeses)}}.00</label><br>
                                     <input type="radio" value="seismeses" name="poliza" v-model="form.policyTime">
-                                    <label class="mb-1 text-sm font-semibold tracking-tight text-gray-900 dark:text-white"> 6 Meses -> RD$ {{new Intl.NumberFormat('en-IN').format(seller.seismeses)}}.00</label><br>
+                                    <label class="mb-1 text-sm font-semibold tracking-tight text-gray-900"> 6 Meses -> RD$ {{new Intl.NumberFormat('en-IN').format(seller.seismeses)}}.00</label><br>
                                     <input type="radio" value="docemeses" name="poliza" v-model="form.policyTime">
-                                    <label class="text-sm font-semibold tracking-tight text-gray-900 dark:text-white"> 12 Meses -> RD$ {{new Intl.NumberFormat('en-IN').format(seller.docemeses)}}.00</label>
+                                    <label class="text-sm font-semibold tracking-tight text-gray-900 "> 12 Meses -> RD$ {{new Intl.NumberFormat('en-IN').format(seller.docemeses)}}.00</label>
                                     </a>
-                                <div class="" style='text-align: center'>
+                                <div class="" style='text-align: center'> 
                                     <button @click="procesar(seller.insurances_id, seller.vehicle_type_id)" class="bg-blue-500 hover:bg-blue-600 shadow-lg shadow-blue-500/50 text-white font-bold rounded-lg w-full py-3 mt-1 sm:m-3 sm:w-30 md:m-3 md:w-40 xl:m-3 xl:w-50" >Continuar</button>
                                 </div>
             </div>
@@ -76,7 +76,7 @@ export default {
     methods:{
          procesar: function (insurances_id, vehicle_type_id) {
            //console.log(insurances_id + ' - ' + vehicle_type_id)
-           this.$inertia.post(this.route('services',insurances_id), this.form)
+           this.$inertia.post(this.route('services',[insurances_id, vehicle_type_id]), this.form)
         } 
     },
 

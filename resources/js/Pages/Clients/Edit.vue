@@ -12,7 +12,7 @@
     </div>    
 
         <div class="p-3">
-            <div class="text-black font-bold text-2xl sm:text-2xl md:text-3xl xl:text-3xl">VALIDAR DATOS</div>
+            <div class="text-black font-bold text-2xl sm:text-2xl md:text-3xl xl:text-3xl">MI CUENTA</div>
             <div class="text-black font-semibold text-lg sm:text-1xl md:text-2xl xl:text-2xl">Confirma tu información y pulsa continuar</div>
         </div>
     <div class="p-3 px-5 sm:px-5 md:px-5 xl:px-5">
@@ -72,7 +72,7 @@ export default {
                 cardnumber: this.client.cardnumber,
                 city: this.client.city,
                 phonenumber: this.client.phonenumber,
-                provincia: ''
+                provincia: this.client.province
             }
         }
     },

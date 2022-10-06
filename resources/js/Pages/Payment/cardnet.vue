@@ -3,9 +3,9 @@
         <div class="text-center">
             <img class="inline" src="ima/sc_ic.png">
             <h3 class="font-bold text-2xl text-center">Pulsa <i>CONTINUAR</i><br> para procesar tu pago de manera segura</h3>
-            <img class="inline"  src="/ima/secutity.png" alt="">
+            <img class="inline pb-4 pt-4 max-w-xs" src="ima/cardnet-payments.jpg">
         </div> 
-            <form action='https://lab.cardnet.com.do/authorize' method='POST' name='CardNet' class='CardNet' id='CardNet'>
+            <form action='https://ecommerce.cardnet.com.do/authorize' method='POST' name='CardNet' class='CardNet' id='CardNet'>
                     <input type="hidden" name='TransactionType' id='TransactionType' value='0200'/>
                     <input type="hidden" name='CurrencyCode' id='CurrencyCode' value='214'/>
                     <input type="hidden" name='AcquiringInstitutionCode' id='AcquiringInstitutionCode' value='349'/>
@@ -19,7 +19,7 @@
                     <input type="hidden" name='TransactionId' id='TransactionId' v-model="form.transactionid"/>
                     <input type="hidden" name='Amount' id='Amount' v-model="form.total"/>
                     <input type="hidden" name='Tax' id='Tax' v-model="form.tax"/>
-                    <input type="hidden" name='MerchantName' id='MerchantName' value='MultiSeguros Chat'/>
+                    <input type="hidden" name='MerchantName' id='MerchantName' value='SURA CHAT BOT-WB'/>
                     <input type="hidden" name='KeyEncriptionKey' id='KeyEncriptionKey' v-model="form.transaction_uuid"/>
                     <input type="hidden" name='Ipclient' id='Ipclient' v-model="form.clientip"/>
                     <input type="hidden" name='loteid' Value='001' />

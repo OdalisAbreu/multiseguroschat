@@ -117,6 +117,7 @@ class InvoicesController extends Controller
        //-----------------Consulta las tablas para generar las polizas----------------
         $invoices = Invoices::find($request->TransactionID);
         $client = Client::where('cardnumber', $invoices->client_id)->get();
+        
       //---------------------------------------------------------------------------------
       //----------------Generar Token----------------------------------------------------
         $token = Http::post('http://multiseguros.com.do:5050/api/User/Authenticate', [
@@ -148,7 +149,7 @@ class InvoicesController extends Controller
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => 'POST',
             CURLOPT_POSTFIELDS => '{
-                                    "sellerInternalId": "102054-' . $invoices->id.'",
+                                    "sellerInternalId": "102054-' . $request->AuthorizationCode.'",
                                     "vehicle": {
                                         "vehicleTypeId": '.$invoices->car_tipe.',
                                         "vehicleMakeId": '.$invoices->car_brand.',
@@ -171,7 +172,8 @@ class InvoicesController extends Controller
                                     "insuranceCarrierId": '.$invoices->sellers_id.',
                                     "services":  '.$invoices->services.',
                                     "policyStartDate": "'.gmdate("Y-m-d\TH:i:s\Z").'",
-                                    "policyValidity": '.$invoices->policyTime.'
+                                    "policyValidity": '.$invoices->policyTime.',
+                                    "Total": '.$invoices->totalGeneral.'
                                 }',
             CURLOPT_HTTPHEADER => array(
                 'Authorization: Bearer '.$token['token'],
@@ -184,13 +186,12 @@ class InvoicesController extends Controller
         curl_close($curl);
         $poliza = json_decode($response);
         sleep(1);
-
     //-----------------------------------------------------------------------------------------
 
     //----------------Actualizar Factura---------------------------------------
 
             $invoice = Invoices::find($request->TransactionID);
-            $invoice->payment_status = $request->ResponseCode;
+            $invoice->payment_status = 'ACCEPT';
             $invoice->tranf_number = $request->req_transaction_uuid;
             $invoice->transaction_id = $request->TransactionID;
             $invoice->RemoteResponseCode = $request->RemoteResponseCode;
@@ -222,7 +223,34 @@ class InvoicesController extends Controller
             'RemoteResponseCode' => $request->RemoteResponseCode,
             'AuthorizationCode' => $request->AuthorizationCode,
             'RetrivalReferenceNumber'=> $request->RetrivalReferenceNumber,
-            'TxToken'=>  $request->TxToken
+            'TxToken'=>  $request->TxToken,
+            'transactionId' => $poliza->transactionId
         ]);
+    }
+
+    public function getInvoice($policeId){
+        return 'Hola';
+    }
+
+    public function waitingRoom(Request $request){
+        if($request->ResponseCode != '00'){
+            return Inertia::render('error', [
+                'ResponseCode' => $request->ResponseCode,
+                'TransactionID' => $request->TransactionID,
+                'RemoteResponseCode' => $request->RemoteResponseCode,
+                'AuthorizationCode' => $request->AuthorizationCode,
+                'RetrivalReferenceNumber'=> $request->RetrivalReferenceNumber,
+                'TxToken'=>  $request->TxToken
+            ]);
+        }else{
+            return Inertia::render('Welcome', [
+                'ResponseCode' => $request->ResponseCode,
+                'TransactionID' => $request->TransactionID,
+                'RemoteResponseCode' => $request->RemoteResponseCode,
+                'AuthorizationCode' => $request->AuthorizationCode,
+                'RetrivalReferenceNumber'=> $request->RetrivalReferenceNumber,
+                'TxToken'=>  $request->TxToken
+            ]);
+        }
     }
 }

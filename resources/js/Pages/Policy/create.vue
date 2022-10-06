@@ -7,7 +7,7 @@
 
     <div class="mx-3 mt-8 mb-4 sm:mx-20 lg:mx-20 xl:mx-20">
         <div class=" bg-gray-200 rounded-full">
-            <div class="bg-blue-500 text-xs font-medium text-blue-100 text-center p-1 leading-none rounded-l-full" style="width: 100%"></div>
+            <div class="text-xs font-medium text-blue-100 text-center p-1 leading-none rounded-l-full" style="width: 100%"></div>
         </div>
     </div>
 
@@ -16,18 +16,18 @@
     </div>
    
      <form @submit.prevent="submit">
-          <div class="mx-4 block p-2 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-            <div class="grid grid-cols-6 gap-4" v-for="service in services" :key="service.id">
+          <div class="mx-4 block p-2 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:border-gray-700">
+            <div class="grid grid-cols-12 gap-1" v-for="service in services" :key="service.id">
                 <div class="col-span-1">
                     <input type="checkbox" :checked="suma" :value="service.id" v-model="form.servicios"  name="poliza" >
                 </div>
-                <div class="col-span-3">
+                <div class="col-span-6">
                     <label class="" >{{ service.serviceName }}</label>
                 </div>
-                <div class="col-span-2">
+                <div class="col-span-5">
                      <label class="" > -> RD$ {{new Intl.NumberFormat('en-IN').format(service.servicePrice)}}.00</label>
                 </div>
-                <hr class="col-span-6">              
+                <hr class="col-span-12">              
             </div>
           </div>
     <br>
