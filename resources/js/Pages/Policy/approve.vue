@@ -9,7 +9,7 @@
        
         <h5 class="mb-2 text-3xl font-bold text-gray-900 dark:text-black">DATOS DEL SEGURO </h5>
                <div class="relative pb-15 overflow-hidden">
-                  <img class="inline h-12 w-25" :src="insurres.logo">
+                  <img class="inline h-12 w-25" :src="insurre.logo">
                 </div> 
         <div class="">
             <div class="col-span-1">
@@ -74,7 +74,7 @@
                     <form @submit.prevent="submit">
                         <div class="mt-5">
                             <button class="bg-blue-500 hover:bg-blue-600 shadow-lg shadow-blue-500/50 text-white font-bold rounded-lg w-full py-3 mt-5 sm:m-3 sm:w-30 md:m-3 md:w-40 xl:m-3 xl:w-50">
-                                Confirmar
+                                Comprar
                             </button>
                         </div>
                     </form>
@@ -109,11 +109,11 @@ export default {
        modelo: String,
        cliente: Array,
        totalGeneral: String,
-       insurres: Array,
+       insurre: Array,
        codigosDescuento: Array
     },
     mounted(){
-       console.log(this.insurres)
+       console.log(this.insurre)
     },
     data(){
         return{
@@ -126,7 +126,7 @@ export default {
                 sellers: this.sellers,
                 descuento: '',
                 descontar: 0,
-                insurres: this.insurres
+                insurre: this.insurre
 
             }
         }

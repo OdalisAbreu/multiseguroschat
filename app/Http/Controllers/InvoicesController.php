@@ -117,7 +117,7 @@ class InvoicesController extends Controller
        //-----------------Consulta las tablas para generar las polizas----------------
         $invoices = Invoices::find($request->TransactionID);
         $client = Client::where('cardnumber', $invoices->client_id)->get();
-        
+       
       //---------------------------------------------------------------------------------
       //----------------Generar Token----------------------------------------------------
         $token = Http::post('http://multiseguros.com.do:5050/api/User/Authenticate', [
@@ -126,9 +126,9 @@ class InvoicesController extends Controller
         ]);
         sleep(2);
         $token = $token->json();
-       //------------------------------------------------------------------------------
-
-       //--------Procesar Poliza ----------------------------------------------
+        //------------------------------------------------------------------------------
+        
+        //--------Procesar Poliza ----------------------------------------------
         $name = $client[0]->name;
         $lastname = $client[0]->lastname;
         $cardnumber = $client[0]->cardnumber;
@@ -137,8 +137,9 @@ class InvoicesController extends Controller
         $phonenumber = $client[0]->phonenumber;
         $adrress = $client[0]->adrress;
         $city = $client[0]->city;
+        
+      //  return  $name .' - '.$lastname. ' - '.$cardnumber.' - '.$passportnumber.' - '.$city.' - '.$adrress;
         $curl = curl_init();
-
         curl_setopt_array($curl, array(
             CURLOPT_URL => 'http://multiseguros.com.do:5050/api/Seguros/Policy',
             CURLOPT_RETURNTRANSFER => true,
@@ -173,7 +174,7 @@ class InvoicesController extends Controller
                                     "services":  '.$invoices->services.',
                                     "policyStartDate": "'.gmdate("Y-m-d\TH:i:s\Z").'",
                                     "policyValidity": '.$invoices->policyTime.',
-                                    "Total": '.$invoices->totalGeneral.'
+                                    "Total": '.round($invoices->totalGeneral).'
                                 }',
             CURLOPT_HTTPHEADER => array(
                 'Authorization: Bearer '.$token['token'],
@@ -251,6 +252,6 @@ class InvoicesController extends Controller
                 'RetrivalReferenceNumber'=> $request->RetrivalReferenceNumber,
                 'TxToken'=>  $request->TxToken
             ]);
-        }
+        } 
     }
 }

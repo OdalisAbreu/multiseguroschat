@@ -5,7 +5,7 @@
             <h3 class="font-bold text-2xl text-center">Pulsa <i>CONTINUAR</i><br> para procesar tu pago de manera segura</h3>
             <img class="inline pb-4 pt-4 max-w-xs" src="ima/cardnet-payments.jpg">
         </div> 
-            <form action='https://ecommerce.cardnet.com.do/authorize' method='POST' name='CardNet' class='CardNet' id='CardNet'>
+            <form :action="`${paymentUrl}`" method='POST' name='CardNet' class='CardNet' id='CardNet'>
                     <input type="hidden" name='TransactionType' id='TransactionType' value='0200'/>
                     <input type="hidden" name='CurrencyCode' id='CurrencyCode' value='214'/>
                     <input type="hidden" name='AcquiringInstitutionCode' id='AcquiringInstitutionCode' value='349'/>
@@ -52,7 +52,8 @@ export default {
        merchantterminal: String,
        transactionid: String,
        clientip: String,
-       client_name: String
+       client_name: String,
+       paymentUrl: String
     },
     mounted(){
         key = md5(
@@ -78,7 +79,6 @@ export default {
                 merchantnumber: this.merchantnumber,
                 merchantterminal: this.merchantterminal,
                 transactionid: this.transactionid
-
             }
         }
     },

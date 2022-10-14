@@ -52,10 +52,10 @@ export default {
        services: Array,
        policyTime: String,
        clien_id: String,
-       insurresId: String,
+       insurres: Array,
     },
     mounted(){
-        console.log(this.insurresId)
+        console.log(this.insurres)
     },
     data(){
         return{
@@ -68,7 +68,7 @@ export default {
                 policyTime: this.policyTime,
                 clien_id: this.clien_id,
                 servicios: [],
-                insurresId: this.insurresId
+                insurre: this.insurres
 
             }
         }

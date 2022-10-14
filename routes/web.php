@@ -57,7 +57,7 @@ Route::get('/end', function () {
     return Inertia::render('end');
 });
 Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
+    return Inertia::render('Welcome');
 });
 
 Route::post('/test', [PoliciesController::class, 'test'])->name('test');

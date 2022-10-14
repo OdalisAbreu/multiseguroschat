@@ -95,8 +95,7 @@ class PoliciesController extends Controller
         $tipo = Vehicle_type_tarif::find($request->car['tipo']);
         $marca = Vehicle_brands::find($request->car['marca']);
         $modelo = Vehicle_models::find($request->car['modelo']);
-        $price = Price::where([['insurances_id', $request->insurresId],['vehicle_type_id', $request->car['tipo']]])->get();
-        $insurres = Insurance::find($request->insurresId);
+        $price = Price::where([['insurances_id', $request->insurre['insurance_id']],['vehicle_type_id', $request->car['tipo']]])->get();
         foreach($serviciosActivos as $serviciosActivo){
             foreach($servicos as $servicio){
                 if($servicio['id'] == $serviciosActivo){
@@ -110,22 +109,22 @@ class PoliciesController extends Controller
                 }
             }
         }
-     //   return $services;
-       if($request->policyTime == 'tresmeses'){
-           $policyTime = '3 Meses';
-           $time = 'priceThreeMonths';
-       }elseif($request->policyTime == 'seismeses'){
-           $policyTime = '6 Meses';
-           $time = 'priceSixMonths';
-       }else{
-           $policyTime = '12 Meses';
-           $time = 'priceTwelveMonths';
-       }
+        //   return $services;
+        if($request->policyTime == 'tresmeses'){
+            $policyTime = '3 Meses';
+            $time = 'priceThreeMonths';
+        }elseif($request->policyTime == 'seismeses'){
+            $policyTime = '6 Meses';
+            $time = 'priceSixMonths';
+        }else{
+            $policyTime = '12 Meses';
+            $time = 'priceTwelveMonths';
+        }
         //$totalGeneral = $totalServicios + $request->seller[0][$time];
         $totalGeneral = $totalServicios + $price[0][$time];
         //Traer los coddigos de descuentos activos
         $codigosDescuento = Discounts::where('active','1')->get();
-
+        
         return Inertia::render('Policy/approve', [
             'car' => $request->car,
             'tarifa' => $request->tarifa,
@@ -137,7 +136,7 @@ class PoliciesController extends Controller
             'modelo' => $modelo['descripcion'],
             'cliente' => $clente,
             'services' => $services,
-            'insurres' => $insurres,
+            'insurre' => $request->insurre,
             'codigosDescuento' => $codigosDescuento
         ]);
 
@@ -196,6 +195,11 @@ class PoliciesController extends Controller
                 }
             }
         }
+        $insurres = DB::table('insurances')
+                    ->join('data_payment_gateway', 'insurances.id', 'data_payment_gateway.insurance_id')
+                    ->where('insurances.id', $insurresId)
+                    ->get();
+
         return Inertia::render('Policy/create', [
             'car' => $request->car,
            'tarifa' => $request->tarifa,
@@ -203,9 +207,8 @@ class PoliciesController extends Controller
             'services' => $services,
             'policyTime' => $request->policyTime,
             'clien_id' => $request->clien_id,
-            'insurresId' => $insurresId
+            'insurres' => $insurres[0]
         ]);
-
     }
     public function test(Request $request){
 

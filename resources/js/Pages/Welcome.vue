@@ -60,6 +60,12 @@ export default {
                     AuthorizationCode: this.AuthorizationCode,
                     RetrivalReferenceNumber: this.RetrivalReferenceNumber,
                     TxToken: this.TxToken
+                   /* ResponseCode: '00',
+                    TransactionID: '20',
+                    RemoteResponseCode: 'assa154165165',
+                    AuthorizationCode: 'a158418468468',
+                    RetrivalReferenceNumber: 'a158418468468',
+                    TxToken: 'a158418468468'*/
                 }
             }
         },

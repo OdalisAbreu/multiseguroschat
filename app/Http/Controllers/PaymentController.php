@@ -103,21 +103,21 @@ class PaymentController extends Controller
                 'date' => gmdate("Y-m-d\TH:i:s\Z"),
             ]);
     }
-
+//----------------------------------------------------------------------------------------------------------------------------------------------
     public function cardNet(Request $request){
         $codigo = 0 ;
         if($request->descuento != ''){
             $value = Discounts::where([['code',$request->descuento],['active', 1]])->count();
-  
+            
             if($value == 0){
                 $codigo = 0 ;
             }else{
-               $value = Discounts::where([['code',$request->descuento],['active', 1]])->get();
-               $codigo = $value[0]->id;
-           }
+                $value = Discounts::where([['code',$request->descuento],['active', 1]])->get();
+                $codigo = $value[0]->id;
+            }
         }
-
-        $urlReturn = 'https://multiseguros.botpropanel.com/api/statusPayment';
+        
+        $urlReturn = 'http://seguros.chat/api/statusPayment';
         $servicios = [];
         if($request->policyTime == '3 Meses'){
             $policyTime = 3;
@@ -126,19 +126,18 @@ class PaymentController extends Controller
         }else{
             $policyTime = 12;
         }
-        //return $request->services;
         foreach($request->services as $service){
             array_push($servicios, $service['id']);
         }
         $serviciosString = json_encode($servicios); //transforma los id de los servicios para guardarlos en la Base de Datos 
-       
+
         $invoice = new Invoices();
         $invoice->policyTime = $policyTime;
         $invoice->chassis = $request->car['chasis'];
         $invoice->licensePlate = $request->car['placa'];
         $invoice->year = $request->car['year'];
         $invoice->totalGeneral = $request->totalGeneral;
-        $invoice->sellers_id = $request->insurres['id'];
+        $invoice->sellers_id = $request->insurre['insurance_id'];;
         $invoice->car_tipe = $request->car['tipo'];
         $invoice->car_brand = $request->car['marca'];
         $invoice->car_model = $request->car['modelo'];
@@ -147,8 +146,7 @@ class PaymentController extends Controller
         $invoice->discount_id = $codigo;
         $invoice->payment_status = 'peding';
         $invoice->save();
-        
-    
+
         return Inertia::render('Payment/cardnet', [
             'total' => $request->totalGeneral,
             'invoice_id' => $invoice->id,
@@ -156,11 +154,12 @@ class PaymentController extends Controller
             'urlreturn' => $urlReturn,
             'date' => gmdate("Y-m-d\TH:i:s\Z"),
             'tax' => '0', 
-            'merchanttype' => $request->sellers['merchanttype'],
-            'merchantnumber' => $request->sellers['merchantnumber'],
-            'merchantterminal'=> $request->sellers['merchantterminal'],
+            'merchanttype' => $request->insurre['merchanttype'],
+            'merchantnumber' => $request->insurre['merchantnumber'],
+            'merchantterminal'=> $request->insurre['merchantterminal'],
             'client_name'=> $request->sellers['client_name'],
             'transactionid' => $invoice->id,
+            'paymentUrl' => $request->insurre['payment_url'],
             'clientip' => $_SERVER['REMOTE_ADDR']
         ]);
 

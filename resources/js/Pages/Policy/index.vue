@@ -75,7 +75,7 @@ export default {
     },
     methods:{
          procesar: function (insurances_id, vehicle_type_id) {
-           //console.log(insurances_id + ' - ' + vehicle_type_id)
+        //   console.log(insurances_id + ' - ' + vehicle_type_id)
            this.$inertia.post(this.route('services',[insurances_id, vehicle_type_id]), this.form)
         } 
     },
