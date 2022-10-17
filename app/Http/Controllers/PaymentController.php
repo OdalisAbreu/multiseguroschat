@@ -117,7 +117,7 @@ class PaymentController extends Controller
             }
         }
         
-        $urlReturn = 'http://seguros.chat/api/statusPayment';
+        $urlReturn = 'https://seguroschat.com/api/statusPayment';
         $servicios = [];
         if($request->policyTime == '3 Meses'){
             $policyTime = 3;
