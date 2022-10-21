@@ -205,7 +205,7 @@ class InvoicesController extends Controller
     //--------------------------------------------------------------------------------------------
   
     //--------------------Desactivar Descuento----------------------------------------------------
-        if($invoice->discount_id != ''){
+        if($invoice->discount_id > 0){
             $descuento = Discounts::find($invoice->discount_id);
             $descuento->active = 0;
             $descuento->update();
@@ -230,7 +230,7 @@ class InvoicesController extends Controller
     }
 
     public function getInvoice($policeId){
-        return 'Hola';
+        return 'Hola'; 
     }
 
     public function waitingRoom(Request $request){
