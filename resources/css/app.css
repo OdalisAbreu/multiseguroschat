@@ -1,3 +1,10 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+.imagenFondo {
+    background-image: url('../../public/ima/Loader.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}

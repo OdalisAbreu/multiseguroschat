@@ -178,7 +178,7 @@ class PoliciesController extends Controller
 
     public function services($insurresId, $vehId, Request $request){
        if ($request->policyTime == ''){
-           return 'Debes seleccionar u tiempo de vigencia de la póliza ';
+           return 'Debes seleccionar un tiempo de vigencia de la póliza ';
         }
         $tarifaServices = explode("-",$request->servicios);
         $services = array();

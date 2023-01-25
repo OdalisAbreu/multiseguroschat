@@ -140,7 +140,7 @@ class ClientController extends Controller
         $tipos = Vehicle_type_tarif::orderBy('nombre')->get();
         $marcas = Vehicle_brands::orderBy('DESCRIPCION')->get();
         $modelos = Vehicle_models::orderBy('descripcion')->get();
-       return Inertia::render('Vehiculo/index', [
+        return Inertia::render('Vehiculo/index', [
             'tipos' => $tipos,
             'marcas' => $marcas,
             'modelos' => $modelos,

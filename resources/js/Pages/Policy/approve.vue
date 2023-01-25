@@ -83,11 +83,6 @@
         </div>
   </div>
 
-
-
-
-
-
 </template>
 <script>
     import { Head, Link } from '@inertiajs/inertia-vue3';
