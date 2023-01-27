@@ -87,7 +87,7 @@
                             *Todos los campos son obligatorios
                         </div>
                         <button
-                            class="w-full justify-center bg-blue-600 hover:bg-blue-700 shadow-lg shadow-blue-500/50 text-white font-bold rounded-lg py-4 mt-5 sm:m-3 sm:w-full md:m-3 md:w-full xl:m-3 xl:full">
+                            class="w-full justify-center bg-blue-800 hover:bg-blue-700 shadow-lg shadow-blue-500/50 text-white font-bold rounded-lg py-4 mt-5 sm:m-3 sm:w-full md:m-3 md:w-full xl:m-3 xl:full">
                             Continuar
                         </button>
                     </div>

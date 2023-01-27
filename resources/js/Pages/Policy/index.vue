@@ -11,7 +11,7 @@
                     <h3 class="font-bold text-lg">Asegurado</h3>
                     <p>RAFAEL DE LA CRUZ</p>
                 </div>
-                <div class="p-4 rounded-full bg-blue-700">
+                <div class="p-2 rounded-full bg-blue-800">
                     <img src="../../../../public/ima/edit.png" alt="Editar">
                 </div>
             </div>
@@ -22,7 +22,7 @@
                     <h3 class="font-bold text-lg">Poliza</h3>
                     <p>BMW Serie 430, 2012</p>
                 </div>
-                <div class="p-4 rounded-full bg-blue-700">
+                <div class="p-2 rounded-full bg-blue-800">
                     <img src="../../../../public/ima/edit.png" alt="Editar">
                 </div>
             </div>
@@ -83,7 +83,7 @@
                 </div>
                 <div class="text-center w-full mb-4">
                     <button v-on:click="procesar(5, 2)"
-                        class="w-10/12 justify-center bg-blue-600 hover:bg-blue-700 shadow-lg shadow-blue-500/50 text-white font-bold rounded-lg py-4 mt-5 sm:m-3 sm:w-full md:m-3 md:w-full xl:m-3 xl:full">
+                        class="w-10/12 justify-center bg-blue-800 hover:bg-blue-700 shadow-lg shadow-blue-500/50 text-white font-bold rounded-lg py-4 mt-5 sm:m-3 sm:w-full md:m-3 md:w-full xl:m-3 xl:full">
                         Continuar
                     </button>
                 </div>

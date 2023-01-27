@@ -38,22 +38,35 @@ class PoliciesController extends Controller
         );
 
         $seller = DB::table('insurances')
-                    ->join('prices','prices.insurances_id','insurances.id')
-                    ->join('vehicle_type_tarifs','vehicle_type_tarifs.id','prices.vehicle_type_id')
-                    ->join('data_payment_gateway','insurances.id','data_payment_gateway.insurance_id')
-                    ->join('payment_gateway', 'data_payment_gateway.payment_gateway_id', 'payment_gateway.id')
-                    ->where([['insurances.activo', 'si'],['vehicle_type_tarifs.id',$car['tipo']]])
-                    ->select('insurances.nombre AS insurace','prefijo', 'logo' , 'color' , 'priceThreeMonths AS tresmeses',
-                     'priceSixMonths AS seismeses', 'priceTwelveMonths AS docemeses', 'vehicle_type_tarifs.nombre AS vehicle_type', 
-                     'insurances.id AS insurances_id', 'vehicle_type_tarifs.id_serv AS servicios','payment_gateway.value AS payment_gateway'
-                     ,'merchanttype', 'merchantnumber', 'merchantterminal','client_name', 'vehicle_type_id' )
-                    ->get();
+            ->join('prices', 'prices.insurances_id', 'insurances.id')
+            ->join('vehicle_type_tarifs', 'vehicle_type_tarifs.id', 'prices.vehicle_type_id')
+            ->join('data_payment_gateway', 'insurances.id', 'data_payment_gateway.insurance_id')
+            ->join('payment_gateway', 'data_payment_gateway.payment_gateway_id', 'payment_gateway.id')
+            ->where([['insurances.activo', 'si'], ['vehicle_type_tarifs.id', $car['tipo']]])
+            ->select(
+                'insurances.nombre AS insurace',
+                'prefijo',
+                'logo',
+                'color',
+                'priceThreeMonths AS tresmeses',
+                'priceSixMonths AS seismeses',
+                'priceTwelveMonths AS docemeses',
+                'vehicle_type_tarifs.nombre AS vehicle_type',
+                'insurances.id AS insurances_id',
+                'vehicle_type_tarifs.id_serv AS servicios',
+                'payment_gateway.value AS payment_gateway',
+                'merchanttype',
+                'merchantnumber',
+                'merchantterminal',
+                'client_name',
+                'vehicle_type_id'
+            )
+            ->get();
         return Inertia::render('Policy/index', [
             'car' => $car,
             'sellers' => $seller,
             'clien_id' => $request->clien_id,
         ]);
-
     }
 
     /**
@@ -74,8 +87,6 @@ class PoliciesController extends Controller
      */
     public function store(Request $request)
     {
-        
-    
     }
 
     /**
@@ -95,10 +106,10 @@ class PoliciesController extends Controller
         $tipo = Vehicle_type_tarif::find($request->car['tipo']);
         $marca = Vehicle_brands::find($request->car['marca']);
         $modelo = Vehicle_models::find($request->car['modelo']);
-        $price = Price::where([['insurances_id', $request->insurre['insurance_id']],['vehicle_type_id', $request->car['tipo']]])->get();
-        foreach($serviciosActivos as $serviciosActivo){
-            foreach($servicos as $servicio){
-                if($servicio['id'] == $serviciosActivo){
+        $price = Price::where([['insurances_id', $request->insurre['insurance_id']], ['vehicle_type_id', $request->car['tipo']]])->get();
+        foreach ($serviciosActivos as $serviciosActivo) {
+            foreach ($servicos as $servicio) {
+                if ($servicio['id'] == $serviciosActivo) {
                     $totalServicios = $totalServicios + $servicio['servicePrice'];
                     $service2 = array(
                         'serviceName' => $servicio['serviceName'],
@@ -110,22 +121,22 @@ class PoliciesController extends Controller
             }
         }
         //   return $services;
-        if($request->policyTime == 'tresmeses'){
+        if ($request->policyTime == 'tresmeses') {
             $policyTime = '3 Meses';
             $time = 'priceThreeMonths';
-        }elseif($request->policyTime == 'seismeses'){
+        } elseif ($request->policyTime == 'seismeses') {
             $policyTime = '6 Meses';
             $time = 'priceSixMonths';
-        }else{
+        } else {
             $policyTime = '12 Meses';
             $time = 'priceTwelveMonths';
         }
         //$totalGeneral = $totalServicios + $request->seller[0][$time];
         $totalGeneral = $totalServicios + $price[0][$time];
         //Traer los coddigos de descuentos activos
-        $codigosDescuento = Discounts::where('active','1')->get();
-        
-        return Inertia::render('Policy/approve', [
+        $codigosDescuento = Discounts::where('active', '1')->get();
+
+        return Inertia::render('Policy/edit', [
             'car' => $request->car,
             'tarifa' => $request->tarifa,
             'sellers' => $request->seller[0],
@@ -139,8 +150,13 @@ class PoliciesController extends Controller
             'insurre' => $request->insurre,
             'codigosDescuento' => $codigosDescuento
         ]);
-
     }
+
+    public function confirm()
+    {
+        return Inertia::render('Policy/approve');
+    }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -176,16 +192,17 @@ class PoliciesController extends Controller
         //
     }
 
-    public function services($insurresId, $vehId, Request $request){
-       if ($request->policyTime == ''){
-           return 'Debes seleccionar un tiempo de vigencia de la póliza ';
+    public function services($insurresId, $vehId, Request $request)
+    {
+        if ($request->policyTime == '') {
+            return 'Debes seleccionar un tiempo de vigencia de la póliza ';
         }
-        $tarifaServices = explode("-",$request->servicios);
+        $tarifaServices = explode("-", $request->servicios);
         $services = array();
         $servicios = Service::all();
-        foreach($tarifaServices as $service){
-            foreach($servicios as $servicio){
-                if($servicio['id'] == $service){
+        foreach ($tarifaServices as $service) {
+            foreach ($servicios as $servicio) {
+                if ($servicio['id'] == $service) {
                     $service2 = array(
                         'serviceName' => $servicio['nombre'],
                         'servicePrice' => $servicio[$request->policyTime],
@@ -196,13 +213,13 @@ class PoliciesController extends Controller
             }
         }
         $insurres = DB::table('insurances')
-                    ->join('data_payment_gateway', 'insurances.id', 'data_payment_gateway.insurance_id')
-                    ->where('insurances.id', $insurresId)
-                    ->get();
+            ->join('data_payment_gateway', 'insurances.id', 'data_payment_gateway.insurance_id')
+            ->where('insurances.id', $insurresId)
+            ->get();
 
         return Inertia::render('Policy/create', [
             'car' => $request->car,
-           'tarifa' => $request->tarifa,
+            'tarifa' => $request->tarifa,
             'sellers' => $request->seller,
             'services' => $services,
             'policyTime' => $request->policyTime,
@@ -210,7 +227,8 @@ class PoliciesController extends Controller
             'insurres' => $insurres[0]
         ]);
     }
-    public function test(Request $request){
+    public function test(Request $request)
+    {
 
 
         return json_decode($request);

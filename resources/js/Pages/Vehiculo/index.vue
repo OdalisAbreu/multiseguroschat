@@ -13,7 +13,11 @@
                     <h3 class="font-bold text-lg">Asegurado</h3>
                     <p>{{ client.name }} {{ client.lastname }} </p>
                 </div>
+<<<<<<< HEAD
                 <a @click="clientReturn()" class="p-4 rounded-full bg-blue-700">
+=======
+                <div class="p-2 rounded-full bg-blue-800">
+>>>>>>> 472e7156f837c3cb88edbd8f68fceeae8f1d0487
                     <img src="../../../../public/ima/edit.png" alt="Editar">
                 </a>
             </div>
@@ -93,7 +97,7 @@
 
                     <div class="w-full mt-5 mx-5 my-4 justify-self-center self-center">
                         <button
-                            class="w-full justify-center bg-blue-600 hover:bg-blue-700 shadow-lg shadow-blue-500/50 text-white font-bold rounded-lg py-4 mt-5 sm:m-3 sm:w-full md:m-3 md:w-full xl:m-3 xl:full">
+                            class="w-full justify-center bg-blue-800 hover:bg-blue-700 shadow-lg shadow-blue-500/50 text-white font-bold rounded-lg py-4 mt-5 sm:m-3 sm:w-full md:m-3 md:w-full xl:m-3 xl:full">
                             Continuar
                         </button>
                     </div>
