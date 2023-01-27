@@ -38,6 +38,7 @@ Route::post('policy/{marcaid}', [PoliciesController::class, 'index'])->name('pol
 //Route::post('services', [PoliciesController::class, 'services'])->name('services');
 Route::post('services/{insuresId}/{vihId}', [PoliciesController::class, 'services'])->name('services');
 Route::post('servicespolicy', [PoliciesController::class, 'show'])->name('servicespolicy');
+Route::post('servicesapprove', [PoliciesController::class, 'confirm'])->name('servicesapprove');
 Route::post('generatepolicy', [PaymentController::class, 'cardNet'])->name('generatepolicy');
 
 
