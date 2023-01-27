@@ -82,7 +82,7 @@
                     </div>
                 </div>
                 <div class="text-center w-full mb-4">
-                    <button v-on:click="procesar(1, 1)"
+                    <button v-on:click="procesar(5, 2)"
                         class="w-10/12 justify-center bg-blue-600 hover:bg-blue-700 shadow-lg shadow-blue-500/50 text-white font-bold rounded-lg py-4 mt-5 sm:m-3 sm:w-full md:m-3 md:w-full xl:m-3 xl:full">
                         Continuar
                     </button>
@@ -115,6 +115,7 @@ export default {
     },
     mounted() {
         this.form.servicios = document.getElementById('servicios').value
+        console.log(this.car)
     },
     data() {
         return {
@@ -122,7 +123,7 @@ export default {
                 car: this.car,
                 seller: this.sellers,
                 token: this.token,
-                policyTime: '',
+                policyTime: 'seismeses',
                 clien_id: this.clien_id,
                 servicios: ''
             }
