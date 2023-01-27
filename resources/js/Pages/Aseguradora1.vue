@@ -12,7 +12,7 @@
                     <p>RAFAEL DE LA CRUZ</p>
                 </div>
                 <div class="p-4 rounded-full bg-blue-700">
-                    <img src="../../../../public/ima/edit.png" alt="Editar">
+                    <!-- <img src="../../../../public/ima/edit.png" alt="Editar"> -->
                 </div>
             </div>
 
@@ -23,7 +23,7 @@
                     <p>BMW Serie 430, 2012</p>
                 </div>
                 <div class="p-4 rounded-full bg-blue-700">
-                    <img src="../../../../public/ima/edit.png" alt="Editar">
+                    <!-- <img src="../../../../public/ima/edit.png" alt="Editar"> -->
                 </div>
             </div>
 
@@ -34,7 +34,7 @@
                     <p>MultiSeguros | Anual | RD$ 10,000</p>
                 </div>
                 <div class="p-4 rounded-full bg-blue-700">
-                    <img src="../../../../public/ima/edit.png" alt="Editar">
+                    <!-- <img src="../../../../public/ima/edit.png" alt="Editar"> -->
                 </div>
             </div>
 
