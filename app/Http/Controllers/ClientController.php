@@ -94,7 +94,7 @@ class ClientController extends Controller
                 'client' => $client,
                 'cities' => $cities,
                 'provinces' => $provinces,
-                'clientProvince' => $clientProvince
+                'clientProvince' => $clientProvince 
             ]);
 
         }else{
@@ -136,7 +136,7 @@ class ClientController extends Controller
         $client->province = strtoupper($request->provincia);
         $client->phonenumber = $request->phonenumber;
         $client->save();
-                
+
         $tipos = Vehicle_type_tarif::orderBy('nombre')->get();
         $marcas = Vehicle_brands::orderBy('DESCRIPCION')->get();
         $modelos = Vehicle_models::orderBy('descripcion')->get();
@@ -144,7 +144,11 @@ class ClientController extends Controller
             'tipos' => $tipos,
             'marcas' => $marcas,
             'modelos' => $modelos,
-            'clien_id' => $id
+            'clien_id' => $id,
+            'client' => $client,
+            'cities' => $request->cities,
+            'provinces' => $request->provinces,
+            'clientProvince' => $request->clientProvince
         ]);
 
     }
@@ -178,6 +182,20 @@ class ClientController extends Controller
                 'marcas' => $marcas,
                 'modelos' => $modelos,
                 'token' => $token
+            ]);
+    }
+    public function clientReturn(Request $request){
+
+            $client = $request->client;
+            $cities = $request->cities;
+            $provinces = $request->provinces;
+            $clientProvince = $request->clientProvince;
+            return Inertia::render('Clients/Edit', [
+                'client' => $client,
+                'cities' => $cities,
+                'provinces' => $provinces,
+                'clientProvince' => $clientProvince, 
+                'activarPresentacion' => 'False'
             ]);
 
     }

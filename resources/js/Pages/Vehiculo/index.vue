@@ -11,11 +11,11 @@
                 class="flex items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-7">
                 <div class="flex flex-col justify-start">
                     <h3 class="font-bold text-lg">Asegurado</h3>
-                    <p>RAFAEL DE LA CRUZ</p>
+                    <p>{{ client.name }} {{ client.lastname }} </p>
                 </div>
-                <div class="p-4 rounded-full bg-blue-700">
+                <a @click="clientReturn()" class="p-4 rounded-full bg-blue-700">
                     <img src="../../../../public/ima/edit.png" alt="Editar">
-                </div>
+                </a>
             </div>
 
             <div
@@ -124,7 +124,11 @@ export default {
         marcas: Array,
         modelos: Array,
         clien_id: String,
-        years: [2022, 2021, 2020]
+        years: [2022, 2021, 2020],
+        cities: Object,
+        provinces: Object,
+        clientProvince: Array,
+        client: Array
     },
     data() {
         return {
@@ -137,21 +141,29 @@ export default {
                 placa: '',
                 chasis: '',
                 clien_id: this.clien_id,
+            },
+            form2: {
+                cities: this.cities,
+                provinces: this.provinces,
+                clientProvince: this.clientProvince,
+                client: this.client
             }
         }
     },
     mounted() {
-
+        console.log(this.client)
     },
     methods: {
         submit() {
             this.$inertia.post(this.route('policy', this.marca), this.form)
+        },
+        clientReturn(){
+            this.$inertia.post(this.route('clientReturn'), this.form2)
         }
     },
     watch: {
         marca: function (value) {
             this.models = this.modelos.filter(model => model.IDMARCA == value)
-            console.log('Entro')
         }
 
     }

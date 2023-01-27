@@ -51,6 +51,10 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->name('dashboard');
 
+//--------------------------Retornos-------------------------------------------
+
+Route::post('clientReturn', [ClientController::class, 'clientReturn'])->name('clientReturn'); //Retornar a Vista de datos del cliente
+
 
 // ----------------Solo para pruebas-------------------------------------------
 Route::get('/end', function () {
