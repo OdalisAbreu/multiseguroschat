@@ -36,7 +36,7 @@ Route::get('/', function () {
 Route::resource('client', ClientController::class);
 Route::post('policy/{marcaid}', [PoliciesController::class, 'index'])->name('policy');
 //Route::post('services', [PoliciesController::class, 'services'])->name('services');
-Route::post('services/{insuresId}/{vihId}', [PoliciesController::class, 'services'])->name('services');
+Route::post('services/{insuresId}/{time}', [PoliciesController::class, 'services'])->name('services');
 Route::post('servicespolicy', [PoliciesController::class, 'show'])->name('servicespolicy');
 Route::post('servicesapprove', [PoliciesController::class, 'confirm'])->name('servicesapprove');
 Route::post('generatepolicy', [PaymentController::class, 'cardNet'])->name('generatepolicy');
@@ -55,8 +55,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 //--------------------------Retornos-------------------------------------------
 
 Route::post('clientReturn', [ClientController::class, 'clientReturn'])->name('clientReturn'); //Retornar a Vista de datos del cliente
-
-
+Route::post('carReturn', [PoliciesController::class, 'carReturn'])->name('carReturn');//carReturn
 // ----------------Solo para pruebas-------------------------------------------
 Route::get('/end', function () {
     return Inertia::render('end');

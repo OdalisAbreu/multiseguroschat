@@ -116,7 +116,11 @@ export default {
         cities: Object,
         provinces: Object,
         clientProvince: Array,
-        activarPresentacion: String
+        activarPresentacion: String,
+        car: Array,
+        tipos: Array,
+        marcas: Array,
+        modelos: Array
     },
     data() {
         return {
@@ -135,6 +139,11 @@ export default {
                 cities: this.cities,
                 provinces: this.provinces,
                 clientProvince: this.clientProvince,
+                car: this.car,
+                tipos: this.tipos,
+                marcas: this.marcas,
+                modelos: this.modelos
+
             },
         };
     },
@@ -152,7 +161,7 @@ export default {
         }else{
             setTimeout(() => {
                 this.loading = false
-            }, 5000)
+            }, 50)
         }
     },
     watch: {

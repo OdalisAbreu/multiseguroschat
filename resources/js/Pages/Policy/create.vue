@@ -6,29 +6,29 @@
                 class="flex items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-7">
                 <div class="flex flex-col justify-start">
                     <h3 class="font-bold text-lg">Asegurado</h3>
-                    <p>RAFAEL DE LA CRUZ</p>
+                    <p>{{ client.name }} {{ client.lastname }} </p>
                 </div>
-                <div class="p-2 rounded-full bg-blue-800">
+                <a @click="clientReturn()" class="p-4 rounded-full bg-blue-700">
                     <img src="../../../../public/ima/edit.png" alt="Editar">
-                </div>
+                </a>
             </div>
 
             <div
                 class="flex items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-7">
                 <div class="flex flex-col justify-start">
                     <h3 class="font-bold text-lg">Poliza</h3>
-                    <p>BMW Serie 430, 2012</p>
+                    <p> {{ car.marcaName }} {{ car.modeloName }}, {{ car.year }}</p>
                 </div>
-                <div class="p-2 rounded-full bg-blue-800">
+                <a @click="cartReturn()" class="p-2 rounded-full bg-blue-800">
                     <img src="../../../../public/ima/edit.png" alt="Editar">
-                </div>
+                </a>
             </div>
 
             <div
                 class="flex items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-7">
                 <div class="flex flex-col justify-start">
                     <h3 class="font-bold text-lg">Aseguradora</h3>
-                    <p>Multiseguros | Anual | RD$10000</p>
+                    <p>{{insurres.nombre}} | {{ services[0].time }} | RD$ {{Intl.NumberFormat('en-IN').format(polizaValor)}}</p>
                 </div>
                 <div class="p-2 rounded-full bg-blue-800">
                     <img src="../../../../public/ima/edit.png" alt="Editar">
@@ -92,9 +92,14 @@ export default {
         policyTime: String,
         clien_id: String,
         insurres: Array,
+        client: Array,
+        tipos: Array,
+        marcas: Array,
+        modelos: Array,
+        polizaValor: String
     },
     mounted() {
-        console.log(this.insurres)
+        console.log(this.sellers.indexOf(1))
     },
     data() {
         return {
@@ -107,19 +112,37 @@ export default {
                 policyTime: this.policyTime,
                 clien_id: this.clien_id,
                 servicios: [],
-                insurre: this.insurres
-
+                insurre: this.insurres,
+                client: this.client,
+                tipos: this.tipos,
+                marcas: this.marcas,
+                modelos:this.modelos,
+            },form2: {
+                cities: this.cities,
+                provinces: this.provinces,
+                clientProvince: this.clientProvince,
+                client: this.client,
+                car: this.car,
+                tipos: this.tipos,
+                marcas: this.marcas,
+                modelos:this.modelos
             }
         }
     },
     methods: {
         submit() {
             this.$inertia.post(this.route('servicespolicy'), this.form)
+        },
+        clientReturn(){
+            this.$inertia.post(this.route('clientReturn'), this.form2)
+        },
+        cartReturn(){
+            this.$inertia.post(this.route('carReturn'), this.form2)
         }
     },
     watch: {
         suma: function () {
-            console.log('Entro')
+        //    console.log('Entro')
         }
     }
 

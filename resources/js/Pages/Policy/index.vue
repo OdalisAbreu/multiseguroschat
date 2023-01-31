@@ -9,22 +9,22 @@
                 class="flex items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-7">
                 <div class="flex flex-col justify-start">
                     <h3 class="font-bold text-lg">Asegurado</h3>
-                    <p>RAFAEL DE LA CRUZ</p>
+                    <p>{{ client.name }} {{ client.lastname }} </p>
                 </div>
-                <div class="p-2 rounded-full bg-blue-800">
+                <a @click="clientReturn()" class="p-4 rounded-full bg-blue-700">
                     <img src="../../../../public/ima/edit.png" alt="Editar">
-                </div>
+                </a>
             </div>
 
             <div
                 class="flex items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-7">
                 <div class="flex flex-col justify-start">
                     <h3 class="font-bold text-lg">Poliza</h3>
-                    <p>BMW Serie 430, 2012</p>
+                    <p> {{ car.marcaName }} {{ car.modeloName }}, {{ car.year }}</p>
                 </div>
-                <div class="p-2 rounded-full bg-blue-800">
+                <a @click="cartReturn()" class="p-2 rounded-full bg-blue-800">
                     <img src="../../../../public/ima/edit.png" alt="Editar">
-                </div>
+                </a>
             </div>
 
             <section class="flex flex-col bg-slate-100 rounded-xl border-2 border-gray-300 mb-2">
@@ -48,7 +48,7 @@
                                     <div class="w-full flex justify-center items-center gap-1 mb-4">
                                         <!-- <input type="radio" :value="tresmeses" name="poliza"
                                         v-model="form.policyTime"> -->
-                                        <button
+                                        <button v-on:click="procesar(seller.insurances_id, 'tresmeses')" 
                                             class="flex focus:bg-blue-600 focus:border-blue-600 hover:border-blue-600 focus:text-white hover:text-white hover:bg-blue-600 hover:cursor-pointer flex-col items-center justify-center mb-1 text-sm font-semibold text-gray-900 border border-gray-300 bg-white text-center rounded-lg w-full h-16">
                                             <p>3 Meses</p>
                                             <p>RD$ {{
@@ -57,7 +57,7 @@
                                             }}.00</p>
                                         </button>
                                         <!--<input type="button" value="seismeses" name="poliza" v-model="form.policyTime">-->
-                                        <button
+                                        <button v-on:click="procesar(seller.insurances_id, 'seismeses')"
                                             class="flex focus:bg-blue-600 focus:border-blue-600 hover:border-blue-600 focus:text-white hover:text-white hover:bg-blue-600 hover:cursor-pointer flex-col items-center justify-center mb-1 text-sm font-semibold text-gray-900 border border-gray-300 bg-white text-center rounded-lg w-full h-16">
                                             <p>6 Meses</p>
                                             <p>RD$ {{
@@ -66,7 +66,7 @@
                                             }}.00</p>
                                         </button>
                                         <!-- <input type="button" value="docemeses" name="poliza" v-model="form.policyTime"> -->
-                                        <button
+                                        <button v-on:click="procesar(seller.insurances_id, 'docemeses')"
                                             class="flex focus:bg-blue-600 focus:border-blue-600 hover:border-blue-600 focus:text-white hover:text-white hover:bg-blue-600 hover:cursor-pointer flex-col items-center justify-center mb-1 text-sm font-semibold text-gray-900 border border-gray-300 bg-white text-center rounded-lg w-full h-16">
                                             <p>Anual</p>
                                             <p>RD$ {{
@@ -80,12 +80,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="text-center w-full mb-4">
-                    <button v-on:click="procesar(5, 2)"
-                        class="w-10/12 justify-center bg-blue-800 hover:bg-blue-700 shadow-lg shadow-blue-500/50 text-white font-bold rounded-lg py-4 mt-5 sm:m-3 sm:w-full md:m-3 md:w-full xl:m-3 xl:full">
-                        Continuar
-                    </button>
                 </div>
             </section>
         </section>
@@ -112,10 +106,17 @@ export default {
         sellers: Array,
         token: String,
         clien_id: String,
+        cities: Object,
+        provinces: Object,
+        clientProvince: Array,
+        client: Array,
+        tipos: Array,
+        marcas: Array,
+        modelos: Array
     },
     mounted() {
         this.form.servicios = document.getElementById('servicios').value
-        console.log(this.car)
+        console.log(this.sellers)
     },
     data() {
         return {
@@ -123,16 +124,36 @@ export default {
                 car: this.car,
                 seller: this.sellers,
                 token: this.token,
-                policyTime: 'seismeses',
                 clien_id: this.clien_id,
-                servicios: ''
+                servicios: '',
+                client: this.client,
+                tipos: this.tipos,
+                marcas: this.marcas,
+                modelos:this.modelos,
+                car: this.car
+            },
+            form2: {
+                cities: this.cities,
+                provinces: this.provinces,
+                clientProvince: this.clientProvince,
+                client: this.client,
+                car: this.car,
+                tipos: this.tipos,
+                marcas: this.marcas,
+                modelos:this.modelos
             }
         }
     },
     methods: {
-        procesar: function (insurances_id, vehicle_type_id) {
+        procesar: function (insurances_id, time) {
             //   console.log(insurances_id + ' - ' + vehicle_type_id)
-            this.$inertia.post(this.route('services', [insurances_id, vehicle_type_id]), this.form)
+            this.$inertia.post(this.route('services', [insurances_id, time]), this.form)
+        },
+        clientReturn(){
+            this.$inertia.post(this.route('clientReturn'), this.form2)
+        },
+        cartReturn(){
+            this.$inertia.post(this.route('carReturn'), this.form2)
         }
     },
 

@@ -76,7 +76,16 @@ export default {
         services: Array,
         policyTime: String,
         clien_id: String,
-        insurres: Array,
+        servicios: Object,
+        insurre: Array,
+        totalGeneral: String,
+        marca: String,
+        tipo: String,
+        modelo: String,
+        client: Array,
+        tipos: Array,
+        marcas: Array,
+        modelos: Array,
     },
     mounted() {
         console.log(this.insurres)
@@ -92,7 +101,15 @@ export default {
                 policyTime: this.policyTime,
                 clien_id: this.clien_id,
                 servicios: [],
-                insurre: this.insurres
+                totalGeneral: this.totalGeneral,
+                marca: this.marca,
+                tipo: this.tipo,
+                modelo: this.modelo,
+                client: this.client,
+                tipos: this.tipos,
+                marcas: this.marcas,
+                modelos: this.modelos,
+                insurre: this.insurre,
             }
         }
     },

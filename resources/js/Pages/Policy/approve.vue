@@ -95,7 +95,6 @@ export default {
        car: Array,
        tarifa: Array,
        sellers: Array,
-       token: String,
        services: Array,
        policyTime: String,
        marca: String,
@@ -104,7 +103,6 @@ export default {
        cliente: Array,
        totalGeneral: String,
        insurre: Array,
-       codigosDescuento: Array
     },
     mounted(){
        console.log(this.insurre)
