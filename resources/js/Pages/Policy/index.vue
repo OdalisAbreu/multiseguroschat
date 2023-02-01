@@ -1,5 +1,5 @@
 <template>
-    <section class="bg-gray-200 pb-6">
+    <section class="bg-gray-200 pb-6 min-h-screen">
 
         <Header :width="65" />
 

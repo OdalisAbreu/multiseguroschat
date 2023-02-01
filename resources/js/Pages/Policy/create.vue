@@ -70,6 +70,7 @@
             </section>
         </section>
     </section>
+    <Footer></Footer>
 
 </template>
 <script>

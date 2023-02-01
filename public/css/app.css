@@ -1037,10 +1037,6 @@ select {
   margin-left: 1rem;
   margin-right: 1rem;
 }
-.mx-8 {
-  margin-left: 2rem;
-  margin-right: 2rem;
-}
 .ml-3 {
   margin-left: 0.75rem;
 }
@@ -1681,10 +1677,6 @@ select {
 .px-5 {
   padding-left: 1.25rem;
   padding-right: 1.25rem;
-}
-.px-8 {
-  padding-left: 2rem;
-  padding-right: 2rem;
 }
 .pt-6 {
   padding-top: 1.5rem;
