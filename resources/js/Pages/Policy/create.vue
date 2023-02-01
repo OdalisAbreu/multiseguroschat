@@ -96,7 +96,8 @@ export default {
         tipos: Array,
         marcas: Array,
         modelos: Array,
-        polizaValor: String
+        polizaValor: String,
+        cities: Array,
     },
     mounted() {
         console.log(this.sellers.indexOf(1))
@@ -117,6 +118,7 @@ export default {
                 tipos: this.tipos,
                 marcas: this.marcas,
                 modelos:this.modelos,
+                cities: this.cities,
             },form2: {
                 cities: this.cities,
                 provinces: this.provinces,
