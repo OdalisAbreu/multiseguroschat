@@ -66,8 +66,15 @@
                 <p>Total a pagar: {{ new Intl.NumberFormat('en-IN').format(form.totalGeneral) }}</p>
             </div>
 
-            <div class="w-full flex justify-center items-center mt-4">
-                <a href="#" class="text-center text-cyan-400 text-sm font-bold">Tengo codigo de descuento</a>
+            <div v-if="!Descuento" class="w-full flex justify-center items-center mt-4">
+                <button v-on:click="Descuento = true" href="#" class="text-center text-cyan-400 text-sm font-bold">Tengo
+                    código de descuento</button>
+            </div>
+
+            <div v-if="Descuento" class="p-2 flex flex-col justify-center items-center mt-4">
+                <input type="text" placeholder="CÓDIGO DE DESCUENTO">
+                <button v-on:click="Descuento = false"
+                    class="text-center text-cyan-400 text-lg font-bold">Enviar</button>
             </div>
 
             <div class="mt-2 mx-5 my-4">
@@ -108,6 +115,7 @@ export default {
         cliente: Array,
         totalGeneral: String,
         insurre: Array,
+        Descuento: false,
     },
     mounted() {
         console.log(this.insurre)
