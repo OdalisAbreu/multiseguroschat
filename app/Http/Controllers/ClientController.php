@@ -211,6 +211,7 @@ class ClientController extends Controller
             ]);
     }
     public function clientReturn(Request $request){
+        return $request->cities;
             return Inertia::render('Clients/Edit', [
                 'client' => $request->client,
                 'cities' => $request->cities,

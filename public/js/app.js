@@ -21625,7 +21625,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
     Footer: _components_Footer_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
@@ -21649,11 +21648,12 @@ __webpack_require__.r(__webpack_exports__);
     client: Array,
     tipos: Array,
     marcas: Array,
-    modelos: Array
+    modelos: Array,
+    cities: Array
   },
   mounted: function mounted() {
     /* eslint-disable */;
-    oo_oo(), console.log(this.insurres, "3a67421f_0");
+    oo_oo(), console.log(this.insurres, "26a02088_0");
   },
   data: function data() {
     return {
@@ -21675,20 +21675,36 @@ __webpack_require__.r(__webpack_exports__);
         marcas: this.marcas,
         modelos: this.modelos,
         insurre: this.insurre
+      },
+      form2: {
+        cities: this.cities,
+        provinces: this.provinces,
+        clientProvince: this.clientProvince,
+        client: this.client,
+        car: this.car,
+        tipos: this.tipos,
+        marcas: this.marcas,
+        modelos: this.modelos
       }
     };
   },
   methods: {
     submit: function submit() {
       /* eslint-disable */;
-      oo_oo(), console.log('hola', "3a67421f_1");
+      oo_oo(), console.log('hola', "26a02088_1");
       this.$inertia.post(this.route('servicesapprove'), this.form);
+    },
+    clientReturn: function clientReturn() {
+      this.$inertia.post(this.route('clientReturn'), this.form2);
+    },
+    cartReturn: function cartReturn() {
+      this.$inertia.post(this.route('carReturn'), this.form2);
     }
   },
   watch: {
     suma: function suma() {
       /* eslint-disable */;
-      oo_oo(), console.log('Entro', "3a67421f_2");
+      oo_oo(), console.log('Entro', "26a02088_2");
     }
   }
 });
@@ -21746,7 +21762,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
   mounted: function mounted() {
     this.form.servicios = document.getElementById('servicios').value
     /* eslint-disable */;
-    oo_oo(), console.log(this.sellers, "968e67ba_0");
+    oo_oo(), console.log(this.sellers, "633dc596_0");
   },
   data: function data() {
     return {
@@ -21759,7 +21775,8 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
         client: this.client,
         tipos: this.tipos,
         marcas: this.marcas,
-        modelos: this.modelos
+        modelos: this.modelos,
+        cities: this.cities
       }, "car", this.car),
       form2: {
         cities: this.cities,
@@ -26159,8 +26176,36 @@ var _hoisted_1 = {
 var _hoisted_2 = {
   "class": "p-6 relative rounded-xl bg-white mx-6 z-50 mt-4"
 };
-var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"flex items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-7\"><div class=\"flex flex-col justify-start\"><h3 class=\"font-bold text-lg\">Asegurado</h3><p>RAFAEL DE LA CRUZ</p></div><div class=\"p-2 rounded-full bg-blue-800\"><img src=\"" + _public_ima_edit_png__WEBPACK_IMPORTED_MODULE_1__["default"] + "\" alt=\"Editar\"></div></div><div class=\"flex items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-7\"><div class=\"flex flex-col justify-start\"><h3 class=\"font-bold text-lg\">Poliza</h3><p>BMW Serie 430, 2012</p></div><div class=\"p-2 rounded-full bg-blue-800\"><img src=\"" + _public_ima_edit_png__WEBPACK_IMPORTED_MODULE_1__["default"] + "\" alt=\"Editar\"></div></div><div class=\"flex items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-7\"><div class=\"flex flex-col justify-start\"><h3 class=\"font-bold text-lg\">Aseguradora</h3><p>Multiseguros | Anual | RD$10000</p></div><div class=\"p-2 rounded-full bg-blue-800\"><img src=\"" + _public_ima_edit_png__WEBPACK_IMPORTED_MODULE_1__["default"] + "\" alt=\"Editar\"></div></div><div class=\"flex items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-7\"><div class=\"flex flex-col justify-start\"><h3 class=\"font-bold text-lg\">Servicios Opcionales</h3><p>Ultimos Gastos: RD$ 155.00</p></div><div class=\"p-2 rounded-full bg-blue-800\"><img src=\"" + _public_ima_edit_png__WEBPACK_IMPORTED_MODULE_1__["default"] + "\" alt=\"Editar\"></div></div>", 4);
-var _hoisted_7 = {
+var _hoisted_3 = {
+  "class": "flex items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-7"
+};
+var _hoisted_4 = {
+  "class": "flex flex-col justify-start"
+};
+var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", {
+  "class": "font-bold text-lg"
+}, "Asegurado", -1 /* HOISTED */);
+var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+  src: _public_ima_edit_png__WEBPACK_IMPORTED_MODULE_1__["default"],
+  alt: "Editar"
+}, null, -1 /* HOISTED */);
+var _hoisted_7 = [_hoisted_6];
+var _hoisted_8 = {
+  "class": "flex items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-7"
+};
+var _hoisted_9 = {
+  "class": "flex flex-col justify-start"
+};
+var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", {
+  "class": "font-bold text-lg"
+}, "Poliza", -1 /* HOISTED */);
+var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+  src: _public_ima_edit_png__WEBPACK_IMPORTED_MODULE_1__["default"],
+  alt: "Editar"
+}, null, -1 /* HOISTED */);
+var _hoisted_12 = [_hoisted_11];
+var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"flex items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-7\"><div class=\"flex flex-col justify-start\"><h3 class=\"font-bold text-lg\">Aseguradora</h3><p>Multiseguros | Anual | RD$10000</p></div><div class=\"p-2 rounded-full bg-blue-800\"><img src=\"" + _public_ima_edit_png__WEBPACK_IMPORTED_MODULE_1__["default"] + "\" alt=\"Editar\"></div></div><div class=\"flex items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-7\"><div class=\"flex flex-col justify-start\"><h3 class=\"font-bold text-lg\">Servicios Opcionales</h3><p>Ultimos Gastos: RD$ 155.00</p></div><div class=\"p-2 rounded-full bg-blue-800\"><img src=\"" + _public_ima_edit_png__WEBPACK_IMPORTED_MODULE_1__["default"] + "\" alt=\"Editar\"></div></div>", 2);
+var _hoisted_15 = {
   "class": "mt-2 mx-5 my-4"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
@@ -26168,8 +26213,18 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_Footer = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Footer");
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("section", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Header, {
     width: 65
-  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("section", _hoisted_2, [_hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-    onClick: _cache[0] || (_cache[0] = function () {
+  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("section", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [_hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.client.name) + " " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.client.lastname), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+    onClick: _cache[0] || (_cache[0] = function ($event) {
+      return $options.clientReturn();
+    }),
+    "class": "p-4 rounded-full bg-blue-700"
+  }, _hoisted_7)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [_hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.car.marcaName) + " " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.car.modeloName) + ", " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.car.year), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+    onClick: _cache[1] || (_cache[1] = function ($event) {
+      return $options.cartReturn();
+    }),
+    "class": "p-2 rounded-full bg-blue-800"
+  }, _hoisted_12)]), _hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    onClick: _cache[2] || (_cache[2] = function () {
       return $options.submit && $options.submit.apply($options, arguments);
     }),
     "class": "bg-blue-800 hover:bg-blue-600 shadow-lg shadow-blue-500/50 text-white font-bold rounded-lg w-full py-3 mt-5 sm:m-3 sm:w-30 md:m-3 md:w-40 xl:m-3 xl:w-50"
