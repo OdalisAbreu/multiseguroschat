@@ -90,11 +90,18 @@ class ClientController extends Controller
             $cities = Municipalities::orderBy('descrip')->get();
             $provinces = Province::orderBy('descrip')->get();
             $clientProvince = Province::find($client->province);
+            $tipos = Vehicle_type_tarif::orderBy('nombre')->get();
+            $marcas = Vehicle_brands::orderBy('DESCRIPCION')->get();
+            $modelos = Vehicle_models::orderBy('descripcion')->get();
+
             return Inertia::render('Clients/Edit', [
                 'client' => $client,
                 'cities' => $cities,
                 'provinces' => $provinces,
-                'clientProvince' => $clientProvince
+                'clientProvince' => $clientProvince,
+                'tipos' => $tipos,
+                'marcas' => $marcas,
+                'modelos' => $modelos
             ]);
 
         }else{
@@ -136,15 +143,38 @@ class ClientController extends Controller
         $client->province = strtoupper($request->provincia);
         $client->phonenumber = $request->phonenumber;
         $client->save();
-                
-        $tipos = Vehicle_type_tarif::orderBy('nombre')->get();
-        $marcas = Vehicle_brands::orderBy('DESCRIPCION')->get();
-        $modelos = Vehicle_models::orderBy('descripcion')->get();
+        
+        if(isset($request->car)){
+            $car = $request->car;
+        }else{
+            $car = [
+                "tipo" => '',
+                "tipoName" => '',
+                "marca" => '',
+                "marcaName" => '',
+                "modelo" => '',
+                "modeloName" => '',
+                "placa" => '',
+                "chasis" => '',
+                "year" => ''
+            ];
+        }
+        
+
+        $tipos = $request->tipos;
+        $marcas = $request->marcas;
+        $modelos = $request->modelos;
+
         return Inertia::render('Vehiculo/index', [
             'tipos' => $tipos,
             'marcas' => $marcas,
             'modelos' => $modelos,
-            'clien_id' => $id
+            'clien_id' => $id,
+            'client' => $client,
+            'cities' => $request->cities,
+            'provinces' => $request->provinces,
+            'clientProvince' => $request->clientProvince,
+            'car' => $car
         ]);
 
     }
@@ -178,6 +208,19 @@ class ClientController extends Controller
                 'marcas' => $marcas,
                 'modelos' => $modelos,
                 'token' => $token
+            ]);
+    }
+    public function clientReturn(Request $request){
+            return Inertia::render('Clients/Edit', [
+                'client' => $request->client,
+                'cities' => $request->cities,
+                'provinces' => $request->provinces,
+                'clientProvince' => $request->clientProvince, 
+                'tipos' => $request->tipos,
+                'marcas' => $request->marcas,
+                'modelos' => $request->modelos,
+                'activarPresentacion' => 'False',
+                'car' => $request->car
             ]);
 
     }

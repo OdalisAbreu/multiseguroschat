@@ -116,6 +116,11 @@ export default {
         cities: Object,
         provinces: Object,
         clientProvince: Array,
+        activarPresentacion: String,
+        car: Array,
+        tipos: Array,
+        marcas: Array,
+        modelos: Array
     },
     data() {
         return {
@@ -131,6 +136,14 @@ export default {
                 city: this.client.city,
                 phonenumber: this.client.phonenumber,
                 provincia: this.client.province,
+                cities: this.cities,
+                provinces: this.provinces,
+                clientProvince: this.clientProvince,
+                car: this.car,
+                tipos: this.tipos,
+                marcas: this.marcas,
+                modelos: this.modelos
+
             },
         };
     },
@@ -143,9 +156,13 @@ export default {
         },
     },
     mounted() {
-        setTimeout(() => {
-            this.loading = false
-        }, 5000)
+        if(this.activarPresentacion == 'False'){
+                this.loading = false
+        }else{
+            setTimeout(() => {
+                this.loading = false
+            }, 50)
+        }
     },
     watch: {
         province: function (key) {

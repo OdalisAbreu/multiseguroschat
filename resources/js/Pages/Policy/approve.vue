@@ -1,117 +1,120 @@
 <template>
-    <div class="w-full mb-2 rounded  overflow-x-hidden border-t flex flex-col bg-black shadow-lg shadow-black-500/50">
-        <div class="p-2"> 
-           <img class="inline h-12 w-25"  src="/ima/sc2_ic.png" alt="">
-        </div>
-    </div>
-    
-     <div class="p-4 w-full text-center bg-white rounded-lg border shadow-md sm:p-8 dark:bg-gray-100 dark:border-gray-700">
-       
-        <h5 class="mb-2 text-3xl font-bold text-gray-900 dark:text-black">DATOS DEL SEGURO </h5>
-               <div class="relative pb-15 overflow-hidden">
-                  <img class="inline h-12 w-25" :src="insurre.logo">
-                </div> 
-        <div class="">
-            <div class="col-span-1">
-                <div  class="w-full rounded  overflow-x-hidden border-t flex flex-col">
-                    <div class="w-full rounded  overflow-x-hidden border-t flex flex-col bg-blue-500">
-                        <p class="text-center text-white font-semibold text-xl">Datos del Asegurado</p>
-                    </div>
-            </div>
-                <div class="w-full font-bold rounded  overflow-x-hidden border-t flex flex-col bg-gray-200">
-                    Asegurado: {{cliente.name}} {{cliente.lastname}} <br>
-                    Cédula: {{cliente.cardnumber}} <br>
-                    Dirección: {{cliente.adrress}} <br>
-                    Teléfono: {{cliente.phonenumber}} <br>
+    <section class="bg-gray-200">
+        <Header :width="90" />
+
+        <section class="p-6 relative rounded-xl bg-white mx-6 z-50 mt-4 ">
+            <h2 class="px-2 pb-6 text-center font-bold text-2xl">Verifica tu informacion antes de realizar el pago</h2>
+            <div
+                class="flex items-center justify-between bg-slate-100 rounded-t-xl border-2 border-gray-100 p-3 px-5 mb-3">
+                <div class="flex flex-col justify-start">
+                    <h3 class="font-bold text-lg">Datos del Asegurado</h3>
                 </div>
-            </div>
-        
-            <div class="col-span-1">
-                <div  class="w-full rounded  overflow-x-hidden border-t flex flex-col">
-                    <div class="w-full rounded  overflow-x-hidden border-t flex flex-col bg-blue-500">
-                        <p class="text-center text-white font-semibold text-xl">Datos del Vehículo</p>
-                    </div>
-                </div>
-                    <div class="w-full font-bold rounded  overflow-x-hidden border-t flex flex-col bg-gray-200">
-                        Tipo: {{tipo}} <br>
-                        Marca: {{marca}} <br>
-                        Modelo: {{modelo}} <br>
-                        Año: {{car.year}} <br>
-                        Chassis: <label style="text-transform: uppercase">{{car.chasis}} </label>
-                        Registro: <label style="text-transform: uppercase"> {{car.placa}} </label>
-                    </div>
             </div>
 
-            <div class="col-span-1">
-                <div  class="w-full rounded overflow-x-hidden border-t flex flex-col">
-                    <div class="w-full rounded  overflow-x-hidden border-t flex flex-col bg-blue-500">
-                        <p class="text-center text-white font-semibold text-xl">Servicios</p>
+            <div
+                class="flex items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-100 p-3 px-5 mb-7">
+                <div class="flex flex-col justify-start">
+                    <div> <b>Asegurado:</b>
+                        <p>{{ cliente.name }} {{ cliente.lastname }}</p>
+                    </div>
+                    <div> <b>Cédula:</b>
+                        <p>{{ cliente.cardnumber }}</p>
+                    </div>
+                    <div><b>Dirección:</b>
+                        <p>{{ cliente.adrress }}</p>
+                    </div>
+                    <div> <b>Teléfono:</b>
+                        <p>{{ cliente.phonenumber }}</p>
                     </div>
                 </div>
-                <div >
-                    <div class="w-full mb-8 font-bold rounded  overflow-x-hidden border-t flex flex-col bg-gray-200">
-                      <div v-for="servicio in services" :key="servicio.id">
-                      {{servicio.serviceName}} <br>
-                      RD$ {{new Intl.NumberFormat('en-IN').format(servicio.servicePrice)}}<br>
+            </div>
+
+            <div
+                class="flex items-center justify-between bg-slate-100 rounded-t-xl border-2 border-gray-100 p-3 px-5 mb-3">
+                <div class="flex flex-col justify-start">
+                    <h3 class="font-bold text-lg">Datos del Vehículo</h3>
+                </div>
+            </div>
+
+            <div
+                class="flex items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-100 p-3 px-5 mb-7">
+                <div class="flex flex-col justify-start">
+                    <div> <b> Tipo:</b>
+                        <p>{{ tipo }}</p>
+                    </div>
+                    <div> <b> Marca:</b>
+                        <p>{{ marca }}</p>
+                    </div>
+                    <div><b>Modelo:</b>
+                        <p> {{ modelo }}</p>
+                    </div>
+                    <div> <b> Año:</b>
+                        <p>{{ car.year }}</p>
+                    </div>
+                    <div> <b> Chassis:</b>
+                        <p><label style="text-transform: uppercase">{{ car.chasis }} </label></p>
+                    </div>
+                    <div> <b> Registro:</b>
+                        <p> <label style="text-transform: uppercase"> {{ car.placa }} </label></p>
                     </div>
                 </div>
-                </div>
             </div>
-            <div class="pb-5">
-                    <label>¿Tienes código de descuento? Digítalo acá</label>
-                    <input class="rounded-lg w-full mt-4 mb-4 sm:m-3 sm:w-30 md:m-3 md:w-50 xl:m-3 xl:w-80" type="text" id="codigo" placeholder="Códigos de descuento" v-model="form.descuento">
-                    <a @click="descuento()" class="bg-blue-600 hover:bg-blue-700 shadow-lg shadow-lime-500/50 text-white font-bold rounded-lg w-full py-3 px-3 mt-5 sm:m-3 sm:w-30 md:m-3 md:w-40 xl:m-3 xl:w-50"> 
-                    Aplicar Descuento 
-                    </a>
+            <div
+                class="w-full font-bold rounded  overflow-x-hidden border-t flex flex-col gap-2 text-lg justify-between pt-4">
+                <p>Sub Total: {{ new Intl.NumberFormat('en-IN').format(totalGeneral) }}</p>
+                <p>Descuento: {{ new Intl.NumberFormat('en-IN').format(form.descontar) }}</p>
+                <p>Total a pagar: {{ new Intl.NumberFormat('en-IN').format(form.totalGeneral) }}</p>
             </div>
- 
-            <div class="col-span-1">
-                <div class="w-full font-bold rounded  overflow-x-hidden border-t flex flex-col bg-gray-200"> 
-                    Sub Total: {{new Intl.NumberFormat('en-IN').format(totalGeneral)}}<br>
-                    Descuento: {{new Intl.NumberFormat('en-IN').format(form.descontar)}}<br>
-                    Total a pagar:  {{new Intl.NumberFormat('en-IN').format(form.totalGeneral)}}<br>
-                </div>
-                    <form @submit.prevent="submit">
-                        <div class="mt-5">
-                            <button class="bg-blue-500 hover:bg-blue-600 shadow-lg shadow-blue-500/50 text-white font-bold rounded-lg w-full py-3 mt-5 sm:m-3 sm:w-30 md:m-3 md:w-40 xl:m-3 xl:w-50">
-                                Comprar
-                            </button>
-                        </div>
-                    </form>
-                </div>
-        </div>
-  </div>
+
+            <div class="w-full flex justify-center items-center mt-4">
+                <a href="#" class="text-center text-cyan-400 text-sm font-bold">Tengo codigo de descuento</a>
+            </div>
+
+            <div class="mt-2 mx-5 my-4">
+                <button v-on:click="submit"
+                    class="bg-blue-800 hover:bg-blue-600 shadow-lg shadow-blue-500/50 text-white font-bold rounded-lg w-full py-3 mt-5 sm:m-3 sm:w-30 md:m-3 md:w-40 xl:m-3 xl:w-50">
+                    Realizar pago
+                </button>
+            </div>
+
+
+        </section>
+        <Footer class="mt-4" />
+    </section>
 
 </template>
 <script>
-    import { Head, Link } from '@inertiajs/inertia-vue3';
+import { Head, Link } from '@inertiajs/inertia-vue3';
 import { watch } from '@vue/runtime-core';
+import Header from '../../components/Header.vue';
+import Footer from '../../components/Footer.vue';
+
 export default {
-    components:{
+    components: {
         Head,
-        Link
+        Link,
+        Header,
+        Footer,
     },
-    props:{
-       car: Array,
-       tarifa: Array,
-       sellers: Array,
-       token: String,
-       services: Array,
-       policyTime: String,
-       marca: String,
-       tipo: String,
-       modelo: String,
-       cliente: Array,
-       totalGeneral: String,
-       insurre: Array,
-       codigosDescuento: Array
+    props: {
+        car: Array,
+        tarifa: Array,
+        sellers: Array,
+        services: Array,
+        policyTime: String,
+        marca: String,
+        tipo: String,
+        modelo: String,
+        cliente: Array,
+        totalGeneral: String,
+        insurre: Array,
     },
-    mounted(){
-       console.log(this.insurre)
+    mounted() {
+        console.log(this.insurre)
     },
-    data(){
-        return{
-            form:{
+    data() {
+        return {
+            form: {
                 car: this.car,
                 cliente: this.cliente,
                 services: this.services,
@@ -125,34 +128,34 @@ export default {
             }
         }
     },
-    methods:{
-        submit(){
+    methods: {
+        submit() {
             this.$inertia.post(this.route('generatepolicy'), this.form)
         },
-        descuento(){
+        descuento() {
             var codigoIngresado = document.getElementById('codigo').value
             var count = 0
-            var percentage = 0 
-           this.codigosDescuento.forEach(function(codigo) {
-                if(codigoIngresado == codigo.code){
+            var percentage = 0
+            this.codigosDescuento.forEach(function (codigo) {
+                if (codigoIngresado == codigo.code) {
                     count++
                     percentage = codigo.discount_amount
                 }
             });
             console.log(percentage)
             this.form.descontar = this.totalGeneral * percentage / 100
-            var aplicado =  this.totalGeneral - this.form.descontar
+            var aplicado = this.totalGeneral - this.form.descontar
             console.log(aplicado)
-            if(count > 0){
+            if (count > 0) {
                 this.form.totalGeneral = aplicado
-            }else{
+            } else {
                 alert('Código vencido o invalido, favor de verificar su código e introducirlo nuevamente')
                 document.getElementById('codigo').value = ''
             }
         }
     },
     watch: {
-        suma: function(){
+        suma: function () {
             console.log('Entro')
         }
     }

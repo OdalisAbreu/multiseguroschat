@@ -28,15 +28,95 @@ class PoliciesController extends Controller
      */
     public function index(Request $request, $marcaid)
     {
-        $car = array(
-            'tipo' => $request->tipo,
-            'modelo' => $request->modelo,
-            'marca' => $marcaid,
-            'placa' => $request->placa,
-            'chasis' => $request->chasis,
-            'year' => $request->year,
-        );
+        $tipo= '';
+        $tipoName = '';
+        $modelo = '';
+        $modeloName = '';
+        $marca = '';
+        $marcaName = '';
+        //return $request->modelos;
+        // Si llegan string no realiza la búsqueda del nombre porque ya viene en la variable base
+        if(!is_string($request->tipo)){
+            foreach($request->tipos as $tipo){
+                if($tipo['id'] == $request->tipo ){
+                   $tipoName = $tipo['nombre'];
+                   break;
+                }
+            }
+        }else{
+            $tipoName = $request->tipo;
+        }
+        if(!is_string($request->modelo)){
+            foreach($request->modelos as $modelo){
+                if($modelo['ID'] == $request->modelo ){
+                    $modeloName = $modelo['descripcion'];
+                   break;
+                }
+            }
+        }else{
+            $modeloName = $request->modelo;
+        }
 
+        foreach($request->marcas as $marca){
+            if($marca['ID'] == $marcaid ){
+                $marcaName = $marca['DESCRIPCION'];
+                $marcaid = $marca['ID'];
+               break;
+            }
+        }
+        //Validar si el valor de tipo, modelo y marca viene del edit, para poder porcesar el ID de cada uno
+        if(is_int($request->tipo) and is_int($marcaid) and is_int($request->modelo) ){
+            $car = array(
+                'tipo' => $request->tipo,
+                'tipoName' => $tipoName,
+                'marca' => $marcaid,
+                'marcaName' => $marcaName,
+                'modelo' => $request->modelo,
+                'modeloName' => $modeloName,
+                'placa' => $request->placa,
+                'chasis' => $request->chasis,
+                'year' => $request->year,
+            );
+        }else{
+            $car = array(
+                'tipo' => '',
+                'tipoName' => $tipoName,
+                'marca' => '',
+                'marcaName' => $marcaName,
+                'modelo' => '',
+                'modeloName' => $modeloName,
+                'placa' => $request->placa,
+                'chasis' => $request->chasis,
+                'year' => $request->year,
+            );
+            if(is_string($request->tipo)){
+                foreach($request->tipos as $tipo){
+                    if($tipo['nombre'] == $request->tipo ){
+                        $car['tipo'] = $tipo['id'];
+                        break;
+                    }
+                };
+            }else{
+                $car['tipo'] = $request->tipo;
+            }
+            if(is_string($marcaid)){
+                foreach($request->marcas as $marca){
+                    if($marca['DESCRIPCION'] == $marcaid ){
+                        $car['marcaName'] = $marcaid;
+                        $car['marca'] = $marca['ID'];
+                        break;
+                    }
+                }
+            }
+            if(is_string($request->modelo)){
+                foreach($request->modelos as $modelo){
+                    if($modelo['descripcion'] == $request->modelo ){
+                        $car['modelo'] = $modelo['ID'];
+                        break;
+                    }
+                }
+            }
+        }
         $seller = DB::table('insurances')
             ->join('prices', 'prices.insurances_id', 'insurances.id')
             ->join('vehicle_type_tarifs', 'vehicle_type_tarifs.id', 'prices.vehicle_type_id')
@@ -66,35 +146,16 @@ class PoliciesController extends Controller
             'car' => $car,
             'sellers' => $seller,
             'clien_id' => $request->clien_id,
+            'cities' => $request->cities,
+            'provinces' => $request->provinces,
+            'clientProvince' => $request->clientProvince,
+            'client' => $request->client,
+            'tipos' => $request->tipos, 
+            'modelos' => $request->modelos,
+            'marcas' => $request->marcas
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show(Request $request)
     {
         $serviciosActivos = $request->servicios;
@@ -135,7 +196,7 @@ class PoliciesController extends Controller
         $totalGeneral = $totalServicios + $price[0][$time];
         //Traer los coddigos de descuentos activos
         $codigosDescuento = Discounts::where('active', '1')->get();
-
+        
         return Inertia::render('Policy/edit', [
             'car' => $request->car,
             'tarifa' => $request->tarifa,
@@ -148,65 +209,62 @@ class PoliciesController extends Controller
             'cliente' => $clente,
             'services' => $services,
             'insurre' => $request->insurre,
-            'codigosDescuento' => $codigosDescuento
+            'codigosDescuento' => $codigosDescuento,
+            'client' => $request->client,
+            'tipos' => $request->tipos, 
+            'modelos' => $request->modelos,
+            'marcas' => $request->marcas
         ]);
     }
 
-    public function confirm()
+    public function confirm(Request $request)
     {
-        return Inertia::render('Policy/approve');
+        return Inertia::render('Policy/approve',[
+            'car' => $request->car,
+            'tarifa' => $request->tarifa,
+            'sellers' => $request->seller,
+            'services' => $request->services,
+            'policyTime' => $request->policyTime,
+            'marca' => $request->marca,
+            'totalGeneral' => $request->totalGeneral,
+            'tipo' => $request->tipo,
+            'modelo' => $request->modelo,
+            'cliente' => $request->client,
+            'insurre' => $request->insurre,
+            'client' => $request->client,
+            'tipos' => $request->tipos, 
+            'marcas' => $request->marcas,
+            'modelos' => $request->modelos,
+        ]);
     }
 
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function services($insurresId, $time, Request $request)
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
-
-    public function services($insurresId, $vehId, Request $request)
-    {
-        if ($request->policyTime == '') {
+        $plazo ='';
+        if ($time == '') {
             return 'Debes seleccionar un tiempo de vigencia de la póliza ';
         }
         $tarifaServices = explode("-", $request->servicios);
         $services = array();
         $servicios = Service::all();
+        if($time == 'tresmeses'){
+            $plazo = '3 meses';
+        }
+        if($time == 'seismeses'){
+            $plazo = '6 meses';
+        }
+        if($time == 'docemeses'){
+            $plazo = '12 meses';
+        }
         foreach ($tarifaServices as $service) {
             foreach ($servicios as $servicio) {
                 if ($servicio['id'] == $service) {
                     $service2 = array(
                         'serviceName' => $servicio['nombre'],
-                        'servicePrice' => $servicio[$request->policyTime],
-                        'id' => $servicio['id']
+                        'servicePrice' => $servicio[$time],
+                        'id' => $servicio['id'],
+                        'time' => $plazo
                     );
                     array_push($services, $service2);
                 }
@@ -216,21 +274,37 @@ class PoliciesController extends Controller
             ->join('data_payment_gateway', 'insurances.id', 'data_payment_gateway.insurance_id')
             ->where('insurances.id', $insurresId)
             ->get();
-
+       foreach($request->seller as $seller){
+        if($seller['insurances_id'] == $insurresId){
+            $polizaValor = $seller[$time];
+        }
+       }
         return Inertia::render('Policy/create', [
             'car' => $request->car,
-            'tarifa' => $request->tarifa,
             'sellers' => $request->seller,
             'services' => $services,
-            'policyTime' => $request->policyTime,
+            'policyTime' => $time,
             'clien_id' => $request->clien_id,
-            'insurres' => $insurres[0]
+            'insurres' => $insurres[0],
+            'client' => $request->client,
+            'tipos' => $request->tipos,
+            'marcas' => $request->marcas,
+            'modelos' => $request->modelos,
+            'car' => $request->car,
+            'polizaValor' => $polizaValor
         ]);
     }
-    public function test(Request $request)
+    public function carReturn(Request $request)
     {
-
-
-        return json_decode($request);
+        return Inertia::render('Vehiculo/index', [
+            'cities' => $request->cities,
+            'provinces' => $request->provinces,
+            'clientProvince' => $request->clientProvince, 
+            'client' => $request->client,
+            'tipos' => $request->tipos,
+            'marcas' => $request->marcas,
+            'modelos' => $request->modelos,
+            'car' => $request->car
+        ]);
     }
 }
