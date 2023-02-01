@@ -8,7 +8,7 @@
                     <h3 class="font-bold text-lg">Asegurado</h3>
                     <p>{{ client.name }} {{ client.lastname }} </p>
                 </div>
-                <a @click="clientReturn()" class="p-4 rounded-full bg-blue-700">
+                <a @click="clientReturn()" class="p-2 rounded-full bg-blue-800">
                     <img src="../../../../public/ima/edit.png" alt="Editar">
                 </a>
             </div>
