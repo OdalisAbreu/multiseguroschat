@@ -6,22 +6,22 @@
                 class="flex items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-7">
                 <div class="flex flex-col justify-start">
                     <h3 class="font-bold text-lg">Asegurado</h3>
-                    <p>RAFAEL DE LA CRUZ</p>
+                    <p>{{ client.name }} {{ client.lastname }} </p>
                 </div>
-                <div class="p-2 rounded-full bg-blue-800">
+                <a @click="clientReturn()" class="p-4 rounded-full bg-blue-700">
                     <img src="../../../../public/ima/edit.png" alt="Editar">
-                </div>
+                </a>
             </div>
 
             <div
                 class="flex items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-7">
                 <div class="flex flex-col justify-start">
                     <h3 class="font-bold text-lg">Poliza</h3>
-                    <p>BMW Serie 430, 2012</p>
+                    <p> {{ car.marcaName }} {{ car.modeloName }}, {{ car.year }}</p>
                 </div>
-                <div class="p-2 rounded-full bg-blue-800">
+                <a @click="cartReturn()" class="p-2 rounded-full bg-blue-800">
                     <img src="../../../../public/ima/edit.png" alt="Editar">
-                </div>
+                </a>
             </div>
 
             <div
@@ -59,7 +59,6 @@
 </template>
 <script>
 import { Head, Link } from '@inertiajs/inertia-vue3';
-import { watch } from '@vue/runtime-core';
 import Header from '../../components/Header.vue';
 import Footer from '../../components/Footer.vue';
 export default {
@@ -86,6 +85,7 @@ export default {
         tipos: Array,
         marcas: Array,
         modelos: Array,
+        cities: Array,
     },
     mounted() {
         console.log(this.insurres)
@@ -110,6 +110,15 @@ export default {
                 marcas: this.marcas,
                 modelos: this.modelos,
                 insurre: this.insurre,
+            },form2: {
+                cities: this.cities,
+                provinces: this.provinces,
+                clientProvince: this.clientProvince,
+                client: this.client,
+                car: this.car,
+                tipos: this.tipos,
+                marcas: this.marcas,
+                modelos:this.modelos
             }
         }
     },
@@ -117,6 +126,12 @@ export default {
         submit() {
             console.log('hola')
             this.$inertia.post(this.route('servicesapprove'), this.form)
+        },
+        clientReturn(){
+            this.$inertia.post(this.route('clientReturn'), this.form2)
+        },
+        cartReturn(){
+            this.$inertia.post(this.route('carReturn'), this.form2)
         }
     },
     watch: {

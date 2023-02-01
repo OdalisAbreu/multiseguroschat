@@ -291,7 +291,8 @@ class PoliciesController extends Controller
             'marcas' => $request->marcas,
             'modelos' => $request->modelos,
             'car' => $request->car,
-            'polizaValor' => $polizaValor
+            'polizaValor' => $polizaValor,
+            'cities' => $request->cities
         ]);
     }
     public function carReturn(Request $request)

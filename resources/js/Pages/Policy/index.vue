@@ -84,6 +84,7 @@
             </section>
         </section>
     </section>
+    
     <Footer />
 
 
@@ -130,7 +131,8 @@ export default {
                 tipos: this.tipos,
                 marcas: this.marcas,
                 modelos:this.modelos,
-                car: this.car
+                cities: this.cities,
+                car: this.car,
             },
             form2: {
                 cities: this.cities,
