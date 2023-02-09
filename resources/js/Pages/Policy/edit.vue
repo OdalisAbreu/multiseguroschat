@@ -28,22 +28,25 @@
                 class="flex items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-7">
                 <div class="flex flex-col justify-start">
                     <h3 class="font-bold text-lg">Aseguradora</h3>
-                    <p>Multiseguros | Anual | RD$10000</p>
+                    <p>{{insurre.nombre}} | {{ policyTime }} | RD$ {{Intl.NumberFormat('en-IN').format(polizaValor)}}</p>
                 </div>
-                <div class="p-2 rounded-full bg-blue-800">
+                <a @click="caseguradoraReturn()" class="p-2 rounded-full bg-blue-800">
                     <img src="../../../../public/ima/edit.png" alt="Editar">
-                </div>
+                </a>
             </div>
 
             <div
                 class="flex items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-7">
                 <div class="flex flex-col justify-start">
                     <h3 class="font-bold text-lg">Servicios Opcionales</h3>
-                    <p>Ultimos Gastos: RD$ 155.00</p>
+                    <p v-for="servicio in service" :key="servicio.id">{{ servicio.serviceName }}: RD$ {{ servicio.servicePrice }}.00
+                        <br />
+                        ---------------------------
+                    </p>
                 </div>
-                <div class="p-2 rounded-full bg-blue-800">
+                <a @click="serviciosReturn()"  class="p-2 rounded-full bg-blue-800">
                     <img src="../../../../public/ima/edit.png" alt="Editar">
-                </div>
+                </a>
             </div>
 
             <div class="mt-2 mx-5 my-4">
@@ -72,7 +75,9 @@ export default {
         car: Array,
         tarifa: Array,
         sellers: Array,
+        seller: Array,
         services: Array,
+        service: Array,
         policyTime: String,
         clien_id: String,
         servicios: Object,
@@ -86,9 +91,13 @@ export default {
         marcas: Array,
         modelos: Array,
         cities: Array,
+        polizaValor: String,
+        clientProvince: Array,
+        provinces: Array,
+        cities: Array,
     },
     mounted() {
-        console.log(this.insurres)
+        console.log(this.insurre)
     },
     data() {
         return {
@@ -96,7 +105,7 @@ export default {
             form: {
                 car: this.car,
                 tarifa: this.tarifa,
-                seller: this.sellers,
+                sellers: this.sellers,
                 services: this.services,
                 policyTime: this.policyTime,
                 clien_id: this.clien_id,
@@ -111,14 +120,22 @@ export default {
                 modelos: this.modelos,
                 insurre: this.insurre,
             },form2: {
+                car: this.car,
+                tarifa: this.tarifa,
+                sellers: this.sellers,
+                services: this.services,
+                policyTime: this.policyTime,
+                clien_id: this.clien_id,
+                servicios: this.servicios,
+                insurre: this.insurre,
+                client: this.client,
+                tipos: this.tipos,
+                marcas: this.marcas,
+                modelos:this.modelos,
+                polizaValor: this.polizaValor,
                 cities: this.cities,
                 provinces: this.provinces,
                 clientProvince: this.clientProvince,
-                client: this.client,
-                car: this.car,
-                tipos: this.tipos,
-                marcas: this.marcas,
-                modelos:this.modelos
             }
         }
     },
@@ -132,12 +149,16 @@ export default {
         },
         cartReturn(){
             this.$inertia.post(this.route('carReturn'), this.form2)
+        },
+        caseguradoraReturn(){
+            this.$inertia.post(this.route('caseguradoraReturn'), this.form2)
+        },
+        serviciosReturn(){
+            this.$inertia.post(this.route('serviciosReturn'), this.form2)
         }
     },
     watch: {
-        suma: function () {
-            console.log('Entro')
-        }
+
     }
 }
 </script>

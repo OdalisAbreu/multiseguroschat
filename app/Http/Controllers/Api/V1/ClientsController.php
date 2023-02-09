@@ -107,6 +107,9 @@ class ClientsController extends Controller
             return ['status' => '01', 'message' => 'No tiene póliza registrada'];
         }
     }
+    public function codigosDescuento(Request $request){
+        
+    }
 
 
 

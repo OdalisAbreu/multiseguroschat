@@ -30,9 +30,9 @@
                     <h3 class="font-bold text-lg">Aseguradora</h3>
                     <p>{{insurres.nombre}} | {{ services[0].time }} | RD$ {{Intl.NumberFormat('en-IN').format(polizaValor)}}</p>
                 </div>
-                <div class="p-2 rounded-full bg-blue-800">
+                <a @click="caseguradoraReturn()" class="p-2 rounded-full bg-blue-800">
                     <img src="../../../../public/ima/edit.png" alt="Editar">
-                </div>
+                </a>
             </div>
 
             <section class="flex flex-col bg-slate-100 rounded-xl border-2 border-gray-300 mb-2">
@@ -99,6 +99,9 @@ export default {
         modelos: Array,
         polizaValor: String,
         cities: Array,
+        provinces: Array,
+        clientProvince: Array,
+
     },
     mounted() {
         console.log(this.sellers.indexOf(1))
@@ -109,7 +112,7 @@ export default {
             form: {
                 car: this.car,
                 tarifa: this.tarifa,
-                seller: this.sellers,
+                sellers: this.sellers,
                 services: this.services,
                 policyTime: this.policyTime,
                 clien_id: this.clien_id,
@@ -120,6 +123,10 @@ export default {
                 marcas: this.marcas,
                 modelos:this.modelos,
                 cities: this.cities,
+                provinces: this.provinces,
+                clientProvince: this.clientProvince,
+                polizaValor: this.polizaValor
+                
             },form2: {
                 cities: this.cities,
                 provinces: this.provinces,
@@ -128,7 +135,9 @@ export default {
                 car: this.car,
                 tipos: this.tipos,
                 marcas: this.marcas,
-                modelos:this.modelos
+                modelos:this.modelos,
+                sellers: this.sellers,
+                clien_id: this.clien_id,            
             }
         }
     },
@@ -141,6 +150,9 @@ export default {
         },
         cartReturn(){
             this.$inertia.post(this.route('carReturn'), this.form2)
+        },
+        caseguradoraReturn(){
+            this.$inertia.post(this.route('caseguradoraReturn'), this.form2)
         }
     },
     watch: {

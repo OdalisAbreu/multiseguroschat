@@ -2,9 +2,9 @@
     <div class="bg-blue-700 mb-3">
         <div class="flex flex-col justify-center bg-blue-800">
             <div class="justify-self-center self-center overflow-x-hidden flex flex-col bg-blue">
-                <a class="p-2" href="http://127.0.0.1:8000/client/8294428902">
+                <div class="p-2">
                     <img class="w-60" src="../../../public/ima/Seguros_Chat-11.png" alt="Logo" />
-                </a>
+                </div>
             </div>
 
             <div class="flex justify-around text-sm bg-blue-800 mt-2 text-white mb-2">

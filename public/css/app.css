@@ -1095,6 +1095,9 @@ select {
 .col-span-2 {
   grid-column: span 2 / span 2;
 }
+.col-span-12 {
+  grid-column: span 12 / span 12;
+}
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
@@ -1107,13 +1110,13 @@ select {
   margin-top: 1.25rem;
   margin-bottom: 1.25rem;
 }
-.my-10 {
-  margin-top: 2.5rem;
-  margin-bottom: 2.5rem;
-}
 .mx-6 {
   margin-left: 1.5rem;
   margin-right: 1.5rem;
+}
+.my-10 {
+  margin-top: 2.5rem;
+  margin-bottom: 2.5rem;
 }
 .my-1 {
   margin-top: 0.25rem;
@@ -1320,9 +1323,6 @@ select {
 }
 .w-screen {
   width: 100vw;
-}
-.w-40 {
-  width: 10rem;
 }
 .min-w-0 {
   min-width: 0px;

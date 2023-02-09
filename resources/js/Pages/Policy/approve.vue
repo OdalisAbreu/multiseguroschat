@@ -67,14 +67,13 @@
             </div>
 
             <div v-if="!Descuento" class="w-full flex justify-center items-center mt-4">
-                <button v-on:click="Descuento = true" href="#" class="text-center text-cyan-400 text-sm font-bold">Tengo
-                    código de descuento</button>
+                <button v-on:click="Descuento = true" href="#" class="text-center text-cyan-400 text-sm font-bold">Tengo código de descuento</button>
             </div>
 
             <div v-if="Descuento" class="p-2 flex flex-col justify-center items-center mt-4">
-                <input type="text" placeholder="CÓDIGO DE DESCUENTO">
-                <button v-on:click="Descuento = false"
-                    class="text-center text-cyan-400 text-lg font-bold">Enviar</button>
+                <input type="text" placeholder="CÓDIGO DE DESCUENTO" name="codigo" id="codigo">
+                <button v-on:click="descuento()"
+                    class="text-center text-cyan-400 text-lg font-bold">Aplicar</button>
             </div>
 
             <div class="mt-2 mx-5 my-4">
@@ -115,6 +114,7 @@ export default {
         cliente: Array,
         totalGeneral: String,
         insurre: Array,
+        codigosDescuento: Array,
         Descuento: false,
     },
     mounted() {
@@ -141,6 +141,7 @@ export default {
             this.$inertia.post(this.route('generatepolicy'), this.form)
         },
         descuento() {
+            console.log(document.getElementById('codigo').value)
             var codigoIngresado = document.getElementById('codigo').value
             var count = 0
             var percentage = 0
