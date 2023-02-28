@@ -44,28 +44,28 @@ export default {
         Footer,
     },
     props:{
-        ResponseCode: String,
+      /*  ResponseCode: String,
         TransactionID: String,
         RemoteResponseCode: String,
         AuthorizationCode: String,
         RetrivalReferenceNumber: String,
-        TxToken: String,
+        TxToken: String,*/
     },
         data(){
             return{
                 form:{
-                    ResponseCode: this.ResponseCode,
+                   /* ResponseCode: this.ResponseCode,
                     TransactionID: this.TransactionID,
                     RemoteResponseCode: this.RemoteResponseCode,
                     AuthorizationCode: this.AuthorizationCode,
                     RetrivalReferenceNumber: this.RetrivalReferenceNumber,
-                    TxToken: this.TxToken
-                   /* ResponseCode: '00',
-                    TransactionID: '62',
+                    TxToken: this.TxToken*/
+                    ResponseCode: '00',
+                    TransactionID: '57',
                     RemoteResponseCode: '00',
                     AuthorizationCode: '055209',
                     RetrivalReferenceNumber: '000000000004',
-                    TxToken: '000000000001'*/
+                    TxToken: '000000000001'
                 }
             }
         },

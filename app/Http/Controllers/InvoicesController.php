@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Client;
 use App\Models\Discounts;
+use App\Models\Insurance;
 use App\Models\Invoices;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -85,11 +86,12 @@ class InvoicesController extends Controller
             ));
 
             $response = curl_exec($curl);
-
             curl_close($curl);
             $poliza = json_decode($response);
             sleep(1);
             
+
+
             $invoice = Invoices::find($invoiceId);
             $invoice->payment_status = $request->decision;
             $invoice->tranf_number = $request->req_transaction_uuid;
@@ -116,6 +118,8 @@ class InvoicesController extends Controller
  
        //-----------------Consulta las tablas para generar las polizas----------------
         $invoices = Invoices::find($request->TransactionID);
+        $seller = Insurance::find($invoices['sellers_id']);
+      //  return $seller['logo'];
         $client = Client::where('cardnumber', $invoices->client_id)->get();
        
       //---------------------------------------------------------------------------------
@@ -139,7 +143,7 @@ class InvoicesController extends Controller
         $city = $client[0]->city;
         
       //  return  $name .' - '.$lastname. ' - '.$cardnumber.' - '.$passportnumber.' - '.$city.' - '.$adrress;
-        $curl = curl_init();
+     /*   $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_URL => 'http://multiseguros.com.do:5050/api/Seguros/Policy',
             CURLOPT_RETURNTRANSFER => true,
@@ -186,7 +190,7 @@ class InvoicesController extends Controller
 
         curl_close($curl);
         $poliza = json_decode($response);
-        sleep(1);
+        sleep(1);*/
     //-----------------------------------------------------------------------------------------
 
     //----------------Actualizar Factura---------------------------------------
@@ -199,9 +203,12 @@ class InvoicesController extends Controller
             $invoice->AuthorizationCode = $request->AuthorizationCode;
             $invoice->RetrivalReferenceNumber = $request->RetrivalReferenceNumber;
             $invoice->TxToken =  $request->RetrivalReferenceNumber;
-            $invoice->police_number = $poliza->insurancePolicyNumber;
-            $invoice->police_transactionId = $poliza->transactionId;
+           // $invoice->police_number = $poliza->insurancePolicyNumber;
+           $invoice->police_number = 'AUTO-AT-009860';
+           // $invoice->police_transactionId = $poliza->transactionId;
+           $invoice->police_transactionId = '51138';
             $invoice->update();
+
     //--------------------------------------------------------------------------------------------
   
     //--------------------Desactivar Descuento----------------------------------------------------
@@ -225,7 +232,9 @@ class InvoicesController extends Controller
             'AuthorizationCode' => $request->AuthorizationCode,
             'RetrivalReferenceNumber'=> $request->RetrivalReferenceNumber,
             'TxToken'=>  $request->TxToken,
-            'transactionId' => $poliza->transactionId
+            'transactionId' => '51138',
+            'logo' => $seller['logo']
+          //  'transactionId' => $poliza->transactionId
         ]);
     }
 

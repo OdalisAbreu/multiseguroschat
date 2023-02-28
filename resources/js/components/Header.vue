@@ -9,7 +9,7 @@
 
             <div class="flex justify-around text-sm bg-blue-800 mt-2 text-white mb-2">
                 <p>Asegurado</p>
-                <p>Póliza</p>
+                <p>Vehículo</p>
                 <p>Aseguradora</p>
                 <p>Pago</p>
             </div>

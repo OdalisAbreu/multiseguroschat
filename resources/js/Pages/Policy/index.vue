@@ -3,26 +3,26 @@
 
         <Header :width="65" />
 
-        <section class="p-6 relative rounded-xl bg-white mx-6 z-50 mt-4">
+        <section class="p-3 relative rounded-xl bg-white mx-3 z-50 mt-4">
 
             <div
-                class="flex items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-7">
+                class="flex min-h-90 items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-7">
                 <div class="flex flex-col justify-start">
                     <h3 class="font-bold text-lg">Asegurado</h3>
                     <p>{{ client.name }} {{ client.lastname }} </p>
                 </div>
-                <a @click="clientReturn()" class="p-4 rounded-full bg-blue-700">
+                <a @click="clientReturn()" class="p-2 min-h-48 min-w-48 rounded-full bg-blue-700">
                     <img src="../../../../public/ima/edit.png" alt="Editar">
                 </a>
             </div>
 
             <div
-                class="flex items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-7">
+                class="flex min-h-90 items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-7">
                 <div class="flex flex-col justify-start">
-                    <h3 class="font-bold text-lg">Poliza</h3>
+                    <h3 class="font-bold text-lg">Vehículo</h3>
                     <p> {{ car.marcaName }} {{ car.modeloName }}, {{ car.year }}</p>
                 </div>
-                <a @click="cartReturn()" class="p-2 rounded-full bg-blue-800">
+                <a @click="cartReturn()" class="p-2 min-h-48 min-w-48 rounded-full bg-blue-700">
                     <img src="../../../../public/ima/edit.png" alt="Editar">
                 </a>
             </div>

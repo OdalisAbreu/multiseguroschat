@@ -1,13 +1,14 @@
 <template>
     <section class="h-screen w-screen bg-white">
         <Header :width="95" />
-        <main class="relative bg-white max-w-lg p-8 mt-10 shadow-2xl w-screen mx-auto">
+        <main class="relative bg-white max-w-lg p-8 mt-5 shadow-2xl w-screen mx-auto">
             <div class="text-center">
                 <h3 class="font-bold text-2xl text-center">Pulsa <i>CONTINUAR</i><br> para procesar tu pago de
-                    manera
-                    segura
+                    manera segura
                 </h3>
-                <img class="inline pb-4 pt-4 max-w-xs" src="ima/cardnet-payments.jpg">
+                <h4 class="font-bold text-2xl text-center text-red-900"><i>Seguros chat no guarda información de tu tarjera </i></h4>
+                <img class="inline pb-4 pt-4 max-w-xs" src="ima/cardnetLogo.png">
+                <img class="inline pb-4 pt-4 max-w-xs" src="ima/tarjetas.png">
             </div>
             <form :action="`${paymentUrl}`" method='POST' name='CardNet' class='CardNet' id='CardNet'>
                 <input type="hidden" name='TransactionType' id='TransactionType' value='0200' />
@@ -36,7 +37,7 @@
             </form>
         </main>
     </section>
-    <Footer class="absolute bottom-0 w-screen"></Footer>
+  <!--  <Footer class="absolute bottom-0 w-screen"></Footer>-->
 </template>
 <script>
 import { Head, Link } from '@inertiajs/inertia-vue3';

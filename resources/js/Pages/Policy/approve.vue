@@ -2,7 +2,7 @@
     <section class="bg-gray-200">
         <Header :width="90" />
 
-        <section class="p-6 relative rounded-xl bg-white mx-6 z-50 mt-4 ">
+        <section class="p-3 relative rounded-xl bg-white mx-3 z-50 mt-4 ">
             <h2 class="px-2 pb-6 text-center font-bold text-2xl">Verifica tu informacion antes de realizar el pago</h2>
             <div
                 class="flex items-center justify-between bg-slate-100 rounded-t-xl border-2 border-gray-100 p-3 px-5 mb-3">

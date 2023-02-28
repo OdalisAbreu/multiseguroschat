@@ -5,44 +5,44 @@
             <Header :width="50" />
         </section>
 
-        <section class="p-6 relative rounded-xl bg-white mx-6 z-50 mt-4">
+        <section class="p-3 relative rounded-xl bg-white mx-3 z-50 mt-4">
 
             <div
-                class="flex items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-7">
+                class="flex min-h-90 items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-7">
                 <div class="flex flex-col justify-start">
                     <h3 class="font-bold text-lg">Asegurado</h3>
                     <p>{{ client.name }} {{ client.lastname }} </p>
                 </div>
-                <a @click="clientReturn()" class="p-4 rounded-full bg-blue-700">
+                <a @click="clientReturn()" class="p-2 min-h-48 min-w-48 rounded-full bg-blue-700">
                     <img src="../../../../public/ima/edit.png" alt="Editar">
                 </a>
             </div>
 
             <div
-                class="flex flex-col p-3 px-5 sm:px-5 md:px-5 xl:px-5 bg-slate-100 rounded-xl border-2 border-gray-300 mb-2">
+                class="flex flex-col p-3 px-5 sm:px-5 md:px-3 xl:px-3 bg-slate-100 rounded-xl border-2 border-gray-300 mb-2">
                 <div class="mt-2 py-2">
                     <div class="text-left text-2xl font-bold sm:text-2xl md:text-3xl xl:text-3xl">Datos del Vehículo
                     </div>
                 </div>
 
                 <form @submit.prevent="submit" class="flex flex-col">
-                    <label class="p-2 font-bold">Tipo de Vehículo</label>
-                    <select class="rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80"
+                    <label class=" font-bold">Tipo de Vehículo</label>
+                    <select class="rounded-lg w-full mb-2 sm:m-3 h-9 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80"
                         v-model="form.tipo" required>
                         <option :value="car.tipoName" disabled selected hidden v-if="car.tipoName != ''">{{car.tipoName}}</option>
                         <option value="" disabled selected hidden v-else>TIPO DE VEHÍCULO</option>
                         <option v-for="tipo in tipos" :value="tipo.id" :key="tipo.id">{{ tipo.nombre }} </option>
                     </select>
-                    <label class="p-2 font-bold">Marca </label>
-                    <select class="rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80" v-model="marca"
+                    <label class=" font-bold">Marca </label>
+                    <select class="rounded-lg w-full mb-2 h-9 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80" v-model="marca"
                         required>
                         <option :value="car.marcaName" disabled selected hidden v-if="car.marcaName != ''">{{car.marcaName}}</option>
                         <option value="" disabled selected hidden v-else>MARCA</option>
                         <option v-for="marca in marcas" :value="marca.ID" :key="marca.ID">{{ marca.DESCRIPCION }}
                         </option>
                     </select>
-                    <label class="p-2 font-bold">Modelo </label>
-                    <select class="rounded-lg w-full bt-4 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80"
+                    <label class=" font-bold">Modelo </label>
+                    <select class="rounded-lg w-full bt-4 h-9 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80"
                         v-model="form.modelo" required>
                         <option :value="car.modeloName" disabled selected hidden v-if="car.modeloName != ''">{{car.modeloName}}</option>
                         <option value="" disabled selected hidden  v-else>MODELO</option>
@@ -51,11 +51,12 @@
                         }}
                         </option>
                     </select>
-                    <label class="p-2 font-bold">Año </label>
-                    <select class="rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80"
+                    <label class="font-bold">Año </label>
+                    <select class="rounded-lg w-full mb-2 h-9 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80"
                         v-model="form.year" required>
                         <option :value="car.year" disabled selected hidden v-if="car.year != ''">{{car.year}}</option>
                         <option value="" disabled selected hidden v-else>AÑO</option>
+                        <option value="2022">2025</option>
                         <option value="2022">2023</option>
                         <option value="2022">2022</option>
                         <option value="2021">2021</option>
@@ -85,12 +86,12 @@
                         <option value="1997">1997</option>
                         <option value="1996">1996</option>
                     </select>
-                    <label class="p-2 font-bold">No. de Placa </label>
-                    <input class="rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80"
+                    <label class="font-bold">No. de Placa </label>
+                    <input class="rounded-lg w-full mb-2 sm:m-3 h-7 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80"
                         style="text-transform:uppercase;" type="text" placeholder="PLACA" v-model="form.placa" required>
-                    <label class="p-2 font-bold">No. de Chassis
+                    <label class="font-bold">No. de Chassis
                     </label>
-                    <input class="rounded-lg w-full sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80"
+                    <input class="rounded-lg w-full sm:m-3 sm:w-40 h-7 md:m-3 md:w-60 xl:m-3 xl:w-80"
                         style="text-transform:uppercase;" type="text" placeholder="CHASSIS" v-model="form.chasis"
                         required>
 
