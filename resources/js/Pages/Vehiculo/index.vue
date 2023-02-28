@@ -5,7 +5,7 @@
             <Header :width="50" />
         </section>
 
-        <section class="p-6 relative rounded-xl bg-white mx-6 z-50 mt-4">
+        <section class="p-3 relative rounded-xl bg-white mx-3 z-50 mt-4">
 
             <div class="flex items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-7">
                 <div class="flex flex-col justify-start">
@@ -22,7 +22,7 @@
             </div>
 
             <div
-                class="flex flex-col p-3 px-5 sm:px-5 md:px-5 xl:px-5 bg-slate-100 rounded-xl border-2 border-gray-300 mb-2">
+                class="flex flex-col p-3 px-5 sm:px-5 md:px-3 xl:px-3 bg-slate-100 rounded-xl border-2 border-gray-300 mb-2">
                 <div class="mt-2 py-2">
                     <div class="text-left text-2xl font-bold sm:text-2xl md:text-3xl xl:text-3xl">Datos del Vehículo
                     </div>
@@ -63,6 +63,7 @@
                         required>
                         <option :value="car.year" disabled selected hidden v-if="car.year != ''">{{ car.year }}</option>
                         <option value="" disabled selected hidden v-else>AÑO</option>
+                        <option value="2022">2025</option>
                         <option value="2022">2023</option>
                         <option value="2022">2022</option>
                         <option value="2021">2021</option>

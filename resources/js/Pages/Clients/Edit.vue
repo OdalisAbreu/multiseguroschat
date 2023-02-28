@@ -15,13 +15,13 @@
 
         <Header :width="25" />
 
-        <div class="p-6 relative rounded-xl bg-white mx-6 z-50">
+        <div class="p-3 relative rounded-xl bg-white mx-3 z-50">
             <div class="p-3 px-5 sm:px-5 md:px-5 xl:px-5 bg-slate-100 rounded-xl border-2 border-gray-300 mb-4">
                 <div>
                     <div class="text-black text-left font-bold text-2xl sm:text-2xl md:text-3xl xl:text-3xl my-1">
                         Mi Perfil
                     </div>
-                    <div class="text-left text-black font-semibold text-md sm:text-1xl md:text-2xl xl:text-2xl mb-4">
+                    <div class="text-left text-black font-semibold text-md sm:text-1xl md:text-2xl xl:text-2xl mb-2">
                         Confirma tu información
                     </div>
                 </div>
@@ -34,33 +34,33 @@
                         style="text-transform: uppercase" type="text" placeholder="Nombre" v-model="form.name" required />
                     <label class="pt-2 font-bold">Apellidos <span class="text-red-400 inl">*</span></label>
                     <input
-                        class="rounded-md h-12 mb-4 sm:m-3 sm:w-full md:m-3 md:w-full lg:w-11/12 xl:w-11/12  xl:m-3 shadow-sm border-gray-300"
+                        class="rounded-md h-7 mb-1 sm:m-2 sm:w-full md:m-2 md:w-full lg:w-11/12 xl:w-11/12  xl:m-2 shadow-sm border-gray-300"
                         style="text-transform: uppercase" type="text" placeholder="Apellido" v-model="form.lastname"
                         required />
                     <label class="pt-2 font-bold">Cédula o Pasaporte <span class="text-red-400 inl">*</span>
                     </label>
                     <input
-                        class="rounded-md h-12 mb-4 sm:m-3 sm:w-full md:m-3 md:w-full lg:w-11/12 xl:w-11/12  xl:m-3 shadow-sm border-gray-300"
+                        class="rounded-md h-7 mb-1 sm:m-2 sm:w-full md:m-2 md:w-full lg:w-11/12 xl:w-11/12  xl:m-2 shadow-sm border-gray-300"
                         style="text-transform: uppercase" type="text" placeholder="Cédula" v-model="form.cardnumber"
                         required />
                     <label class="pt-2 font-bold">Celular <span class="text-red-400 inl">*</span></label>
                     <input
-                        class="rounded-md h-12 mb-4 sm:m-3 sm:w-full md:m-3 md:w-full lg:w-11/12 xl:w-11/12  xl:m-3 shadow-sm border-gray-300"
+                        class="rounded-md h-7 mb-1 sm:m-2 sm:w-full md:m-2 md:w-full lg:w-11/12 xl:w-11/12  xl:m-2 shadow-sm border-gray-300"
                         style="text-transform: uppercase" type="text" placeholder="Telefono" v-model="form.phonenumber"
                         required />
                     <label class="pt-2 font-bold">Correo Electrónico <span class="text-red-400 inl">*</span>
                     </label>
                     <input
-                        class="rounded-md h-12 mb-4 sm:m-3 sm:w-full md:m-3 md:w-full lg:w-11/12 xl:w-11/12  xl:m-3 shadow-sm border-gray-300"
+                        class="rounded-md h-7 mb-1 sm:m-2 sm:w-full md:m-2 md:w-full lg:w-11/12 xl:w-11/12  xl:m-2 shadow-sm border-gray-300"
                         type="text" placeholder="Email" v-model="form.email" required />
 
                     <label class="pt-2 font-bold">Dirección <span class="text-red-400 inl">*</span></label>
                     <input
-                        class="rounded-md h-20 mb-4 sm:m-3 sm:w-full md:m-3 md:w-full lg:w-11/12 xl:w-11/12  xl:m-3 shadow-sm border-gray-300"
+                        class="rounded-md h-10 mb-1 sm:m-3 sm:w-full md:m-3 md:w-full lg:w-11/12 xl:w-11/12  xl:m-3 shadow-sm border-gray-300"
                         type="text" placeholder="Dirección" v-model="form.adrress" required />
                     <label class="pt-2 font-bold">Provincia <span class="text-red-400 inl">*</span></label>
                     <select
-                        class="rounded-md h-12 mb-4 sm:m-3 sm:w-full md:m-3 md:w-full lg:w-11/12 xl:w-11/12  xl:m-3 shadow-sm border-gray-300"
+                        class="rounded-md h-9 mb-1 sm:m-2 sm:w-full md:m-2 md:w-full lg:w-11/12 xl:w-11/12  xl:m-2 shadow-sm border-gray-300"
                         v-model="province" required>
                         <option :value="clientProvince.id" selected>
                             {{ clientProvince.descrip }}
@@ -71,7 +71,7 @@
                     </select>
                     <label class="pt-2 font-bold">Ciudad <span class="text-red-400 inl">*</span></label>
                     <select
-                        class="rounded-md h-12 sm:m-3 sm:w-full md:m-3 md:w-full lg:w-11/12 xl:w-11/12  xl:m-3 shadow-sm border-gray-300"
+                        class="rounded-md h-9 sm:m-3 sm:w-full md:m-3 md:w-full lg:w-11/12 xl:w-11/12  xl:m-3 shadow-sm border-gray-300"
                         v-model="form.city" required>
                         <option :value="form.city" selected>
                             {{ form.city }}

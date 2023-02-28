@@ -1,38 +1,38 @@
 <template>
     <section class="bg-gray-200 pb-6">
         <Header :width="65" />
-        <section class="p-6 relative rounded-xl bg-white mx-6 z-50 mt-4">
+        <section class="p-3 relative rounded-xl bg-white mx-3 z-50 mt-4">
             <div
-                class="flex items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-7">
+                class="flex min-h-90 items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-7">
                 <div class="flex flex-col justify-start">
                     <h3 class="font-bold text-lg">Asegurado</h3>
                     <p>{{ client.name }} {{ client.lastname }} </p>
                 </div>
-                <a @click="clientReturn()" class="p-2 rounded-full bg-blue-800">
+                <a @click="clientReturn()" class="p-2 min-h-48 min-w-48 rounded-full bg-blue-700">
                     <img src="../../../../public/ima/edit.png" alt="Editar">
                 </a>
             </div>
 
             <div
-                class="flex items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-7">
+                class="flex min-h-90 items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-7">
                 <div class="flex flex-col justify-start">
-                    <h3 class="font-bold text-lg">Poliza</h3>
+                    <h3 class="font-bold text-lg">Vehículo</h3>
                     <p> {{ car.marcaName }} {{ car.modeloName }}, {{ car.year }}</p>
                 </div>
-                <a @click="cartReturn()" class="p-2 rounded-full bg-blue-800">
+                <a @click="cartReturn()" class="p-2 min-h-48 min-w-48 rounded-full bg-blue-700">
                     <img src="../../../../public/ima/edit.png" alt="Editar">
                 </a>
             </div>
 
             <div
-                class="flex items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-7">
+                class="flex min-h-90 items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-7">
                 <div class="flex flex-col justify-start">
                     <h3 class="font-bold text-lg">Aseguradora</h3>
                     <p>{{insurres.nombre}} | {{ services[0].time }} | RD$ {{Intl.NumberFormat('en-IN').format(polizaValor)}}</p>
                 </div>
-                <div class="p-2 rounded-full bg-blue-800">
+                <a @click="caseguradoraReturn()" class="p-2 min-h-48 min-w-48 rounded-full bg-blue-700">
                     <img src="../../../../public/ima/edit.png" alt="Editar">
-                </div>
+                </a>
             </div>
 
             <section class="flex flex-col bg-slate-100 rounded-xl border-2 border-gray-300 mb-2">
@@ -97,7 +97,11 @@ export default {
         tipos: Array,
         marcas: Array,
         modelos: Array,
-        polizaValor: String
+        polizaValor: String,
+        cities: Array,
+        provinces: Array,
+        clientProvince: Array,
+
     },
     mounted() {
         console.log(this.sellers.indexOf(1))
@@ -108,7 +112,7 @@ export default {
             form: {
                 car: this.car,
                 tarifa: this.tarifa,
-                seller: this.sellers,
+                sellers: this.sellers,
                 services: this.services,
                 policyTime: this.policyTime,
                 clien_id: this.clien_id,
@@ -118,6 +122,11 @@ export default {
                 tipos: this.tipos,
                 marcas: this.marcas,
                 modelos:this.modelos,
+                cities: this.cities,
+                provinces: this.provinces,
+                clientProvince: this.clientProvince,
+                polizaValor: this.polizaValor
+                
             },form2: {
                 cities: this.cities,
                 provinces: this.provinces,
@@ -126,7 +135,9 @@ export default {
                 car: this.car,
                 tipos: this.tipos,
                 marcas: this.marcas,
-                modelos:this.modelos
+                modelos:this.modelos,
+                sellers: this.sellers,
+                clien_id: this.clien_id,            
             }
         }
     },
@@ -139,6 +150,9 @@ export default {
         },
         cartReturn(){
             this.$inertia.post(this.route('carReturn'), this.form2)
+        },
+        caseguradoraReturn(){
+            this.$inertia.post(this.route('caseguradoraReturn'), this.form2)
         }
     },
     watch: {

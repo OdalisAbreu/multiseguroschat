@@ -1000,6 +1000,9 @@ select {
 .col-span-2 {
   grid-column: span 2 / span 2;
 }
+.col-span-12 {
+  grid-column: span 12 / span 12;
+}
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
@@ -1178,6 +1181,9 @@ select {
 .h-full {
   height: 100%;
 }
+.h-7 {
+  height: 1.75rem;
+}
 .min-h-screen {
   min-height: 100vh;
 }
@@ -1322,6 +1328,9 @@ select {
 .grid-cols-3 {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
+.flex-row-reverse {
+  flex-direction: row-reverse;
+}
 .flex-col {
   flex-direction: column;
 }
@@ -1366,6 +1375,10 @@ select {
 }
 .gap-2 {
   gap: 0.5rem;
+}
+.gap-x-2 {
+  -moz-column-gap: 0.5rem;
+       column-gap: 0.5rem;
 }
 .space-x-8 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-x-reverse: 0;
@@ -1930,6 +1943,10 @@ select {
   --tw-text-opacity: 1;
   color: rgb(30 64 175 / var(--tw-text-opacity));
 }
+.text-red-900 {
+  --tw-text-opacity: 1;
+  color: rgb(127 29 29 / var(--tw-text-opacity));
+}
 .underline {
   -webkit-text-decoration-line: underline;
           text-decoration-line: underline;
@@ -2304,6 +2321,10 @@ select {
     margin: 0.75rem;
   }
 
+  .sm\:m-2 {
+    margin: 0.5rem;
+  }
+
   .sm\:mx-0 {
     margin-left: 0px;
     margin-right: 0px;
@@ -2525,6 +2546,10 @@ select {
     margin: 0.75rem;
   }
 
+  .md\:m-2 {
+    margin: 0.5rem;
+  }
+
   .md\:mt-0 {
     margin-top: 0px;
   }
@@ -2594,6 +2619,11 @@ select {
     padding-right: 1.25rem;
   }
 
+  .md\:px-3 {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+
   .md\:pb-12 {
     padding-bottom: 3rem;
   }
@@ -2634,6 +2664,10 @@ select {
     margin: 0.75rem;
   }
 
+  .xl\:m-2 {
+    margin: 0.5rem;
+  }
+
   .xl\:mx-20 {
     margin-left: 5rem;
     margin-right: 5rem;
@@ -2654,6 +2688,11 @@ select {
   .xl\:px-5 {
     padding-left: 1.25rem;
     padding-right: 1.25rem;
+  }
+
+  .xl\:px-3 {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
   }
 
   .xl\:text-3xl {

@@ -146,7 +146,7 @@ class PaymentController extends Controller
         $invoice->discount_id = $codigo;
         $invoice->payment_status = 'peding';
         $invoice->save();
-
+        //return $request->cliente['name'];
         return Inertia::render('Payment/cardnet', [
             'total' => $request->totalGeneral,
             'invoice_id' => $invoice->id,
@@ -157,7 +157,7 @@ class PaymentController extends Controller
             'merchanttype' => $request->insurre['merchanttype'],
             'merchantnumber' => $request->insurre['merchantnumber'],
             'merchantterminal'=> $request->insurre['merchantterminal'],
-            'client_name'=> $request->sellers['client_name'],
+            'client_name'=> $request->cliente['name'],
             'transactionid' => $invoice->id,
             'paymentUrl' => $request->insurre['payment_url'],
             'clientip' => $_SERVER['REMOTE_ADDR']

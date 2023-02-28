@@ -20,7 +20,7 @@
 
             <div class="flex items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-7">
                 <div class="flex flex-col justify-start">
-                    <h3 class="font-bold text-lg">Poliza</h3>
+                    <h3 class="font-bold text-lg">Vehículo</h3>
                     <p> {{ car.marcaName }} {{ car.modeloName }}, {{ car.year }}</p>
                 </div>
                 <div class="flex flex-col justify-end gap-1 items-center">
@@ -43,7 +43,7 @@
                             <div>
 
                                 <div class="relative w-full flex justify-start items-start overflow-hidden mb-1">
-                                    <img class="bg-cover bg-no-repeat bg-center h-10 w-40" :src="seller.logo">
+                                    <img class="bg-cover bg-no-repeat bg-center h-10" :src="seller.logo">
                                 </div>
 
                                 <div class="flex flex-col justify-center items-center">
@@ -129,7 +129,6 @@ export default {
     props: {
         car: Array,
         sellers: Array,
-        token: String,
         clien_id: String,
         cities: Object,
         provinces: Object,
@@ -148,16 +147,18 @@ export default {
         return {
             form: {
                 car: this.car,
-                seller: this.sellers,
-                token: this.token,
-                clien_id: this.clien_id,
-                servicios: '',
                 client: this.client,
                 tipos: this.tipos,
                 marcas: this.marcas,
                 modelos: this.modelos,
                 cities: this.cities,
                 car: this.car,
+                provinces: this.provinces,
+                clientProvince: this.clientProvince,
+                seller: this.sellers,
+                clien_id: this.clien_id,
+                servicios: '',
+
             },
             form2: {
                 cities: this.cities,

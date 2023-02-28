@@ -142,6 +142,7 @@ class PoliciesController extends Controller
                 'vehicle_type_id'
             )
             ->get();
+
         return Inertia::render('Policy/index', [
             'car' => $car,
             'sellers' => $seller,
@@ -158,9 +159,7 @@ class PoliciesController extends Controller
 
     public function show(Request $request)
     {
-        $serviciosActivos = $request->servicios;
-        $servicos = $request->services;
-        $services = array();
+        $service = array();
         $totalServicios = 0;
         $sericesId = '';
         $clente = Client::find($request->clien_id);
@@ -168,20 +167,15 @@ class PoliciesController extends Controller
         $marca = Vehicle_brands::find($request->car['marca']);
         $modelo = Vehicle_models::find($request->car['modelo']);
         $price = Price::where([['insurances_id', $request->insurre['insurance_id']], ['vehicle_type_id', $request->car['tipo']]])->get();
-        foreach ($serviciosActivos as $serviciosActivo) {
-            foreach ($servicos as $servicio) {
+        foreach ($request->servicios as $serviciosActivo) {
+            foreach ($request->services as $servicio) {
                 if ($servicio['id'] == $serviciosActivo) {
                     $totalServicios = $totalServicios + $servicio['servicePrice'];
-                    $service2 = array(
-                        'serviceName' => $servicio['serviceName'],
-                        'id' => $servicio['id'],
-                        'servicePrice' => $servicio['servicePrice']
-                    );
-                    array_push($services, $service2);
+                    array_push($service, $servicio);
                 }
             }
         }
-        //   return $services;
+       //    return $services;
         if ($request->policyTime == 'tresmeses') {
             $policyTime = '3 Meses';
             $time = 'priceThreeMonths';
@@ -194,31 +188,38 @@ class PoliciesController extends Controller
         }
         //$totalGeneral = $totalServicios + $request->seller[0][$time];
         $totalGeneral = $totalServicios + $price[0][$time];
-        //Traer los coddigos de descuentos activos
-        $codigosDescuento = Discounts::where('active', '1')->get();
-        
+
         return Inertia::render('Policy/edit', [
             'car' => $request->car,
             'tarifa' => $request->tarifa,
-            'sellers' => $request->seller[0],
+            'sellers' => $request->sellers,
+            'seller' => $request->sellers[0],
             'totalGeneral' => $totalGeneral,
             'policyTime' => $policyTime,
             'marca' => $marca['DESCRIPCION'],
             'tipo' => $tipo['nombre'],
             'modelo' => $modelo['descripcion'],
             'cliente' => $clente,
-            'services' => $services,
+            'service' => $service,
+            'services' => $request->services,
             'insurre' => $request->insurre,
-            'codigosDescuento' => $codigosDescuento,
             'client' => $request->client,
             'tipos' => $request->tipos, 
             'modelos' => $request->modelos,
-            'marcas' => $request->marcas
+            'marcas' => $request->marcas,
+            'polizaValor' => $request->polizaValor,
+            'clientProvince' => $request->clientProvince,
+            'provinces' => $request->provinces,
+            'cities' => $request->cities,
+            
+
         ]);
     }
 
     public function confirm(Request $request)
     {
+        //Traer los coddigos de descuentos activos
+        $codigosDescuento = Discounts::where('active', '1')->get();
         return Inertia::render('Policy/approve',[
             'car' => $request->car,
             'tarifa' => $request->tarifa,
@@ -235,6 +236,7 @@ class PoliciesController extends Controller
             'tipos' => $request->tipos, 
             'marcas' => $request->marcas,
             'modelos' => $request->modelos,
+            'codigosDescuento' => $codigosDescuento,
         ]);
     }
 
@@ -292,7 +294,9 @@ class PoliciesController extends Controller
             'modelos' => $request->modelos,
             'car' => $request->car,
             'polizaValor' => $polizaValor,
-            'cities' => $request->cities
+            'cities' => $request->cities,
+            'provinces' => $request->provinces,
+            'clientProvince' => $request->clientProvince
         ]);
     }
     public function carReturn(Request $request)
@@ -306,6 +310,44 @@ class PoliciesController extends Controller
             'marcas' => $request->marcas,
             'modelos' => $request->modelos,
             'car' => $request->car
+        ]);
+    }
+    public function caseguradoraReturn(Request $request)
+    {
+        return Inertia::render('Policy/index', [
+            'car' => $request->car,
+            'sellers' => $request->sellers,
+            'clien_id' => $request->clien_id,
+            'cities' => $request->cities,
+            'provinces' => $request->provinces,
+            'clientProvince' => $request->clientProvince, 
+            'client' => $request->client,
+            'tipos' => $request->tipos,
+            'marcas' => $request->marcas,
+            'modelos' => $request->modelos,
+        ]);
+    }
+    public function serviciosReturn(Request $request)
+    {
+       //return $request->insurre;
+        return Inertia::render('Policy/create', [
+            'car' => $request->car,
+            'sellers' => $request->sellers,
+            'clien_id' => $request->clien_id,
+            'cities' => $request->cities,
+            'provinces' => $request->provinces,
+            'clientProvince' => $request->clientProvince, 
+            'client' => $request->client,
+            'tipos' => $request->tipos,
+            'marcas' => $request->marcas,
+            'modelos' => $request->modelos,
+            'tarifa' => $request->tarifa,
+            'services' => $request->services,
+            'policyTime' => $request->policyTime,
+            'servicios' => $request->servicios,
+            'polizaValor' => $request->polizaValor,
+            'insurres' => $request->insurre,
+
         ]);
     }
 }

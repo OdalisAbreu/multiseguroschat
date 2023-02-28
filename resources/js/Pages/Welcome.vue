@@ -1,81 +1,81 @@
 <template>
-        <div class="w-full mb-2 rounded  overflow-x-hidden border-t flex flex-col bg-black shadow-lg shadow-black-500/50">
-        <div class="p-2"> 
-           <img class="inline h-12 w-20"  src="/ima/sc2_ic.png" alt="">
-        </div>
-    </div>
-   <main
-        class="bg-white max-w-lg mx-auto p-2 pb-8 md:p-4 md:pb-12 my-5 rounded-lg shadow-2xl"
-    >
-        <div class="text-center">
-            <img class="inline" src="/ima/sc_ic.png">
-        </div>
-        <div class="text-center">
-            <img class="inline h-12 w-25" src="/ima/sura-logo-act.png"><br>
-            <h2 class="font-bold text-2xl text-center">Espere un momento… Estamos procesando su pago.</h2><br>
-            <div class="grid grid-cols-3 gap-1"> 
-                <div class="col-span-1">
-                </div>
-                <div class="col-span-1">
-                    <div class="half-circle-spinner">
-                        <div class="circle circle-1"></div>
-                        <div class="circle circle-2"></div>
+    <section class="bg-gray-200">
+        <Header :width="90" />
+        
+        <section class="p-6 relative rounded-xl bg-white mx-6 z-50 mt-4 ">
+                <div class="text-center">
+                    <img class="inline h-12 w-25" src="/ima/sura-logo-act.png"><br>
+                    <h2 class="font-bold text-2xl text-center">Espere un momento… Estamos procesando su pago.</h2><br>
+                    <div class="grid grid-cols-3 gap-1"> 
+                        <div class="col-span-1">
+                        </div>
+                        <div class="col-span-1">
+                            <div class="half-circle-spinner">
+                                <div class="circle circle-1"></div>
+                                <div class="circle circle-2"></div>
+                            </div>
+                        </div>
                     </div>
+                    <form @submit.prevent="submit">
+                        <input type="hidden" placeholder="ResponseCode" v-model="form.ResponseCode">
+                        <input type="hidden" placeholder="TransactionID" v-model="form.TransactionID">
+                        <input type="hidden" placeholder="RemoteResponseCode" v-model="form.RemoteResponseCode">
+                        <input type="hidden" placeholder="AuthorizationCode" v-model="form.AuthorizationCode">
+                        <input type="hidden" placeholder="RetrivalReferenceNumber" v-model="form.RetrivalReferenceNumber" >
+                        <input type="hidden" placeholder="TxToken" v-model="form.TxToken" >
+                    </form>
+                    
                 </div>
-            </div>
-            <form @submit.prevent="submit">
-                <input type="hidden" placeholder="ResponseCode" v-model="form.ResponseCode">
-                <input type="hidden" placeholder="TransactionID" v-model="form.TransactionID">
-                <input type="hidden" placeholder="RemoteResponseCode" v-model="form.RemoteResponseCode">
-                <input type="hidden" placeholder="AuthorizationCode" v-model="form.AuthorizationCode">
-                <input type="hidden" placeholder="RetrivalReferenceNumber" v-model="form.RetrivalReferenceNumber" >
-                <input type="hidden" placeholder="TxToken" v-model="form.TxToken" >
-             </form>
-            
-        </div>
-    </main>
+        </section>
+        <Footer class="mt-4" />
+    </section>
 </template>
 <script>
 import { Head, Link } from '@inertiajs/inertia-vue3';
 import { watch } from '@vue/runtime-core';
+import Header from '../components/Header.vue';
+import Footer from '../components/Footer.vue';
+
 export default {
     components:{
         Head,
-        Link
+        Link,
+        Header,
+        Footer,
     },
     props:{
-        ResponseCode: String,
+      /*  ResponseCode: String,
         TransactionID: String,
         RemoteResponseCode: String,
         AuthorizationCode: String,
         RetrivalReferenceNumber: String,
-        TxToken: String,
+        TxToken: String,*/
     },
         data(){
             return{
                 form:{
-                    ResponseCode: this.ResponseCode,
+                   /* ResponseCode: this.ResponseCode,
                     TransactionID: this.TransactionID,
                     RemoteResponseCode: this.RemoteResponseCode,
                     AuthorizationCode: this.AuthorizationCode,
                     RetrivalReferenceNumber: this.RetrivalReferenceNumber,
-                    TxToken: this.TxToken
-                   /* ResponseCode: '00',
-                    TransactionID: '20',
-                    RemoteResponseCode: 'assa154165165',
-                    AuthorizationCode: 'a158418468468',
-                    RetrivalReferenceNumber: 'a158418468468',
-                    TxToken: 'a158418468468'*/
+                    TxToken: this.TxToken*/
+                    ResponseCode: '00',
+                    TransactionID: '57',
+                    RemoteResponseCode: '00',
+                    AuthorizationCode: '055209',
+                    RetrivalReferenceNumber: '000000000004',
+                    TxToken: '000000000001'
                 }
             }
         },
         mounted(){
             console.log('Entro')
-            this.$inertia.post(this.route('generatePolicy'), this.form)
+            this.$inertia.post(this.route('generatePolicynew'), this.form)
         },
         methods:{
             submit(){
-                this.$inertia.post(this.route('generatePolicy'), this.form)
+                this.$inertia.post(this.route('generatePolicynew'), this.form)
             }
         }
 }
