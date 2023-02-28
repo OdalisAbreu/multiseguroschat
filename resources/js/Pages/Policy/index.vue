@@ -27,7 +27,7 @@
                     <a @click="cartReturn()" class="p-2 rounded-full bg-blue-800">
                         <img src="../../../../public/ima/edit.png" alt="Editar">
                     </a>
-                    <p class="text-blue-800 bottom-2 font-bold text-sm">Editar</p>
+                    <p class="text-blue-800 bottom-2 text-center font-bold text-sm">Editar</p>
                 </div>
             </div>
 

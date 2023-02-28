@@ -8,9 +8,14 @@
                     <h3 class="font-bold text-lg">Asegurado</h3>
                     <p>{{ client.name }} {{ client.lastname }} </p>
                 </div>
-                <a @click="clientReturn()" class="p-2 min-h-48 min-w-48 rounded-full bg-blue-700">
-                    <img src="../../../../public/ima/edit.png" alt="Editar">
-                </a>
+
+                <div class="flex flex-col justify-end gap-1 items-center">
+                    <a @click="clientReturn()" class="p-2 min-h-48 min-w-48 rounded-full bg-blue-800">
+                        <img src="../../../../public/ima/edit.png" alt="Editar">
+
+                    </a>
+                    <p class="text-blue-800 bottom-2 font-bold text-sm">Editar</p>
+                </div>
             </div>
 
             <div
@@ -19,20 +24,30 @@
                     <h3 class="font-bold text-lg">Vehículo</h3>
                     <p> {{ car.marcaName }} {{ car.modeloName }}, {{ car.year }}</p>
                 </div>
-                <a @click="cartReturn()" class="p-2 min-h-48 min-w-48 rounded-full bg-blue-700">
-                    <img src="../../../../public/ima/edit.png" alt="Editar">
-                </a>
+                <div class="flex flex-col justify-end gap-1 items-center">
+                    <a @click="cartReturn()" class="p-2 min-h-48 min-w-48 rounded-full bg-blue-800">
+                        <img src="../../../../public/ima/edit.png" alt="Editar">
+                    </a>
+                    <p class="text-blue-800 bottom-2 font-bold text-sm">Editar</p>
+                </div>
             </div>
 
             <div
                 class="flex min-h-90 items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-7">
                 <div class="flex flex-col justify-start">
                     <h3 class="font-bold text-lg">Aseguradora</h3>
-                    <p>{{insurres.nombre}} | {{ services[0].time }} | RD$ {{Intl.NumberFormat('en-IN').format(polizaValor)}}</p>
+                    <p>{{ insurres.nombre }} | {{ services[0].time }} | RD$ {{
+                        Intl.NumberFormat('en-IN').format(polizaValor) }}
+                    </p>
                 </div>
-                <a @click="caseguradoraReturn()" class="p-2 min-h-48 min-w-48 rounded-full bg-blue-700">
-                    <img src="../../../../public/ima/edit.png" alt="Editar">
-                </a>
+                <div class="flex flex-col justify-end gap-1 items-center">
+                    <a @click="caseguradoraReturn()" class="p-2 min-h-48 min-w-48 rounded-full bg-blue-800">
+                        <img src="../../../../public/ima/edit.png" alt="Editar">
+                    </a>
+                    <p class="text-blue-800 bottom-2 font-bold text-sm">Editar</p>
+
+                </div>
+
             </div>
 
             <section class="flex flex-col bg-slate-100 rounded-xl border-2 border-gray-300 mb-2">
@@ -47,15 +62,15 @@
                         <div class="flex justify-start items-center p-2 bg-white border border-gray-300 rounded-xl"
                             v-for="service in services" :key="service.id">
                             <div>
-                                <input type="checkbox" class=" checked:bg-blue-700 p-2 mx-3 rounded-sm" :checked="suma" :value="service.id" v-model="form.servicios"
-                                    name="poliza">
+                                <input type="checkbox" class=" checked:bg-blue-800 p-2 mx-3 rounded-sm" :checked="suma"
+                                    :value="service.id" v-model="form.servicios" name="poliza">
                             </div>
                             <div class="flex flex-col justify-center items-start">
                                 <label class="">{{ service.serviceName }}</label>
 
                                 <label class="font-bold">RD$ {{
                                     new
-                                Intl.NumberFormat('en-IN').format(service.servicePrice)
+                                        Intl.NumberFormat('en-IN').format(service.servicePrice)
                                 }}.00
                                 </label>
                             </div>
@@ -71,7 +86,6 @@
         </section>
     </section>
     <Footer></Footer>
-
 </template>
 <script>
 import { Head, Link } from '@inertiajs/inertia-vue3';
@@ -121,13 +135,13 @@ export default {
                 client: this.client,
                 tipos: this.tipos,
                 marcas: this.marcas,
-                modelos:this.modelos,
+                modelos: this.modelos,
                 cities: this.cities,
                 provinces: this.provinces,
                 clientProvince: this.clientProvince,
                 polizaValor: this.polizaValor
-                
-            },form2: {
+
+            }, form2: {
                 cities: this.cities,
                 provinces: this.provinces,
                 clientProvince: this.clientProvince,
@@ -135,9 +149,9 @@ export default {
                 car: this.car,
                 tipos: this.tipos,
                 marcas: this.marcas,
-                modelos:this.modelos,
+                modelos: this.modelos,
                 sellers: this.sellers,
-                clien_id: this.clien_id,            
+                clien_id: this.clien_id,
             }
         }
     },
@@ -145,19 +159,19 @@ export default {
         submit() {
             this.$inertia.post(this.route('servicespolicy'), this.form)
         },
-        clientReturn(){
+        clientReturn() {
             this.$inertia.post(this.route('clientReturn'), this.form2)
         },
-        cartReturn(){
+        cartReturn() {
             this.$inertia.post(this.route('carReturn'), this.form2)
         },
-        caseguradoraReturn(){
+        caseguradoraReturn() {
             this.$inertia.post(this.route('caseguradoraReturn'), this.form2)
         }
     },
     watch: {
         suma: function () {
-        //    console.log('Entro')
+            //    console.log('Entro')
         }
     }
 

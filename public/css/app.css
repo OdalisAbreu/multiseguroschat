@@ -979,6 +979,21 @@ select {
 .bottom-2 {
   bottom: 0.5rem;
 }
+.right-2 {
+  right: 0.5rem;
+}
+.right-4 {
+  right: 1rem;
+}
+.right-6 {
+  right: 1.5rem;
+}
+.right-10 {
+  right: 2.5rem;
+}
+.right-8 {
+  right: 2rem;
+}
 .z-0 {
   z-index: 0;
 }
@@ -1126,6 +1141,9 @@ select {
 }
 .mb-1 {
   margin-bottom: 0.25rem;
+}
+.mt-7 {
+  margin-top: 1.75rem;
 }
 .block {
   display: block;
@@ -1757,6 +1775,12 @@ select {
 .pb-2 {
   padding-bottom: 0.5rem;
 }
+.pb-7 {
+  padding-bottom: 1.75rem;
+}
+.pb-10 {
+  padding-bottom: 2.5rem;
+}
 .text-left {
   text-align: left;
 }
@@ -2075,6 +2099,10 @@ select {
 .checked\:bg-blue-700:checked {
   --tw-bg-opacity: 1;
   background-color: rgb(29 78 216 / var(--tw-bg-opacity));
+}
+.checked\:bg-blue-800:checked {
+  --tw-bg-opacity: 1;
+  background-color: rgb(30 64 175 / var(--tw-bg-opacity));
 }
 .hover\:cursor-pointer:hover {
   cursor: pointer;

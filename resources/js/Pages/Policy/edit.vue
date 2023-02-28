@@ -8,9 +8,13 @@
                     <h3 class="font-bold text-lg">Asegurado</h3>
                     <p>{{ client.name }} {{ client.lastname }} </p>
                 </div>
-                <a @click="clientReturn()" class="p-2 min-h-48 min-w-48 rounded-full bg-blue-700">
-                    <img src="../../../../public/ima/edit.png" alt="Editar">
-                </a>
+
+                <div class="flex flex-col justify-end gap-1 items-center">
+                    <a @click="clientReturn()" class="p-2 min-h-48 min-w-48 rounded-full bg-blue-800">
+                        <img src="../../../../public/ima/edit.png" alt="Editar">
+                    </a>
+                    <p class="text-blue-800 bottom-2 font-bold text-sm">Editar</p>
+                </div>
             </div>
 
             <div
@@ -19,38 +23,52 @@
                     <h3 class="font-bold text-lg">Vehículo</h3>
                     <p> {{ car.marcaName }} {{ car.modeloName }}, {{ car.year }}</p>
                 </div>
-                <a @click="cartReturn()" class="p-2 min-h-48 min-w-48 rounded-full bg-blue-700">
-                    <img src="../../../../public/ima/edit.png" alt="Editar">
-                </a>
+                <div class="flex flex-col justify-end gap-1 items-center">
+                    <a @click="cartReturn()" class="p-2 min-h-48 min-w-48 rounded-full bg-blue-800">
+                        <img src="../../../../public/ima/edit.png" alt="Editar">
+                    </a>
+                    <p class="text-blue-800 bottom-2 font-bold text-sm">Editar</p>
+                </div>
             </div>
 
             <div
                 class="flex min-h-90 items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-7">
                 <div class="flex flex-col justify-start">
                     <h3 class="font-bold text-lg">Aseguradora</h3>
-                    <p>{{insurre.nombre}} | {{ policyTime }} | RD$ {{Intl.NumberFormat('en-IN').format(polizaValor)}}</p>
+                    <p>{{ insurre.nombre }} | {{ policyTime }} | RD$ {{ Intl.NumberFormat('en-IN').format(polizaValor) }}
+                    </p>
                 </div>
-                <a @click="caseguradoraReturn()" class="p-2 min-h-48 min-w-48 rounded-full bg-blue-700">
-                    <img src="../../../../public/ima/edit.png" alt="Editar">
-                </a>
+
+                <div class="flex flex-col justify-end gap-1 items-center">
+                    <a @click="caseguradoraReturn()" class="p-2 min-h-48 min-w-48 rounded-full bg-blue-800">
+                        <img src="../../../../public/ima/edit.png" alt="Editar">
+                    </a>
+                    <p class="text-blue-800 bottom-2 font-bold text-sm">Editar</p>
+                </div>
             </div>
 
             <div
-                class="flex min-h-90 items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-7">
-                <div class="flex flex-col justify-start">
-                    <div class="flex items-center gap-x-2 ">
+                class="flex min-h-90 items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-7 pb-10">
+                <div class="flex flex-col justify-end">
+                    <div class="flex justify-between items-center gap-x-2 ">
                         <h3 class="font-bold text-lg col-10">Servicios Opcionales</h3>
-                        <a @click="serviciosReturn()"  class="col-2 p-2 min-h-48 min-w-48 flex-row-reverse rounded-full bg-blue-700">
-                            <img src="../../../../public/ima/edit.png" alt="Editar">
-                        </a>
+
+                        <div class="absolute right-8 mt-7 m-x-2">
+                            <a @click="serviciosReturn()"
+                                class="col-2 p-2 min-h-48 min-w-48 flex justify-center items-center rounded-full bg-blue-800">
+                                <img src="../../../../public/ima/edit.png" alt="Editar">
+                            </a>
+                            <p class="text-blue-800 text-center bottom-2 font-bold text-sm">Editar</p>
+                        </div>
                     </div>
-           
-                    <p v-for="servicio in service" :key="servicio.id">{{ servicio.serviceName }}: RD$ {{ servicio.servicePrice }}.00
+
+                    <p v-for="servicio in service" :key="servicio.id">{{ servicio.serviceName }}: RD$ {{
+                        servicio.servicePrice }}.00
                         <br />
                         ---------------------------
                     </p>
                 </div>
-               
+
             </div>
 
             <div class="mt-2 mx-5 my-4">
@@ -61,7 +79,7 @@
             </div>
 
         </section>
-      <!--  <Footer class="absolute bottom-0 w-full"></Footer>-->
+        <!--  <Footer class="absolute bottom-0 w-full"></Footer>-->
     </section>
 </template>
 <script>
@@ -123,7 +141,7 @@ export default {
                 marcas: this.marcas,
                 modelos: this.modelos,
                 insurre: this.insurre,
-            },form2: {
+            }, form2: {
                 car: this.car,
                 tarifa: this.tarifa,
                 sellers: this.sellers,
@@ -135,7 +153,7 @@ export default {
                 client: this.client,
                 tipos: this.tipos,
                 marcas: this.marcas,
-                modelos:this.modelos,
+                modelos: this.modelos,
                 polizaValor: this.polizaValor,
                 cities: this.cities,
                 provinces: this.provinces,
@@ -148,16 +166,16 @@ export default {
             console.log('hola')
             this.$inertia.post(this.route('servicesapprove'), this.form)
         },
-        clientReturn(){
+        clientReturn() {
             this.$inertia.post(this.route('clientReturn'), this.form2)
         },
-        cartReturn(){
+        cartReturn() {
             this.$inertia.post(this.route('carReturn'), this.form2)
         },
-        caseguradoraReturn(){
+        caseguradoraReturn() {
             this.$inertia.post(this.route('caseguradoraReturn'), this.form2)
         },
-        serviciosReturn(){
+        serviciosReturn() {
             this.$inertia.post(this.route('serviciosReturn'), this.form2)
         }
     },
