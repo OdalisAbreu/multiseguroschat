@@ -47,7 +47,7 @@
                         <div class="flex justify-start items-center p-2 bg-white border border-gray-300 rounded-xl"
                             v-for="service in services" :key="service.id">
                             <div>
-                                <input type="checkbox" class=" checked:bg-lime-500 p-2 mx-3 rounded-sm" :checked="suma" :value="service.id" v-model="form.servicios"
+                                <input type="checkbox" class=" checked:bg-blue-700 p-2 mx-3 rounded-sm" :checked="suma" :value="service.id" v-model="form.servicios"
                                     name="poliza">
                             </div>
                             <div class="flex flex-col justify-center items-start">

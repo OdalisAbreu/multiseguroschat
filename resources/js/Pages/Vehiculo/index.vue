@@ -7,15 +7,18 @@
 
         <section class="p-6 relative rounded-xl bg-white mx-6 z-50 mt-4">
 
-            <div
-                class="flex items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-7">
+            <div class="flex items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-7">
                 <div class="flex flex-col justify-start">
                     <h3 class="font-bold text-lg">Asegurado</h3>
                     <p>{{ client.name }} {{ client.lastname }} </p>
                 </div>
-                <a @click="clientReturn()" class="p-4 rounded-full bg-blue-700">
-                    <img src="../../../../public/ima/edit.png" alt="Editar">
-                </a>
+                <div class="flex flex-col justify-end gap-1 items-center">
+                    <a @click="clientReturn()" class="p-2 rounded-full bg-blue-800">
+                        <img src="../../../../public/ima/edit.png" alt="Editar">
+                    </a>
+                    <p class="text-blue-800 bottom-2 font-bold text-sm">Editar</p>
+                </div>
+
             </div>
 
             <div
@@ -26,35 +29,39 @@
                 </div>
 
                 <form @submit.prevent="submit" class="flex flex-col">
-                    <label class="p-2 font-bold">Tipo de Vehículo</label>
-                    <select class="rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80"
-                        v-model="form.tipo" required>
-                        <option :value="car.tipoName" disabled selected hidden v-if="car.tipoName != ''">{{car.tipoName}}</option>
+                    <label class="pt-6 font-bold">Tipo de Vehículo <span class="text-red-400 inl">*</span></label>
+                    <select class="rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80" v-model="form.tipo"
+                        required>
+                        <option :value="car.tipoName" disabled selected hidden v-if="car.tipoName != ''">{{ car.tipoName }}
+                        </option>
                         <option value="" disabled selected hidden v-else>TIPO DE VEHÍCULO</option>
                         <option v-for="tipo in tipos" :value="tipo.id" :key="tipo.id">{{ tipo.nombre }} </option>
                     </select>
-                    <label class="p-2 font-bold">Marca </label>
+                    <label class="pt-4 font-bold">Marca <span class="text-red-400 inl">*</span></label>
                     <select class="rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80" v-model="marca"
                         required>
-                        <option :value="car.marcaName" disabled selected hidden v-if="car.marcaName != ''">{{car.marcaName}}</option>
+                        <option :value="car.marcaName" disabled selected hidden v-if="car.marcaName != ''">{{ car.marcaName
+                        }}
+                        </option>
                         <option value="" disabled selected hidden v-else>MARCA</option>
                         <option v-for="marca in marcas" :value="marca.ID" :key="marca.ID">{{ marca.DESCRIPCION }}
                         </option>
                     </select>
-                    <label class="p-2 font-bold">Modelo </label>
+                    <label class="pt-4 font-bold">Modelo <span class="text-red-400 inl">*</span></label>
                     <select class="rounded-lg w-full bt-4 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80"
                         v-model="form.modelo" required>
-                        <option :value="car.modeloName" disabled selected hidden v-if="car.modeloName != ''">{{car.modeloName}}</option>
-                        <option value="" disabled selected hidden  v-else>MODELO</option>
+                        <option :value="car.modeloName" disabled selected hidden v-if="car.modeloName != ''">
+                            {{ car.modeloName }}</option>
+                        <option value="" disabled selected hidden v-else>MODELO</option>
                         <option v-for="modelo in models" :value="modelo.ID" :key="modelo.ID">{{
                             modelo.descripcion
                         }}
                         </option>
                     </select>
-                    <label class="p-2 font-bold">Año </label>
-                    <select class="rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80"
-                        v-model="form.year" required>
-                        <option :value="car.year" disabled selected hidden v-if="car.year != ''">{{car.year}}</option>
+                    <label class="pt-4 font-bold">Año <span class="text-red-400 inl">*</span></label>
+                    <select class="rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80" v-model="form.year"
+                        required>
+                        <option :value="car.year" disabled selected hidden v-if="car.year != ''">{{ car.year }}</option>
                         <option value="" disabled selected hidden v-else>AÑO</option>
                         <option value="2022">2023</option>
                         <option value="2022">2022</option>
@@ -85,14 +92,13 @@
                         <option value="1997">1997</option>
                         <option value="1996">1996</option>
                     </select>
-                    <label class="p-2 font-bold">No. de Placa </label>
+                    <label class="pt-4 font-bold">No. de Placa <span class="text-red-400 inl">*</span></label>
                     <input class="rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80"
                         style="text-transform:uppercase;" type="text" placeholder="PLACA" v-model="form.placa" required>
-                    <label class="p-2 font-bold">No. de Chassis
+                    <label class="pt-4 font-bold">No. de Chassis <span class="text-red-400 inl">*</span>
                     </label>
                     <input class="rounded-lg w-full sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80"
-                        style="text-transform:uppercase;" type="text" placeholder="CHASSIS" v-model="form.chasis"
-                        required>
+                        style="text-transform:uppercase;" type="text" placeholder="CHASSIS" v-model="form.chasis" required>
 
                     <div class="w-full mt-5 mx-5 my-4 justify-self-center self-center">
                         <button
@@ -106,7 +112,6 @@
         </section>
     </div>
     <Footer />
-
 </template>
 <script>
 import { Head, Link } from '@inertiajs/inertia-vue3';
@@ -152,7 +157,7 @@ export default {
                 client: this.client,
                 tipos: this.tipos,
                 marcas: this.marcas,
-                modelos:this.modelos
+                modelos: this.modelos
             },
             form2: {
                 cities: this.cities,
@@ -161,7 +166,7 @@ export default {
                 client: this.client,
                 tipos: this.tipos,
                 marcas: this.marcas,
-                modelos:this.modelos
+                modelos: this.modelos
             }
         }
     },
@@ -174,7 +179,7 @@ export default {
         submit() {
             this.$inertia.post(this.route('policy', this.marca), this.form)
         },
-        clientReturn(){
+        clientReturn() {
             this.$inertia.post(this.route('clientReturn'), this.form2)
         }
     },

@@ -27,40 +27,38 @@
                 </div>
 
                 <form @submit.prevent="submit" class="flex flex-col">
-                    <label class="pt-2 justify-start font-bold">Nombres
+                    <label class="pt-2 justify-start font-bold">Nombres <span class="text-red-400 inl">*</span>
                     </label>
                     <input
                         class="rounded-md h-12 mb-4 sm:m-3 sm:w-full md:m-3 md:w-full lg:w-11/12 xl:w-11/12  xl:m-3 shadow-sm border-gray-300"
-                        style="text-transform: uppercase" type="text" placeholder="Nombre" v-model="form.name"
-                        required />
-                    <label class="pt-2 font-bold">Apellidos
-                    </label>
+                        style="text-transform: uppercase" type="text" placeholder="Nombre" v-model="form.name" required />
+                    <label class="pt-2 font-bold">Apellidos <span class="text-red-400 inl">*</span></label>
                     <input
                         class="rounded-md h-12 mb-4 sm:m-3 sm:w-full md:m-3 md:w-full lg:w-11/12 xl:w-11/12  xl:m-3 shadow-sm border-gray-300"
                         style="text-transform: uppercase" type="text" placeholder="Apellido" v-model="form.lastname"
                         required />
-                    <label class="pt-2 font-bold">Cédula o Pasaporte
+                    <label class="pt-2 font-bold">Cédula o Pasaporte <span class="text-red-400 inl">*</span>
                     </label>
                     <input
                         class="rounded-md h-12 mb-4 sm:m-3 sm:w-full md:m-3 md:w-full lg:w-11/12 xl:w-11/12  xl:m-3 shadow-sm border-gray-300"
                         style="text-transform: uppercase" type="text" placeholder="Cédula" v-model="form.cardnumber"
                         required />
-                    <label class="pt-2 font-bold">Celular</label>
+                    <label class="pt-2 font-bold">Celular <span class="text-red-400 inl">*</span></label>
                     <input
                         class="rounded-md h-12 mb-4 sm:m-3 sm:w-full md:m-3 md:w-full lg:w-11/12 xl:w-11/12  xl:m-3 shadow-sm border-gray-300"
                         style="text-transform: uppercase" type="text" placeholder="Telefono" v-model="form.phonenumber"
                         required />
-                    <label class="pt-2 font-bold">Correo Electrónico
+                    <label class="pt-2 font-bold">Correo Electrónico <span class="text-red-400 inl">*</span>
                     </label>
                     <input
                         class="rounded-md h-12 mb-4 sm:m-3 sm:w-full md:m-3 md:w-full lg:w-11/12 xl:w-11/12  xl:m-3 shadow-sm border-gray-300"
                         type="text" placeholder="Email" v-model="form.email" required />
 
-                    <label class="pt-2 font-bold">Dirección</label>
+                    <label class="pt-2 font-bold">Dirección <span class="text-red-400 inl">*</span></label>
                     <input
                         class="rounded-md h-20 mb-4 sm:m-3 sm:w-full md:m-3 md:w-full lg:w-11/12 xl:w-11/12  xl:m-3 shadow-sm border-gray-300"
                         type="text" placeholder="Dirección" v-model="form.adrress" required />
-                    <label class="pt-2 font-bold">Provincia</label>
+                    <label class="pt-2 font-bold">Provincia <span class="text-red-400 inl">*</span></label>
                     <select
                         class="rounded-md h-12 mb-4 sm:m-3 sm:w-full md:m-3 md:w-full lg:w-11/12 xl:w-11/12  xl:m-3 shadow-sm border-gray-300"
                         v-model="province" required>
@@ -71,7 +69,7 @@
                             {{ province.descrip }}
                         </option>
                     </select>
-                    <label class="pt-2 font-bold">Ciudad</label>
+                    <label class="pt-2 font-bold">Ciudad <span class="text-red-400 inl">*</span></label>
                     <select
                         class="rounded-md h-12 sm:m-3 sm:w-full md:m-3 md:w-full lg:w-11/12 xl:w-11/12  xl:m-3 shadow-sm border-gray-300"
                         v-model="form.city" required>
@@ -97,7 +95,6 @@
     </div>
 
     <Footer v-if="!loading" />
-
 </template>
 <script>
 import { Head, Link } from "@inertiajs/inertia-vue3";
@@ -156,9 +153,9 @@ export default {
         },
     },
     mounted() {
-        if(this.activarPresentacion == 'False'){
-                this.loading = false
-        }else{
+        if (this.activarPresentacion == 'False') {
+            this.loading = false
+        } else {
             setTimeout(() => {
                 this.loading = false
             }, 50)
@@ -178,6 +175,4 @@ export default {
 
 </script>
 <!--Este bloque sirve para crear clases personalizadas-->
-<style scoped>
-
-</style>
+<style scoped></style>
