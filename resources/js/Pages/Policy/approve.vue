@@ -61,9 +61,9 @@
             </div>
             <div
                 class="w-full font-bold rounded  overflow-x-hidden border-t flex flex-col gap-2 text-lg justify-between pt-4">
-                <p>Sub Total: {{ new Intl.NumberFormat('en-IN').format(totalGeneral) }}</p>
-                <p>Descuento: {{ new Intl.NumberFormat('en-IN').format(form.descontar) }}</p>
-                <p>Total a pagar: {{ new Intl.NumberFormat('en-IN').format(form.totalGeneral) }}</p>
+                <p>Sub Total: ${{ new Intl.NumberFormat('en-IN').format(totalGeneral) }}.00</p>
+                <p>Descuento: ${{ new Intl.NumberFormat('en-IN').format(form.descontar) }}.00</p>
+                <p>Total a pagar: ${{ new Intl.NumberFormat('en-IN').format(form.totalGeneral) }}.00</p>
             </div>
 
             <div v-if="!Descuento" class="w-full flex justify-center items-center mt-4">

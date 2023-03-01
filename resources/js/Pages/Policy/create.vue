@@ -3,7 +3,7 @@
         <Header :width="65" />
         <section class="p-3 relative rounded-xl bg-white mx-3 z-50 mt-4">
             <div
-                class="flex min-h-90 items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-7">
+                class="flex min-h-90 items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-3">
                 <div class="flex flex-col justify-start">
                     <h3 class="font-bold text-lg">Asegurado</h3>
                     <p>{{ client.name }} {{ client.lastname }} </p>
@@ -19,7 +19,7 @@
             </div>
 
             <div
-                class="flex min-h-90 items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-7">
+                class="flex min-h-90 items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-3">
                 <div class="flex flex-col justify-start">
                     <h3 class="font-bold text-lg">Vehículo</h3>
                     <p> {{ car.marcaName }} {{ car.modeloName }}, {{ car.year }}</p>
@@ -33,14 +33,14 @@
             </div>
 
             <div
-                class="flex min-h-90 items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-7">
+                class="flex min-h-90 items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-3">
                 <div class="flex flex-col justify-start">
                     <h3 class="font-bold text-lg">Aseguradora</h3>
-                    <p>{{ insurres.nombre }} | {{ services[0].time }} | RD$ {{
+                    <p class="mr-14">{{ insurres.nombre }} | {{ services[0].time }} | RD$ {{
                         Intl.NumberFormat('en-IN').format(polizaValor) }}
                     </p>
                 </div>
-                <div class="flex flex-col justify-end gap-1 items-center">
+                <div class="absolute right-8 mt-2 flex flex-col justify-end gap-1 items-cente">
                     <a @click="caseguradoraReturn()" class="p-2 min-h-48 min-w-48 rounded-full bg-blue-800">
                         <img src="../../../../public/ima/edit.png" alt="Editar">
                     </a>
