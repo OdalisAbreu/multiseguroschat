@@ -29,16 +29,16 @@
                 </div>
 
                 <form @submit.prevent="submit" class="flex flex-col">
-                    <label class="pt-6 font-bold">Tipo de Vehículo <span class="text-red-400 inl">*</span></label>
-                    <select class="rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80" v-model="form.tipo"
+                    <label class="pt-1 justify-start font-bold">Tipo de Vehículo <span class="text-red-400 inl">*</span></label>
+                    <select class="rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80 border-gray-300" v-model="form.tipo"
                         required>
                         <option :value="car.tipoName" disabled selected hidden v-if="car.tipoName != ''">{{ car.tipoName }}
                         </option>
                         <option value="" disabled selected hidden v-else>TIPO DE VEHÍCULO</option>
                         <option v-for="tipo in tipos" :value="tipo.id" :key="tipo.id">{{ tipo.nombre }} </option>
                     </select>
-                    <label class="pt-4 font-bold">Marca <span class="text-red-400 inl">*</span></label>
-                    <select class="rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80" v-model="marca"
+                    <label class="pt-1 font-bold">Marca <span class="text-red-400 inl">*</span></label>
+                    <select class="rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80 border-gray-300" v-model="marca"
                         required>
                         <option :value="car.marcaName" disabled selected hidden v-if="car.marcaName != ''">{{ car.marcaName
                         }}
@@ -47,8 +47,8 @@
                         <option v-for="marca in marcas" :value="marca.ID" :key="marca.ID">{{ marca.DESCRIPCION }}
                         </option>
                     </select>
-                    <label class="pt-4 font-bold">Modelo <span class="text-red-400 inl">*</span></label>
-                    <select class="rounded-lg w-full bt-4 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80"
+                    <label class="pt-1 font-bold">Modelo <span class="text-red-400 inl">*</span></label>
+                    <select class="rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80 border-gray-300"
                         v-model="form.modelo" required>
                         <option :value="car.modeloName" disabled selected hidden v-if="car.modeloName != ''">
                             {{ car.modeloName }}</option>
@@ -58,8 +58,8 @@
                         }}
                         </option>
                     </select>
-                    <label class="pt-4 font-bold">Año <span class="text-red-400 inl">*</span></label>
-                    <select class="rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80" v-model="form.year"
+                    <label class="pt-1 font-bold">Año <span class="text-red-400 inl">*</span></label>
+                    <select class="rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80 border-gray-300" v-model="form.year"
                         required>
                         <option :value="car.year" disabled selected hidden v-if="car.year != ''">{{ car.year }}</option>
                         <option value="" disabled selected hidden v-else>AÑO</option>
@@ -93,12 +93,12 @@
                         <option value="1997">1997</option>
                         <option value="1996">1996</option>
                     </select>
-                    <label class="pt-4 font-bold">No. de Placa <span class="text-red-400 inl">*</span></label>
-                    <input class="rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80"
+                    <label class="pt-1 font-bold">No. de Placa <span class="text-red-400 inl">*</span></label>
+                    <input class="rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80 border-gray-300"
                         style="text-transform:uppercase;" type="text" placeholder="PLACA" v-model="form.placa" required>
-                    <label class="pt-4 font-bold">No. de Chassis <span class="text-red-400 inl">*</span>
+                    <label class="pt-1 font-bold">No. de Chassis <span class="text-red-400 inl">*</span>
                     </label>
-                    <input class="rounded-lg w-full sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80"
+                    <input class="rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80 border-gray-300"
                         style="text-transform:uppercase;" type="text" placeholder="CHASSIS" v-model="form.chasis" required>
 
                     <div class="w-full mt-5 mx-5 my-4 justify-self-center self-center">
