@@ -1231,11 +1231,11 @@ select {
 .mr-14 {
   margin-right: 3.5rem;
 }
-.mt-7 {
-  margin-top: 1.75rem;
-}
 .mb-1 {
   margin-bottom: 0.25rem;
+}
+.mt-7 {
+  margin-top: 1.75rem;
 }
 .block {
   display: block;
@@ -1898,12 +1898,6 @@ select {
 }
 .pb-48 {
   padding-bottom: 12rem;
-}
-.pb-10 {
-  padding-bottom: 2.5rem;
-}
-.pl-5 {
-  padding-left: 1.25rem;
 }
 .text-left {
   text-align: left;
