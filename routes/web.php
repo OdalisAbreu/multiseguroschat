@@ -73,7 +73,7 @@ Route::get('serviciosReturn', function () {return Inertia::render('index');});
 Route::get('/end', function () {
     return Inertia::render('end');
 });
-Route::get('/dashboard', function () {
+Route::get('/test', function () {
     return Inertia::render('Welcome');
 });
 

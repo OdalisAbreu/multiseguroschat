@@ -171,8 +171,11 @@
 
                                     <div v-show="coberturaMultiS && index == 0"
                                         class="transition-all duration-500 flex justify-center items-center mb-2">
-                                        <p class="font-bold text-base text-blue-700">Su cobertura es de:
-                                            RD$1,000,000</p>
+                                        <p class="font-bold text-base text-blue-700" v-if="sellers[0].DanosPropiedadAjena > 0" >Daños Propiedad Ajena: {{sellers[0].DanosPropiedadAjena }}</p>
+                                        <p class="font-bold text-base text-blue-700" v-if="sellers[0].ResponsabilidadCivil > 0">Respon sabilidad Civil: {{sellers[0].ResponsabilidadCivil }}</p>
+                                        <p class="font-bold text-base text-blue-700" v-if="sellers[0].ResponsabilidadCivil2 > 0">Respon sabilidad Civil 2: {{sellers[0].ResponsabilidadCivil2 }}</p>
+                                        <p class="font-bold text-base text-blue-700" v-if="sellers[0].UnaPersona > 0">Una Persona: {{sellers[0].UnaPersona }}</p>
+                                        <p class="font-bold text-base text-blue-700" v-if="sellers[0].FianzaJudicial > 0">Fianza Judicial: {{sellers[0].FianzaJudicial}}</p>
                                     </div>
 
                                     <button v-show="index == 1" v-on:click="(coberturaSura = !coberturaSura)"
@@ -183,7 +186,11 @@
                                             src="../../../../public/images/down.png" alt="Down">
                                     </button>
                                     <div v-if="coberturaSura && index == 1" class="flex justify-center items-center mb-2">
-                                        <p class="font-bold text-base text-blue-700">Su cobertura es de: RD$2,500,000</p>
+                                        <p class="font-bold text-base text-blue-700" v-if="sellers[1].DanosPropiedadAjena > 0" >Daños Propiedad Ajena: {{sellers[0].DanosPropiedadAjena }}</p>
+                                        <p class="font-bold text-base text-blue-700" v-if="sellers[1].ResponsabilidadCivil > 0">Respon sabilidad Civil: {{sellers[0].ResponsabilidadCivil }}</p>
+                                        <p class="font-bold text-base text-blue-700" v-if="sellers[1].ResponsabilidadCivil2 > 0">Respon sabilidad Civil 2: {{sellers[0].ResponsabilidadCivil2 }}</p>
+                                        <p class="font-bold text-base text-blue-700" v-if="sellers[1].UnaPersona > 0">Una Persona: {{sellers[0].UnaPersona }}</p>
+                                        <p class="font-bold text-base text-blue-700" v-if="sellers[1].FianzaJudicial > 0">Fianza Judicial: {{sellers[0].FianzaJudicial}}</p>
                                     </div>
 
                                     <button v-if="index == 2" v-on:click="(coberturaAtrio = !coberturaAtrio)"
@@ -195,7 +202,11 @@
                                     </button>
                                     <div v-if="coberturaAtrio && index == 2"
                                         class="transform transition-all duration-700 flex justify-center items-center mb-2">
-                                        <p class="font-bold text-base text-blue-700">Su cobertura es de: RD$800,000</p>
+                                        <p class="font-bold text-base text-blue-700" v-if="sellers[2].DanosPropiedadAjena > 0" >Daños Propiedad Ajena: {{sellers[0].DanosPropiedadAjena }}</p>
+                                        <p class="font-bold text-base text-blue-700" v-if="sellers[2].ResponsabilidadCivil > 0">Respon sabilidad Civil: {{sellers[0].ResponsabilidadCivil }}</p>
+                                        <p class="font-bold text-base text-blue-700" v-if="sellers[2].ResponsabilidadCivil2 > 0">Respon sabilidad Civil 2: {{sellers[0].ResponsabilidadCivil2 }}</p>
+                                        <p class="font-bold text-base text-blue-700" v-if="sellers[2].UnaPersona > 0">Una Persona: {{sellers[0].UnaPersona }}</p>
+                                        <p class="font-bold text-base text-blue-700" v-if="sellers[2].FianzaJudicial > 0">Fianza Judicial: {{sellers[0].FianzaJudicial}}</p>
                                     </div>
 
                                 </div>

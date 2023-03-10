@@ -139,7 +139,12 @@ class PoliciesController extends Controller
                 'merchantnumber',
                 'merchantterminal',
                 'client_name',
-                'vehicle_type_id'
+                'vehicle_type_id',
+                'DanosPropiedadAjena',
+                'ResponsabilidadCivil',
+                'ResponsabilidadCivil2',
+                'UnaPersona',
+                'FianzaJudicial'
             )
             ->get();
 
