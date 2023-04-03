@@ -125,9 +125,6 @@ export default {
         codigosDescuento: Array,
         Descuento: false,
     },
-    mounted() {
-        console.log(this.insurre)
-    },
     data() {
         return {
             form: {

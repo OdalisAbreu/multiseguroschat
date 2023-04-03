@@ -147,7 +147,6 @@ class PoliciesController extends Controller
                 'FianzaJudicial'
             )
             ->get();
-
         return Inertia::render('Policy/index', [
             'car' => $car,
             'sellers' => $seller,
@@ -158,7 +157,9 @@ class PoliciesController extends Controller
             'client' => $request->client,
             'tipos' => $request->tipos, 
             'modelos' => $request->modelos,
-            'marcas' => $request->marcas
+            'marcas' => $request->marcas,
+            'clientepais' => $request->clientepais,
+            'paises' => $request->paises
         ]);
     }
 
@@ -216,6 +217,8 @@ class PoliciesController extends Controller
             'clientProvince' => $request->clientProvince,
             'provinces' => $request->provinces,
             'cities' => $request->cities,
+            'clientepais' => $request->clientepais,
+            'paises' => $request->paises
             
 
         ]);
@@ -242,6 +245,8 @@ class PoliciesController extends Controller
             'marcas' => $request->marcas,
             'modelos' => $request->modelos,
             'codigosDescuento' => $codigosDescuento,
+            'clientepais' => $request->clientepais,
+            'paises' => $request->paises
         ]);
     }
 
@@ -301,7 +306,9 @@ class PoliciesController extends Controller
             'polizaValor' => $polizaValor,
             'cities' => $request->cities,
             'provinces' => $request->provinces,
-            'clientProvince' => $request->clientProvince
+            'clientProvince' => $request->clientProvince,
+            'clientepais' => $request->clientepais,
+            'paises' => $request->paises
         ]);
     }
     public function carReturn(Request $request)
@@ -314,7 +321,9 @@ class PoliciesController extends Controller
             'tipos' => $request->tipos,
             'marcas' => $request->marcas,
             'modelos' => $request->modelos,
-            'car' => $request->car
+            'car' => $request->car,
+            'clientepais' => $request->clientepais,
+            'paises' => $request->paises
         ]);
     }
     public function caseguradoraReturn(Request $request)
@@ -330,6 +339,8 @@ class PoliciesController extends Controller
             'tipos' => $request->tipos,
             'marcas' => $request->marcas,
             'modelos' => $request->modelos,
+            'clientepais' => $request->clientepais,
+            'paises' => $request->paises
         ]);
     }
     public function serviciosReturn(Request $request)
@@ -352,6 +363,8 @@ class PoliciesController extends Controller
             'servicios' => $request->servicios,
             'polizaValor' => $request->polizaValor,
             'insurres' => $request->insurre,
+            'clientepais' => $request->clientepais,
+            'paises' => $request->paises
 
         ]);
     }

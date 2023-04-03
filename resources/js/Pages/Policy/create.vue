@@ -130,10 +130,9 @@ export default {
         cities: Array,
         provinces: Array,
         clientProvince: Array,
+        clientepais: Array,
+        paises: Object,
 
-    },
-    mounted() {
-        console.log(this.sellers.indexOf(1))
     },
     data() {
         return {
@@ -155,7 +154,9 @@ export default {
                 cities: this.cities,
                 provinces: this.provinces,
                 clientProvince: this.clientProvince,
-                polizaValor: this.polizaValor
+                polizaValor: this.polizaValor,
+                clientepais: this.clientepais,
+                paises: this.paises,
 
             }, form2: {
                 cities: this.cities,
@@ -168,6 +169,8 @@ export default {
                 modelos: this.modelos,
                 sellers: this.sellers,
                 clien_id: this.clien_id,
+                clientepais: this.clientepais,
+                paises: this.paises,
             }
         }
     },

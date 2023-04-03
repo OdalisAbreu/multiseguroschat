@@ -5,7 +5,7 @@
         </div>
 
         <div @submit.prevent="submit" class="mt-6 p-8">
-            <form class="flex flex-col">
+          <!--  <form class="flex flex-col">
                 <div class="mb-8 pt-3 rounded bg-gray-200">
                     <label class="block text-gray-700 text-sm font-bold mb-2 ml-3">Para poder continuar favor digita tu
                         celular</label>
@@ -30,8 +30,18 @@
                             fill="#E5E7EB" />
                     </svg>
                 </button>
-            </form>
+            </form> -->
+            <div class="mb-8 pt-3 rounded bg-gray-200">
+                <label class="block text-gray-700 text-sm font-bold mb-2 ml-3">Su sesión ha finalizado o caducado por inactividad, para poder continuar con su proceso por favor dirígete a WhatsApp</label>
+            </div>
         </div>
+        <div class="mt-6">
+            <a class=" flex justify-center bg-blue-700 hover:bg-blue-900 text-white font-bold mx-3 py-4 rounded-lg shadow-lg hover:shadow-xl transition duration-200 sm:mx-3"
+                href="https://api.whatsapp.com/send/?phone=18297624444&text&type=phone_number&app_absent=0">Ir a
+                WhatsApp
+            </a>
+        </div>
+    
         <footer class="bg-white rounded-lg shadow md:flex md:items-center md:justify-between">
             <div class="absolute inset-x-0 bottom-0 pl-4 pb-2 text-gray-500 dark:text-gray-400">Seguros Chat 2.1.4</div>
         </footer>

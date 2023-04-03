@@ -27,6 +27,7 @@ class ClientsController extends Controller
      */
     public function store(Request $request)
     {
+      //  return $request->passportnumber;
        $client = new Client();
        $client->name = strtoupper($request->name);
        $client->lastname = strtoupper($request->lastname);
@@ -36,6 +37,7 @@ class ClientsController extends Controller
        $client->adrress = strtoupper($request->adrress);
        $client->city = strtoupper($request->city);
        $client->province = 33;
+       $client->nacionalidad = 117;
        $client->email = $request->email;
        $client->save();
 
@@ -55,7 +57,7 @@ class ClientsController extends Controller
      */
     public function show($id)
     {
-        $client = Client::where('cardnumber', $id)->first();
+        $client = Client::where('phonenumber', $id)->first();
         if($client){
             return [
                     'status' => '00', 
@@ -75,24 +77,11 @@ class ClientsController extends Controller
 
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Client  $client
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Client $client)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Client  $client
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Client $client)
     {
         //

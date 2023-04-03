@@ -24,7 +24,7 @@
                 <input type="hidden" name='TransactionId' id='TransactionId' v-model="form.transactionid" />
                 <input type="hidden" name='Amount' id='Amount' v-model="form.total" />
                 <input type="hidden" name='Tax' id='Tax' v-model="form.tax" />
-                <input type="hidden" name='MerchantName' id='MerchantName' value='SURA CHAT BOT-WB' />
+                <input type="hidden" name='MerchantName' id='MerchantName' v-model="form.client_name"/>
                 <input type="hidden" name='KeyEncriptionKey' id='KeyEncriptionKey' v-model="form.transaction_uuid" />
                 <input type="hidden" name='Ipclient' id='Ipclient' v-model="form.clientip" />
                 <input type="hidden" name='loteid' Value='001' />
@@ -90,7 +90,8 @@ export default {
                 merchanttype: this.merchanttype,
                 merchantnumber: this.merchantnumber,
                 merchantterminal: this.merchantterminal,
-                transactionid: this.transactionid
+                transactionid: this.transactionid,
+                client_name: this.client_name
             }
         }
     },
