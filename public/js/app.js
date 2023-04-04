@@ -22128,13 +22128,13 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
   },
   mounted: function mounted() {
     var _console, _console2;
-    /* eslint-disable */(_console = console).log.apply(_console, _toConsumableArray(oo_oo("f78b5bbd_0", this.sellers)));
+    /* eslint-disable */(_console = console).log.apply(_console, _toConsumableArray(oo_oo("a82d2c0_0", this.sellers)));
 
     // Inicializa el objeto checkedItems con las propiedades isChecked para cada objeto de cada elemento
     this.form.servicios = document.getElementById('servicios').value;
     // Asignar el arreglo de objetos a tu variable items
     /* eslint-disable */
-    (_console2 = console).log.apply(_console2, _toConsumableArray(oo_oo("f78b5bbd_1", this.checkedItems)));
+    (_console2 = console).log.apply(_console2, _toConsumableArray(oo_oo("a82d2c0_1", this.checkedItems)));
   },
   methods: {
     procesar: function procesar(insurances_id, time) {
@@ -22145,9 +22145,9 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
         alert('¡Seleccione una aseguradora para poder continuar!');
       }
     },
-    marcarItem: function marcarItem(selectedSeller, buttonId) {
-      this.checkedItems.forEach(function (seller) {
-        if (seller.id !== selectedSeller.id) {
+    marcarItem: function marcarItem(selectedSeller, buttonId, selectedIndex) {
+      this.checkedItems.forEach(function (seller, index) {
+        if (seller.id !== selectedSeller.id || index != selectedIndex) {
           seller.isChecked = false;
         } else {
           seller.isChecked = true;
@@ -27392,10 +27392,10 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       onClick: [function ($event) {
         return _ctx.insurances_id = seller.insurances_id, _ctx.time = 'tresmeses';
       }, function ($event) {
-        return $options.marcarItem(seller, 'button1');
+        return $options.marcarItem(seller, 'button1', index);
       }],
       "class": "relative flex focus:border-blue-600 hover:border-blue-600 hover:cursor-pointer flex-col items-center justify-center mb-1 text-sm font-semibold text-gray-900 border border-gray-300 bg-white text-center rounded-lg w-full h-16 px-2"
-    }, [_hoisted_28, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(index) + " ", 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, "RD$ " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(new Intl.NumberFormat('en-IN').format(seller.tresmeses)) + ".00", 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    }, [_hoisted_28, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, "RD$ " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(new Intl.NumberFormat('en-IN').format(seller.tresmeses)) + ".00", 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
       style: {
         "top": "-4px",
         "right": "-4px"
@@ -27407,10 +27407,10 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       onClick: [function ($event) {
         return _ctx.insurances_id = seller.insurances_id, _ctx.time = 'seismeses';
       }, function ($event) {
-        return $options.marcarItem(seller, 'button2');
+        return $options.marcarItem(seller, 'button2', index);
       }],
       "class": "relative flex focus:border-blue-600 hover:border-blue-600 hover:cursor-pointer flex-col items-center justify-center mb-1 text-sm font-semibold text-gray-900 border border-gray-300 bg-white text-center rounded-lg w-full h-16 px-2"
-    }, [_hoisted_32, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(index) + " ", 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, "RD$ " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(new Intl.NumberFormat('en-IN').format(seller.seismeses)) + ".00", 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    }, [_hoisted_32, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, "RD$ " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(new Intl.NumberFormat('en-IN').format(seller.seismeses)) + ".00", 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
       style: {
         "top": "-4px",
         "right": "-4px"
@@ -27422,10 +27422,10 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       onClick: [function ($event) {
         return _ctx.insurances_id = seller.insurances_id, _ctx.time = 'docemeses';
       }, function ($event) {
-        return $options.marcarItem(seller, 'button3');
+        return $options.marcarItem(seller, 'button3', index);
       }],
       "class": "relative flex focus:border-blue-600 hover:border-blue-600 hover:cursor-pointer flex-col items-center justify-center mb-1 text-sm font-semibold text-gray-900 border border-gray-300 bg-white text-center rounded-lg w-full h-16 px-2"
-    }, [_hoisted_36, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(index) + " ", 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, "RD$ " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(new Intl.NumberFormat('en-IN').format(seller.docemeses)) + ".00", 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    }, [_hoisted_36, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, "RD$ " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(new Intl.NumberFormat('en-IN').format(seller.docemeses)) + ".00", 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
       style: {
         "top": "-4px",
         "right": "-4px"

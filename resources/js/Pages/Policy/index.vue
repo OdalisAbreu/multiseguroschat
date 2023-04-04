@@ -77,10 +77,9 @@
                                             </span> -->
 
                                             <button v-on:click="insurances_id = seller.insurances_id, time = 'tresmeses'"
-                                                @click="marcarItem(seller, 'button1')"
+                                                @click="marcarItem(seller, 'button1', index)"
                                                 class="relative flex focus:border-blue-600 hover:border-blue-600 hover:cursor-pointer flex-col items-center justify-center mb-1 text-sm font-semibold text-gray-900 border border-gray-300 bg-white text-center rounded-lg w-full h-16 px-2">
                                                 <p>3 Meses</p>
-                                                {{ index }}
                                                 <p>RD$ {{
                                                     new
                                                         Intl.NumberFormat('en-IN').format(seller.tresmeses)
@@ -120,10 +119,9 @@
                                             </span> -->
 
                                             <button v-on:click="insurances_id = seller.insurances_id, time = 'seismeses'"
-                                                @click="marcarItem(seller, 'button2')"
+                                                @click="marcarItem(seller, 'button2', index)"
                                                 class="relative flex focus:border-blue-600 hover:border-blue-600 hover:cursor-pointer flex-col items-center justify-center mb-1 text-sm font-semibold text-gray-900 border border-gray-300 bg-white text-center rounded-lg w-full h-16 px-2">
                                                 <p>6 Meses</p>
-                                                {{ index }}
                                                 <p>RD$ {{
                                                     new
                                                         Intl.NumberFormat('en-IN').format(seller.seismeses)
@@ -163,10 +161,9 @@
                                             </span> -->
 
                                             <button v-on:click="insurances_id = seller.insurances_id, time = 'docemeses'"
-                                                @click="marcarItem(seller, 'button3')"
+                                                @click="marcarItem(seller, 'button3', index)"
                                                 class="relative flex focus:border-blue-600 hover:border-blue-600 hover:cursor-pointer flex-col items-center justify-center mb-1 text-sm font-semibold text-gray-900 border border-gray-300 bg-white text-center rounded-lg w-full h-16 px-2">
                                                 <p>Anual</p>
-                                                {{ index }}
                                                 <p>RD$ {{
                                                     new
                                                         Intl.NumberFormat('en-IN').format(seller.docemeses)
@@ -380,9 +377,9 @@ export default {
                 alert('¡Seleccione una aseguradora para poder continuar!')
             }
         },
-        marcarItem(selectedSeller, buttonId) {
-            this.checkedItems.forEach((seller) => {
-                if (seller.id !== selectedSeller.id) {
+        marcarItem(selectedSeller, buttonId, selectedIndex) {
+            this.checkedItems.forEach((seller, index) => {
+                if (seller.id !== selectedSeller.id || index != selectedIndex) {
                     seller.isChecked = false;
                 } else {
                     seller.isChecked = true;
