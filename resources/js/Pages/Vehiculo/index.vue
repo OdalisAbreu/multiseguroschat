@@ -65,7 +65,7 @@
                         v-model="form.year" required>
                         <option :value="car.year" disabled selected hidden v-if="car.year != ''">{{ car.year }}</option>
                         <option value="" disabled selected hidden v-else>AÑO</option>
-                        <option value="2022">2025</option>
+                        <option value="2022">2024</option>
                         <option value="2022">2023</option>
                         <option value="2022">2022</option>
                         <option value="2021">2021</option>
@@ -94,6 +94,27 @@
                         <option value="1998">1998</option>
                         <option value="1997">1997</option>
                         <option value="1996">1996</option>
+                        <option value="1996">1995</option>
+                        <option value="1996">1994</option>
+                        <option value="1996">1993</option>
+                        <option value="1996">1992</option>
+                        <option value="1996">1991</option>
+                        <option value="1996">1990</option>
+                        <option value="1996">1989</option>
+                        <option value="1996">1987</option>
+                        <option value="1996">1986</option>
+                        <option value="1996">1985</option>
+                        <option value="1996">1984</option>
+                        <option value="1996">1983</option>
+                        <option value="1996">1982</option>
+                        <option value="1996">1981</option>
+                        <option value="1996">1980</option>
+                        <option value="1996">1979</option>
+                        <option value="1996">1978</option>
+                        <option value="1996">1977</option>
+                        <option value="1996">1976</option>
+                        <option value="1996">1975</option>
+                        <option value="1996">1974</option>
                     </select>
                     <label class="pt-1 font-bold">No. de Placa <span class="text-red-400 inl">*</span></label>
                     <input class="rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80 border-gray-300"
@@ -154,6 +175,8 @@ export default {
         clientProvince: Array,
         client: Array,
         car: Array,
+        clientepais: Array,
+        paises: Object
     },
     data() {
 
@@ -173,7 +196,9 @@ export default {
                 client: this.client,
                 tipos: this.tipos,
                 marcas: this.marcas,
-                modelos: this.modelos
+                modelos: this.modelos,
+                clientepais: this.clientepais,
+                paises: this.paises
             },
             form2: {
                 cities: this.cities,
@@ -182,15 +207,16 @@ export default {
                 client: this.client,
                 tipos: this.tipos,
                 marcas: this.marcas,
-                modelos: this.modelos
+                modelos: this.modelos,
+                clientepais: this.clientepais,
+                paises: this.paises
             },
             Loading: false
         }
     },
     mounted() {
         this.models = this.modelos.filter(model => model.IDMARCA == this.car.marca)
-        console.log(this.car)
-        console.log(this.models)
+        console.log(this.paises)
     },
     methods: {
         submit() {

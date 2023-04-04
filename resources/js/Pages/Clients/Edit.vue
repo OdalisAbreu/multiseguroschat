@@ -8,7 +8,18 @@
                 </p>
             </h1>
         </div>
-        <p class="text-center text-lg">La plataforma digital mas segura para comprar el seguro de tu vehiculo</p>
+        <p class="text-center text-lg">La plataforma digital más segura para comprar el seguro de tu vehiculo</p>
+        <svg aria-hidden="true" role="status"
+            class="inline w-12 h-12 text-gray-200 animate-spin dark:text-gray-600" viewBox="0 0 100 101"
+            fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+                d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                fill="currentColor" />
+            <path
+                d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                fill="#E5E7EB" />
+        </svg>
+        <p class="text-center text-lg">Espere por favor</p>
     </div>
 
     <div class="bg-gray-200 pb-6" v-if="!loading">
@@ -25,7 +36,7 @@
                         Confirma tu información
                     </div>
                     <div class="text-red-700 text-sm mb-4">
-                        *Todos los campos son obligatorios
+                        *Los campos con * son obligatorios
                     </div>
                 </div>
 
@@ -38,19 +49,42 @@
                     <input class="rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80 border-gray-300"
                         style="text-transform: uppercase" type="text" placeholder="Apellido" v-model="form.lastname"
                         required />
-                    <label class="pt-1 font-bold">Cédula o Pasaporte <span class="text-red-400 inl">*</span>
-                    </label>
-                    <input class="rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80 border-gray-300"
-                        style="text-transform: uppercase" type="text" placeholder="Cédula" v-model="form.cardnumber"
-                        required />
+
+                     <div v-if="form.passportnumber">
+                        <div>
+                            <label class="pt-1 font-bold">Pasaporte<span class="text-red-400 inl">*</span>
+                            </label><br>
+                            <input class="rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80 border-gray-300"
+                                style="text-transform: uppercase" type="text" placeholder="Pasaporte" v-model="form.passportnumber"
+                                required />
+                        </div>
+                        <label class="pt-1 font-bold">Nacionalidad  <span class="text-red-400 inl">*</span></label><br>
+                        <select class="rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80 border-gray-300"
+                            v-model="form.pais" required>
+                            <option :value="clientepais.id" selected>
+                                {{ clientepais.nacionalidad }}
+                            </option>
+                            <option v-for="pais in paises" :value="pais.id" :key="pais.id">
+                                {{ pais.nacionalidad }}
+                            </option>
+                        </select>
+                    </div>
+                   
+                    <div v-if="form.cardnumber">
+                        <label class="pt-1 font-bold">Cédula<span class="text-red-400 inl">*</span>
+                          </label><br>
+                          <input class="rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80 border-gray-300"
+                              style="text-transform: uppercase" type="text" placeholder="Cédula" v-model="form.cardnumber"
+                              required />       
+                    </div>
+                    
                     <label class="pt-1 font-bold">Celular <span class="text-red-400 inl">*</span></label>
                     <input class="rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80 border-gray-300"
                         style="text-transform: uppercase" type="text" placeholder="Telefono" v-model="form.phonenumber"
-                        required />
-                    <label class="pt-1 font-bold">Correo Electrónico <span class="text-red-400 inl">*</span>
-                    </label>
+                        disabled />
+                    <label class="pt-1 font-bold">Correo Electrónico </label>
                     <input class="rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80 border-gray-300"
-                        type="text" placeholder="Email" v-model="form.email" required />
+                        type="text" placeholder="Email" v-model="form.email"/>
 
                     <label class="pt-1 font-bold">Dirección <span class="text-red-400 inl">*</span></label>
                     <input class="rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80 border-gray-300"
@@ -95,8 +129,8 @@
                         </button>
                     </div>
                 </form>
+                </div>
             </div>
-        </div>
     </div>
 
     <Footer v-if="!loading" />
@@ -116,18 +150,21 @@ export default {
     props: {
         client: Object,
         cities: Object,
+        paises: Object,
         provinces: Object,
         clientProvince: Array,
         activarPresentacion: String,
         car: Array,
         tipos: Array,
         marcas: Array,
-        modelos: Array
+        modelos: Array,
+        clientepais: Array
     },
     data() {
         return {
             ciudades: "",
             province: this.client.province,
+            pais: this.client.nacionalidad,
             loading: true,
             form: {
                 name: this.client.name,
@@ -135,23 +172,27 @@ export default {
                 adrress: this.client.adrress,
                 email: this.client.email,
                 cardnumber: this.client.cardnumber,
+                passportnumber: this.client.passportnumber,
                 city: this.client.city,
                 phonenumber: this.client.phonenumber,
                 provincia: this.client.province,
+                pais: this.client.nacionalidad,
                 cities: this.cities,
                 provinces: this.provinces,
                 clientProvince: this.clientProvince,
                 car: this.car,
                 tipos: this.tipos,
                 marcas: this.marcas,
-                modelos: this.modelos
+                modelos: this.modelos,
+                clientepais: this.clientepais,
+                paises: this.paises
             },
             Loading: false,
         };
     },
     methods: {
         submit() {
-            this.Loading = true
+           // this.Loading = true
             this.$inertia.put(
                 this.route("client.update", this.client.id),
                 this.form
@@ -159,13 +200,14 @@ export default {
         },
     },
     mounted() {
+        console.log(this.clientepais)
         this.Loading = false
         if (this.activarPresentacion == 'False') {
             this.loading = false
         } else {
             setTimeout(() => {
                 this.loading = false
-            }, 50)
+            }, 5000)
         }
     },
     watch: {
@@ -175,7 +217,6 @@ export default {
             );
             this.form.city = "";
             this.form.provincia = key;
-            console.log(this.ciudades);
         },
     },
 };

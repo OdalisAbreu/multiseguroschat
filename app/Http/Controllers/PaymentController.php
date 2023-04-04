@@ -27,7 +27,6 @@ class PaymentController extends Controller
         }
         $serviciosString = json_encode($servicios); //transforma los id de los servicios para guardarlos en la Base de Datos 
 
-
         $invoice = new Invoices();
         $invoice->policyTime = $policyTime;
         $invoice->chassis = $request->car['chasis'];
@@ -38,7 +37,7 @@ class PaymentController extends Controller
         $invoice->car_tipe = $request->car['tipo'];
         $invoice->car_brand = $request->car['marca'];
         $invoice->car_model = $request->car['modelo'];
-        $invoice->client_id = $request->cliente['cardnumber'];
+        $invoice->client_id = $request->cliente['id'];
         $invoice->services = $serviciosString;
         $invoice->discount_id = $codigo[0]->id;
         $invoice->payment_status = 'peding';
@@ -130,7 +129,6 @@ class PaymentController extends Controller
             array_push($servicios, $service['id']);
         }
         $serviciosString = json_encode($servicios); //transforma los id de los servicios para guardarlos en la Base de Datos 
-
         $invoice = new Invoices();
         $invoice->policyTime = $policyTime;
         $invoice->chassis = $request->car['chasis'];
@@ -141,12 +139,11 @@ class PaymentController extends Controller
         $invoice->car_tipe = $request->car['tipo'];
         $invoice->car_brand = $request->car['marca'];
         $invoice->car_model = $request->car['modelo'];
-        $invoice->client_id = $request->cliente['cardnumber'];
+        $invoice->client_id = $request->cliente['id'];
         $invoice->services = $serviciosString;
         $invoice->discount_id = $codigo;
         $invoice->payment_status = 'peding';
         $invoice->save();
-        //return $request->cliente['name'];
         return Inertia::render('Payment/cardnet', [
             'total' => $request->totalGeneral,
             'invoice_id' => $invoice->id,
@@ -157,7 +154,7 @@ class PaymentController extends Controller
             'merchanttype' => $request->insurre['merchanttype'],
             'merchantnumber' => $request->insurre['merchantnumber'],
             'merchantterminal'=> $request->insurre['merchantterminal'],
-            'client_name'=> $request->cliente['name'],
+            'client_name'=> $request->insurre['client_name'],
             'transactionid' => $invoice->id,
             'paymentUrl' => $request->insurre['payment_url'],
             'clientip' => $_SERVER['REMOTE_ADDR']

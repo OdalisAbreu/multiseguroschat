@@ -290,6 +290,9 @@ export default {
         tipos: Array,
         marcas: Array,
         modelos: Array,
+        modelos: Array,
+        clientepais: Array,
+        paises: Object,
         coberturaMultiS: false,
         coberturaSura: false,
         coberturaAtrio: false,
@@ -317,6 +320,8 @@ export default {
                 seller: this.sellers,
                 clien_id: this.clien_id,
                 servicios: '',
+                clientepais: this.clientepais,
+                paises: this.paises,
                 insurances_id: String,
                 time: String,
             },
@@ -328,14 +333,20 @@ export default {
                 car: this.car,
                 tipos: this.tipos,
                 marcas: this.marcas,
-                modelos: this.modelos
+                modelos: this.modelos,
+                clientepais: this.clientepais,
+                paises: this.paises
             }
         }
     },
     methods: {
         procesar: function (insurances_id, time) {
-            this.Loading = true
-            this.$inertia.post(this.route('services', [insurances_id, time]), this.form)
+            if(insurances_id &&  time){
+                this.Loading = true
+                this.$inertia.post(this.route('services', [insurances_id, time]), this.form)
+            }else{
+                alert('¡Seleccione una aseguradora para poder continuar!')
+            }
         },
         clientReturn() {
             this.$inertia.post(this.route('clientReturn'), this.form2)

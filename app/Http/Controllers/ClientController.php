@@ -11,6 +11,7 @@ use App\Models\Vehicle_models;
 use App\Models\Vehicle_type_tarif;
 use Faker\Provider\sv_SE\Municipality;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Inertia\Inertia;
 use PhpParser\Node\Stmt\TryCatch;
@@ -93,7 +94,14 @@ class ClientController extends Controller
             $tipos = Vehicle_type_tarif::orderBy('nombre')->get();
             $marcas = Vehicle_brands::orderBy('DESCRIPCION')->get();
             $modelos = Vehicle_models::orderBy('descripcion')->get();
-
+            $paises = DB::select('select * from nacionalidad order by nacionalidad asc');
+            if(!$client->nacionalidad){
+                $client->nacionalidad = 0;
+            }
+            if(!$clientProvince){
+                $clientProvince['id'] = 0;
+            }
+            $Clientepais = DB::select('select * from nacionalidad where id = '.$client->nacionalidad);
             return Inertia::render('Clients/Edit', [
                 'client' => $client,
                 'cities' => $cities,
@@ -101,11 +109,13 @@ class ClientController extends Controller
                 'clientProvince' => $clientProvince,
                 'tipos' => $tipos,
                 'marcas' => $marcas,
-                'modelos' => $modelos
+                'modelos' => $modelos,
+                'paises' => $paises, 
+                'clientepais' => $Clientepais
             ]);
 
         }else{
-            return 'No hay na';
+            return Inertia::render('index', []);
         }
 
     }
@@ -136,9 +146,11 @@ class ClientController extends Controller
         $client = Client::find($id);
         $client->name = strtoupper($request->name);
         $client->lastname = strtoupper($request->lastname);
-        $client->email = strtoupper($request->email);
+        $client->email = $request->email;
         $client->adrress = strtoupper($request->adrress);
         $client->cardnumber = $request->cardnumber;
+        $client->passportnumber = $request->passportnumber;
+        $client->nacionalidad = $request->pais;
         $client->city = strtoupper($request->city);
         $client->province = strtoupper($request->provincia);
         $client->phonenumber = $request->phonenumber;
@@ -174,7 +186,9 @@ class ClientController extends Controller
             'cities' => $request->cities,
             'provinces' => $request->provinces,
             'clientProvince' => $request->clientProvince,
-            'car' => $car
+            'car' => $car,
+            'clientepais' => $request->clientepais,
+            'paises' => $request->paises
         ]);
 
     }
@@ -211,6 +225,7 @@ class ClientController extends Controller
             ]);
     }
     public function clientReturn(Request $request){
+
             return Inertia::render('Clients/Edit', [
                 'client' => $request->client,
                 'cities' => $request->cities,
@@ -220,7 +235,9 @@ class ClientController extends Controller
                 'marcas' => $request->marcas,
                 'modelos' => $request->modelos,
                 'activarPresentacion' => 'False',
-                'car' => $request->car
+                'car' => $request->car,
+                'clientepais' => $request->clientepais,
+                'paises' => $request->paises
             ]);
 
     }
