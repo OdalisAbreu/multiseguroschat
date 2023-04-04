@@ -66,7 +66,7 @@
                     <p v-for="servicio in service" :key="servicio.id">{{ servicio.serviceName }}: RD$ {{
                         servicio.servicePrice }}.00
                         <br />
-                        ------------------------------------------------
+                        -------------------------------------
                     </p>
                     <p v-if="service.length == 0" class="mt-8 text-center w-full">No hay servivios seleccionados</p>
                 </div>

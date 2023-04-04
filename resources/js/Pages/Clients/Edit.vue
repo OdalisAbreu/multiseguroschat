@@ -9,9 +9,8 @@
             </h1>
         </div>
         <p class="text-center text-lg">La plataforma digital más segura para comprar el seguro de tu vehiculo</p>
-        <svg aria-hidden="true" role="status"
-            class="inline w-12 h-12 text-gray-200 animate-spin dark:text-gray-600" viewBox="0 0 100 101"
-            fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg aria-hidden="true" role="status" class="inline w-12 h-12 text-gray-200 animate-spin dark:text-gray-600"
+            viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
                 d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
                 fill="currentColor" />
@@ -36,7 +35,7 @@
                         Confirma tu información
                     </div>
                     <div class="text-red-700 text-sm mb-4">
-                        *Los campos con * son obligatorios
+                        Los campos con (*) son obligatorios
                     </div>
                 </div>
 
@@ -50,15 +49,29 @@
                         style="text-transform: uppercase" type="text" placeholder="Apellido" v-model="form.lastname"
                         required />
 
-                     <div v-if="form.passportnumber">
-                        <div>
-                            <label class="pt-1 font-bold">Pasaporte<span class="text-red-400 inl">*</span>
-                            </label><br>
-                            <input class="rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80 border-gray-300"
-                                style="text-transform: uppercase" type="text" placeholder="Pasaporte" v-model="form.passportnumber"
-                                required />
+                    <div class="flex justify-center items-center gap-x-8 py-2">
+                        <div class="flex items-center gap-2">
+                            <p>Cédula: </p>
+                            <input v-model="eleccionCedula" :checked="eleccionCedula" type="radio" value="eleccionCedula"
+                                @click="eleccionCedula = true, eleccionPasaporte = null" />
                         </div>
-                        <label class="pt-1 font-bold">Nacionalidad  <span class="text-red-400 inl">*</span></label><br>
+                        <div class="flex items-center gap-2">
+                            <p>Pasaporte: </p>
+                            <input v-model="eleccionPasaporte" :checked="eleccionPasaporte" type="radio"
+                                value="eleccionPasaporte" @click="eleccionPasaporte = true, eleccionCedula = null" />
+                        </div>
+                    </div>
+
+                    <div v-if="eleccionPasaporte && !eleccionCedula">
+                        <div>
+                            <label class="pt-1 font-bold">Documento de Identidad <span class="text-red-400 inl">*</span>
+                            </label><br>
+                            <input
+                                class="rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80 border-gray-300"
+                                style="text-transform: uppercase" type="text" placeholder="Pasaporte"
+                                v-model="form.passportnumber" required />
+                        </div>
+                        <label class="pt-1 font-bold">Nacionalidad <span class="text-red-400 inl">*</span></label><br>
                         <select class="rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80 border-gray-300"
                             v-model="form.pais" required>
                             <option :value="clientepais.id" selected>
@@ -69,22 +82,22 @@
                             </option>
                         </select>
                     </div>
-                   
-                    <div v-if="form.cardnumber">
-                        <label class="pt-1 font-bold">Cédula<span class="text-red-400 inl">*</span>
-                          </label><br>
-                          <input class="rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80 border-gray-300"
-                              style="text-transform: uppercase" type="text" placeholder="Cédula" v-model="form.cardnumber"
-                              required />       
+
+                    <div v-if="!eleccionPasaporte && eleccionCedula">
+                        <label class="pt-1 font-bold">Documento de Identidad <span class="text-red-400 inl">*</span>
+                        </label><br>
+                        <input class="rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80 border-gray-300"
+                            style="text-transform: uppercase" type="text" placeholder="Cédula" v-model="form.cardnumber"
+                            required />
                     </div>
-                    
+
                     <label class="pt-1 font-bold">Celular <span class="text-red-400 inl">*</span></label>
                     <input class="rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80 border-gray-300"
                         style="text-transform: uppercase" type="text" placeholder="Telefono" v-model="form.phonenumber"
                         disabled />
                     <label class="pt-1 font-bold">Correo Electrónico </label>
                     <input class="rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80 border-gray-300"
-                        type="text" placeholder="Email" v-model="form.email"/>
+                        type="text" placeholder="Email" v-model="form.email" />
 
                     <label class="pt-1 font-bold">Dirección <span class="text-red-400 inl">*</span></label>
                     <input class="rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80 border-gray-300"
@@ -129,8 +142,8 @@
                         </button>
                     </div>
                 </form>
-                </div>
             </div>
+        </div>
     </div>
 
     <Footer v-if="!loading" />
@@ -162,6 +175,8 @@ export default {
     },
     data() {
         return {
+            eleccionPasaporte: false,
+            eleccionCedula: true,
             ciudades: "",
             province: this.client.province,
             pais: this.client.nacionalidad,
@@ -192,7 +207,7 @@ export default {
     },
     methods: {
         submit() {
-           // this.Loading = true
+            // this.Loading = true
             this.$inertia.put(
                 this.route("client.update", this.client.id),
                 this.form
