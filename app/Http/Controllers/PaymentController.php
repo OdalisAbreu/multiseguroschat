@@ -125,10 +125,11 @@ class PaymentController extends Controller
         }else{
             $policyTime = 12;
         }
-        foreach($request->services as $service){
+        foreach($request->service as $service){
             array_push($servicios, $service['id']);
         }
         $serviciosString = json_encode($servicios); //transforma los id de los servicios para guardarlos en la Base de Datos 
+
         $invoice = new Invoices();
         $invoice->policyTime = $policyTime;
         $invoice->chassis = $request->car['chasis'];

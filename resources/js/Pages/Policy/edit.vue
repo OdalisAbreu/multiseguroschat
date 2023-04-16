@@ -160,7 +160,8 @@ export default {
                 modelos: this.modelos,
                 insurre: this.insurre,
                 clientepais: this.clientepais,
-                paises: this.paises
+                paises: this.paises,
+                service: this.service
             }, form2: {
                 car: this.car,
                 tarifa: this.tarifa,
@@ -179,7 +180,8 @@ export default {
                 provinces: this.provinces,
                 clientProvince: this.clientProvince,
                 clientepais: this.clientepais,
-                paises: this.paises
+                paises: this.paises,
+                service: this.service
             }
         }
     },

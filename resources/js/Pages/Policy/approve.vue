@@ -115,6 +115,7 @@ export default {
         tarifa: Array,
         sellers: Array,
         services: Array,
+        service: Array,
         policyTime: String,
         marca: String,
         tipo: String,
@@ -136,7 +137,8 @@ export default {
                 sellers: this.sellers,
                 descuento: '',
                 descontar: 0,
-                insurre: this.insurre
+                insurre: this.insurre,
+                service: this.service
 
             },
             Loading: false,

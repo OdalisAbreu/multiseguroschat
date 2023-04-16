@@ -64,11 +64,11 @@ Route::get('servicesapprove', function () {return Inertia::render('index');});
 Route::get('generatepolicy', function () {return Inertia::render('index');});
 Route::get('seguros', function () {return Inertia::render('index');}); 
 Route::get('statusPayment', function () {return Inertia::render('index');});
-Route::get('generatePolicynew', function () {return Inertia::render('index');});
+Route::get('generatePolicynew', function () {return Inertia::render('end');});
 Route::get('carReturn', function () {return Inertia::render('index');}); 
 Route::get('clientReturn', function () {return Inertia::render('index');});
 Route::get('serviciosReturn', function () {return Inertia::render('index');}); 
-
+Route::get('caseguradoraReturn', function () {return Inertia::render('index');});
 // ----------------Solo para pruebas-------------------------------------------
 Route::get('/end', function () {
     return Inertia::render('end');
@@ -77,6 +77,8 @@ Route::get('/test', function () {
     return Inertia::render('Welcome');
 });
 
+//Salida para la Poliza
+Route::get('/poliza/{noPoliza}', [PoliciesController::class, 'verPoliza']);
 //Route::post('statusPayment', [InvoicesController::class, 'waitingRoom'])->name('statusPayment'); //Ir al area de cargar
 
 //----------------------------------------------------------------------------

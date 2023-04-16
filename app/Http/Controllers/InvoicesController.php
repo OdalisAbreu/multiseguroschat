@@ -89,6 +89,8 @@ class InvoicesController extends Controller
             curl_close($curl);
             $poliza = json_decode($response);
             sleep(1);
+
+            return $poliza;
             
 
 
@@ -115,15 +117,14 @@ class InvoicesController extends Controller
     }
 
     public function statusPaymentCardNet(Request $request){
- 
-       //-----------------Consulta las tablas para generar las polizas----------------
+        //-----------------Consulta las tablas para generar las polizas----------------
         $invoices = Invoices::find($request->TransactionID);
         $seller = Insurance::find($invoices['sellers_id']);
-      //  return $seller['logo'];
-        $client = Client::where('cardnumber', $invoices->client_id)->get();
-       
-      //---------------------------------------------------------------------------------
-      //----------------Generar Token----------------------------------------------------
+        //  return $seller['logo'];
+        $client = Client::where('id', $invoices->client_id)->get();
+        
+        //---------------------------------------------------------------------------------
+        //----------------Generar Token----------------------------------------------------
         $token = Http::post('http://multiseguros.com.do:5050/api/User/Authenticate', [
             'username' => 'sendiu_desarrollo',
             'password' => 'Admin1234'
@@ -141,9 +142,8 @@ class InvoicesController extends Controller
         $phonenumber = $client[0]->phonenumber;
         $adrress = $client[0]->adrress;
         $city = $client[0]->city;
-        
-      //  return  $name .' - '.$lastname. ' - '.$cardnumber.' - '.$passportnumber.' - '.$city.' - '.$adrress;
-     /*   $curl = curl_init();
+
+        $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_URL => 'http://multiseguros.com.do:5050/api/Seguros/Policy',
             CURLOPT_RETURNTRANSFER => true,
@@ -190,7 +190,7 @@ class InvoicesController extends Controller
 
         curl_close($curl);
         $poliza = json_decode($response);
-        sleep(1);*/
+        sleep(1);
     //-----------------------------------------------------------------------------------------
 
     //----------------Actualizar Factura---------------------------------------
@@ -203,9 +203,9 @@ class InvoicesController extends Controller
             $invoice->AuthorizationCode = $request->AuthorizationCode;
             $invoice->RetrivalReferenceNumber = $request->RetrivalReferenceNumber;
             $invoice->TxToken =  $request->RetrivalReferenceNumber;
-           // $invoice->police_number = $poliza->insurancePolicyNumber;
+            $invoice->police_number = $poliza->insurancePolicyNumber;
            $invoice->police_number = 'AUTO-AT-009860';
-           // $invoice->police_transactionId = $poliza->transactionId;
+            $invoice->police_transactionId = $poliza->transactionId;
            $invoice->police_transactionId = '51138';
             $invoice->update();
 
@@ -233,8 +233,8 @@ class InvoicesController extends Controller
             'RetrivalReferenceNumber'=> $request->RetrivalReferenceNumber,
             'TxToken'=>  $request->TxToken,
             'transactionId' => '51138',
-            'logo' => $seller['logo']
-          //  'transactionId' => $poliza->transactionId
+            'logo' => $seller['logo'],
+             'transactionId' => $poliza->transactionId
         ]);
     }
 

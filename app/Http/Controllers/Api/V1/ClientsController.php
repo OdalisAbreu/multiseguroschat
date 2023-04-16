@@ -39,6 +39,7 @@ class ClientsController extends Controller
        $client->province = 33;
        $client->nacionalidad = 117;
        $client->email = $request->email;
+       $client->idConversacion = $request->idConversacion;
        $client->save();
 
        if($client){
@@ -55,9 +56,13 @@ class ClientsController extends Controller
      * @param  \App\Models\Client  $client
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, $idConversacion)
     {
         $client = Client::where('phonenumber', $id)->first();
+       // return $client;
+        $client->idConversacion = $idConversacion;
+        $client->save();
+       
         if($client){
             return [
                     'status' => '00', 
