@@ -165,6 +165,8 @@ class PoliciesController extends Controller
 
     public function show(Request $request)
     {
+
+       // return $request->servicios;
         $service = array();
         $totalServicios = 0;
         $sericesId = '';
@@ -181,7 +183,6 @@ class PoliciesController extends Controller
                 }
             }
         }
-       //    return $services;
         if ($request->policyTime == 'tresmeses') {
             $policyTime = '3 Meses';
             $time = 'priceThreeMonths';
@@ -246,7 +247,8 @@ class PoliciesController extends Controller
             'modelos' => $request->modelos,
             'codigosDescuento' => $codigosDescuento,
             'clientepais' => $request->clientepais,
-            'paises' => $request->paises
+            'paises' => $request->paises,
+            'service' => $request->service
         ]);
     }
 
@@ -367,5 +369,34 @@ class PoliciesController extends Controller
             'paises' => $request->paises
 
         ]);
+    }
+    public function verPoliza($policeId){
+
+        return Inertia::render('poliza');
+        echo '      
+        <div id="imagen" class="contenido" >
+            Prueba
+        </div>
+        <a id="btnSave" class="btn btn-info"> Descargar </a>
+        
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script> 
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.js"></script>  
+        
+        <script>
+        var node = document.getElementById("imagen");
+        var btn = document.getElementById("btnSave");
+
+        btn.onclick = function() {
+        domtoimage.toBlob(document.getElementById("imagen"))
+            .then(function(blob) {
+            window.saveAs(blob, "imagen");
+            });
+        }
+   
+      </script>';
+
+
     }
 }

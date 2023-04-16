@@ -4,7 +4,7 @@
         
         <section class="p-6 relative rounded-xl bg-white mx-6 z-50 mt-4 ">
                 <div class="text-center">
-                    <img class="inline h-12 w-25" src="/ima/sura-logo-act.png"><br>
+                  <!--<img class="inline h-12 w-25" src="/ima/sura-logo-act.png"><br>--> 
                     <h2 class="font-bold text-2xl text-center">Espere un momento… Estamos procesando su pago.</h2><br>
                     <div class="grid grid-cols-3 gap-1"> 
                         <div class="col-span-1">
@@ -44,28 +44,28 @@ export default {
         Footer,
     },
     props:{
-      /*  ResponseCode: String,
+        ResponseCode: String,
         TransactionID: String,
         RemoteResponseCode: String,
         AuthorizationCode: String,
         RetrivalReferenceNumber: String,
-        TxToken: String,*/
+        TxToken: String,
     },
         data(){
             return{
                 form:{
-                   /* ResponseCode: this.ResponseCode,
+                    ResponseCode: this.ResponseCode,
                     TransactionID: this.TransactionID,
                     RemoteResponseCode: this.RemoteResponseCode,
                     AuthorizationCode: this.AuthorizationCode,
                     RetrivalReferenceNumber: this.RetrivalReferenceNumber,
-                    TxToken: this.TxToken*/
-                    ResponseCode: '00',
-                    TransactionID: '87',
+                    TxToken: this.TxToke
+                   /* ResponseCode: '00',
+                    TransactionID: '90',
                     RemoteResponseCode: '00',
                     AuthorizationCode: '055209',
                     RetrivalReferenceNumber: '000000000004',
-                    TxToken: '000000000001'
+                    TxToken: '000000000001'*/
                 }
             }
         },

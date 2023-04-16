@@ -1,6 +1,6 @@
 <template>
     <section class="bg-gray-200">
-        <Header :width="90" />
+        <Header :width="100" />
         <section class="py-2 pb-6 relative rounded-xl bg-white mx-3 z-40">
 
             <div class="grid grid-cols-12 gap-1">
