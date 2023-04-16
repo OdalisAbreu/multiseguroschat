@@ -135,7 +135,6 @@
                                         </div>
 
                                         <div class="relative w-2/5 flex flex-col justify-around items-stretch">
-
                                             <!-- <span
                                                 v-show= && index == 0 && index != 1 && index != 2 && seller.insurances_id == 6 && seller.insurances_id != 5 && seller.insurances_id != 4"
                                                 style="top: -6px;" class="absolute right-0 h-3 w-3">

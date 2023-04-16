@@ -22128,13 +22128,13 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
   },
   mounted: function mounted() {
     var _console, _console2;
-    /* eslint-disable */(_console = console).log.apply(_console, _toConsumableArray(oo_oo("a82d2c0_0", this.sellers)));
+    /* eslint-disable */(_console = console).log.apply(_console, _toConsumableArray(oo_oo("94fae6a9_0", this.sellers)));
 
     // Inicializa el objeto checkedItems con las propiedades isChecked para cada objeto de cada elemento
     this.form.servicios = document.getElementById('servicios').value;
     // Asignar el arreglo de objetos a tu variable items
     /* eslint-disable */
-    (_console2 = console).log.apply(_console2, _toConsumableArray(oo_oo("a82d2c0_1", this.checkedItems)));
+    (_console2 = console).log.apply(_console2, _toConsumableArray(oo_oo("94fae6a9_1", this.checkedItems)));
   },
   methods: {
     procesar: function procesar(insurances_id, time) {
