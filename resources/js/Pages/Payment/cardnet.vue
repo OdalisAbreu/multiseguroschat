@@ -1,16 +1,17 @@
 <template>
-    <section class="h-screen w-screen bg-white">
+    <section class="h-screen w-screen bg-white overflow-hidden">
         <Header :width="95" />
-        <main class="relative bg-white max-w-lg p-8 mt-5 shadow-2xl w-screen mx-auto">
+        <main class="relative bg-white p-8 mt-5 shadow-2xl w-full h-full mx-auto">
             <div class="text-center">
                 <h3 class="font-bold text-2xl text-center">Pulsa <i>CONTINUAR</i><br> para procesar tu pago de
                     manera segura
                 </h3>
-                <h4 class="font-bold text-2xl text-center text-red-900"><i>Seguros chat no guarda información de tu tarjera </i></h4>
+                <h4 class="font-bold text-2xl text-center text-red-900"><i>Seguros chat no guarda información de tu tarjera
+                    </i></h4>
                 <img class="inline pb-4 pt-4 max-w-xs" src="ima/cardnetLogo.png">
                 <img class="inline pb-4 pt-4 max-w-xs" src="ima/tarjetas.png">
             </div>
-            <form :action="`${paymentUrl}`" method='POST' name='CardNet' class='CardNet' id='CardNet'>
+            <form :action="`${paymentUrl}`" method='POST' name='CardNet' class='CardNet flex flex-col justify-center items-center' id='CardNet'>
                 <input type="hidden" name='TransactionType' id='TransactionType' value='0200' />
                 <input type="hidden" name='CurrencyCode' id='CurrencyCode' value='214' />
                 <input type="hidden" name='AcquiringInstitutionCode' id='AcquiringInstitutionCode' value='349' />
@@ -24,20 +25,22 @@
                 <input type="hidden" name='TransactionId' id='TransactionId' v-model="form.transactionid" />
                 <input type="hidden" name='Amount' id='Amount' v-model="form.total" />
                 <input type="hidden" name='Tax' id='Tax' v-model="form.tax" />
-                <input type="hidden" name='MerchantName' id='MerchantName' v-model="form.client_name"/>
+                <input type="hidden" name='MerchantName' id='MerchantName' v-model="form.client_name" />
                 <input type="hidden" name='KeyEncriptionKey' id='KeyEncriptionKey' v-model="form.transaction_uuid" />
                 <input type="hidden" name='Ipclient' id='Ipclient' v-model="form.clientip" />
                 <input type="hidden" name='loteid' Value='001' />
                 <input type="hidden" name='seqid' id='seqid' Value='001' />
 
-                <div class="flex flex-col">
+                <div class="w-full mt-5 mx-5 my-4 justify-self-center self-center text-center">
                     <button
-                        class="bg-blue-500 hover:bg-blue-600 text-white font-bold mx-3 py-4 rounded-lg shadow-lg hover:shadow-xl transition duration-200 sm:mx-3">Continuar</button>
+                        class="w-full max-w-xl justify-center bg-blue-800 hover:bg-blue-700 shadow-lg shadow-blue-500/50 text-white font-bold rounded-lg py-4 mt-5 sm:m-3 sm:w-full md:m-3 md:w-full xl:m-3 xl:full">
+                        Continuar
+                    </button>
                 </div>
             </form>
         </main>
     </section>
-  <!--  <Footer class="absolute bottom-0 w-screen"></Footer>-->
+    <!--  <Footer class="absolute bottom-0 w-screen"></Footer>-->
 </template>
 <script>
 import { Head, Link } from '@inertiajs/inertia-vue3';

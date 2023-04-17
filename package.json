@@ -32,6 +32,7 @@
         "epic-spinners": "^1.1.0",
         "html": "^1.0.0",
         "html-to-image": "^1.11.11",
-        "imagen": "^1.0.0"
+        "imagen": "^1.0.0",
+        "vue-search-select": "^3.1.0"
     }
 }
