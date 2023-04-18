@@ -21154,6 +21154,13 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   },
   data: function data() {
     return {
+      nuevaCiudad: [{
+        descrip: this.client.city
+      }],
+      nuevaProvincia: [{
+        id: this.client.province,
+        descrip: this.clientProvince.descrip
+      }],
       eleccionPasaporte: false,
       eleccionCedula: true,
       ciudades: "",
@@ -21191,7 +21198,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     }
   },
   mounted: function mounted() {
-    var _this = this;
+    var _console,
+      _this = this;
+    /* eslint-disable */(_console = console).log.apply(_console, _toConsumableArray(oo_oo("2fac2f9e_0", this.nuevaProvincia)));
     this.form.city;
     this.Loading = false;
     if (this.activarPresentacion == 'False') {
@@ -21205,10 +21214,10 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   /*  */
   watch: {
     province: function province(key) {
-      var _console, _console2;
-      /* eslint-disable */(_console = console).log.apply(_console, _toConsumableArray(oo_oo("6dd49437_0", this.cities)));
+      var _console2, _console3;
+      /* eslint-disable */(_console2 = console).log.apply(_console2, _toConsumableArray(oo_oo("2fac2f9e_1", this.cities)));
       /* eslint-disable */
-      (_console2 = console).log.apply(_console2, _toConsumableArray(oo_oo("6dd49437_1", this.ciudades)));
+      (_console3 = console).log.apply(_console3, _toConsumableArray(oo_oo("2fac2f9e_2", this.ciudades)));
       this.ciudades = this.cities.filter(function (ciudad) {
         return ciudad.id_prov == key;
       });
@@ -21445,9 +21454,9 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     var _console, _console2;
     key = md5(this.merchanttype + this.merchantnumber + this.merchantterminal + this.transactionid + this.total + this.value);
     /* eslint-disable */
-    (_console = console).log.apply(_console, _toConsumableArray(oo_oo("c888f964_0", key)));
+    (_console = console).log.apply(_console, _toConsumableArray(oo_oo("9dcb9216_0", key)));
     /* eslint-disable */
-    (_console2 = console).log.apply(_console2, _toConsumableArray(oo_oo("c888f964_1", this.clientip)));
+    (_console2 = console).log.apply(_console2, _toConsumableArray(oo_oo("9dcb9216_1", this.clientip)));
   },
   data: function data() {
     return {
@@ -26280,21 +26289,22 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     required: ""
   }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.form.adrress]]), _hoisted_30, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <select class=\"rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80 border-gray-300\"\r\n                        v-model=\"province\" required>\r\n                        <option :value=\"clientProvince.id\" selected>\r\n                            {{ clientProvince.descrip }}\r\n                        </option>\r\n                        <option v-for=\"province in provinces\" :value=\"province.id\" :key=\"province.id\">\r\n                            {{ province.descrip }}\r\n                        </option>\r\n                    </select> "), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_model_list_select, {
     "class": "selectSearch",
+    selected: "",
     modelValue: $data.province,
     "onUpdate:modelValue": _cache[12] || (_cache[12] = function ($event) {
       return $data.province = $event;
     }),
     required: "",
     value: $data.province.id,
-    list: $props.provinces,
+    list: !$props.provinces ? $data.nuevaProvincia : $props.provinces,
     key: $data.province.id,
     "option-value": "id",
     "option-text": "descrip",
-    placeholder: "PROVINCIAS"
+    placeholder: "PROVINCIA"
   }, null, 8 /* PROPS */, ["modelValue", "value", "list"])), _hoisted_31, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <select class=\"rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80 border-gray-300\"\r\n                        v-model=\"form.city\" required>\r\n                        <option :value=\"form.city\" selected>\r\n                            {{ form.city }}\r\n                        </option>\r\n                        <option v-for=\"city in ciudades\" :value=\"city.descrip\" :key=\"city.id\">\r\n                            {{ city.descrip }}\r\n                        </option>\r\n                    </select> "), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_model_list_select, {
     "class": "selectSearch",
     selected: "",
-    list: !$data.ciudades ? [] : $data.ciudades,
+    list: !$data.ciudades ? $data.nuevaCiudad : $data.ciudades,
     modelValue: $data.form.city,
     "onUpdate:modelValue": _cache[13] || (_cache[13] = function ($event) {
       return $data.form.city = $event;
@@ -26304,7 +26314,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     required: "",
     "option-value": "descrip",
     "option-text": "descrip",
-    placeholder: "CIUDADES"
+    placeholder: "CIUDAD"
   }, null, 8 /* PROPS */, ["list", "modelValue", "value"])), _hoisted_32], 32 /* HYDRATE_EVENTS */)])])], 2 /* CLASS */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), !$data.loading ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Footer, {
     key: 2
   })) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 64 /* STABLE_FRAGMENT */);
@@ -26452,7 +26462,7 @@ var _hoisted_1 = {
 var _hoisted_2 = {
   "class": "relative bg-white p-8 mt-5 shadow-2xl w-full h-full mx-auto"
 };
-var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"text-center\"><h3 class=\"font-bold text-2xl text-center\">Pulsa <i>CONTINUAR</i><br> para procesar tu pago de manera segura </h3><h4 class=\"font-bold text-2xl text-center text-red-900\"><i>Seguros chat no guarda información de tu tarjera </i></h4><img class=\"inline pb-4 pt-4 max-w-xs\" src=\"ima/cardnetLogo.png\"><img class=\"inline pb-4 pt-4 max-w-xs\" src=\"ima/tarjetas.png\"></div>", 1);
+var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"text-center\"><h3 class=\"font-bold text-2xl text-center\">Pulsa <i>CONTINUAR</i><br> para procesar tu pago de manera segura </h3><h4 class=\"font-bold text-2xl text-center text-red-900\"><i>Seguros chat no guarda información de tu tarjera </i></h4><img class=\"inline pb-4 pt-4 max-w-xs\" src=\"ima/cardnetLogo.png\"><p class=\"font-bold text-2xl text-center\">Aceptamos: </p><img class=\"inline pb-4 pt-4 w-56\" src=\"ima/tarjetas.png\"></div>", 1);
 var _hoisted_4 = ["action"];
 var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
   type: "hidden",

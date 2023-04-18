@@ -126,9 +126,9 @@
                         </option>
                     </select> -->
 
-                    <model-list-select class="selectSearch" v-model="province" required :value="province.id"
-                        :list="provinces" :key="province.id" option-value="id" option-text="descrip"
-                        placeholder="PROVINCIAS">
+                    <model-list-select class="selectSearch" selected v-model="province" required :value="province.id"
+                        :list="!provinces ? nuevaProvincia : provinces" :key="province.id" option-value="id"
+                        option-text="descrip" placeholder="PROVINCIA">
                     </model-list-select>
 
                     <label class="pt-1 font-bold">Ciudad <span class="text-red-400 inl">*</span></label>
@@ -143,9 +143,9 @@
                         </option>
                     </select> -->
 
-                    <model-list-select class="selectSearch" selected :list="!ciudades ? [] : ciudades" v-model="form.city"
-                        :value="form.city.descrip" :key="form.city.id" required option-value="descrip" option-text="descrip"
-                        placeholder="CIUDADES">
+                    <model-list-select class="selectSearch" selected :list="!ciudades ? nuevaCiudad : ciudades"
+                        v-model="form.city" :value="form.city.descrip" :key="form.city.id" required option-value="descrip"
+                        option-text="descrip" placeholder="CIUDAD">
                     </model-list-select>
 
                     <div class="w-full mt-5 mx-5 my-4 justify-self-center self-center text-center">
@@ -192,6 +192,12 @@ export default {
     },
     data() {
         return {
+            nuevaCiudad: [
+                { descrip: this.client.city }
+            ],
+            nuevaProvincia: [
+                { id: this.client.province, descrip: this.clientProvince.descrip }
+            ],
             eleccionPasaporte: false,
             eleccionCedula: true,
             ciudades: "",
@@ -232,6 +238,7 @@ export default {
         },
     },
     mounted() {
+        console.log(this.nuevaProvincia)
         this.form.city
         this.Loading = false
         if (this.activarPresentacion == 'False') {

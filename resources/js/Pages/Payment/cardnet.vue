@@ -9,9 +9,11 @@
                 <h4 class="font-bold text-2xl text-center text-red-900"><i>Seguros chat no guarda información de tu tarjera
                     </i></h4>
                 <img class="inline pb-4 pt-4 max-w-xs" src="ima/cardnetLogo.png">
-                <img class="inline pb-4 pt-4 max-w-xs" src="ima/tarjetas.png">
+                <p class="font-bold text-2xl text-center">Aceptamos: </p>
+                <img class="inline pb-4 pt-4 w-56" src="ima/tarjetas.png">
             </div>
-            <form :action="`${paymentUrl}`" method='POST' name='CardNet' class='CardNet flex flex-col justify-center items-center' id='CardNet'>
+            <form :action="`${paymentUrl}`" method='POST' name='CardNet'
+                class='CardNet flex flex-col justify-center items-center' id='CardNet'>
                 <input type="hidden" name='TransactionType' id='TransactionType' value='0200' />
                 <input type="hidden" name='CurrencyCode' id='CurrencyCode' value='214' />
                 <input type="hidden" name='AcquiringInstitutionCode' id='AcquiringInstitutionCode' value='349' />
