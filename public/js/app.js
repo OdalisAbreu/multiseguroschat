@@ -22147,7 +22147,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
     },
     descuento: function descuento() {
       var _console, _console2, _console3;
-      /* eslint-disable */(_console = console).log.apply(_console, _toConsumableArray(oo_oo("bf2e524b_0", document.getElementById('codigo').value)));
+      /* eslint-disable */(_console = console).log.apply(_console, _toConsumableArray(oo_oo("183343d2_0", document.getElementById('codigo').value)));
       var codigoIngresado = document.getElementById('codigo').value;
       var count = 0;
       var percentage = 0;
@@ -22158,11 +22158,11 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
         }
       });
       /* eslint-disable */
-      (_console2 = console).log.apply(_console2, _toConsumableArray(oo_oo("bf2e524b_1", percentage)));
+      (_console2 = console).log.apply(_console2, _toConsumableArray(oo_oo("183343d2_1", percentage)));
       this.form.descontar = this.totalGeneral * percentage / 100;
       var aplicado = this.totalGeneral - this.form.descontar;
       /* eslint-disable */
-      (_console3 = console).log.apply(_console3, _toConsumableArray(oo_oo("bf2e524b_2", aplicado)));
+      (_console3 = console).log.apply(_console3, _toConsumableArray(oo_oo("183343d2_2", aplicado)));
       if (count > 0) {
         this.form.totalGeneral = aplicado;
       } else {
@@ -22190,7 +22190,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
   watch: {
     suma: function suma() {
       var _console4;
-      /* eslint-disable */(_console4 = console).log.apply(_console4, _toConsumableArray(oo_oo("bf2e524b_3", 'Entro')));
+      /* eslint-disable */(_console4 = console).log.apply(_console4, _toConsumableArray(oo_oo("183343d2_3", 'Entro')));
     }
   }
 });
@@ -27399,7 +27399,7 @@ var _hoisted_37 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
   "class": "flex flex-col justify-start"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", {
   "class": "font-bold text-lg"
-}, "Datos del Asegurado")])], -1 /* HOISTED */);
+}, "Resumen de confirmación")])], -1 /* HOISTED */);
 var _hoisted_38 = {
   "class": "flex items-center justify-between bg-slate-100 rounded-b-xl border-2 border-gray-100 p-3 px-5 mb-3"
 };
@@ -27482,7 +27482,7 @@ var _hoisted_64 = {
 };
 var _hoisted_65 = {
   key: 3,
-  "class": "p-2 flex gap-2 justify-center items-center mt-4"
+  "class": "p-2 flex justify-center items-center mt-4"
 };
 var _hoisted_66 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
   "class": "border-blue-800",

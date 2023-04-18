@@ -89,7 +89,7 @@
             <!--  -->
             <div class="flex items-center justify-between bg-slate-100 rounded-t-xl border-2 border-gray-100 p-1 pt-3 px-5">
                 <div class="flex flex-col justify-start">
-                    <h3 class="font-bold text-lg">Datos del Asegurado</h3>
+                    <h3 class="font-bold text-lg">Resumen de confirmación</h3>
                 </div>
             </div>
 
@@ -178,7 +178,7 @@
                 </button>
             </div>
 
-            <div v-if="Descuento" class="p-2 flex gap-2 justify-center items-center mt-4">
+            <div v-if="Descuento" class="p-2 flex justify-center items-center mt-4">
                 <input class="border-blue-800" type="text" placeholder="CÓDIGO DE DESCUENTO" name="codigo" id="codigo">
                 <button v-on:click="descuento()"
                     class="px-6 py-2 text-center bg-blue-800 text-white text-lg font-bold">Aplicar</button>
