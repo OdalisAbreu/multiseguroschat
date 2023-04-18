@@ -1045,9 +1045,6 @@ select {
 .prose :where(.prose > :last-child):not(:where([class~="not-prose"] *)) {
   margin-bottom: 0;
 }
-.static {
-  position: static;
-}
 .fixed {
   position: fixed;
 }
@@ -1063,14 +1060,6 @@ select {
 .inset-x-0 {
   left: 0px;
   right: 0px;
-}
-.inset-x-auto {
-  left: auto;
-  right: auto;
-}
-.inset-y-auto {
-  top: auto;
-  bottom: auto;
 }
 .bottom-0 {
   bottom: 0px;
@@ -1089,15 +1078,6 @@ select {
 }
 .top-0 {
   top: 0px;
-}
-.top-1\/2 {
-  top: 50%;
-}
-.top-10 {
-  top: 2.5rem;
-}
-.top-20 {
-  top: 5rem;
 }
 .z-0 {
   z-index: 0;
@@ -1255,9 +1235,6 @@ select {
 }
 .mt-8 {
   margin-top: 2rem;
-}
-.mb-28 {
-  margin-bottom: 7rem;
 }
 .block {
   display: block;
@@ -1617,6 +1594,10 @@ select {
   border-bottom-right-radius: 0px;
   border-bottom-left-radius: 0px;
 }
+.rounded-b-xl {
+  border-bottom-right-radius: 0.75rem;
+  border-bottom-left-radius: 0.75rem;
+}
 .rounded-l-full {
   border-top-left-radius: 9999px;
   border-bottom-left-radius: 9999px;
@@ -1636,10 +1617,6 @@ select {
 .rounded-t-xl {
   border-top-left-radius: 0.75rem;
   border-top-right-radius: 0.75rem;
-}
-.rounded-b-xl {
-  border-bottom-right-radius: 0.75rem;
-  border-bottom-left-radius: 0.75rem;
 }
 .border {
   border-width: 1px;
@@ -1671,6 +1648,10 @@ select {
 .border-dashed {
   border-style: dashed;
 }
+.border-blue-800 {
+  --tw-border-opacity: 1;
+  border-color: rgb(30 64 175 / var(--tw-border-opacity));
+}
 .border-gray-100 {
   --tw-border-opacity: 1;
   border-color: rgb(243 244 246 / var(--tw-border-opacity));
@@ -1701,10 +1682,6 @@ select {
 }
 .border-transparent {
   border-color: transparent;
-}
-.border-blue-800 {
-  --tw-border-opacity: 1;
-  border-color: rgb(30 64 175 / var(--tw-border-opacity));
 }
 .bg-black {
   --tw-bg-opacity: 1;
@@ -1798,10 +1775,6 @@ select {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
-.bg-blue-200 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(191 219 254 / var(--tw-bg-opacity));
-}
 .bg-opacity-25 {
   --tw-bg-opacity: 0.25;
 }
@@ -1824,6 +1797,9 @@ select {
 .p-0\.5 {
   padding: 0.125rem;
 }
+.p-1 {
+  padding: 0.25rem;
+}
 .p-2 {
   padding: 0.5rem;
 }
@@ -1838,9 +1814,6 @@ select {
 }
 .p-8 {
   padding: 2rem;
-}
-.p-1 {
-  padding: 0.25rem;
 }
 .px-1 {
   padding-left: 0.25rem;
@@ -2240,9 +2213,6 @@ select {
 }
 .duration-500 {
   transition-duration: 500ms;
-}
-.duration-700 {
-  transition-duration: 700ms;
 }
 .duration-75 {
   transition-duration: 75ms;

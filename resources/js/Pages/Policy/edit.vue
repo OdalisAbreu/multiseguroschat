@@ -95,18 +95,21 @@
 
             <div class="flex items-center justify-between bg-slate-100 rounded-b-xl border-2 border-gray-100 p-3 px-5 mb-3">
                 <div class="flex flex-col justify-start">
+
                     <div> <b>Asegurado:</b>
                         <p>{{ cliente.name }} {{ cliente.lastname }}</p>
                     </div>
                     <div> <b>Cédula:</b>
                         <p>{{ cliente.cardnumber }}</p>
                     </div>
+
                     <div><b>Dirección:</b>
                         <p>{{ cliente.adrress }}</p>
                     </div>
                     <div> <b>Teléfono:</b>
                         <p>{{ cliente.phonenumber }}</p>
                     </div>
+
                 </div>
             </div>
 
@@ -128,27 +131,37 @@
                 </div>
             </div>
 
-            <div class="flex items-center justify-between bg-slate-100 rounded-b-xl border-2 border-gray-100 p-3 px-5 mb-3">
-                <div class="flex flex-col justify-start">
-                    <div> <b> Tipo:</b>
+            <div
+                class="flex items-center justify-around text-center bg-slate-100 rounded-b-xl border-2 border-gray-100 p-3 px-5 mb-3">
+                <section>
+                    <div class="flex gap-1 justify-center">
+                        <b> Tipo:</b>
                         <p>{{ tipo }}</p>
                     </div>
-                    <div> <b> Marca:</b>
+                    <div class="flex gap-1 justify-center">
+                        <b> Marca:</b>
                         <p>{{ marca }}</p>
                     </div>
-                    <div><b>Modelo:</b>
+                    <div class="flex gap-1 justify-center">
+                        <b>Modelo:</b>
                         <p> {{ modelo }}</p>
                     </div>
-                    <div> <b> Año:</b>
+                </section>
+
+                <section>
+                    <div class="flex gap-1 justify-center">
+                        <b> Año:</b>
                         <p>{{ car.year }}</p>
                     </div>
-                    <div> <b> Chassis:</b>
+                    <div class="flex gap-1 justify-center">
+                        <b> Chassis:</b>
                         <p><label style="text-transform: uppercase">{{ car.chasis }} </label></p>
                     </div>
-                    <div> <b> Registro:</b>
+                    <div class="flex gap-1 justify-center">
+                        <b> Registro:</b>
                         <p> <label style="text-transform: uppercase"> {{ car.placa }} </label></p>
                     </div>
-                </div>
+                </section>
             </div>
             <div
                 class="w-full font-bold rounded  overflow-x-hidden border-t flex flex-col gap-2 text-lg justify-between pt-4">
@@ -159,14 +172,16 @@
 
 
             <div v-if="!Descuento" class="w-full flex justify-center items-center mt-4">
-                <button v-on:click="Descuento = true" href="#" class="text-center px-6 py-2 bg-blue-800 hover:bg-blue-700 text-white text-sm italic">Tengo
+                <button v-on:click="Descuento = true" href="#"
+                    class="text-center px-6 py-2 bg-blue-800 hover:bg-blue-700 text-white text-sm italic">Tengo
                     código de descuento
                 </button>
             </div>
 
             <div v-if="Descuento" class="p-2 flex gap-2 justify-center items-center mt-4">
                 <input class="border-blue-800" type="text" placeholder="CÓDIGO DE DESCUENTO" name="codigo" id="codigo">
-                <button v-on:click="descuento()" class="px-6 py-2 text-center bg-blue-800 text-white text-lg font-bold">Aplicar</button>
+                <button v-on:click="descuento()"
+                    class="px-6 py-2 text-center bg-blue-800 text-white text-lg font-bold">Aplicar</button>
             </div>
             <!--  -->
 
@@ -329,15 +344,19 @@ export default {
             }
         },
         clientReturn() {
+            this.Loading = true
             this.$inertia.post(this.route('clientReturn'), this.form2)
         },
         cartReturn() {
+            this.Loading = true
             this.$inertia.post(this.route('carReturn'), this.form2)
         },
         caseguradoraReturn() {
+            this.Loading = true
             this.$inertia.post(this.route('caseguradoraReturn'), this.form2)
         },
         serviciosReturn() {
+            this.Loading = true
             this.$inertia.post(this.route('serviciosReturn'), this.form2)
         }
     },

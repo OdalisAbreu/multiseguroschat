@@ -181,12 +181,15 @@ export default {
             this.$inertia.post(this.route('servicespolicy'), this.form)
         },
         clientReturn() {
+            this.Loading = true
             this.$inertia.post(this.route('clientReturn'), this.form2)
         },
         cartReturn() {
+            this.Loading = true
             this.$inertia.post(this.route('carReturn'), this.form2)
         },
         caseguradoraReturn() {
+            this.Loading = true
             this.$inertia.post(this.route('caseguradoraReturn'), this.form2)
         }
     },

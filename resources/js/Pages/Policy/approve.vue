@@ -76,7 +76,6 @@
                 <p>Total a pagar: ${{ new Intl.NumberFormat('en-IN').format(form.totalGeneral) }}.00</p>
             </div>
 
-
             <div v-if="!Descuento" class="w-full flex justify-center items-center mt-4">
                 <button v-on:click="Descuento = true" href="#" class="text-center text-cyan-400 text-sm font-bold">Tengo
                     código de descuento
@@ -94,7 +93,6 @@
                     Realizar pago
                 </button>
             </div>
-
 
         </section>
         <Footer class="mt-4" />

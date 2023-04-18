@@ -96,7 +96,7 @@
                         <div v-if="eleccionPasaporte && !eleccionCedula">
                             <label class="pt-1 font-bold">Nacionalidad <span class="text-red-400 inl">*</span></label><br>
                             <model-list-select class="selectSearch" :list="paises" v-model="form.pais"
-                                :value="clientepais.id" required option-value="id" option-text="nacionalidad"
+                                :value="clientepais.id" required option-value="id" option-text="pais"
                                 placeholder="NACIONALIDAD">
                             </model-list-select>
                         </div>
@@ -269,7 +269,7 @@ export default {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 2.7rem;
+    height: 2.6rem;
     margin-bottom: 0.5rem;
     color: rgb(229 231 235 / var(--tw-text-opacity));
 }

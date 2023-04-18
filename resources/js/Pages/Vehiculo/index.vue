@@ -54,7 +54,7 @@
                         <option v-for="tipo in tipos" :value="tipo.id" :key="tipo.id">{{ tipo.nombre }} </option>
                     </select>
 
-                   <!--  <model-list-select class="selectSearch" v-model="form.tipo" required :value="car.tipoName"
+                    <!--  <model-list-select class="selectSearch" v-model="form.tipo" required :value="car.tipoName"
                         :list="tipos" :key="form.tipo.id" option-value="tipoName" option-text="tipo"
                         placeholder="PROVINCIAS">
                     </model-list-select> -->
@@ -247,6 +247,7 @@ export default {
             this.$inertia.post(this.route('policy', this.marca), this.form)
         },
         clientReturn() {
+            this.Loading = true
             this.$inertia.post(this.route('clientReturn'), this.form2)
         }
     },
