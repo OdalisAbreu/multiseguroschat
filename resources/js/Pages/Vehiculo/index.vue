@@ -1,12 +1,11 @@
 <template>
-    <div class="bg-gray-200 pb-6">
+    <div class="bg-gray-200 pb-6" :class="{ 'animate-pulse': Loading, 'opacity-50': Loading }">
         <section class="bg-blue-700">
 
             <Header :width="50" />
         </section>
 
-        <section class="p-3 relative rounded-xl bg-white mx-3 z-50 mt-4"
-            :class="{ 'animate-pulse': Loading, 'opacity-50': Loading }">
+        <section class="p-3 relative rounded-xl bg-white mx-3 z-50 mt-4">
 
 
             <div v-if="Loading" class="fixed inset-0 flex items-center justify-center z-50">
@@ -46,6 +45,7 @@
                 <form @submit.prevent="submit" class="flex flex-col">
                     <label class="pt-1 justify-start font-bold">Tipo de Vehículo <span
                             class="text-red-400 inl">*</span></label>
+
                     <select class="rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80 border-gray-300"
                         v-model="form.tipo" required>
                         <option :value="car.tipoName" disabled selected hidden v-if="car.tipoName != ''">{{ car.tipoName }}
@@ -54,9 +54,9 @@
                         <option v-for="tipo in tipos" :value="tipo.id" :key="tipo.id">{{ tipo.nombre }} </option>
                     </select>
 
-                    <!--  <model-list-select class="selectSearch" v-model="form.tipo" required :value="car.tipoName"
-                        :list="tipos" :key="form.tipo.id" option-value="tipoName" option-text="tipo"
-                        placeholder="PROVINCIAS">
+                    <!--  <model-list-select class="selectSearch" v-model="form.tipo" required :value="tipos.id"
+                        :list="!tipos ? newCar : tipos" :key="tipos.id" option-value="id" option-text="nombre"
+                        placeholder="Vehículo">
                     </model-list-select> -->
 
                     <label class="pt-1 font-bold">Marca <span class="text-red-400 inl">*</span></label>
@@ -204,6 +204,9 @@ export default {
     data() {
 
         return {
+            newCar: [
+                { id: this.car.id, name: this.car.tipoName }
+            ],
             models: '',
             marca: this.car.marcaName,
             form: {
@@ -260,3 +263,15 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+.selectSearch {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 2.6rem;
+    margin-bottom: 0.5rem;
+    color: rgb(229 231 235 / var(--tw-text-opacity));
+}
+</style>

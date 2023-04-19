@@ -1,10 +1,23 @@
+<script setup>
+import { ref } from 'vue'
+import { vAutoAnimate } from '@formkit/auto-animate';
+import { useAutoAnimate } from '@formkit/auto-animate/vue'
+
+const isOpen = ref(false)
+
+const isOpen2 = ref(false)
+
+const isOpen3 = ref(false)
+
+
+</script>
+
 <template>
-    <section class="bg-gray-200 pb-6 min-h-screen">
+    <section class="bg-gray-200 pb-6 min-h-screen" :class="{ 'animate-pulse': Loading, 'opacity-50': Loading }">
 
         <Header :width="58" />
 
-        <section class="p-3 relative rounded-xl bg-white mx-6 z-50 mt-4"
-            :class="{ 'animate-pulse': Loading, 'opacity-50': Loading }">
+        <section class="p-3 relative rounded-xl bg-white mx-6 z-50 mt-4">
 
             <div v-if="Loading" class="fixed inset-0 flex items-center justify-center z-50">
                 <svg aria-hidden="true" role="status" class="inline w-12 h-12 text-gray-200 animate-spin dark:text-gray-600"
@@ -46,6 +59,7 @@
                 </div>
             </div>
 
+
             <section class="flex flex-col bg-slate-100 rounded-xl border-2 border-gray-300 mb-2 px-4 p-3">
 
                 <div class="p-2">
@@ -53,44 +67,48 @@
                         Selecciona tu aseguradora</div>
                 </div>
 
+
+
                 <div class="w-full" v-for="seller, index in checkedItems" :key="seller.id">
+
                     <div class="w-full p-2">
-                        <div class="container mx-auto">
+                    <div class="container mx-auto">
                             <div>
 
-                                <div class="relative w-full flex justify-start items-start overflow-hidden mb-1">
-                                    <img class="bg-cover bg-no-repeat bg-center h-10" :src="seller.logo">
-                                </div>
 
-                                <div class="flex flex-col justify-center items-center">
+                            <div class="relative w-full flex justify-start items-start overflow-hidden mb-1">
+                                <img class="bg-cover bg-no-repeat bg-center h-10" :src="seller.logo">
+                            </div>
 
-                                    <input type="hidden" id="servicios" :value="seller.servicios">
+                            <div class="flex flex-col justify-center items-center">
 
-                                    <div class="w-full flex justify-around items-center gap-1 mb-1">
-                                        <!-- <input type="radio" :value="tresmeses" 
+                                <input type="hidden" id="servicios" :value="seller.servicios">
+
+                                <div class="w-full flex justify-around items-center gap-1 mb-1">
+                                    <!-- <input type="radio" :value="tresmeses" 
                                                 v-model="form.policyTime"> -->
-                                        <div class="relative w-2/5 flex flex-col justify-around items-center">
+                                    <div class="relative w-2/5 flex flex-col justify-around items-center">
 
-                                            <!-- <span v-if= && index == 0 && seller.insurances_id == 6"
+                                        <!-- <span v-if= && index == 0 && seller.insurances_id == 6"
                                                 style="top: -6px;" class="absolute right-0 h-3 w-3">
                                                 <span
                                                     class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-700 opacity-75"></span>
-                                                <span class="relative inline-flex rounded-full h-3 w-3 bg-blue-800"></span>
-                                            </span>
+                                                        <span class="relative inline-flex rounded-full h-3 w-3 bg-blue-800"></span>
+                                                    </span>
 
-                                            <span v-if= && index == 1 && seller.insurances_id == 5"
-                                                style="top: -6px;" class="absolute right-0 h-3 w-3">
-                                                <span
-                                                    class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-700 opacity-75"></span>
-                                                <span class="relative inline-flex rounded-full h-3 w-3 bg-blue-800"></span>
-                                            </span>
+                                                                                                                                                        <span v-if= && index == 1 && seller.insurances_id == 5"
+                                                                                                                                                                                                                                style="top: -6px;" class="absolute right-0 h-3 w-3">
+                                                                                                                                                                                                                                <span
+                                                                                                                                                                                                                                    class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-700 opacity-75"></span>
+                                                                                                                                                                                                                                                    <span class="relative inline-flex rounded-full h-3 w-3 bg-blue-800"></span>
+                                                                                                                                                                                                                                                                                                            </span>
 
-                                            <span v-if= && index == 2 && seller.insurances_id == 4"
-                                                style="top: -6px;" class="absolute right-0 h-3 w-3">
-                                                <span
-                                                    class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-700 opacity-75"></span>
-                                                <span class="relative inline-flex rounded-full h-3 w-3 bg-blue-800"></span>
-                                            </span> -->
+                                                                                                                                                                                                                                                                                                            <span v-if= && index == 2 && seller.insurances_id == 4"
+                                                                                                                                                                                                                                                                                                                style="top: -6px;" class="absolute right-0 h-3 w-3">
+                                                                                                                                                                                                                                                                                                                    <span
+                                                                                                                                                                                                                                                                                                                        class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-700 opacity-75"></span>
+                                                                                                                                                                                                                                                                                                                    <span class="relative inline-flex rounded-full h-3 w-3 bg-blue-800"></span>
+                                                                                                                                                                                                                                                                                                                </span> -->
 
                                             <button v-on:click="insurances_id = seller.insurances_id, time = 'tresmeses'"
                                                 @click="marcarItem(seller, 'button1', index)"
@@ -100,58 +118,58 @@
                                                     new
                                                         Intl.NumberFormat('en-IN').format(seller.tresmeses)
                                                 }}.00</p>
-                                                <div>
-                                                    <input style="top: -4px; right: -4px;" type="checkbox"
-                                                        :checked="seller.isChecked && seller.selectedButton === 'button1'"
-                                                        class="absolute rounded-full checked:bg-blue-800 p-2 ">
-                                                </div>
-                                            </button>
-                                        </div>
+                                            <div>
+                                                <input style="top: -4px; right: -4px;" type="checkbox"
+                                                    :checked="seller.isChecked && seller.selectedButton === 'button1'"
+                                                    class="absolute rounded-full checked:bg-blue-800 p-2 ">
+                                            </div>
+                                        </button>
+                                    </div>
 
-                                        <!--<input type="button" value="seismeses"  v-model="form.policyTime">-->
-                                        <div class="relative w-2/5 flex flex-col justify-around items-stretch">
+                                    <!--<input type="button" value="seismeses"  v-model="form.policyTime">-->
+                                    <div class="relative w-2/5 flex flex-col justify-around items-stretch">
 
-                                            <!-- <span v-show= && index == 0 && seller.insurances_id == 6"
+                                        <!-- <span v-show= && index == 0 && seller.insurances_id == 6"
                                                 style="top: -6px;" class="absolute right-0 h-3 w-3">
                                                 <span
                                                     class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-700 opacity-75"></span>
                                                 <span class="relative inline-flex rounded-full h-3 w-3 bg-blue-800"></span>
                                             </span>
 
-                                            <span
-                                                v-show= && index == 1 && seller.insurances_id == 5"
-                                                style="top: -6px;" class="absolute right-0 h-3 w-3">
-                                                <span
-                                                    class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-700 opacity-75"></span>
-                                                <span class="relative inline-flex rounded-full h-3 w-3 bg-blue-800"></span>
-                                            </span>
+                                                    <span
+                                                                                v-show= && index == 1 && seller.insurances_id == 5"
+                                                                                                                                                            style="top: -6px;" class="absolute right-0 h-3 w-3">
+                                                                                                                                                                                                                                <span
+                                                                                                                                                                                                                                    class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-700 opacity-75"></span>
+                                                                                                                                                                                                                                <span class="relative inline-flex rounded-full h-3 w-3 bg-blue-800"></span>
+                                                                                                                                                                                                                                                </span>
 
-                                            <span
-                                                v-show= && index == 2 && seller.insurances_id == 4"
-                                                style="top: -6px;" class="absolute right-0 h-3 w-3">
-                                                <span
-                                                    class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-700 opacity-75"></span>
-                                                <span class="relative inline-flex rounded-full h-3 w-3 bg-blue-800"></span>
-                                            </span> -->
+                                                                                                                                                                                                                                                                                                            <span
+                                                                                                                                                                                                                                                                                                                v-show= && index == 2 && seller.insurances_id == 4"
+                                                                                                                                                                                                                                                                                                                style="top: -6px;" class="absolute right-0 h-3 w-3">
+                                                                                                                                                                                                                                                                                                                    <span
+                                                                                                                                                                                                                                                                                                                        class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-700 opacity-75"></span>
+                                                                                                                                                                                                                                                                                                                    <span class="relative inline-flex rounded-full h-3 w-3 bg-blue-800"></span>
+                                                                                                                                                                                                                                                                                                                </span> -->
 
                                             <button v-on:click="insurances_id = seller.insurances_id, time = 'seismeses'"
                                                 @click="marcarItem(seller, 'button2', index)"
                                                 class="relative flex focus:border-blue-600 hover:border-blue-600 hover:cursor-pointer flex-col items-center justify-center mb-1 text-sm font-semibold text-gray-900 border border-gray-300 bg-white text-center rounded-lg w-full h-16 px-2">
                                                 <p>6 Meses</p>
-                                                <p>RD$ {{
-                                                    new
-                                                        Intl.NumberFormat('en-IN').format(seller.seismeses)
-                                                }}.00</p>
-                                                <div>
-                                                    <input style=" top: -4px; right: -4px;" type="checkbox"
-                                                        :checked="seller.isChecked && seller.selectedButton === 'button2'"
-                                                        class="absolute rounded-full checked:bg-blue-800 p-2 ">
-                                                </div>
-                                            </button>
-                                        </div>
+                                            <p>RD$ {{
+                                                new
+                                                    Intl.NumberFormat('en-IN').format(seller.seismeses)
+                                            }}.00</p>
+                                            <div>
+                                                <input style=" top: -4px; right: -4px;" type="checkbox"
+                                                    :checked="seller.isChecked && seller.selectedButton === 'button2'"
+                                                    class="absolute rounded-full checked:bg-blue-800 p-2 ">
+                                            </div>
+                                        </button>
+                                    </div>
 
-                                        <div class="relative w-2/5 flex flex-col justify-around items-stretch">
-                                            <!-- <span
+                                    <div class="relative w-2/5 flex flex-col justify-around items-stretch">
+                                        <!-- <span
                                                 v-show= && index == 0 && index != 1 && index != 2 && seller.insurances_id == 6 && seller.insurances_id != 5 && seller.insurances_id != 4"
                                                 style="top: -6px;" class="absolute right-0 h-3 w-3">
                                                 <span
@@ -159,21 +177,21 @@
                                                 <span class="relative inline-flex rounded-full h-3 w-3 bg-blue-800"></span>
                                             </span>
 
-                                            <span
-                                                v-show= && index == 1 && index != 0 && index != 2 && seller.insurances_id == 5 && seller.insurances_id != 6 && seller.insurances_id != 4"
-                                                style="top: -6px;" class="absolute right-0 h-3 w-3">
-                                                <span
-                                                    class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-700 opacity-75"></span>
-                                                <span class="relative inline-flex rounded-full h-3 w-3 bg-blue-800"></span>
-                                            </span>
+                                                    <span
+                                                                                v-show= && index == 1 && index != 0 && index != 2 && seller.insurances_id == 5 && seller.insurances_id != 6 && seller.insurances_id != 4"
+                                                                                                                                                            style="top: -6px;" class="absolute right-0 h-3 w-3">
+                                                                                                                                                                                                                                <span
+                                                                                                                                                                                                                                    class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-700 opacity-75"></span>
+                                                                                                                                                                                                                                <span class="relative inline-flex rounded-full h-3 w-3 bg-blue-800"></span>
+                                                                                                                                                                                                                                                </span>
 
-                                            <span
-                                                v-show= && index == 2 && index != 1 && index != 0 && seller.insurances_id == 4 && seller.insurances_id != 5 && seller.insurances_id != 6"
-                                                style="top: -6px;" class="absolute right-0 h-3 w-3">
-                                                <span
-                                                    class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-700 opacity-75"></span>
-                                                <span class="relative inline-flex rounded-full h-3 w-3 bg-blue-800"></span>
-                                            </span> -->
+                                                                                                                                                                                                                                                                                                            <span
+                                                                                                                                                                                                                                                                                                                v-show= && index == 2 && index != 1 && index != 0 && seller.insurances_id == 4 && seller.insurances_id != 5 && seller.insurances_id != 6"
+                                                                                                                                                                                                                                                                                                                style="top: -6px;" class="absolute right-0 h-3 w-3">
+                                                                                                                                                                                                                                                                                                                    <span
+                                                                                                                                                                                                                                                                                                                        class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-700 opacity-75"></span>
+                                                                                                                                                                                                                                                                                                                    <span class="relative inline-flex rounded-full h-3 w-3 bg-blue-800"></span>
+                                                                                                                                                                                                                                                                                                                </span> -->
 
                                             <button v-on:click="insurances_id = seller.insurances_id, time = 'docemeses'"
                                                 @click="marcarItem(seller, 'button3', index)"
@@ -192,39 +210,94 @@
                                         </div>
                                     </div>
 
-                                    <button v-show="index == 0" v-on:click="(coberturaMultiS = !coberturaMultiS)"
-                                        class="flex items-center text-xs text-blue-700 font-bold mb-1 text-center gap-x-1">Ver
-                                        Limites y Coberturas <img v-if="coberturaMultiS && index == 0" class="w-3"
-                                            src="../../../../public/images/Up.png" alt="Up"> <img
-                                            v-if="!coberturaMultiS && index == 0 && index != 1 && index != 2" class="w-3"
-                                            src="../../../../public/images/down.png" alt="Down">
-                                    </button>
+                                    <div v-auto-animate v-show="index == 0"
+                                        v-on:click="(coberturaMultiS = !coberturaMultiS)"
+                                        class="cursor-pointer w-full flex flex-col justify-center items-center rounded-xl  text-xs bg-white text-blue-700 border border-blue-700 font-bold mb-2 text-center gap-x-1">
 
-                                    <div v-show="coberturaMultiS && index == 0"
-                                        class="w-full flex flex-col justify-center items-center mb-2 bg-white border border-blue-800 p-1 rounded-md">
-                                        <div class="w-full flex justify-around font-bold text-sm text-blue-700"
-                                            v-if="sellers[1].DanosPropiedadAjena > 0">
-                                            <p class="text-left">Daños Propiedad Ajena:</p>
-                                            <p class="text-right">RD${{ sellers[0].DanosPropiedadAjena }}</p>
+                                        <div @click="isOpen = !isOpen"
+                                            class="flex justify-center items-center gap-x-2 py-1">
+                                            Ver Limites y Coberturas
+
+                                            <img v-if="coberturaMultiS && index == 0" class="w-3"
+                                                src="../../../../public/images/Up.png" alt="Up"> <img
+                                                v-if="!coberturaMultiS && index == 0 && index != 1 && index != 2"
+                                                class="w-3" src="../../../../public/images/down.png" alt="Down">
                                         </div>
 
-                                        <div class="w-full flex justify-around font-bold text-sm text-blue-700"
-                                            v-if="sellers[1].ResponsabilidadCivil > 0">
-                                            <p class="text-left">Responsabilidad Civil:</p>
-                                            <p class="text-right">RD${{ sellers[0].ResponsabilidadCivil }}</p>
+                                        <div v-if="isOpen"
+                                            class="w-full flex flex-col justify-center items-center text-center mb-2 bg-white p-1 rounded-md">
+                                            <div class="w-full flex justify-around font-bold text-sm text-blue-700"
+                                                v-if="sellers[1].DanosPropiedadAjena > 0">
+                                                <p class="text-center">Daños Propiedad Ajena:</p>
+                                                <p class="text-center">RD${{ sellers[0].DanosPropiedadAjena }}</p>
+                                            </div>
+
+                                            <div class="w-full flex justify-around font-bold text-sm text-blue-700"
+                                                v-if="sellers[1].ResponsabilidadCivil > 0">
+                                                <p class="text-center">Responsabilidad Civil:</p>
+                                                <p class="text-center">RD${{ sellers[0].ResponsabilidadCivil }}</p>
+                                            </div>
+
+
+                                            <div class="w-full flex justify-around font-bold text-sm text-blue-700"
+                                                v-if="sellers[1].ResponsabilidadCivil2 > 0">
+                                                <p class="text-center">Responsabilidad Civil 2:</p>
+                                                <p class="text-center">RD${{ sellers[0].ResponsabilidadCivil2 }}</p>
+                                            </div>
+
+                                            <div class="w-full flex justify-around font-bold text-sm text-blue-700"
+                                                v-if="sellers[1].UnaPersona > 0">
+                                                <p class="text-left">Una Persona: RD$</p>
+                                                <p class="text-right">RD${{ sellers[0].UnaPersona }}</p>
+                                            </div>
+
+                                            <div class="w-full flex justify-around font-bold text-sm text-blue-700"
+                                                v-if="sellers[1].FianzaJudicial > 0">
+                                                <p class="text-left">Fianza Judicial: RD$</p>
+                                                <p class="text-right">RD${{ sellers[0].FianzaJudicial }}</p>
+                                            </div>
                                         </div>
 
+                                    </div>
 
-                                        <div class="w-full flex justify-around font-bold text-sm text-blue-700"
-                                            v-if="sellers[1].ResponsabilidadCivil2 > 0">
-                                            <p class="text-left">Responsabilidad Civil 2:</p>
-                                            <p class="text-right">RD${{ sellers[0].ResponsabilidadCivil2 }}</p>
+                                    <div v-auto-animate v-show="index == 1" v-on:click="(coberturaSura = !coberturaSura)"
+                                        class="cursor-pointer w-full flex flex-col justify-center items-center rounded-xl  text-xs bg-white text-blue-700 border border-blue-700 font-bold mb-2 text-center gap-x-1">
+
+                                        <div @click="isOpen2 = !isOpen2"
+                                            class="flex justify-center items-center gap-x-2 py-1">
+                                            Ver Limites y Coberturas
+
+                                            <img v-if="coberturaSura && index == 1" class="w-3"
+                                                src="../../../../public/images/Up.png" alt="Up"> <img
+                                                v-if="!coberturaSura && index == 1 && index != 0 && index != 2" class="w-3"
+                                                src="../../../../public/images/down.png" alt="Down">
                                         </div>
 
-                                        <div class="w-full flex justify-around font-bold text-sm text-blue-700"
-                                            v-if="sellers[1].UnaPersona > 0">
-                                            <p class="text-left">Una Persona: RD$</p>
-                                            <p class="text-right">RD${{ sellers[0].UnaPersona }}</p>
+                                        <div v-if="isOpen2"
+                                            class="w-full flex flex-col justify-center items-center text-center mb-2 bg-white p-1 rounded-md">
+                                            <div class="w-full flex justify-around font-bold text-sm text-blue-700"
+                                                v-if="sellers[1].DanosPropiedadAjena > 0">
+                                                <p class="text-center">Daños Propiedad Ajena:</p>
+                                                <p class="text-center">RD${{ sellers[0].DanosPropiedadAjena }}</p>
+                                            </div>
+
+                                            <div class="w-full flex justify-around font-bold text-sm text-blue-700"
+                                                v-if="sellers[1].ResponsabilidadCivil > 0">
+                                                <p class="text-center">Responsabilidad Civil:</p>
+                                                <p class="text-center">RD${{ sellers[0].ResponsabilidadCivil }}</p>
+                                            </div>
+
+
+                                            <div class="w-full flex justify-around font-bold text-sm text-blue-700"
+                                                v-if="sellers[1].ResponsabilidadCivil2 > 0">
+                                                <p class="text-center">Responsabilidad Civil 2:</p>
+                                                <p class="text-center">RD${{ sellers[0].ResponsabilidadCivil2 }}</p>
+                                            </div>
+
+                                            <div class="w-full flex justify-around font-bold text-sm text-blue-700"
+                                                v-if="sellers[1].UnaPersona > 0">
+                                                <p class="text-left">Una Persona: RD$</p>
+                                                <p class="text-right">RD${{ sellers[0].UnaPersona }}</p>
                                         </div>
 
                                         <div class="w-full flex justify-around font-bold text-sm text-blue-700"
@@ -234,7 +307,11 @@
                                         </div>
                                     </div>
 
-                                    <button v-show="index == 1" v-on:click="(coberturaSura = !coberturaSura)"
+                                </div>
+
+                                <!-- aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa -->
+
+                                <!--  <button v-show="index == 1" v-on:click="(coberturaSura = !coberturaSura)"
                                         class="transition flex items-center text-xs text-blue-700 font-bold mb-1 text-center gap-x-1">Ver
                                         Limites y Coberturas <img v-if="coberturaSura && index == 1" class="w-3"
                                             src="../../../../public/images/Up.png" alt="Up"> <img
@@ -261,61 +338,71 @@
                                             v-if="sellers[1].ResponsabilidadCivil2 > 0">
                                             <p class="text-left">Responsabilidad Civil 2:</p>
                                             <p class="text-right">RD${{ sellers[0].ResponsabilidadCivil2 }}</p>
+                                                                </div>
+
+                                                                        <div class="w-full flex justify-around font-bold text-sm text-blue-700"
+                                                                            v-if="sellers[1].UnaPersona > 0">
+                                                                            <p class="text-left">Una Persona: RD$</p>
+                                                                            <p class="text-right">RD${{ sellers[0].UnaPersona }}</p>
+                                                                        </div>
+
+                                                                        <div class="w-full flex justify-around font-bold text-sm text-blue-700"
+                                                                            v-if="sellers[1].FianzaJudicial > 0">
+                                                                            <p class="text-left">Fianza Judicial: RD$</p>
+                                                                            <p class="text-right">RD${{ sellers[0].FianzaJudicial }}</p>
+                                                                        </div>
+                                                                    </div> -->
+
+                                    <div v-auto-animate v-if="index == 2" v-on:click="(coberturaAtrio = !coberturaAtrio)"
+                                        class="cursor-pointer w-full flex flex-col justify-center items-center rounded-xl text-xs bg-white text-blue-700 border border-blue-700 font-bold mb-2 text-center gap-x-1">
+
+                                        <div @click="isOpen3 = !isOpen3"
+                                            class="flex justify-center items-center gap-x-2 py-1">
+                                            Ver Limites y Coberturas
+
+                                            <img v-if="coberturaAtrio && index == 2" class="w-3"
+                                                src="../../../../public/images/Up.png" alt="Up"> <img
+                                                v-if="!coberturaAtrio && index == 2 && index != 0 && index != 1" class="w-3"
+                                                src="../../../../public/images/down.png" alt="Down">
                                         </div>
 
-                                        <div class="w-full flex justify-around font-bold text-sm text-blue-700"
-                                            v-if="sellers[1].UnaPersona > 0">
-                                            <p class="text-left">Una Persona: RD$</p>
-                                            <p class="text-right">RD${{ sellers[0].UnaPersona }}</p>
+                                        <div v-if="isOpen3"
+                                            class="w-full flex flex-col justify-center items-center text-center mb-2 bg-white p-1 rounded-md">
+                                            <div class="w-full flex justify-around font-bold text-sm text-blue-700"
+                                                v-if="sellers[1].DanosPropiedadAjena > 0">
+                                                <p class="text-center">Daños Propiedad Ajena:</p>
+                                                <p class="text-center">RD${{ sellers[0].DanosPropiedadAjena }}</p>
+                                            </div>
+
+                                            <div class="w-full flex justify-around font-bold text-sm text-blue-700"
+                                                v-if="sellers[1].ResponsabilidadCivil > 0">
+                                                <p class="text-center">Responsabilidad Civil:</p>
+                                                <p class="text-center">RD${{ sellers[0].ResponsabilidadCivil }}</p>
+                                            </div>
+
+
+                                            <div class="w-full flex justify-around font-bold text-sm text-blue-700"
+                                                v-if="sellers[1].ResponsabilidadCivil2 > 0">
+                                                <p class="text-center">Responsabilidad Civil 2:</p>
+                                                <p class="text-center">RD${{ sellers[0].ResponsabilidadCivil2 }}</p>
+                                            </div>
+
+                                            <div class="w-full flex justify-around font-bold text-sm text-blue-700"
+                                                v-if="sellers[1].UnaPersona > 0">
+                                                <p class="text-left">Una Persona: RD$</p>
+                                                <p class="text-right">RD${{ sellers[0].UnaPersona }}</p>
+                                            </div>
+
+                                            <div class="w-full flex justify-around font-bold text-sm text-blue-700"
+                                                v-if="sellers[1].FianzaJudicial > 0">
+                                                <p class="text-left">Fianza Judicial: RD$</p>
+                                                <p class="text-right">RD${{ sellers[0].FianzaJudicial }}</p>
+                                            </div>
                                         </div>
 
-                                        <div class="w-full flex justify-around font-bold text-sm text-blue-700"
-                                            v-if="sellers[1].FianzaJudicial > 0">
-                                            <p class="text-left">Fianza Judicial: RD$</p>
-                                            <p class="text-right">RD${{ sellers[0].FianzaJudicial }}</p>
-                                        </div>
                                     </div>
 
-                                    <button v-if="index == 2" v-on:click="(coberturaAtrio = !coberturaAtrio)"
-                                        class="flex items-center text-xs text-blue-700 font-bold mb-1 text-center gap-x-1">Ver
-                                        Limites y Coberturas <img v-if="coberturaAtrio && index == 2" class="w-3"
-                                            src="../../../../public/images/Up.png" alt="Up"> <img
-                                            v-if="!coberturaAtrio && index == 2 && index != 0 && index != 1" class="w-3"
-                                            src="../../../../public/images/down.png" alt="Down">
-                                    </button>
-                                    <div v-if="coberturaAtrio && index == 2"
-                                        class="w-full flex flex-col justify-center items-center mb-2 bg-white border border-blue-800 p-1 rounded-md">
-                                        <div class="w-full flex justify-around font-bold text-sm text-blue-700"
-                                            v-if="sellers[1].DanosPropiedadAjena > 0">
-                                            <p class="text-left">Daños Propiedad Ajena:</p>
-                                            <p class="text-right">RD${{ sellers[0].DanosPropiedadAjena }}</p>
-                                        </div>
 
-                                        <div class="w-full flex justify-around font-bold text-sm text-blue-700"
-                                            v-if="sellers[1].ResponsabilidadCivil > 0">
-                                            <p class="text-left">Responsabilidad Civil:</p>
-                                            <p class="text-right">RD${{ sellers[0].ResponsabilidadCivil }}</p>
-                                        </div>
-
-
-                                        <div class="w-full flex justify-around font-bold text-sm text-blue-700"
-                                            v-if="sellers[1].ResponsabilidadCivil2 > 0">
-                                            <p class="text-left">Responsabilidad Civil 2:</p>
-                                            <p class="text-right">RD${{ sellers[0].ResponsabilidadCivil2 }}</p>
-                                        </div>
-
-                                        <div class="w-full flex justify-around font-bold text-sm text-blue-700"
-                                            v-if="sellers[1].UnaPersona > 0">
-                                            <p class="text-left">Una Persona: RD$</p>
-                                            <p class="text-right">RD${{ sellers[0].UnaPersona }}</p>
-                                        </div>
-
-                                        <div class="w-full flex justify-around font-bold text-sm text-blue-700"
-                                            v-if="sellers[1].FianzaJudicial > 0">
-                                            <p class="text-left">Fianza Judicial: RD$</p>
-                                            <p class="text-right">RD${{ sellers[0].FianzaJudicial }}</p>
-                                        </div>
-                                    </div>
 
                                 </div>
                                 <div class="w-full border-t-2 border-gray-700 border-dashed pt-4"></div>

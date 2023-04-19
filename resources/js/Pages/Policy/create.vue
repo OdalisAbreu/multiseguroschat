@@ -1,8 +1,7 @@
 <template>
-    <section class="bg-gray-200 pb-6">
+    <section class="bg-gray-200 pb-6" :class="{ 'animate-pulse': Loading, 'opacity-50': Loading }">
         <Header :width="65" />
-        <section class="p-3 relative rounded-xl bg-white mx-3 z-50 mt-4"
-            :class="{ 'animate-pulse': Loading, 'opacity-50': Loading }">
+        <section class="p-3 relative rounded-xl bg-white mx-3 z-50 mt-4">
 
             <div v-if="Loading" class="fixed inset-0 flex items-center justify-center z-50">
                 <svg aria-hidden="true" role="status" class="inline w-12 h-12 text-gray-200 animate-spin dark:text-gray-600"
@@ -17,7 +16,7 @@
             </div>
 
             <div
-                class="flex min-h-90 items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-3">
+                class="flex h-28 items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-3">
                 <div class="flex flex-col justify-start">
                     <h3 class="font-bold text-lg">Asegurado</h3>
                     <p>{{ client.name }} {{ client.lastname }} </p>
@@ -33,7 +32,7 @@
             </div>
 
             <div
-                class="flex min-h-90 items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-3">
+                class="flex h-28 items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-3">
                 <div class="flex flex-col justify-start">
                     <h3 class="font-bold text-lg">Vehículo</h3>
                     <p> {{ car.marcaName }} {{ car.modeloName }}, {{ car.year }}</p>
@@ -47,7 +46,7 @@
             </div>
 
             <div
-                class="flex min-h-90 items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-3">
+                class="flex h-28 items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-3">
                 <div class="flex flex-col justify-start">
                     <h3 class="font-bold text-lg">Aseguradora</h3>
                     <p class="mr-14">{{ insurres.nombre }} | {{ services[0].time }} | RD$ {{
@@ -63,7 +62,8 @@
 
             </div>
 
-            <section class="flex flex-col bg-slate-100 rounded-xl border-2 border-gray-300 mb-2">
+            <section
+                class="flex flex-col justify-center items-center bg-slate-100 rounded-xl border-2 border-gray-300 mb-2">
 
                 <div class="p-3">
                     <div class="text-black font-bold text-center text-2xl sm:text-2xl md:text-3xl xl:text-3xl">Servicios
@@ -75,11 +75,11 @@
                         <div class="flex justify-start items-center p-2 bg-white border border-gray-300 rounded-xl"
                             v-for="service in services" :key="service.id">
                             <div>
-                                <input type="checkbox" class=" checked:bg-blue-800 p-2 mx-3 rounded-full" :checked="suma"
+                                <input type="checkbox" class=" checked:bg-blue-800 p-1 mx-3 rounded-full" :checked="suma"
                                     :value="service.id" v-model="form.servicios" name="poliza">
                             </div>
-                            <div class="flex flex-col justify-center items-start">
-                                <label class="">{{ service.serviceName }}</label>
+                            <div class="flex h-20 h- flex-col justify-center items-start">
+                                <label class="text-start">{{ service.serviceName }}</label>
 
                                 <label class="font-bold">RD$ {{
                                     new
