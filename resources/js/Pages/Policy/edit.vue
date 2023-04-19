@@ -1,10 +1,9 @@
 <template>
-    <section class="bg-gray-200 pb-6 h-full">
+    <section class="bg-gray-200 pb-6 h-full" :class="{ 'animate-pulse': Loading, 'opacity-50': Loading }">
         <Header :width="75" />
-        <section class="p-3 relative rounded-xl bg-white mx-3 z-50 mt-4"
-            :class="{ 'animate-pulse': Loading, 'opacity-50': Loading }">
+        <section class="p-3 relative rounded-xl bg-white mx-3 z-50 mt-4">
             <div
-                class="flex min-h-90 items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-3">
+                class="flex h-28 items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-3">
                 <div class="flex flex-col justify-start">
                     <h3 class="font-bold text-lg">Asegurado</h3>
                     <p>{{ client.name }} {{ client.lastname }} </p>
@@ -31,7 +30,7 @@
             </div>
 
             <div
-                class="flex min-h-90 items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-3">
+                class="flex h-28 items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-3">
                 <div class="flex flex-col justify-start">
                     <h3 class="font-bold text-lg">Vehículo</h3>
                     <p> {{ car.marcaName }} {{ car.modeloName }}, {{ car.year }}</p>
@@ -45,7 +44,7 @@
             </div>
 
             <div
-                class="flex min-h-90 items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-3">
+                class="flex h-28 items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-3">
                 <div class="flex flex-col justify-start">
                     <h3 class="font-bold text-lg">Aseguradora</h3>
                     <p class="mr-14">{{ insurre.nombre }} | {{ policyTime }} | RD$ {{
@@ -64,7 +63,7 @@
             <div
                 class="flex min-h-90 items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-3 pb-6">
                 <div class="flex flex-col w-full justify-end">
-                    <div class="flex justify-between items-center gap-x-2 ">
+                    <div class="flex justify-between items-center gap-x-2 mb-10">
                         <h3 class="font-bold text-lg col-10 mb-1">Servicios Opcionales</h3>
 
                         <div class="absolute right-8 mt-7 cursor-pointer">
@@ -81,7 +80,7 @@
                         <br />
                         -------------------------------------
                     </p>
-                    <p v-if="service.length == 0" class="mt-8 text-center w-full">No hay servivios seleccionados</p>
+                    <p v-if="service.length == 0" class="text-center w-full">No hay servivios seleccionados</p>
                 </div>
 
             </div>
@@ -93,24 +92,31 @@
                 </div>
             </div>
 
-            <div class="flex items-center justify-between bg-slate-100 rounded-b-xl border-2 border-gray-100 p-3 px-5 mb-3">
-                <div class="flex flex-col justify-start">
+            <div
+                class="flex flex-wrap items-center justify-center gap-2 text-center bg-slate-100 rounded-b-xl border-2 border-gray-100 pb-3 px-5 mb-3">
 
-                    <div> <b>Asegurado:</b>
+                <section>
+                    <div class="flex gap-1 justify-center">
+                        <b>Asegurado:</b>
                         <p>{{ cliente.name }} {{ cliente.lastname }}</p>
                     </div>
-                    <div> <b>Cédula:</b>
+                    <div class="flex gap-1 justify-center">
+                        <b>Cédula:</b>
                         <p>{{ cliente.cardnumber }}</p>
                     </div>
+                </section>
 
-                    <div><b>Dirección:</b>
+                <section>
+                    <div class="flex gap-1 justify-center">
+                        <b>Dirección:</b>
                         <p>{{ cliente.adrress }}</p>
                     </div>
-                    <div> <b>Teléfono:</b>
+                    <div class="flex gap-1 justify-center">
+                        <b>Teléfono:</b>
                         <p>{{ cliente.phonenumber }}</p>
                     </div>
+                </section>
 
-                </div>
             </div>
 
             <div v-if="Loading" class="fixed inset-0 flex items-center justify-center z-50">
@@ -132,7 +138,7 @@
             </div>
 
             <div
-                class="flex items-center justify-around text-center bg-slate-100 rounded-b-xl border-2 border-gray-100 p-3 px-5 mb-3">
+                class="flex flex-wrap items-center justify-center gap-2 text-center bg-slate-100 rounded-b-xl border-2 border-gray-100 pb-3 px-5 mb-3">
                 <section>
                     <div class="flex gap-1 justify-center">
                         <b> Tipo:</b>
@@ -181,7 +187,7 @@
             <div v-if="Descuento" class="p-2 flex justify-center items-center mt-4">
                 <input class="border-blue-800" type="text" placeholder="CÓDIGO DE DESCUENTO" name="codigo" id="codigo">
                 <button v-on:click="descuento()"
-                    class="px-6 py-2 text-center bg-blue-800 text-white text-lg font-bold">Aplicar</button>
+                    class="max-w-xl px-6 py-2 text-center bg-blue-800 text-white text-lg font-bold">Aplicar</button>
             </div>
             <!--  -->
 

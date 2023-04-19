@@ -238,7 +238,6 @@ export default {
         },
     },
     mounted() {
-        console.log(this.nuevaProvincia)
         this.form.city
         this.Loading = false
         if (this.activarPresentacion == 'False') {
@@ -252,8 +251,8 @@ export default {
     /*  */
     watch: {
         province: function (key) {
-            console.log(this.cities)
-            console.log(this.ciudades)
+            /*         console.log(this.cities)
+                    console.log(this.ciudades) */
             this.ciudades = this.cities.filter(
                 (ciudad) => ciudad.id_prov == key
             );
