@@ -238,9 +238,9 @@ class InvoicesController extends Controller
         ]);
     }
 
-    public function getInvoice($policeId){
+  /*  public function getInvoice($policeId){
         return 'Hola'; 
-    }
+    }*/
 
     public function waitingRoom(Request $request){
         if($request->ResponseCode != '00'){
