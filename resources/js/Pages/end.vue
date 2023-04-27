@@ -40,7 +40,6 @@
 
     <div id="image" class="fondo">
         <div class="border-2 border-sky-500 rounded-md tarjeta">
-            <span class="">
                 <div class="header_poliza"></div>
                 <div class="grid grid-cols-2 gap-2 pl-1 pr-2">
                     <div>No. Poliza:</div>
@@ -98,7 +97,6 @@
                 </div>
                 <div>Gracias por elegir MultiSeguros</div>
                 <div class="foother_poliza"></div>
-            </span>
         </div>
     </div>
     <!------------------------------------------------------------------------------------>
@@ -113,8 +111,6 @@
     background-color: rgb(255, 255, 255);
 }
 .tarjeta {
-    width: fit-content;
-    height: max-content;
     background-color: rgb(255, 255, 255);
 }
 .header_poliza {
@@ -194,8 +190,6 @@ export default defineComponent({
         }).catch((error) => {
             console.error("oops, something went wrong!", error);
         });*/
-
-        console.log(this.invoice.id)
         var inv = this.invoice.id
         toPng(node)
             .then(function (dataUrl) {
@@ -203,6 +197,7 @@ export default defineComponent({
                 img.src = dataUrl;
               //  console.log(dataUrl);
                // document.body.appendChild(img);
+
                axios
                .post("/api/V1/savePolizaImage", {
                    idPoliza: inv,
@@ -220,11 +215,18 @@ export default defineComponent({
             .catch(function (error) {
                 console.error('oops, something went wrong!', error);
             });
+
+
         setTimeout(() => {
             this.display = "none";
         }, 5000);
+      //--------------------------- Enviar a BotPro-----------------------------------------//
         axios.get(
             "/api/V1/enviarIdPolizaBot/"+this.invoice.id+"/"+this.Client.idConversacion
+        );
+    //--------------------------- Enviar a BotPro-----------------------------------------//
+        axios.get(
+            "/api/V1/enviarIdPolizaBotCity/"+this.invoice.id+"/"+this.Client.phonenumber
         );
     },
 });

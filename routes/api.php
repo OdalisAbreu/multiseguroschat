@@ -20,3 +20,4 @@ Route::get('statusPayment', function () {return Inertia::render('index');});
 Route::get('V1/enviarIdPolizaBot/{idPoliza}/{idConversacion}', [ClientsController::class,'enviarIdPolizaBot']);
 Route::get('V1/getPolizaImage/{idPoliza}', [ClientsController::class,'getPolizaImage']);
 Route::post('V1/savePolizaImage', [ClientsController::class,'savePolizaImage']);
+Route::get('V1/enviarIdPolizaBotCity/{idPoliza}/{celualar}', [ClientsController::class,'enviarIdPolizaBotCity']);

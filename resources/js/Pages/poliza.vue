@@ -1,7 +1,6 @@
 <template>
     <div id="image" class="fondo">
         <div class="border-2 border-sky-500 rounded-md tarjeta">
-            <span class="p-1">
                 <div class="header_poliza"></div>
                 <div class="grid grid-cols-2 gap-2 pl-1 pr-2">
                     <div>No. Poliza:</div>
@@ -15,8 +14,8 @@
                     <div>Valido hasta:</div>
                     <div>29-Agosto-2018</div>
                 </div>
-                <hr size="10px" color="black" class="mt-2 mb-2" />
-                <div class="grid grid-cols-2 gap-2 pl-1 pr-2">
+                <hr size="10px" color="black" class="mt-1 mb-1" />
+                <div class="grid grid-cols-2 gap-1 pl-1 pr-2">
                     <div>Nombres:</div>
                     <div>ALEYRIS</div>
                     <div>Apellidos:</div>
@@ -24,8 +23,8 @@
                     <div>Cédula:</div>
                     <div>402-2470068-8</div>
                 </div>
-                <hr size="10px" color="black" class="mt-2 mb-2" />
-                <div class="grid grid-cols-2 gap-2 pl-1 pr-2">
+                <hr size="10px" color="black" class="mt-1 mb-1" />
+                <div class="grid grid-cols-2 gap-1 pl-1 pr-2">
                     <div>Tipo:</div>
                     <div>Motocicleta</div>
                     <div>Marca:</div>
@@ -37,8 +36,8 @@
                     <div>Chassis:</div>
                     <div>ME1SE8020G3003517</div>
                 </div>
-                <hr size="10px" color="black" class="mt-2 mb-2" />
-                <div class="grid grid-cols-2 gap-2 pl-1 pr-2">
+                <hr size="10px" color="black" class="mt-1 mb-1" />
+                <div class="grid grid-cols-2 gap-1 pl-1 pr-2">
                     <div>Coberturas</div>
                     <div></div>
                     <div>Daños Prop. Ajena:</div>
@@ -60,7 +59,6 @@
                 </div>
                 <div>Gracias por elegir MultiSeguros</div>
                 <div class="foother_poliza"></div>
-            </span>
         </div>
     </div>
 </template>
@@ -72,22 +70,23 @@
     /* display: v-bind(display);*/
 }
 .tarjeta {
-    width: fit-content;
-    height: max-content;
+    background-color: rgb(255, 255, 255);
 }
 .header_poliza {
-    background-image: url("/images/Atrio-Horizontal-sin-fondo.png");
+    background-image: url("/images/Seguros_Chat-11.png");
+    background-color: rgb(31, 127, 252);
+    /*background-image: url("/images/Atrio-Horizontal-sin-fondo.png");*/
     background-size: contain !important;
     background-repeat: no-repeat;
     height: 80px;
     width: 500px;
 }
 .foother_poliza {
-    background-image: url("/images/Seguros_Chat-11.png");
+   /*  background-image: url("/images/Seguros_Chat-11.png");*/
     background-size: contain !important;
     background-color: rgb(31, 127, 252);
     background-repeat: no-repeat;
-    height: 80px;
+    height: 20px;
     width: 500px;
 }
 </style>

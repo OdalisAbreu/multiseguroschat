@@ -133,13 +133,13 @@ class ClientsController extends Controller
         curl_close($curl);
         $token = json_decode($response);
         //sleep(4);
-       // echo $token->token;
-        //---------------------------Envia la Variable al Bot
+        // echo $token->token;
+        //---------------------------Envia la Variable a BotPro ---------------------------------------------------------//
 
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-            CURLOPT_URL => 'https://multiseguroschatbot.botpropanel.com/api/v1/Hooks/Conversation?botpro_conversationId='.$idConversacion.'&variable=polizaId&value='.$idPoliza,
+            CURLOPT_URL => 'https://multiseguroschatbot.botpropanel.com/api/v1/Hooks/Conversation?botpro_conversationId=' . $idConversacion . '&variable=polizaId&value=' . $idPoliza,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
@@ -148,7 +148,7 @@ class ClientsController extends Controller
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => 'GET',
             CURLOPT_HTTPHEADER => array(
-                'Authorization: Bearer '.$token->token,
+                'Authorization: Bearer ' . $token->token,
                 'Cookie: .AspNetCore.Identity.Application=CfDJ8KjL_rYZHmJEsjtPAIeyzJV4_ZXFZS9Ecn_Y-dni2OyLYtpEt8y5HBx_dgPLwAhyCR3yWWp19PmJlMzlwaepn-hUuSdNa4uL5g2t4r_cQcWKw6HKCDTwO0VUsKXZogq4qM6y0svuM-8BBN733YJzyhFJm2uGEACYxAgkVMOkaFg0Ql4l8W4y50OOLeF8Jh4v_2ry_By-Auuh33gPaWt6YpHAWxUMwBIDdg8p3fs8gE0RXBcs_BuwEWkH8DPsoZA_vQ53E-z1XA_w1R8AA5tLbQWvgCvmgXBhk5R9cw3boFPpGzujmSE2SNnar40Bmx2yQsJgORcvse1dTZPAhKgFjQ-lxS-zWkMe3Vf3sQxqfUNgcEBHSkdVZP3qaX2lgt2HVH1tpb-H0DMC3dJP9VAswHtA0SB7aBOzSyna1CKAXm4FkGmJBnKrBhU8GyNR7El4j3Zxw7mVk17zYeKJ3b68KJQoHG0PfKRERCxiJnYYJ6ODa47NjZy-Ol6tEBZYz2ShQ4yVWuXYOsbe1bzUMRW4KNjf5-y9rPlavFNqXuxdCc2oLDZzxCLNT-vWzgE6c69xY9fodU-J8VEaka9b2vtzvg_lpZlzxmoq495fItP8BkTkvhMrY6OSsc1WUJWN7g7Vw2s2Vwz3hrDQ6LTnP0c1G2mOXxSC1vJnUjZX7AKWCmLL-30OXdfuM8d239waBSqKAAPLZ51RDFJIAJcUK4tv-AbnPoCiuEZbCaeqLJCrGkmEawB6UR2jShhf6-jzCNsRI-wqby1rLIjZ1Pz4BcfJHxiNyf8bWY5CNK-uezZyGZy5RC_agRo-E8WPENUg_84P5Nbl_MsAC0LAvvxp4d6S6d2nVbG4FIw9SLjDW0itNgWdtS1ajiUDuJ64hOGOPKar1x8nnGFDFL5h15KkpKy5IO14bt0EpsF2uwntq0nZg8Vv420rejFVmUlAPyb8Yb1MBQ'
             ),
         ));
@@ -165,28 +165,62 @@ class ClientsController extends Controller
 
 
         return [
-            'police_number'=> $invoince->police_number,
+            'police_number' => $invoince->police_number,
             'payment_status' => $invoince->payment_status,
-            'idPoliza'=> $invoince->id
+            'idPoliza' => $invoince->id,
+            'imageURL' => 'https://seguroschat.com/polizas/'.$invoince->id.'.png',
+            'downloadPDF' => 'https://multiseguros.com.do/ws_dev/TareasProg/GenerarReporteAseguradoraPdfUnicoAuth.php?sms=0&id_trans='.$invoince->police_transactionId
         ];
-   }
-   public function savePolizaImage(Request $request)
-   {
-       $invoince = Invoices::find($request->idPoliza);
+    }
+    public function savePolizaImage(Request $request)
+    {
+        $invoince = Invoices::find($request->idPoliza);
         $invoince->imagenPoliza = $request->image;
         $invoince->save();
 
-        $imagen = str_replace('data:image/png;base64,','',$request->image,);
+        $imagen = str_replace('data:image/png;base64,', '', $request->image,);
         $bin = base64_decode($imagen);
         $im = imageCreateFromString($bin);
         if (!$im) {
             die('Base64 value is not a valid image');
-          }
-          $img_file = 'polizas/'.$request->idPoliza.'.png';
-          imagepng($im, $img_file, 0);
+        }
+        $img_file = 'polizas/' . $request->idPoliza . '.png';
+        imagepng($im, $img_file, 0);
 
-       return [
-           'status'=> 'OK'
-       ];
-  }
+        return [
+            'status' => 'OK'
+        ];
+    }
+    public function enviarIdPolizaBotCity($idPoliza, $celular)
+    {
+        //-------------------------------------------- Eviar a BotCity-------------------------------------------------//
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => 'https://hooks.chatapi.net/workflows/CkejaTttGApb/RlIjHqKjGqhJ',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => '{
+                                 "phone": "'.$celular.'",
+                                 "polizaId": ' . $idPoliza . '
+                             }',
+            CURLOPT_HTTPHEADER => array(
+                'Content-Type: application/json'
+            ),
+        ));
+
+        $response = curl_exec($curl);
+
+        curl_close($curl);
+        echo $response;
+
+
+        return 'OK';
+    }
 }
