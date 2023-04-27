@@ -10,6 +10,7 @@
         </div>
 
         <div @submit.prevent="submit" class="mt-6 p-8">
+            
             <!--  <form class="flex flex-col">
                     <div class="mb-8 pt-3 rounded bg-gray-200">
                         <label class="block text-gray-700 text-sm font-bold mb-2 ml-3">Para poder continuar favor digita tu
@@ -61,35 +62,37 @@
                 </ul>
             </div>
 
-            <div class="mt-6">
-                <button
-                    class="flex px-2 justify-center bg-blue-700 hover:bg-blue-900 text-white font-bold mx-3 py-4 rounded-lg shadow-lg hover:shadow-xl transition duration-200 sm:mx-3"
-                >
-                    Contactanos
-                </button>
-            </div>
         </div>
 
         <div class="mt-6">
             <a
                 class="flex justify-center bg-blue-700 hover:bg-blue-900 text-white font-bold mx-3 py-4 rounded-lg shadow-lg hover:shadow-xl transition duration-200 sm:mx-3"
                 href="https://api.whatsapp.com/send/?phone=18297624444&text&type=phone_number&app_absent=0"
-                >Ir a WhatsApp
+                > Contactanos por WhatsApp
             </a>
         </div>
     </main>
+
     <div
         class="relative w-full flex gap-8 bg-slate-800 text-white items-start justify-around py-12 px-2 lg:px-10"
     >
         <div>
-            <h3 class="text-xl bold mb-1">Direccion y telefonos:</h3>
+            <h3 class="text-xl bold mb-3">Dirección:</h3>
             <p class="md:w-1/2">
                 c/ Jacinto Mañón No 7, Suite 101 Ens. Paraíso Santo Domingo,
                 Distrito Nacional 00130 Dominican Republic
             </p>
         </div>
+
         <div>
-            <h3 class="text-xl bold mb-1">Instagram:</h3>
+            <h3 class="text-xl bold mb-3">Teléfono:</h3>
+            <p class="md:w-1/2">
+                849-472-2428
+            </p>
+        </div>
+       
+        <div>
+            <h3 class="text-xl bold mb-3">Instagram:</h3>
             @seguros.chat
         </div>
     </div>

@@ -1057,10 +1057,6 @@ select {
 .inset-0 {
   inset: 0px;
 }
-.inset-x-0 {
-  left: 0px;
-  right: 0px;
-}
 .bottom-0 {
   bottom: 0px;
 }
@@ -1239,6 +1235,12 @@ select {
 .mt-8 {
   margin-top: 2rem;
 }
+.mt-14 {
+  margin-top: 3.5rem;
+}
+.mt-12 {
+  margin-top: 3rem;
+}
 .block {
   display: block;
 }
@@ -1311,6 +1313,9 @@ select {
 .w-0 {
   width: 0px;
 }
+.w-1\/2 {
+  width: 50%;
+}
 .w-10 {
   width: 2.5rem;
 }
@@ -1373,9 +1378,6 @@ select {
 }
 .w-screen {
   width: 100vw;
-}
-.w-1\/2 {
-  width: 50%;
 }
 .min-w-0 {
   min-width: 0px;
@@ -1570,12 +1572,6 @@ select {
 .overflow-hidden {
   overflow: hidden;
 }
-.overflow-clip {
-  overflow: clip;
-}
-.overflow-visible {
-  overflow: visible;
-}
 .overflow-y-auto {
   overflow-y: auto;
 }
@@ -1614,10 +1610,6 @@ select {
 .rounded-b-none {
   border-bottom-right-radius: 0px;
   border-bottom-left-radius: 0px;
-}
-.rounded-b-xl {
-  border-bottom-right-radius: 0.75rem;
-  border-bottom-left-radius: 0.75rem;
 }
 .rounded-l-full {
   border-top-left-radius: 9999px;
@@ -1900,18 +1892,14 @@ select {
   padding-top: 2rem;
   padding-bottom: 2rem;
 }
-.px-8 {
-  padding-left: 2rem;
-  padding-right: 2rem;
-}
 .pb-1 {
   padding-bottom: 0.25rem;
 }
+.pb-12 {
+  padding-bottom: 3rem;
+}
 .pb-16 {
   padding-bottom: 4rem;
-}
-.pb-2 {
-  padding-bottom: 0.5rem;
 }
 .pb-3 {
   padding-bottom: 0.75rem;
@@ -1930,9 +1918,6 @@ select {
 }
 .pl-3 {
   padding-left: 0.75rem;
-}
-.pl-4 {
-  padding-left: 1rem;
 }
 .pr-4 {
   padding-right: 1rem;
@@ -2492,11 +2477,6 @@ select {
     background-color: rgb(17 24 39 / var(--tw-bg-opacity));
   }
 
-  .dark\:text-gray-400 {
-    --tw-text-opacity: 1;
-    color: rgb(156 163 175 / var(--tw-text-opacity));
-  }
-
   .dark\:text-gray-600 {
     --tw-text-opacity: 1;
     color: rgb(75 85 99 / var(--tw-text-opacity));
@@ -2820,14 +2800,14 @@ select {
     margin-right: 5rem;
   }
 
-  .lg\:px-8 {
-    padding-left: 2rem;
-    padding-right: 2rem;
-  }
-
   .lg\:px-10 {
     padding-left: 2.5rem;
     padding-right: 2.5rem;
+  }
+
+  .lg\:px-8 {
+    padding-left: 2rem;
+    padding-right: 2rem;
   }
 }
 @media (min-width: 1280px) {
