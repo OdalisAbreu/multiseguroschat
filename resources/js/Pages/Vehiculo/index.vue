@@ -46,21 +46,21 @@
                     <label class="pt-1 justify-start font-bold">Tipo de Vehículo <span
                             class="text-red-400 inl">*</span></label>
 
-                    <select class="rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80 border-gray-300"
+                    <!-- <select class="rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80 border-gray-300"
                         v-model="form.tipo" required>
                         <option :value="car.tipoName" disabled selected hidden v-if="car.tipoName != ''">{{ car.tipoName }}
                         </option>
                         <option value="" disabled selected hidden v-else>TIPO DE VEHÍCULO</option>
                         <option v-for="tipo in tipos" :value="tipo.id" :key="tipo.id">{{ tipo.nombre }} </option>
-                    </select>
+                    </select> -->
 
-                    <!--  <model-list-select class="selectSearch" v-model="form.tipo" required :value="tipos.id"
-                        :list="!tipos ? newCar : tipos" :key="tipos.id" option-value="id" option-text="nombre"
-                        placeholder="Vehículo">
-                    </model-list-select> -->
+                     <model-list-select class="selectSearch" v-model="form.tipo" required :value="tipos.id"
+                        :list="tipos" :key="tipos.id" option-value="id" option-text="nombre"
+                        placeholder="VEHICULO">
+                    </model-list-select>
 
                     <label class="pt-1 font-bold">Marca <span class="text-red-400 inl">*</span></label>
-                    <select class="rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80 border-gray-300"
+                 <!--    <select class="rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80 border-gray-300"
                         v-model="marca" required>
                         <option :value="car.marcaName" disabled selected hidden v-if="car.marcaName != ''">{{ car.marcaName
                         }}
@@ -68,25 +68,30 @@
                         <option value="" disabled selected hidden v-else>MARCA</option>
                         <option v-for="marca in marcas" :value="marca.ID" :key="marca.ID">{{ marca.DESCRIPCION }}
                         </option>
-                    </select>
+                    </select> -->
 
-
+                    <model-list-select class="selectSearch" v-model="marca" required :value="marcas.ID" :list="marcas" :key="marcas.ID" option-value="ID" option-text="DESCRIPCION"
+                        placeholder="MARCA">
+                    </model-list-select>
 
 
                     <label class="pt-1 font-bold">Modelo <span class="text-red-400 inl">*</span></label>
-                    <select class="rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80 border-gray-300"
+                    <!-- <select class="rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80 border-gray-300"
                         v-model="form.modelo" required>
                         <option :value="car.modeloName" disabled selected hidden v-if="car.modeloName != ''">
-                            {{ car.modeloName }}</option>
+                            {{ car.modeloName }}
+                        </option>
                         <option value="" disabled selected hidden v-else>MODELO</option>
                         <option v-for="modelo in models" :value="modelo.ID" :key="modelo.ID">{{
                             modelo.descripcion
                         }}
                         </option>
-                    </select>
+                    </select> -->
 
 
-
+                    <model-list-select class="selectSearch" v-model="form.modelo" required :value="car.modeloName" :list="!models ? [{}] : models" :key="car.modeloName" option-value="ID" option-text="descripcion"
+                        placeholder="MODELO">
+                    </model-list-select>
 
                     <label class="pt-1 font-bold">Año <span class="text-red-400 inl">*</span></label>
                     <select class="rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80 border-gray-300"
@@ -258,6 +263,7 @@ export default {
         marca: function (value) {
             this.form.modelo = '';
             this.models = this.modelos.filter(model => model.IDMARCA == value)
+            console.log(this.models)
         }
 
     }
@@ -266,6 +272,7 @@ export default {
 
 <style scoped>
 .selectSearch {
+    text-transform: uppercase;
     display: flex;
     flex-direction: column;
     justify-content: center;
