@@ -6,6 +6,9 @@ use App\Models\Client;
 use App\Models\Discounts;
 use App\Models\Insurance;
 use App\Models\Invoices;
+use App\Models\Vehicle_brands;
+use App\Models\Vehicle_models;
+use App\Models\Vehicle_type_tarif;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Inertia\Inertia;
@@ -143,6 +146,12 @@ class InvoicesController extends Controller
         $adrress = $client[0]->adrress;
         $city = $client[0]->city;
 
+        $marcas = Vehicle_brands::find($invoices->car_brand);
+        $marca = $marcas->DESCRIPCION;
+        $modelos = Vehicle_models::find($invoices->car_model);
+        $modelo = $modelos->descripcion;
+        $tipo = Vehicle_type_tarif::find($invoices->car_tipe);
+
         $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_URL => 'http://multiseguros.com.do:5050/api/Seguros/Policy',
@@ -196,6 +205,7 @@ class InvoicesController extends Controller
     //----------------Actualizar Factura---------------------------------------
 
             $invoice = Invoices::find($request->TransactionID);
+            //$invoice->payment_status = $request->decision;
             $invoice->payment_status = 'ACCEPT';
             $invoice->tranf_number = $request->req_transaction_uuid;
             $invoice->transaction_id = $request->TransactionID;
@@ -204,11 +214,10 @@ class InvoicesController extends Controller
             $invoice->RetrivalReferenceNumber = $request->RetrivalReferenceNumber;
             $invoice->TxToken =  $request->RetrivalReferenceNumber;
             $invoice->police_number = $poliza->insurancePolicyNumber;
-           $invoice->police_number = 'AUTO-AT-009860';
+           $invoice->police_number = $poliza->insurancePolicyNumber;;
             $invoice->police_transactionId = $poliza->transactionId;
-           $invoice->police_transactionId = '51138';
             $invoice->update();
-
+            
     //--------------------------------------------------------------------------------------------
   
     //--------------------Desactivar Descuento----------------------------------------------------
@@ -224,7 +233,6 @@ class InvoicesController extends Controller
             echo 'AuthorizationCode:'. $request->AuthorizationCode. '<br/>';
             echo 'RetrivalReferenceNumber:'. $request->RetrivalReferenceNumber. '<br/>';
             echo 'TxToken:'. $request->TxToken. '<br/>';*/
-
         return Inertia::render('end', [
             'ResponseCode' => $request->ResponseCode,
             'TransactionID' => $request->TransactionID,
@@ -232,9 +240,15 @@ class InvoicesController extends Controller
             'AuthorizationCode' => $request->AuthorizationCode,
             'RetrivalReferenceNumber'=> $request->RetrivalReferenceNumber,
             'TxToken'=>  $request->TxToken,
-            'transactionId' => '51138',
+            'transactionId' => $poliza->transactionId,
             'logo' => $seller['logo'],
-             'transactionId' => $poliza->transactionId
+            'Poliza' => $poliza->insurancePolicyNumber,
+            'Client' => $client[0],
+            'Marca' => $marca,
+            'Modelo' => $modelo,
+            'Aseguradora' => $seller['nombre'],
+            'invoice' => $invoice,
+            'tipo' => $tipo
         ]);
     }
 
