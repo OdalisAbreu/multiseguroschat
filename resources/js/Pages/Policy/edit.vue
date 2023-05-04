@@ -245,8 +245,8 @@
                         {{ car.placa }}
                     </label>
                 </div>
-
-                <!-- <div
+<!-- 
+                <div
                     class="w-full flex items-center justify-start text-white bg-blue-800 my-2 pl-3"
                 >
                     <h3 class="text-lg">Coberturas</h3>
@@ -319,13 +319,13 @@
                 </button>
             </div>
             <!--  -->
-           <!--  <div class="flex flex-col items-center justify-center">
+            <div class="flex flex-col items-center justify-center">
                 <img class="inline max-w-xs" src="ima/cardnetLogo.png" />
                 <p class="font-bold text-2xl text-center">Aceptamos:</p>
                 <img class="inline pb-12 pt-4 w-56" src="ima/tarjetas.png" />
-            </div> -->
+            </div>
 
-            <div class="mx-5 my-1 justify-self-center self-center text-center mt-12">
+            <div class="mx-5 my-1 justify-self-center self-center text-center">
                 <button
                     v-on:click="submit"
                     class="w-full max-w-xl justify-center bg-blue-800 hover:bg-blue-700 shadow-lg shadow-blue-500/50 text-white font-bold rounded-lg py-4 sm:m-3 sm:w-full md:m-3 md:w-full xl:m-3 xl:full"
