@@ -341,6 +341,8 @@
 import { Head, Link } from "@inertiajs/inertia-vue3";
 import Header from "../../components/Header.vue";
 import Footer from "../../components/Footer.vue";
+import { ref, onUnmounted } from 'vue';
+
 export default {
     components: {
         Footer,
@@ -450,6 +452,19 @@ export default {
                 service: this.service,
             },
         };
+    },
+    mounted() {
+        const cuentaRegresiva = () => {
+                axios.get(
+                "/api/V1/confirmarNegativo/"+this.client.phonenumber
+               )
+            };
+
+            const timeoutId = setTimeout(cuentaRegresiva, 900000);
+
+            onUnmounted(() => {
+                clearTimeout(timeoutId);
+            });
     },
     methods: {
         submit() {

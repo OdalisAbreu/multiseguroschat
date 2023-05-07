@@ -42,6 +42,7 @@ class ClientsController extends Controller
         $client->nacionalidad = 117;
         $client->email = $request->email;
         $client->idConversacion = $request->idConversacion;
+        $client->session = 'A';
         $client->save();
 
         if ($client) {
@@ -62,6 +63,7 @@ class ClientsController extends Controller
         $client = Client::where('phonenumber', $id)->first();
         // return $client;
         $client->idConversacion = $idConversacion;
+        $client->session = 'A';
         $client->save();
 
         if ($client) {
@@ -168,8 +170,8 @@ class ClientsController extends Controller
             'police_number' => $invoince->police_number,
             'payment_status' => $invoince->payment_status,
             'idPoliza' => $invoince->id,
-            'imageURL' => 'https://seguroschat.com/polizas/'.$invoince->id.'.png',
-            'downloadPDF' => 'https://multiseguros.com.do/ws_dev/TareasProg/GenerarReporteAseguradoraPdfUnicoAuth.php?sms=0&id_trans='.$invoince->police_transactionId
+            'imageURL' => 'https://seguroschat.com/polizas/' . $invoince->id . '.png',
+            'downloadPDF' => 'https://multiseguros.com.do/ws_dev/TareasProg/GenerarReporteAseguradoraPdfUnicoAuth.php?sms=0&id_trans=' . $invoince->police_transactionId
         ];
     }
     public function savePolizaImage(Request $request)
@@ -207,7 +209,7 @@ class ClientsController extends Controller
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => 'POST',
             CURLOPT_POSTFIELDS => '{
-                                 "phone": "'.$celular.'",
+                                 "phone": "' . $celular . '",
                                  "polizaId": ' . $idPoliza . '
                              }',
             CURLOPT_HTTPHEADER => array(
@@ -222,5 +224,145 @@ class ClientsController extends Controller
 
 
         return 'OK';
+    }
+
+    public function generarPdf($idPoliza)
+    {
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => 'https://multiseguros.com.do/ws_dev/TareasProg/GenerarReporteAseguradoraPdfUnicoAuth.php?sms=0&id_trans=' . $idPoliza,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'GET',
+        ));
+
+        $response = curl_exec($curl);
+
+        curl_close($curl);
+        return $response;
+    }
+
+    public function enviarMensajeBotCitie(Request $request)
+    {
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => 'https://api.respond.io/v2/contact/phone:+' . $request->phone . '/message',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => '{
+     "message": {
+                    "type": "' . $request->type . '",
+                    "text": "' . $request->text . '"
+                }
+            }
+            ',
+            CURLOPT_HTTPHEADER => array(
+                'Content-Type: application/json',
+                'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTgyMywic3BhY2VJZCI6MTQ3NDAxLCJvcmdJZCI6MjAzNDYsInR5cGUiOiJhcGkiLCJpYXQiOjE2ODI1Mzc0MTZ9.dsECELGyYJd9XF_PkkM-W8W-qUPnow3VdFeHnM2XiSo'
+            ),
+        ));
+
+        $response = curl_exec($curl);
+
+        curl_close($curl);
+        return json_decode($response);
+    }
+    public function enviarArchivoBotCitie(Request $request)
+    {
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => 'https://api.respond.io/v2/contact/phone:+' . $request->phone . '/message',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => '{
+     "message": {
+                    "type": "attachment",
+                    "attachment":{
+                        "type": "' . $request->type . '",
+                        "url": "' . $request->url . '"
+                        }
+                    }
+                }
+                ',
+            CURLOPT_HTTPHEADER => array(
+                'Content-Type: application/json',
+                'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTgyMywic3BhY2VJZCI6MTQ3NDAxLCJvcmdJZCI6MjAzNDYsInR5cGUiOiJhcGkiLCJpYXQiOjE2ODI1Mzc0MTZ9.dsECELGyYJd9XF_PkkM-W8W-qUPnow3VdFeHnM2XiSo'
+            ),
+        ));
+
+        $response = curl_exec($curl);
+
+        curl_close($curl);
+        echo $response;
+    }
+    public function confirmarPositivo($phone)
+    {
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => 'https://hooks.chatapi.net/workflows/ZECOvvRxmADK/KeeNFnOgboZP',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => '{
+                                        "phone":"'.$phone.'"
+                                    }
+                        ',
+            CURLOPT_HTTPHEADER => array(
+                'Content-Type: application/json'
+            ),
+        ));
+
+        $response = curl_exec($curl);
+
+        curl_close($curl);
+        echo $response;
+    }
+    public function confirmarNegativo($phone)
+    {
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => 'https://hooks.chatapi.net/workflows/gwHcpJPOodnl/ppjVkGKcwTQf',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => '{
+                                        "phone":"'.$phone.'"
+                                    }
+                        ',
+            CURLOPT_HTTPHEADER => array(
+                'Content-Type: application/json'
+            ),
+        ));
+
+        $response = curl_exec($curl);
+
+        curl_close($curl);
+        echo $response;
     }
 }

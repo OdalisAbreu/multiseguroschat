@@ -182,6 +182,7 @@ import Header from '../../components/Header.vue';
 import Footer from '../../components/Footer.vue';
 import { ModelListSelect } from 'vue-search-select'
 import 'vue-search-select/dist/VueSearchSelect.css'
+import { ref, onUnmounted } from 'vue';
 
 
 export default {
@@ -248,6 +249,20 @@ export default {
     mounted() {
         this.models = this.modelos.filter(model => model.IDMARCA == this.car.marca)
         console.log(this.paises)
+
+        const cuentaRegresiva = () => {
+                axios.get(
+                "/api/V1/confirmarNegativo/"+this.client.phonenumber
+               )
+            };
+
+            const timeoutId = setTimeout(cuentaRegresiva, 900000);
+
+            onUnmounted(() => {
+                clearTimeout(timeoutId);
+            });
+
+        
     },
     methods: {
         submit() {

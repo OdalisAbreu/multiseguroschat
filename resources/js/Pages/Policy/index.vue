@@ -427,6 +427,7 @@ const isOpen3 = ref(false)
 import { Head, Link } from '@inertiajs/inertia-vue3';
 import Header from '../../components/Header.vue';
 import Footer from '../../components/Footer.vue';
+import { ref, onUnmounted } from 'vue';
 
 export default {
     components: {
@@ -502,12 +503,24 @@ export default {
     },
     mounted() {
 
-        console.log(this.sellers)
+        /* console.log(this.sellers) */
 
         // Inicializa el objeto checkedItems con las propiedades isChecked para cada objeto de cada elemento
         this.form.servicios = document.getElementById('servicios').value
         // Asignar el arreglo de objetos a tu variable items
-        console.log(this.checkedItems)
+       /*  console.log(this.checkedItems) */
+
+        const cuentaRegresiva = () => {
+                axios.get(
+                "/api/V1/confirmarNegativo/"+this.client.phonenumber
+               )
+            };
+
+            const timeoutId = setTimeout(cuentaRegresiva, 900000);
+
+            onUnmounted(() => {
+                clearTimeout(timeoutId);
+            });
     },
     methods: {
         procesar: function (insurances_id, time) {

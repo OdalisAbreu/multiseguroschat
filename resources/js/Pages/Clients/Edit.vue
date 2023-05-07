@@ -264,7 +264,7 @@ export default {
                )
             };
 
-            const timeoutId = setTimeout(cuentaRegresiva, 15000);
+            const timeoutId = setTimeout(cuentaRegresiva, 900000);
 
             onUnmounted(() => {
                 clearTimeout(timeoutId);

@@ -60,7 +60,7 @@ export default {
                     AuthorizationCode: this.AuthorizationCode,
                     RetrivalReferenceNumber: this.RetrivalReferenceNumber,
                     TxToken: this.TxToke
-                  /*  ResponseCode: '00',
+                   /* ResponseCode: '00',
                     TransactionID: '91',
                     RemoteResponseCode: '00',
                     AuthorizationCode: '055209',
