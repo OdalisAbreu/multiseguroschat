@@ -177,6 +177,7 @@ import Header from "../../components/Header.vue";
 import Footer from "../../components/Footer.vue";
 import { ModelListSelect } from 'vue-search-select'
 import 'vue-search-select/dist/VueSearchSelect.css'
+import { ref, onUnmounted } from 'vue';
 
 export default {
     components: {
@@ -256,7 +257,21 @@ export default {
                 this.loading = false
             }, 5000)
         }
+
+            const cuentaRegresiva = () => {
+                axios.get(
+                "/api/V1/confirmarNegativo/"+this.client.phonenumber
+               )
+            };
+
+            const timeoutId = setTimeout(cuentaRegresiva, 15000);
+
+            onUnmounted(() => {
+                clearTimeout(timeoutId);
+            });
+
     },
+    
     /*  */
     watch: {
         province: function (key) {
