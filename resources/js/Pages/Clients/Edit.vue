@@ -270,6 +270,11 @@ export default {
                 clearTimeout(timeoutId);
             });
 
+
+            axios.get(
+                "/api/V1/validarVista/"+this.client.id+"/Editar Cliente"
+           );
+
     },
     
     /*  */

@@ -369,4 +369,16 @@ class ClientsController extends Controller
         curl_close($curl);
         echo $response;
     }
+    public function desactivarSesion($idClient){
+        $client = Client::where('id', $idClient)->first();
+        // return $client;
+        $client->session = 'I';
+        $client->save();
+    }
+    public function validarVista($idClient, $vista){
+        $client = Client::where('id', $idClient)->first();
+        $client->vista = $vista;
+        $client->save();
+        return $client;
+    }
 }

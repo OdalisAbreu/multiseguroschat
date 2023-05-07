@@ -266,6 +266,13 @@ export default defineComponent({
             "/api/V1/confirmarPositivo/"+this.Client.phonenumber
             //"/api/V1/confirmarPositivo/51185"
         );
+    //------------------------ Cierra la sesion del cliente --------------------------------//
+    axios.get(
+            "/api/V1/desactivarSesion/"+this.Client.id
+            //"/api/V1/confirmarPositivo/51185"
+        );
+    
+    
     },
 
 });

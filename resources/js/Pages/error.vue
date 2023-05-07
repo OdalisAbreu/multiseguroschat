@@ -36,7 +36,7 @@ export default {
         RemoteResponseCode: String,
         AuthorizationCode: String,
         RetrivalReferenceNumber: String,
-        TxToken: String
+        TxToken: String 
     },
     mounted() {
         console.log('ResponseCode: ' + this.ResponseCode)
@@ -46,6 +46,20 @@ export default {
         console.log('RetrivalReferenceNumber: ' + this.RetrivalReferenceNumber)
         console.log('TxToken: ' + this.TxToken)
 
+            //--------------------------- Enviar Mensaje al cliente -------------------------------//
+            axios
+                    .post("/api/V1/enviarMensajeBotCitie", {
+                    //.post("/api/V1/enviarMensajeBotCitie", {
+                            type: "text",
+                            text: "Tu transacción no ha sido completada de manera correcta",
+                            phone: this.Client.phonenumber
+                    })
+                    .then((response) => {
+                        console.log(response.data)
+                    })
+                    .catch((error) => {
+                        console.log(error.response);
+                    });
     }
 }
 </script>
