@@ -103,6 +103,7 @@ import { Head, Link } from '@inertiajs/inertia-vue3';
 import { watch } from '@vue/runtime-core';
 import Header from '../../components/Header.vue';
 import Footer from '../../components/Footer.vue';
+import { ref, onUnmounted } from 'vue';
 
 export default {
     components: {
