@@ -21,3 +21,8 @@ Route::get('V1/enviarIdPolizaBot/{idPoliza}/{idConversacion}', [ClientsControlle
 Route::get('V1/getPolizaImage/{idPoliza}', [ClientsController::class,'getPolizaImage']);
 Route::post('V1/savePolizaImage', [ClientsController::class,'savePolizaImage']);
 Route::get('V1/enviarIdPolizaBotCity/{idPoliza}/{celualar}', [ClientsController::class,'enviarIdPolizaBotCity']);
+Route::get('V1/generarPdf/{idPoliza}', [ClientsController::class,'generarPdf']);
+Route::post('V1/enviarMensajeBotCitie', [ClientsController::class,'enviarMensajeBotCitie']);
+Route::post('V1/enviarArchivoBotCitie', [ClientsController::class,'enviarArchivoBotCitie']);
+Route::get('V1/confirmarPositivo/{phone}', [ClientsController::class,'confirmarPositivo']);
+Route::get('V1/confirmarNegativo/{phone}', [ClientsController::class,'confirmarNegativo']);

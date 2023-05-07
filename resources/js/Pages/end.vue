@@ -36,7 +36,7 @@
         <Footer class="mt-4" />
     </section>
 
-    <!----------------------------------------------IMAGEN PARA BASE64-------------------->
+    <!----------------------------------------------IMAGEN PARA BASE64------------------------->
 
     <div id="image" class="fondo">
         <div class="border-2 border-sky-500 rounded-md tarjeta">
@@ -224,10 +224,46 @@ export default defineComponent({
         axios.get(
             "/api/V1/enviarIdPolizaBot/"+this.invoice.id+"/"+this.Client.idConversacion
         );
-    //--------------------------- Enviar a BotPro-----------------------------------------//
+    //--------------------------- Generar PDF-----------------------------------------//
         axios.get(
-            "/api/V1/enviarIdPolizaBotCity/"+this.invoice.id+"/"+this.Client.phonenumber
+            "/api/V1/generarPdf/"+this.invoice.police_transactionId
+            //"/api/V1/generarPdf/51185"
+        );
+    //--------------------------- Enviar Mensaje al cliente -------------------------------//
+    axios
+            .post("/api/V1/enviarMensajeBotCitie", {
+            //.post("/api/V1/enviarMensajeBotCitie", {
+                    type: "text",
+                    text: "Gracias por realizar tu compra, en un momento te enviaremos tu póliza",
+                    phone: this.Client.phonenumber
+            })
+            .then((response) => {
+                console.log(response.data)
+            })
+            .catch((error) => {
+                console.log(error.response);
+            });
+
+    //------------------- Enviar PDF WhatsApp del cliente -----------------------------//
+    axios
+            .post("/api/V1/generarPdf", {
+           // .post("/api/V1/enviarArchivoBotCitie", {
+                    type: "file",
+                    url: "https://multiseguros.com.do/ws_dev/TareasProg/PDF/IMPRIMIR/AUTO-SS-000083.pdf",
+                    phone: this.Client.phonenumber
+            })
+            .then((response) => {
+                console.log(response.data)
+            })
+            .catch((error) => {
+                console.log(error.response);
+            });
+    //------------------------ Confirmar la Transaccion --------------------------------//
+    axios.get(
+            "/api/V1/confirmarPositivo/"+this.Client.phonenumber
+            //"/api/V1/confirmarPositivo/51185"
         );
     },
+
 });
 </script>
