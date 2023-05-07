@@ -269,7 +269,10 @@ export default {
             onUnmounted(() => {
                 clearTimeout(timeoutId);
             });
-
+            //------------------ Guardar Vista por el cliente -------------------------------------
+            axios.get(
+                "/api/V1/validarVista/"+this.client.id+"/Editar Cliente"
+           );
     },
     
     /*  */

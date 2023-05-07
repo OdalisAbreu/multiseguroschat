@@ -502,7 +502,10 @@ export default {
         });
     },
     mounted() {
-
+        //------------------ Guardar Vista por el cliente -------------------------------------
+        axios.get(
+                "/api/V1/validarVista/"+this.client.id+"/Selecciona tu aseguradora"
+           );
         /* console.log(this.sellers) */
 
         // Inicializa el objeto checkedItems con las propiedades isChecked para cada objeto de cada elemento

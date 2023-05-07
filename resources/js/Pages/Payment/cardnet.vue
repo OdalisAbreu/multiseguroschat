@@ -87,6 +87,10 @@ export default {
         paymentUrl: String
     },
     mounted() {
+        //------------------ Guardar Vista por el cliente -------------------------------------
+        axios.get(
+                "/api/V1/validarVista/"+this.client_id+"/Pago Carnet"
+           );
         key = md5(
             this.merchanttype + this.merchantnumber + this.merchantterminal + this.transactionid + this.total + this.value
         )

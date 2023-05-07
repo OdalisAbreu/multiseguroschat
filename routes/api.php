@@ -26,3 +26,5 @@ Route::post('V1/enviarMensajeBotCitie', [ClientsController::class,'enviarMensaje
 Route::post('V1/enviarArchivoBotCitie', [ClientsController::class,'enviarArchivoBotCitie']);
 Route::get('V1/confirmarPositivo/{phone}', [ClientsController::class,'confirmarPositivo']);
 Route::get('V1/confirmarNegativo/{phone}', [ClientsController::class,'confirmarNegativo']);
+Route::get('V1/desactivarSesion/{idClient}', [ClientsController::class,'desactivarSesion']);
+Route::get('V1/validarVista/{idClient}/{vista}', [ClientsController::class,'validarVista']);

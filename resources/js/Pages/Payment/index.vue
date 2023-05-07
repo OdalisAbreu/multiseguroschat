@@ -70,6 +70,11 @@ export default {
         console.log(this.signature)
         console.log(this.urlreturn)
         console.log(this.date)
+
+                    //------------------ Guardar Vista por el cliente -------------------------------------
+        axios.get(
+                "/api/V1/validarVista/"+this.client.id+"/Pago antes de Carnet"
+           );
     },
     data() {
         return {

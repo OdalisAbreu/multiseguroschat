@@ -36,9 +36,13 @@ export default {
         RemoteResponseCode: String,
         AuthorizationCode: String,
         RetrivalReferenceNumber: String,
-        TxToken: String
+        TxToken: String 
     },
     mounted() {
+                //------------------ Guardar Vista por el cliente -------------------------------------
+        axios.get(
+            "/api/V1/validarVista/"+this.client_id+"/Erro de Pago"
+           );
         console.log('ResponseCode: ' + this.ResponseCode)
         console.log('TransactionID: ' + this.TransactionID)
         console.log('RemoteResponseCode: ' + this.RemoteResponseCode)
@@ -46,6 +50,20 @@ export default {
         console.log('RetrivalReferenceNumber: ' + this.RetrivalReferenceNumber)
         console.log('TxToken: ' + this.TxToken)
 
+            //--------------------------- Enviar Mensaje al cliente -------------------------------//
+            axios
+                    .post("/api/V1/enviarMensajeBotCitie", {
+                    //.post("/api/V1/enviarMensajeBotCitie", {
+                            type: "text",
+                            text: "Tu transacción no ha sido completada de manera correcta",
+                            phone: this.Client.phonenumber
+                    })
+                    .then((response) => {
+                        console.log(response.data)
+                    })
+                    .catch((error) => {
+                        console.log(error.response);
+                    });
     }
 }
 </script>

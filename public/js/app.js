@@ -21211,6 +21211,8 @@ __webpack_require__.r(__webpack_exports__);
     (0,vue__WEBPACK_IMPORTED_MODULE_5__.onUnmounted)(function () {
       clearTimeout(timeoutId);
     });
+    //------------------ Guardar Vista por el cliente -------------------------------------
+    axios.get("/api/V1/validarVista/" + this.client.id + "/Editar Cliente");
   },
   /*  */
   watch: {
@@ -21409,11 +21411,13 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   },
   mounted: function mounted() {
     var _console, _console2;
+    //------------------ Guardar Vista por el cliente -------------------------------------
+    axios.get("/api/V1/validarVista/" + this.client_id + "/Pago Carnet");
     key = md5(this.merchanttype + this.merchantnumber + this.merchantterminal + this.transactionid + this.total + this.value);
     /* eslint-disable */
-    (_console = console).log.apply(_console, _toConsumableArray(oo_oo("15b13481_0", key)));
+    (_console = console).log.apply(_console, _toConsumableArray(oo_oo("994a51e4_0", key)));
     /* eslint-disable */
-    (_console2 = console).log.apply(_console2, _toConsumableArray(oo_oo("15b13481_1", this.clientip)));
+    (_console2 = console).log.apply(_console2, _toConsumableArray(oo_oo("994a51e4_1", this.clientip)));
   },
   data: function data() {
     return {
@@ -21527,15 +21531,18 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   },
   mounted: function mounted() {
     var _console, _console2, _console3, _console4, _console5;
-    /* eslint-disable */(_console = console).log.apply(_console, _toConsumableArray(oo_oo("d154b3c4_0", this.total)));
+    /* eslint-disable */(_console = console).log.apply(_console, _toConsumableArray(oo_oo("104f0e53_0", this.total)));
     /* eslint-disable */
-    (_console2 = console).log.apply(_console2, _toConsumableArray(oo_oo("d154b3c4_1", this.invoice_id)));
+    (_console2 = console).log.apply(_console2, _toConsumableArray(oo_oo("104f0e53_1", this.invoice_id)));
     /* eslint-disable */
-    (_console3 = console).log.apply(_console3, _toConsumableArray(oo_oo("d154b3c4_2", this.signature)));
+    (_console3 = console).log.apply(_console3, _toConsumableArray(oo_oo("104f0e53_2", this.signature)));
     /* eslint-disable */
-    (_console4 = console).log.apply(_console4, _toConsumableArray(oo_oo("d154b3c4_3", this.urlreturn)));
+    (_console4 = console).log.apply(_console4, _toConsumableArray(oo_oo("104f0e53_3", this.urlreturn)));
     /* eslint-disable */
-    (_console5 = console).log.apply(_console5, _toConsumableArray(oo_oo("d154b3c4_4", this.date)));
+    (_console5 = console).log.apply(_console5, _toConsumableArray(oo_oo("104f0e53_4", this.date)));
+
+    //------------------ Guardar Vista por el cliente -------------------------------------
+    axios.get("/api/V1/validarVista/" + this.client.id + "/Pago antes de Carnet");
   },
   data: function data() {
     return {
@@ -21805,7 +21812,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     },
     descuento: function descuento() {
       var _console, _console2, _console3;
-      /* eslint-disable */(_console = console).log.apply(_console, _toConsumableArray(oo_oo("2a62aa72_0", document.getElementById('codigo').value)));
+      /* eslint-disable */(_console = console).log.apply(_console, _toConsumableArray(oo_oo("52bb3cf5_0", document.getElementById('codigo').value)));
       var codigoIngresado = document.getElementById('codigo').value;
       var count = 0;
       var percentage = 0;
@@ -21816,11 +21823,11 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         }
       });
       /* eslint-disable */
-      (_console2 = console).log.apply(_console2, _toConsumableArray(oo_oo("2a62aa72_1", percentage)));
+      (_console2 = console).log.apply(_console2, _toConsumableArray(oo_oo("52bb3cf5_1", percentage)));
       this.form.descontar = this.totalGeneral * percentage / 100;
       var aplicado = this.totalGeneral - this.form.descontar;
       /* eslint-disable */
-      (_console3 = console).log.apply(_console3, _toConsumableArray(oo_oo("2a62aa72_2", aplicado)));
+      (_console3 = console).log.apply(_console3, _toConsumableArray(oo_oo("52bb3cf5_2", aplicado)));
       if (count > 0) {
         this.form.totalGeneral = aplicado;
       } else {
@@ -21832,8 +21839,12 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   watch: {
     suma: function suma() {
       var _console4;
-      /* eslint-disable */(_console4 = console).log.apply(_console4, _toConsumableArray(oo_oo("2a62aa72_3", 'Entro')));
+      /* eslint-disable */(_console4 = console).log.apply(_console4, _toConsumableArray(oo_oo("52bb3cf5_3", 'Entro')));
     }
+  },
+  mounted: function mounted() {
+    //------------------ Guardar Vista por el cliente -------------------------------------
+    axios.get("/api/V1/validarVista/" + this.client.id + "/Datos del Asegurado");
   }
 });
 function oo_cm() {
@@ -21965,6 +21976,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     var _this = this;
+    //------------------ Guardar Vista por el cliente -------------------------------------
+    axios.get("/api/V1/validarVista/" + this.client.id + "/Servicios Opcionales");
     var cuentaRegresiva = function cuentaRegresiva() {
       axios.get("/api/V1/confirmarNegativo/" + _this.client.phonenumber);
     };
@@ -22125,6 +22138,8 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
   },
   mounted: function mounted() {
     var _this = this;
+    //------------------ Guardar Vista por el cliente -------------------------------------
+    axios.get("/api/V1/validarVista/" + this.client.id + "/Resumen de confirmación");
     var cuentaRegresiva = function cuentaRegresiva() {
       axios.get("/api/V1/confirmarNegativo/" + _this.client.phonenumber);
     };
@@ -22141,7 +22156,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
     },
     descuento: function descuento() {
       var _console, _console2, _console3;
-      /* eslint-disable */(_console = console).log.apply(_console, _toConsumableArray(oo_oo("e4fd78ad_0", document.getElementById("codigo").value)));
+      /* eslint-disable */(_console = console).log.apply(_console, _toConsumableArray(oo_oo("8a84ab48_0", document.getElementById("codigo").value)));
       var codigoIngresado = document.getElementById("codigo").value;
       var count = 0;
       var percentage = 0;
@@ -22152,11 +22167,11 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
         }
       });
       /* eslint-disable */
-      (_console2 = console).log.apply(_console2, _toConsumableArray(oo_oo("e4fd78ad_1", percentage)));
+      (_console2 = console).log.apply(_console2, _toConsumableArray(oo_oo("8a84ab48_1", percentage)));
       this.form.descontar = this.totalGeneral * percentage / 100;
       var aplicado = this.totalGeneral - this.form.descontar;
       /* eslint-disable */
-      (_console3 = console).log.apply(_console3, _toConsumableArray(oo_oo("e4fd78ad_2", aplicado)));
+      (_console3 = console).log.apply(_console3, _toConsumableArray(oo_oo("8a84ab48_2", aplicado)));
       if (count > 0) {
         this.form.totalGeneral = aplicado;
       } else {
@@ -22184,7 +22199,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
   watch: {
     suma: function suma() {
       var _console4;
-      /* eslint-disable */(_console4 = console).log.apply(_console4, _toConsumableArray(oo_oo("e4fd78ad_3", "Entro")));
+      /* eslint-disable */(_console4 = console).log.apply(_console4, _toConsumableArray(oo_oo("8a84ab48_3", "Entro")));
     }
   }
 });
@@ -22319,6 +22334,8 @@ var __default__ = {
   },
   mounted: function mounted() {
     var _this = this;
+    //------------------ Guardar Vista por el cliente -------------------------------------
+    axios.get("/api/V1/validarVista/" + this.client.id + "/Selecciona tu aseguradora");
     /* console.log(this.sellers) */
 
     // Inicializa el objeto checkedItems con las propiedades isChecked para cada objeto de cada elemento
@@ -22998,13 +23015,12 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     };
   },
   mounted: function mounted() {
-    var _this = this,
-      _console;
+    var _this = this;
+    //------------------ Guardar Vista por el cliente -------------------------------------
+    axios.get("/api/V1/validarVista/" + this.client.id + "/Datos del Vehículo");
     this.models = this.modelos.filter(function (model) {
       return model.IDMARCA == _this.car.marca;
     });
-    /* eslint-disable */
-    (_console = console).log.apply(_console, _toConsumableArray(oo_oo("350e1a93_0", this.paises)));
     var cuentaRegresiva = function cuentaRegresiva() {
       axios.get("/api/V1/confirmarNegativo/" + _this.client.phonenumber);
     };
@@ -23025,13 +23041,13 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   },
   watch: {
     marca: function marca(value) {
-      var _console2;
+      var _console;
       this.form.modelo = '';
       this.models = this.modelos.filter(function (model) {
         return model.IDMARCA == value;
       });
       /* eslint-disable */
-      (_console2 = console).log.apply(_console2, _toConsumableArray(oo_oo("350e1a93_1", this.models)));
+      (_console = console).log.apply(_console, _toConsumableArray(oo_oo("238c5a84_0", this.models)));
     }
   }
 });
@@ -23259,19 +23275,21 @@ var __default__ = (0,vue__WEBPACK_IMPORTED_MODULE_0__.defineComponent)((_defineC
     _console5,
     _console6,
     _this = this;
+  //------------------ Guardar Vista por el cliente -------------------------------------
+  axios.get("/api/V1/validarVista/" + this.client_id + "/Pago Completado");
   //this.image64 = 'PRueba'
   /* eslint-disable */
-  (_console = console).log.apply(_console, _toConsumableArray(oo_oo("a6055708_0", "ResponseCode: " + this.ResponseCode)));
+  (_console = console).log.apply(_console, _toConsumableArray(oo_oo("2775eeeb_0", "ResponseCode: " + this.ResponseCode)));
   /* eslint-disable */
-  (_console2 = console).log.apply(_console2, _toConsumableArray(oo_oo("a6055708_1", "TransactionID: " + this.TransactionID)));
+  (_console2 = console).log.apply(_console2, _toConsumableArray(oo_oo("2775eeeb_1", "TransactionID: " + this.TransactionID)));
   /* eslint-disable */
-  (_console3 = console).log.apply(_console3, _toConsumableArray(oo_oo("a6055708_2", "RemoteResponseCode: " + this.RemoteResponseCode)));
+  (_console3 = console).log.apply(_console3, _toConsumableArray(oo_oo("2775eeeb_2", "RemoteResponseCode: " + this.RemoteResponseCode)));
   /* eslint-disable */
-  (_console4 = console).log.apply(_console4, _toConsumableArray(oo_oo("a6055708_3", "AuthorizationCode: " + this.AuthorizationCode)));
+  (_console4 = console).log.apply(_console4, _toConsumableArray(oo_oo("2775eeeb_3", "AuthorizationCode: " + this.AuthorizationCode)));
   /* eslint-disable */
-  (_console5 = console).log.apply(_console5, _toConsumableArray(oo_oo("a6055708_4", "RetrivalReferenceNumber: " + this.RetrivalReferenceNumber)));
+  (_console5 = console).log.apply(_console5, _toConsumableArray(oo_oo("2775eeeb_4", "RetrivalReferenceNumber: " + this.RetrivalReferenceNumber)));
   /* eslint-disable */
-  (_console6 = console).log.apply(_console6, _toConsumableArray(oo_oo("a6055708_5", "TxToken: " + this.TxToken)));
+  (_console6 = console).log.apply(_console6, _toConsumableArray(oo_oo("2775eeeb_5", "TxToken: " + this.TxToken)));
 
   //Genera la Imagen en Base64
 
@@ -23294,14 +23312,14 @@ var __default__ = (0,vue__WEBPACK_IMPORTED_MODULE_0__.defineComponent)((_defineC
       image: dataUrl
     }).then(function (response) {
       var _console7, _console8;
-      /* eslint-disable */(_console7 = console).log.apply(_console7, _toConsumableArray(oo_oo("a6055708_6", inv)));
+      /* eslint-disable */(_console7 = console).log.apply(_console7, _toConsumableArray(oo_oo("2775eeeb_6", inv)));
       /* eslint-disable */
-      (_console8 = console).log.apply(_console8, _toConsumableArray(oo_oo("a6055708_7", esponse.data)));
+      (_console8 = console).log.apply(_console8, _toConsumableArray(oo_oo("2775eeeb_7", esponse.data)));
     })["catch"](function (error) {
       var _console9, _console10;
-      /* eslint-disable */(_console9 = console).log.apply(_console9, _toConsumableArray(oo_oo("a6055708_8", inv)));
+      /* eslint-disable */(_console9 = console).log.apply(_console9, _toConsumableArray(oo_oo("2775eeeb_8", inv)));
       /* eslint-disable */
-      (_console10 = console).log.apply(_console10, _toConsumableArray(oo_oo("a6055708_9", error.response)));
+      (_console10 = console).log.apply(_console10, _toConsumableArray(oo_oo("2775eeeb_9", error.response)));
     });
   })["catch"](function (error) {
     console.error('oops, something went wrong!', error);
@@ -23323,10 +23341,10 @@ var __default__ = (0,vue__WEBPACK_IMPORTED_MODULE_0__.defineComponent)((_defineC
     phone: this.Client.phonenumber
   }).then(function (response) {
     var _console11;
-    /* eslint-disable */(_console11 = console).log.apply(_console11, _toConsumableArray(oo_oo("a6055708_10", response.data)));
+    /* eslint-disable */(_console11 = console).log.apply(_console11, _toConsumableArray(oo_oo("2775eeeb_10", response.data)));
   })["catch"](function (error) {
     var _console12;
-    /* eslint-disable */(_console12 = console).log.apply(_console12, _toConsumableArray(oo_oo("a6055708_11", error.response)));
+    /* eslint-disable */(_console12 = console).log.apply(_console12, _toConsumableArray(oo_oo("2775eeeb_11", error.response)));
   });
 
   //------------------- Enviar PDF WhatsApp del cliente -----------------------------//
@@ -23337,13 +23355,17 @@ var __default__ = (0,vue__WEBPACK_IMPORTED_MODULE_0__.defineComponent)((_defineC
     phone: this.Client.phonenumber
   }).then(function (response) {
     var _console13;
-    /* eslint-disable */(_console13 = console).log.apply(_console13, _toConsumableArray(oo_oo("a6055708_12", response.data)));
+    /* eslint-disable */(_console13 = console).log.apply(_console13, _toConsumableArray(oo_oo("2775eeeb_12", response.data)));
   })["catch"](function (error) {
     var _console14;
-    /* eslint-disable */(_console14 = console).log.apply(_console14, _toConsumableArray(oo_oo("a6055708_13", error.response)));
+    /* eslint-disable */(_console14 = console).log.apply(_console14, _toConsumableArray(oo_oo("2775eeeb_13", error.response)));
   });
   //------------------------ Confirmar la Transaccion --------------------------------//
   axios.get("/api/V1/confirmarPositivo/" + this.Client.phonenumber
+  //"/api/V1/confirmarPositivo/51185"
+  );
+  //------------------------ Cierra la sesion del cliente --------------------------------//
+  axios.get("/api/V1/desactivarSesion/" + this.Client.id
   //"/api/V1/confirmarPositivo/51185"
   );
 }), _defineComponent));
@@ -23444,17 +23466,34 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   },
   mounted: function mounted() {
     var _console, _console2, _console3, _console4, _console5, _console6;
-    /* eslint-disable */(_console = console).log.apply(_console, _toConsumableArray(oo_oo("4f9a1f0c_0", 'ResponseCode: ' + this.ResponseCode)));
+    //------------------ Guardar Vista por el cliente -------------------------------------
+    axios.get("/api/V1/validarVista/" + this.client_id + "/Erro de Pago");
     /* eslint-disable */
-    (_console2 = console).log.apply(_console2, _toConsumableArray(oo_oo("4f9a1f0c_1", 'TransactionID: ' + this.TransactionID)));
+    (_console = console).log.apply(_console, _toConsumableArray(oo_oo("759c3540_0", 'ResponseCode: ' + this.ResponseCode)));
     /* eslint-disable */
-    (_console3 = console).log.apply(_console3, _toConsumableArray(oo_oo("4f9a1f0c_2", 'RemoteResponseCode: ' + this.RemoteResponseCode)));
+    (_console2 = console).log.apply(_console2, _toConsumableArray(oo_oo("759c3540_1", 'TransactionID: ' + this.TransactionID)));
     /* eslint-disable */
-    (_console4 = console).log.apply(_console4, _toConsumableArray(oo_oo("4f9a1f0c_3", 'AuthorizationCode: ' + this.AuthorizationCode)));
+    (_console3 = console).log.apply(_console3, _toConsumableArray(oo_oo("759c3540_2", 'RemoteResponseCode: ' + this.RemoteResponseCode)));
     /* eslint-disable */
-    (_console5 = console).log.apply(_console5, _toConsumableArray(oo_oo("4f9a1f0c_4", 'RetrivalReferenceNumber: ' + this.RetrivalReferenceNumber)));
+    (_console4 = console).log.apply(_console4, _toConsumableArray(oo_oo("759c3540_3", 'AuthorizationCode: ' + this.AuthorizationCode)));
     /* eslint-disable */
-    (_console6 = console).log.apply(_console6, _toConsumableArray(oo_oo("4f9a1f0c_5", 'TxToken: ' + this.TxToken)));
+    (_console5 = console).log.apply(_console5, _toConsumableArray(oo_oo("759c3540_4", 'RetrivalReferenceNumber: ' + this.RetrivalReferenceNumber)));
+    /* eslint-disable */
+    (_console6 = console).log.apply(_console6, _toConsumableArray(oo_oo("759c3540_5", 'TxToken: ' + this.TxToken)));
+
+    //--------------------------- Enviar Mensaje al cliente -------------------------------//
+    axios.post("/api/V1/enviarMensajeBotCitie", {
+      //.post("/api/V1/enviarMensajeBotCitie", {
+      type: "text",
+      text: "Tu transacción no ha sido completada de manera correcta",
+      phone: this.Client.phonenumber
+    }).then(function (response) {
+      var _console7;
+      /* eslint-disable */(_console7 = console).log.apply(_console7, _toConsumableArray(oo_oo("759c3540_6", response.data)));
+    })["catch"](function (error) {
+      var _console8;
+      /* eslint-disable */(_console8 = console).log.apply(_console8, _toConsumableArray(oo_oo("759c3540_7", error.response)));
+    });
   }
 });
 function oo_cm() {
