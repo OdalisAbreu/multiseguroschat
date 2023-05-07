@@ -1970,9 +1970,6 @@ select {
 .pt-8 {
   padding-top: 2rem;
 }
-.pb-20 {
-  padding-bottom: 5rem;
-}
 .text-left {
   text-align: left;
 }
@@ -2026,10 +2023,6 @@ select {
 .text-xs {
   font-size: 0.75rem;
   line-height: 1rem;
-}
-.text-5xl {
-  font-size: 3rem;
-  line-height: 1;
 }
 .font-bold {
   font-weight: 700;
@@ -2286,8 +2279,7 @@ select {
   transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
 }
 .imagenFondo {
-    background-image: url(/images/Loader.jpg?44829589e9fd166b32297b4ae69934ef);
-    background-size: cover;
+    background-image: linear-gradient(to bottom right, rgba(2, 4, 106, 0.6), rgba(29, 32, 208, 0.6)), url(/images/car.jpg?4ea43bac0ca7a248e28fffd0148bd1e2);    background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
 }
