@@ -7,6 +7,9 @@
                     <h3 class="font-bold text-2xl text-center">
                         Seguro procesado correctamente
                     </h3>
+                    <h4>
+                        Tu póliza esta lista
+                    </h4>
                 </div>
             </div>
             <div
@@ -234,7 +237,7 @@ export default defineComponent({
             .post("/api/V1/enviarMensajeBotCitie", {
             //.post("/api/V1/enviarMensajeBotCitie", {
                     type: "text",
-                    text: "Gracias por realizar tu compra, en un momento te enviaremos tu póliza",
+                    text: "¡Tu póliza está lista! Gracias por comprar en *SegurosChat*.\n🕐 _En breve estarás recibiendo tus documentos.._",
                     phone: this.Client.phonenumber
             })
             .then((response) => {

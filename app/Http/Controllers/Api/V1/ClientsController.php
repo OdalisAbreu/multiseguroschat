@@ -46,7 +46,7 @@ class ClientsController extends Controller
         $client->save();
 
         if ($client) {
-            return ['status' => '00', 'message' => 'Usuario creado correctamente'];
+            return ['status' => '00', 'message' => 'Usuario creado correctamente', 'cantidadPoliza'=> 0];
         } else {
             return ['status' => '01', 'message' => 'No tiene póliza registrada'];
         }
@@ -61,12 +61,15 @@ class ClientsController extends Controller
     public function show($id, $idConversacion)
     {
         $client = Client::where('phonenumber', $id)->first();
+        if ($client) {
         // return $client;
         $client->idConversacion = $idConversacion;
         $client->session = 'A';
         $client->save();
 
-        if ($client) {
+        // Calcula la cantidad de poliza
+        $invoince = Invoices::where('client_id' , $client->cardnumber )->count();//
+
             return [
                 'status' => '00',
                 'id' => $client->id,
@@ -78,6 +81,7 @@ class ClientsController extends Controller
                 'adrress' => $client->adrress,
                 'city' => $client->city,
                 'email' => $client->email,
+                'cantidadPoliza'=> $invoince
             ];
         } else {
             return ['status' => '01', 'message' => 'El cliente no se encuentra registrado'];
