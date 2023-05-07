@@ -1,47 +1,55 @@
 <template>
     <main
         style="font-family: Helvetica"
-        class="bg-white h-screen w-full mx-auto shadow-2xl image pb-16 overflow-y-scroll"
+        class="bg-slate-100 h-full w-full mx-auto shadow-2xl pb-16"
     >
-        <div class="text-center w-full bg-blue-700">
+        <div class="flex items-center justify-between pr-6 w-full bg-blue-700">
             <img
-                class="inline w-72 rounded-xl"
+                class="inline w-60 rounded-xl"
                 src="../../../public/images/SegurosChatAzul-.jpg"
             />
         </div>
 
         <div
             @submit.prevent="submit"
-            class="mt-6 p-8 flex flex-col items-center justify-center"
+            class="flex flex-col items-center justify-center"
         >
-            <div class="mb-8 pt-3">
-                <label class="block text-white font-bold text-5xl mb-2 ml-3"
-                    >¡Compra tus seguros desde WhatsApp!
+            <div class="w-full flex justify-center items-start mb-8 image h-72 pl-6 pt-6 pb-8">
+                <label class="relative text-white font-bold lg:text-6xl text-4xl mb-8 pr-20"
+                    >Compra tus seguros desde WhatsApp<span style="font-family: Roboto" class="bottom-0 absolute first-letter:text-blue-700 text-6xl font-bold rounded-full">.</span>
                 </label>
             </div>
 
-            <div class="mb-8 pt-3 text-lg text-white">
+            <div class="flex py-4 justify-center text-base text-black">
                 <ul class="list-disc list-inside">
-                    <li class="my-4">
+                    <hr class="w-full">
+                    <li class="my-4 pl-6 pr-1">
                         Elige tu aseguradora, compara las condiciones, los
                         límites y los precios
                     </li>
-                    <li class="my-4">
+                    <hr class="w-full">
+                    <li class="my-4 pl-6 pr-1">
                         Paga online y obtienes cobertura de inmediato.
                     </li>
-                    <li class="my-4">Recibes tus documentos en tu móvil.</li>
-                    <li class="my-4">
+                    <hr class="w-full">
+
+                    <li class="my-4 pl-6 pr-1">Recibes tus documentos en tu móvil.</li>
+                    <hr class="w-full">
+
+                    <li class="my-4 pl-6 pr-1">
                         Ofrecemos Seguros de Ley para todo tipo de vehículos y
                         Seguros de Viaje para que disfrutes con tranquilidad de
                         tus próximas vacaciones
                     </li>
+                    <hr class="w-full">
+
                 </ul>
             </div>
         </div>
 
         <div class="mt-6 max-w-2xl flex justify-center items-center mx-auto">
             <a
-                class="w-full relative flex items-center justify-center py-5 bg-blue-700 hover:bg-blue-900 text-white font-bold mx-3 rounded-lg shadow-lg hover:shadow-xl transition duration-200 sm:mx-3"
+                class="w-full relative flex items-center justify-center py-2 bg-blue-700 hover:bg-blue-900 text-white font-bold mx-3 rounded-lg shadow-lg hover:shadow-xl transition duration-200 sm:mx-3"
                 target="_blank"
                 href="https://api.whatsapp.com/send/?phone=18297624444&text&type=phone_number&app_absent=0"
             >
@@ -52,7 +60,7 @@
                     alt="arrow"
                 />
                 <img
-                    class="absolute w-14 right-6"
+                    class="w-12"
                     src="../../../public/ima/whatsapp.webp"
                     alt="WhatsApp"
                 />
@@ -62,7 +70,7 @@
 
     <div
         style="font-family: Helvetica"
-        class="relative w-full flex gap-8 bg-slate-800 text-white items-start justify-around py-12 px-2 md:px-10 lg:px-10"
+        class="relative w-full flex gap-10 bg-slate-800 text-white items-start justify-around py-12 px-4 md:px-10 lg:px-10"
     >
         <div>
             <h3 class="text-xl bold mb-3">Dirección:</h3>
@@ -72,28 +80,31 @@
             </p>
         </div>
 
-        <div class="flex flex-col items-center justify-center">
-            <img
-                class="bg-white rounded-full w-10 bold mb-2"
-                style="padding: 3px"
-                src="../../../public/ima/phone.png"
-                alt="Instagram"
-            />
-            <p class="flex-nowrap">849-472-2428</p>
+        <div class="w-1/4 flex justify-center items-center flex-wrap gap-12">
+            <div class="flex flex-col items-center justify-center">
+                <img
+                    class="w-10 bold mb-2"
+                    style="padding: 3px"
+                    src="../../../public/ima/telefono.png"
+                    alt="Instagram"
+                />
+                <p class="flex-nowrap">849-472-2428</p>
+            </div>
+    
+            <div class="flex flex-col items-center justify-center">
+                <img
+                    class="w-10 bold mb-2"
+                    src="../../../public/ima/instagram.png"
+                    alt="Instagram"
+                />
+                <a
+                    class="cursor-pointer hover:text-blue-700"
+                    href="https://www.instagram.com/seguros.chat/"
+                    >@seguros.chat</a
+                >
+            </div>
         </div>
-
-        <div class="flex flex-col items-center justify-center">
-            <img
-                class="w-10 bold mb-2"
-                src="../../../public/ima/instagram.webp"
-                alt="Instagram"
-            />
-            <a
-                class="cursor-pointer hover:text-blue-700"
-                href="https://www.instagram.com/seguros.chat/"
-                >@seguros.chat</a
-            >
-        </div>
+        
     </div>
 </template>
 
