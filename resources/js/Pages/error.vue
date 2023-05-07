@@ -39,6 +39,10 @@ export default {
         TxToken: String 
     },
     mounted() {
+                //------------------ Guardar Vista por el cliente -------------------------------------
+        axios.get(
+            "/api/V1/validarVista/"+this.client_id+"/Erro de Pago"
+           );
         console.log('ResponseCode: ' + this.ResponseCode)
         console.log('TransactionID: ' + this.TransactionID)
         console.log('RemoteResponseCode: ' + this.RemoteResponseCode)

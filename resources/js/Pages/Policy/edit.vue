@@ -454,6 +454,11 @@ export default {
         };
     },
     mounted() {
+        //------------------ Guardar Vista por el cliente -------------------------------------
+        axios.get(
+                "/api/V1/validarVista/"+this.client.id+"/Resumen de confirmación"
+           );
+
         const cuentaRegresiva = () => {
                 axios.get(
                 "/api/V1/confirmarNegativo/"+this.client.phonenumber

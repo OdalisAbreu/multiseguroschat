@@ -178,7 +178,13 @@ export default {
         suma: function () {
             console.log('Entro')
         }
-    }
+    },
+    mounted() {
+        //------------------ Guardar Vista por el cliente -------------------------------------
+        axios.get(
+                "/api/V1/validarVista/"+this.client.id+"/Datos del Asegurado"
+           );
+    },
 
 }
 </script>

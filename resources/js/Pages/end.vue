@@ -176,6 +176,10 @@ export default defineComponent({
         tipo: Array
     },
     mounted() {
+        //------------------ Guardar Vista por el cliente -------------------------------------
+        axios.get(
+            "/api/V1/validarVista/"+this.client_id+"/Pago Completado"
+           );
         //this.image64 = 'PRueba'
         console.log("ResponseCode: " + this.ResponseCode);
         console.log("TransactionID: " + this.TransactionID);
