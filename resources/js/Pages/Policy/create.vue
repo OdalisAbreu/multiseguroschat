@@ -72,21 +72,32 @@
 
                 <form @submit.prevent="submit">
                     <div class="mx-4 flex flex-col max-w-sm rounded-lg gap-2">
-                        <div class="flex justify-start items-center p-2 bg-white border border-gray-300 rounded-xl"
+                        <div class="relative flex justify-between items-center p-2 bg-white border border-gray-300 rounded-xl"
                             v-for="service in services" :key="service.id">
-                            <div>
-                                <input type="checkbox" class=" checked:bg-blue-800 p-1 mx-3 rounded-full" :checked="suma"
-                                    :value="service.id" v-model="form.servicios" name="poliza">
+                            <div class="flex justify-start items-center">
+                                <div>
+                                    <input type="checkbox" class=" checked:bg-blue-800 p-1 mx-3 rounded-full" :checked="suma"
+                                        :value="service.id" v-model="form.servicios" name="poliza">
+                                </div>
+                                <div class="flex h-28 flex-col justify-center items-start">
+                                    <label class="text-start">{{ service.serviceName }}</label>
+    
+                                    <label class="font-bold">RD$ {{
+                                        new
+                                            Intl.NumberFormat('en-IN').format(service.servicePrice)
+                                    }}.00
+                                    </label>
+                                </div>
                             </div>
-                            <div class="flex h-20 h- flex-col justify-center items-start">
-                                <label class="text-start">{{ service.serviceName }}</label>
+                            
+                            <!-- Imagenes para automoviles -->
+                            <img v-if="service.serviceName == 'Casa del Conductor'" src="../../../../public/ima/conductor.png" alt="Conductor">
+                            <img v-if="service.serviceName == 'Asistencia Vial (Grua)'" src="../../../../public/ima/grua.png" alt="Grua">
+                            <img class="mr-1" v-if="service.serviceName == 'Aumento Fianza Hasta RD$1,000,000 (Veh. Livianos)'" src="../../../../public/ima/plus.png" alt="mas">
+                            <img v-if="service.serviceName == 'Accidentes Personales RD$100,000'" src="../../../../public/ima/accidente.png" alt="mas">
+                            <img v-if="service.serviceName == 'Ultimos Gastos RD$50,000'" src="../../../../public/ima/gastos.png" alt="mas">
+                            <img v-if="service.serviceName == 'Plan Premium Automoviles(500/500/1,000,000 y 1 Millón FJ)'" alt="premium">
 
-                                <label class="font-bold">RD$ {{
-                                    new
-                                        Intl.NumberFormat('en-IN').format(service.servicePrice)
-                                }}.00
-                                </label>
-                            </div>
                         </div>
                         <div class="w-full mx-5 my-2 justify-self-center self-center text-center">
 
