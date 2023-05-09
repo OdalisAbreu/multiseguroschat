@@ -134,10 +134,9 @@
                             {{ province.descrip }}
                         </option>
                     </select> -->
-
-                    <model-list-select class="selectSearch" selected v-model="province" required :value="province.id"
-                        :list="!provinces ? nuevaProvincia : provinces" :key="province.id" option-value="id"
-                        option-text="descrip" placeholder="PROVINCIA">
+                    <model-list-select class="selectSearch" selected :list="!provinces ? nuevaProvincia : provinces" 
+                    v-model="province" :value="province.id" :key="province.id" option-value="id"
+                        option-text="descrip" placeholder="PROVINCIA" required>
                     </model-list-select>
 
                     <label class="pt-1 font-bold">Ciudad <span class="text-red-400 inl">*</span></label>
@@ -248,6 +247,7 @@ export default {
         },
     },
     mounted() {
+        console.log(this.clientProvince);
         this.form.city
         this.Loading = false
         if (this.activarPresentacion == 'False') {
