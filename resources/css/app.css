@@ -3,8 +3,10 @@
 @import 'tailwindcss/utilities';
 
 .imagenFondo {
-    background-image: url('../../public/ima/Loader.jpg');
+    background-image: linear-gradient(to bottom right, rgba(2, 4, 106, 0.6), rgba(29, 32, 208, 0.6)), url('../../public/ima/car.jpg');
     background-size: cover;
+    background-repeat: no-repeat;
+    background-size: cover;    background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
 }

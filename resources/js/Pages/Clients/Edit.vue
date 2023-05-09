@@ -19,7 +19,7 @@
         </svg>
         <p class="text-center text-lg">Espere por favor</p>
 
-        <div class="w-screen md:hidden absolute flex flex-col justify-center items-center bottom-0 bg-white">
+        <!-- <div class="w-screen md:hidden absolute flex flex-col justify-center items-center bottom-0 bg-white">
             <div class="flex justify-center items-center">
                 <img class="w-32 mr-2" src="../../../../public/ima/Atrio-Horizontal-sin-fondo.png" alt="Atrio">
                 <img class="w-28 mt-6 ml-2" src="../../../../public/ima//sura.png" alt="Sura">
@@ -27,7 +27,7 @@
             <div>
                 <img src="../../../../public/ima/cardnet-payments.jpg" alt="Tarjetas">
             </div>
-        </div>
+        </div> -->
     </div>
 
     <div class="bg-gray-200 pb-6" v-if="!loading" :class="{ 'animate-pulse': Loading, 'opacity-50': Loading }">

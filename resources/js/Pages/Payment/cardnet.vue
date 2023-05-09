@@ -1,9 +1,9 @@
 <template>
-    <section class="h-screen w-screen bg-white overflow-hidden"
+    <section class="h-screen w-screen bg-white overflow-y-scroll"
         :class="{ 'animate-pulse': Loading, 'opacity-50': Loading }">
-        <Header :width="95" />
+       <!--  <Header :width="95" /> -->
 
-        <main class="relative bg-white p-8 mt-5 shadow-2xl w-full h-full mx-auto">
+        <main class="bg-white p-8 mt-5 shadow-2xl w-full h-full mx-auto overflow-y-scroll">
             
             <div v-if="Loading" class="fixed inset-0 flex items-center justify-center z-50">
                 <svg aria-hidden="true" role="status" class="inline w-12 h-12 text-gray-200 animate-spin dark:text-gray-600"
@@ -48,7 +48,7 @@
                 <input type="hidden" name='loteid' Value='001' />
                 <input type="hidden" name='seqid' id='seqid' Value='001' />
 
-                <div class="w-full mt-5 mx-5 my-4 justify-self-center self-center text-center">
+                <div class="w-full mt-5 mx-5 my-4 pb-8 justify-self-center self-center text-center">
                     <button @click="this.Loading = true"
                         class="w-full max-w-xl justify-center bg-blue-800 hover:bg-blue-700 shadow-lg shadow-blue-500/50 text-white font-bold rounded-lg py-4 mt-5 sm:m-3 sm:w-full md:m-3 md:w-full xl:m-3 xl:full">
                         Continuar
