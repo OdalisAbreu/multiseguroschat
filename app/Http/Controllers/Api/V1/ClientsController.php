@@ -46,7 +46,7 @@ class ClientsController extends Controller
         $client->save();
 
         if ($client) {
-            return ['status' => '00', 'message' => 'Usuario creado correctamente', 'cantidadPoliza'=> 0];
+            return ['status' => '00', 'message' => 'Usuario creado correctamente', 'cantidadPoliza' => 0];
         } else {
             return ['status' => '01', 'message' => 'No tiene póliza registrada'];
         }
@@ -62,13 +62,13 @@ class ClientsController extends Controller
     {
         $client = Client::where('phonenumber', $id)->first();
         if ($client) {
-        // return $client;
-        $client->idConversacion = $idConversacion;
-        $client->session = 'A';
-        $client->save();
+            // return $client;
+            $client->idConversacion = $idConversacion;
+            $client->session = 'A';
+            $client->save();
 
-        // Calcula la cantidad de poliza
-        $invoince = Invoices::where('client_id' , $client->cardnumber )->count();//
+            // Calcula la cantidad de poliza
+            $invoince = Invoices::where('client_id', $client->cardnumber)->count(); //
 
             return [
                 'status' => '00',
@@ -81,7 +81,7 @@ class ClientsController extends Controller
                 'adrress' => $client->adrress,
                 'city' => $client->city,
                 'email' => $client->email,
-                'cantidadPoliza'=> $invoince
+                'cantidadPoliza' => $invoince
             ];
         } else {
             return ['status' => '01', 'message' => 'El cliente no se encuentra registrado'];
@@ -252,10 +252,11 @@ class ClientsController extends Controller
 
     public function enviarMensajeBotCitie(Request $request)
     {
+       // return $request->phone . '  ' . $request->type . '     ' . $request->text;
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-            CURLOPT_URL => 'https://api.respond.io/v2/contact/phone:+' . $request->phone . '/message',
+            CURLOPT_URL => 'https://api.respond.io/v2/contact/phone:+'.$request->phone.'/message',
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
@@ -264,12 +265,11 @@ class ClientsController extends Controller
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => 'POST',
             CURLOPT_POSTFIELDS => '{
-     "message": {
-                    "type": "' . $request->type . '",
-                    "text": "' . $request->text . '"
-                }
-            }
-            ',
+                                        "message": {
+                                                        "type": "'.$request->type.'",
+                                                        "text": "'.$request->text.'"
+                                                    }
+                                    }',
             CURLOPT_HTTPHEADER => array(
                 'Content-Type: application/json',
                 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTgyMywic3BhY2VJZCI6MTQ3NDAxLCJvcmdJZCI6MjAzNDYsInR5cGUiOiJhcGkiLCJpYXQiOjE2ODI1Mzc0MTZ9.dsECELGyYJd9XF_PkkM-W8W-qUPnow3VdFeHnM2XiSo'
@@ -298,8 +298,8 @@ class ClientsController extends Controller
      "message": {
                     "type": "attachment",
                     "attachment":{
-                        "type": "' . $request->type . '",
-                        "url": "' . $request->url . '"
+                        "type": "'. $request->type .'",
+                        "url": "'.$request->url .'"
                         }
                     }
                 }
@@ -329,7 +329,7 @@ class ClientsController extends Controller
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => 'POST',
             CURLOPT_POSTFIELDS => '{
-                                        "phone":"'.$phone.'"
+                                        "phone":"' . $phone . '"
                                     }
                         ',
             CURLOPT_HTTPHEADER => array(
@@ -356,7 +356,7 @@ class ClientsController extends Controller
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => 'POST',
             CURLOPT_POSTFIELDS => '{
-                                        "phone":"'.$phone.'"
+                                        "phone":"' . $phone . '"
                                     }
                         ',
             CURLOPT_HTTPHEADER => array(
@@ -369,13 +369,15 @@ class ClientsController extends Controller
         curl_close($curl);
         echo $response;
     }
-    public function desactivarSesion($idClient){
+    public function desactivarSesion($idClient)
+    {
         $client = Client::where('id', $idClient)->first();
         // return $client;
         $client->session = 'I';
         $client->save();
     }
-    public function validarVista($idClient, $vista){
+    public function validarVista($idClient, $vista)
+    {
         $client = Client::where('id', $idClient)->first();
         $client->vista = $vista;
         $client->save();

@@ -30,7 +30,7 @@
                 <div class="mt-6">
                     <a
                         class="bg-blue-800 hover:bg-blue-700 shadow-lg shadow-blue-500/50 text-white font-bold rounded-lg w-full py-3 px-6 mt-2 sm:m-3 sm:w-30 md:m-3 md:w-40 xl:m-3 xl:w-50"
-                        href="https://api.whatsapp.com/send/?phone=18297624444&text&type=phone_number&app_absent=0"
+                        href="https://api.whatsapp.com/send/?phone=18494722428&text&type=phone_number&app_absent=0"
                         >Ir a WhatsApp
                     </a>
                 </div>
@@ -176,17 +176,18 @@ export default defineComponent({
         tipo: Array
     },
     mounted() {
+       console.log(this.Client);
         //------------------ Guardar Vista por el cliente -------------------------------------
         axios.get(
-            "/api/V1/validarVista/"+this.client_id+"/Pago Completado"
+            "/api/V1/validarVista/"+this.Client.id+"/Pago Completado"
            );
         //this.image64 = 'PRueba'
-        console.log("ResponseCode: " + this.ResponseCode);
+        /*console.log("ResponseCode: " + this.ResponseCode);
         console.log("TransactionID: " + this.TransactionID);
         console.log("RemoteResponseCode: " + this.RemoteResponseCode);
         console.log("AuthorizationCode: " + this.AuthorizationCode);
         console.log("RetrivalReferenceNumber: " + this.RetrivalReferenceNumber);
-        console.log("TxToken: " + this.TxToken);
+        console.log("TxToken: " + this.TxToken);*/
 
         //Genera la Imagen en Base64
 
@@ -237,11 +238,12 @@ export default defineComponent({
             //"/api/V1/generarPdf/51185"
         );
     //--------------------------- Enviar Mensaje al cliente -------------------------------//
+    console.log(this.Client.phonenumber);
     axios
             .post("/api/V1/enviarMensajeBotCitie", {
             //.post("/api/V1/enviarMensajeBotCitie", {
                     type: "text",
-                    text: "¡Tu póliza está lista! Gracias por comprar en *SegurosChat*.\n🕐 _En breve estarás recibiendo tus documentos.._",
+                    text: "¡Tu póliza está lista! Gracias por comprar en *SegurosChat*.🕐 _En breve estarás recibiendo tus documentos.._",
                     phone: this.Client.phonenumber
             })
             .then((response) => {
@@ -252,11 +254,26 @@ export default defineComponent({
             });
 
     //------------------- Enviar PDF WhatsApp del cliente -----------------------------//
+    console.log(this.invoice.police_number);
     axios
-            .post("/api/V1/generarPdf", {
+            .post("/api/V1/enviarArchivoBotCitie", {
            // .post("/api/V1/enviarArchivoBotCitie", {
                     type: "file",
-                    url: "https://multiseguros.com.do/ws_dev/TareasProg/PDF/IMPRIMIR/AUTO-SS-000083.pdf",
+                    url: "https://multiseguros.com.do/ws_dev/TareasProg/PDF/IMPRIMIR/"+this.invoice.police_number+".pdf",
+                    phone: this.Client.phonenumber
+            })
+            .then((response) => {
+                console.log(response.data)
+            })
+            .catch((error) => {
+                console.log(error.response);
+            });
+
+    axios
+            .post("/api/V1/enviarArchivoBotCitie", {
+           // .post("/api/V1/enviarArchivoBotCitie", {
+                    type: "file",
+                    url: "https://multiseguros.com.do/ws_dev/TareasProg/PDF/IMPRIMIR/Terminos_Poliza.pdf",
                     phone: this.Client.phonenumber
             })
             .then((response) => {

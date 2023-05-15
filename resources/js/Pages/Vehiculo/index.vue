@@ -54,9 +54,9 @@
                         <option v-for="tipo in tipos" :value="tipo.id" :key="tipo.id">{{ tipo.nombre }} </option>
                     </select> -->
 
-                     <model-list-select class="selectSearch" v-model="form.tipo" required :value="tipos.id"
+                     <model-list-select class="selectSearch" v-model="form.tipo"  :value="tipos.id"
                         :list="tipos" :key="tipos.id" option-value="id" option-text="nombre"
-                        placeholder="VEHICULO">
+                        placeholder="VEHICULO" required>
                     </model-list-select>
 
                     <label class="pt-1 font-bold">Marca <span class="text-red-400 inl">*</span></label>
@@ -70,8 +70,8 @@
                         </option>
                     </select> -->
 
-                    <model-list-select class="selectSearch" v-model="marca" required :value="marcas.ID" :list="marcas" :key="marcas.ID" option-value="ID" option-text="DESCRIPCION"
-                        placeholder="MARCA">
+                    <model-list-select class="selectSearch" v-model="marca"  :value="marcas.ID" :list="marcas" :key="marcas.ID" option-value="ID" option-text="DESCRIPCION"
+                        placeholder="MARCA" required>
                     </model-list-select>
 
 
@@ -207,8 +207,7 @@ export default {
         clientepais: Array,
         paises: Object
     },
-    data() {
-
+    data() {   
         return {
             newCar: [
                 { id: this.car.id, name: this.car.tipoName }
