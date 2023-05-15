@@ -187,7 +187,9 @@
 
                 <div class="w-full flex gap-2 pl-3">
                     <b class="w-1/2">Asegurado:</b>
-                    <p class="w-1/2">{{ cliente.name }} {{ cliente.lastname }}</p>
+                    <p class="w-1/2">
+                        {{ cliente.name }} {{ cliente.lastname }}
+                    </p>
                 </div>
 
                 <div class="w-full flex gap-2 pl-3">
@@ -217,13 +219,13 @@
                 </div>
 
                 <div class="w-full flex gap-2 pl-3">
-                    <b  class="w-1/2"> Marca:</b>
-                    <p  class="w-1/2">{{ marca }}</p>
+                    <b class="w-1/2"> Marca:</b>
+                    <p class="w-1/2">{{ marca }}</p>
                 </div>
 
                 <div class="w-full flex gap-2 pl-3">
-                    <b  class="w-1/2">Modelo:</b>
-                    <p  class="w-1/2">{{ modelo }}</p>
+                    <b class="w-1/2">Modelo:</b>
+                    <p class="w-1/2">{{ modelo }}</p>
                 </div>
 
                 <div class="w-full flex gap-2 pl-3">
@@ -245,7 +247,7 @@
                         {{ car.placa }}
                     </label>
                 </div>
-<!-- 
+
                 <div
                     class="w-full flex items-center justify-start text-white bg-blue-800 my-2 pl-3"
                 >
@@ -253,36 +255,58 @@
                 </div>
 
                 <div class="w-full flex gap-2 pl-3">
-                    <b class="w-1/2"> Tipo:</b>
-                    <p class="w-1/2">{{ tipo }}</p>
+                    <b class="w-1/2">Daños Prop. Ajena:</b>
+                    <p class="w-1/2">{{ Number(sellers[0].DanosPropiedadAjena).toLocaleString('es-DO', { style: 'currency', currency: 'DOP' }) }}</p>
                 </div>
 
                 <div class="w-full flex gap-2 pl-3">
-                    <b class="w-1/2"> Marca:</b>
-                    <p class="w-1/2">{{ marca }}</p>
-                </div> -->
+                    <b class="w-1/2">Resp. Civil: (Una persona):</b>
+                    <p class="w-1/2">
+                        {{ Number(sellers[0].ResponsabilidadCivil).toLocaleString('es-DO', { style: 'currency', currency: 'DOP' }) }}
+                    </p>
+                </div>
+
+                <div class="w-full flex gap-2 pl-3">
+                    <b class="w-1/2">Resp. Civil (Mas personas):</b>
+                    <p class="w-1/2">
+                        {{Number(sellers[0].ResponsabilidadCivil2).toLocaleString('es-DO', { style: 'currency', currency: 'DOP' }) }}
+                     
+                    </p>
+                </div>
+
+                <div class="w-full flex gap-2 pl-3">
+                    <b class="w-1/2">Fianza Judicial:</b>
+                    <p class="w-1/2">{{ Number(sellers[0].FianzaJudicial).toLocaleString('es-DO', { style: 'currency', currency: 'DOP' }) }}</p>
+                </div>
 
                 <div
                     class="w-full font-bold rounded overflow-x-hidden border-t flex flex-col gap-2 text-lg justify-between pt-4 mt-4 pl-3"
                 >
                     <p>
-                        Sub Total: ${{
-                            new Intl.NumberFormat("en-IN").format(totalGeneral)
-                        }}.00
+                        Sub Total: {{
+                            totalGeneral.toLocaleString("es-DO", {
+                                style: "currency",
+                                currency: "DOP",
+                            })
+                        }}
                     </p>
                     <p>
-                        Descuento: ${{
-                            new Intl.NumberFormat("en-IN").format(
-                                form3.descontar
-                            )
-                        }}.00
+                        Descuento:
+                        {{
+                            form3.descontar.toLocaleString("es-DO", {
+                                style: "currency",
+                                currency: "DOP",
+                            })
+                        }}
                     </p>
                     <p>
-                        Total a pagar: ${{
-                            new Intl.NumberFormat("en-IN").format(
-                                form3.totalGeneral
-                            )
-                        }}.00
+                        Total a pagar:
+                        {{
+                            form3.totalGeneral.toLocaleString("es-DO", {
+                                style: "currency",
+                                currency: "DOP",
+                            })
+                        }}
                     </p>
                 </div>
             </section>
@@ -294,7 +318,7 @@
                 <button
                     v-on:click="Descuento = true"
                     href="#"
-                    class="text-center px-6 py-2 bg-blue-800 hover:bg-blue-700 text-white text-sm italic"
+                    class="text-center px-6 py-2 mb-6 bg-blue-800 hover:bg-blue-700 text-white text-sm italic"
                 >
                     Tengo código de descuento
                 </button>
@@ -318,12 +342,12 @@
                     Aplicar
                 </button>
             </div>
-            <!--  -->
-            <div class="flex flex-col items-center justify-center">
+
+            <!--  <div class="flex flex-col items-center justify-center">
                 <img class="inline max-w-xs" src="ima/cardnetLogo.png" />
                 <p class="font-bold text-2xl text-center">Aceptamos:</p>
                 <img class="inline pb-12 pt-4 w-56" src="ima/tarjetas.png" />
-            </div>
+            </div> -->
 
             <div class="mx-5 my-1 justify-self-center self-center text-center">
                 <button
@@ -341,7 +365,7 @@
 import { Head, Link } from "@inertiajs/inertia-vue3";
 import Header from "../../components/Header.vue";
 import Footer from "../../components/Footer.vue";
-import { ref, onUnmounted } from 'vue';
+import { ref, onUnmounted } from "vue";
 
 export default {
     components: {
@@ -456,20 +480,20 @@ export default {
     mounted() {
         //------------------ Guardar Vista por el cliente -------------------------------------
         axios.get(
-                "/api/V1/validarVista/"+this.client.id+"/Resumen de confirmación"
-           );
+            "/api/V1/validarVista/" +
+                this.client.id +
+                "/Resumen de confirmación"
+        );
 
         const cuentaRegresiva = () => {
-                axios.get(
-                "/api/V1/confirmarNegativo/"+this.client.phonenumber
-               )
-            };
+            axios.get("/api/V1/confirmarNegativo/" + this.client.phonenumber);
+        };
 
-            const timeoutId = setTimeout(cuentaRegresiva, 900000);
+        const timeoutId = setTimeout(cuentaRegresiva, 900000);
 
-            onUnmounted(() => {
-                clearTimeout(timeoutId);
-            });
+        onUnmounted(() => {
+            clearTimeout(timeoutId);
+        });
     },
     methods: {
         submit() {
