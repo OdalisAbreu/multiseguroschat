@@ -86,7 +86,7 @@ const isOpen3 = ref(false)
 
                                 <div class="w-full flex justify-around items-center gap-1 mb-1">
                                     
-                                    <div class="relative w-2/5 flex flex-col justify-around items-center">
+                                    <!-- <div class="relative w-2/5 flex flex-col justify-around items-center">
 
                                             <button v-on:click="insurances_id = seller.insurances_id, time = 'tresmeses'"
                                                 @click="marcarItem(seller, 'button1', index)"
@@ -102,9 +102,9 @@ const isOpen3 = ref(false)
                                                     class="absolute rounded-full checked:bg-blue-800 p-2 ">
                                             </div>
                                         </button>
-                                    </div>
+                                    </div> -->
 
-                                    <div class="relative w-2/5 flex flex-col justify-around items-stretch">
+                                    <div class="relative w-1/2 flex flex-col justify-around items-stretch">
 
                                        
 
@@ -124,7 +124,7 @@ const isOpen3 = ref(false)
                                         </button>
                                     </div>
 
-                                    <div class="relative w-2/5 flex flex-col justify-around items-stretch">
+                                    <div class="relative w-1/2 flex flex-col justify-around items-stretch">
                                        
                                                                                                                                                                                                                                                       
 

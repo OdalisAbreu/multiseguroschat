@@ -424,7 +424,7 @@ export default {
         "form.city": function () {
             this.isCityEmpty = !this.form.city; // Verifica si form.city es nulo o vacío
         },
-        "province": function () {
+        province: function () {
             this.isprovinciaEmpty = !this.province; // Verifica si form.city es nulo o vacío
         },
     },

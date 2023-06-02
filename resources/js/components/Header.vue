@@ -2,9 +2,12 @@
     <KeepAlive>
         <div class="bg-blue-700 mb-3">
             <div class="flex flex-col justify-center bg-blue-800">
-                <div class="justify-self-center self-center overflow-x-hidden flex flex-col bg-blue">
+                <div class="flex justify-between items-center overflow-x-hidden pr-6 bg-blue">
                     <div class="p-2">
                         <img class="w-60" src="../../../public/ima/Seguros_Chat-11.png" alt="Logo" />
+                    </div>
+                    <div>
+                        <img class="w-8 cursor-pointer" src="../../../public/ima/menu.png" alt="Menu">
                     </div>
                 </div>
 
