@@ -3,7 +3,6 @@
         class="h-screen w-screen bg-white overflow-y-scroll"
         :class="{ 'animate-pulse': Loading, 'opacity-50': Loading }"
     >
-        <!--  <Header :width="95" /> -->
 
         <div
             v-if="Loading"
@@ -175,7 +174,6 @@ export default {
         paymentUrl: String,
     },
     mounted() {
-        console.log(this.paymentUrl);
         //------------------ Guardar Vista por el cliente -------------------------------------
         axios.get("/api/V1/validarVista/" + this.client_id + "/Pago Carnet");
         this.sendPayment();
@@ -187,9 +185,6 @@ export default {
                 this.total +
                 this.value
         );
-
-        console.log(key);
-        console.log(this.clientip);
     },
     data() {
         return {
@@ -220,7 +215,6 @@ export default {
                 this.route("https://testsecureacceptance.cybersource.com/pay"),
                 this.form
             );
-            //this.$inertia.psot(this.route('test.test', this.this.form))
         },
         sendPayment() {
             const button = this.$refs.myButton;
