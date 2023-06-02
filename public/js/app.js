@@ -21211,7 +21211,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   mounted: function mounted() {
     var _console,
       _this = this;
-    /* eslint-disable */(_console = console).log.apply(_console, _toConsumableArray(oo_oo("990746bd_0", this.clientProvince)));
+    /* eslint-disable */(_console = console).log.apply(_console, _toConsumableArray(oo_oo("fbc5ab51_0", this.clientProvince)));
     this.form.city;
     this.Loading = false;
     if (this.activarPresentacion == "False") {
@@ -22233,7 +22233,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
     },
     descuento: function descuento() {
       var _console, _console2, _console3;
-      /* eslint-disable */(_console = console).log.apply(_console, _toConsumableArray(oo_oo("ecdc192_0", document.getElementById("codigo").value)));
+      /* eslint-disable */(_console = console).log.apply(_console, _toConsumableArray(oo_oo("20f2fcb0_0", document.getElementById("codigo").value)));
       var codigoIngresado = document.getElementById("codigo").value;
       var count = 0;
       var percentage = 0;
@@ -22244,11 +22244,11 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
         }
       });
       /* eslint-disable */
-      (_console2 = console).log.apply(_console2, _toConsumableArray(oo_oo("ecdc192_1", percentage)));
+      (_console2 = console).log.apply(_console2, _toConsumableArray(oo_oo("20f2fcb0_1", percentage)));
       this.form.descontar = this.totalGeneral * percentage / 100;
       var aplicado = this.totalGeneral - this.form.descontar;
       /* eslint-disable */
-      (_console3 = console).log.apply(_console3, _toConsumableArray(oo_oo("ecdc192_2", aplicado)));
+      (_console3 = console).log.apply(_console3, _toConsumableArray(oo_oo("20f2fcb0_2", aplicado)));
       if (count > 0) {
         this.form.totalGeneral = aplicado;
       } else {
@@ -22276,7 +22276,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
   watch: {
     suma: function suma() {
       var _console4;
-      /* eslint-disable */(_console4 = console).log.apply(_console4, _toConsumableArray(oo_oo("ecdc192_3", "Entro")));
+      /* eslint-disable */(_console4 = console).log.apply(_console4, _toConsumableArray(oo_oo("20f2fcb0_3", "Entro")));
     }
   }
 });
@@ -23127,7 +23127,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         return model.IDMARCA == value;
       });
       /* eslint-disable */
-      (_console = console).log.apply(_console, _toConsumableArray(oo_oo("3362371e_0", this.models)));
+      (_console = console).log.apply(_console, _toConsumableArray(oo_oo("73fdcb37_0", this.models)));
     }
     /*         "form.tipo": function () {
                 this.isTipoCarroEmpty = !this.form.tipo; // Verifica si form.city es nulo o vacío
@@ -26377,17 +26377,21 @@ var _hoisted_29 = /*#__PURE__*/_withScopeId(function () {
     "class": "text-red-400 inl"
   }, "*")], -1 /* HOISTED */);
 });
-var _hoisted_30 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_30 = ["value"];
+var _hoisted_31 = ["value"];
+var _hoisted_32 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
     "class": "pt-1 font-bold"
   }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Ciudad "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
     "class": "text-red-400 inl"
   }, "*")], -1 /* HOISTED */);
 });
-var _hoisted_31 = {
+var _hoisted_33 = ["value"];
+var _hoisted_34 = ["value"];
+var _hoisted_35 = {
   "class": "w-full mt-5 mx-5 my-4 justify-self-center self-center text-center"
 };
-var _hoisted_32 = ["disabled"];
+var _hoisted_36 = ["disabled"];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_Header = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Header");
   var _component_model_list_select = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("model-list-select");
@@ -26509,38 +26513,38 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return $data.form.adrress = $event;
     }),
     required: ""
-  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.form.adrress]]), _hoisted_29, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <select class=\"rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80 border-gray-300\"\r\n                        v-model=\"province\" required>\r\n                        <option :value=\"clientProvince.id\" selected>\r\n                            {{ clientProvince.descrip }}\r\n                        </option>\r\n                        <option v-for=\"province in provinces\" :value=\"province.id\" :key=\"province.id\">\r\n                            {{ province.descrip }}\r\n                        </option>\r\n                    </select> "), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_model_list_select, {
-    "class": "selectSearch",
-    selected: "",
-    list: !$props.provinces ? $data.nuevaProvincia : $props.provinces,
-    modelValue: $data.province,
+  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.form.adrress]]), _hoisted_29, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+    "class": "rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80 border-gray-300",
     "onUpdate:modelValue": _cache[12] || (_cache[12] = function ($event) {
       return $data.province = $event;
     }),
-    value: $data.province.id,
-    key: $data.province.id,
-    "option-value": "id",
-    "option-text": "descrip",
-    placeholder: "PROVINCIA",
     required: ""
-  }, null, 8 /* PROPS */, ["list", "modelValue", "value"])), _hoisted_30, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <select class=\"rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80 border-gray-300\"\r\n                        v-model=\"form.city\" required>\r\n                        <option :value=\"form.city\" selected>\r\n                            {{ form.city }}\r\n                        </option>\r\n                        <option v-for=\"city in ciudades\" :value=\"city.descrip\" :key=\"city.id\">\r\n                            {{ city.descrip }}\r\n                        </option>\r\n                    </select> "), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_model_list_select, {
-    "class": "selectSearch",
-    selected: "",
-    list: !$data.ciudades ? $data.nuevaCiudad : $data.ciudades,
-    modelValue: $data.form.city,
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+    value: $props.clientProvince.id,
+    selected: ""
+  }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.clientProvince.descrip), 9 /* TEXT, PROPS */, _hoisted_30), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.provinces, function (province) {
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("option", {
+      value: province.id,
+      key: province.id
+    }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(province.descrip), 9 /* TEXT, PROPS */, _hoisted_31);
+  }), 128 /* KEYED_FRAGMENT */))], 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.province]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <model-list-select\r\n                        class=\"selectSearch\"\r\n                        selected\r\n                        :list=\"!provinces ? nuevaProvincia : provinces\"\r\n                        v-model=\"province\"\r\n                        :value=\"province.id\"\r\n                        :key=\"province.id\"\r\n                        option-value=\"id\"\r\n                        option-text=\"descrip\"\r\n                        placeholder=\"PROVINCIA\"\r\n                        required\r\n                    >\r\n                    </model-list-select> "), _hoisted_32, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+    "class": "rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80 border-gray-300",
     "onUpdate:modelValue": _cache[13] || (_cache[13] = function ($event) {
       return $data.form.city = $event;
     }),
-    value: $data.form.city.descrip,
-    key: $data.form.city.id,
-    required: "",
-    "option-value": "descrip",
-    "option-text": "descrip",
-    placeholder: "CIUDAD"
-  }, null, 8 /* PROPS */, ["list", "modelValue", "value"])), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_31, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    required: ""
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+    value: $data.form.city,
+    selected: ""
+  }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.form.city), 9 /* TEXT, PROPS */, _hoisted_33), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.ciudades, function (city) {
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("option", {
+      value: city.descrip,
+      key: city.id
+    }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(city.descrip), 9 /* TEXT, PROPS */, _hoisted_34);
+  }), 128 /* KEYED_FRAGMENT */))], 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.form.city]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("   <model-list-select\r\n                        class=\"selectSearch\"\r\n                        selected\r\n                        :list=\"!ciudades ? nuevaCiudad : ciudades\"\r\n                        v-model=\"form.city\"\r\n                        :value=\"form.city.descrip\"\r\n                        :key=\"form.city.id\"\r\n                        required\r\n                        option-value=\"descrip\"\r\n                        option-text=\"descrip\"\r\n                        placeholder=\"CIUDAD\"\r\n                    >\r\n                    </model-list-select> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_35, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     disabled: $data.isCityEmpty || $data.isprovinciaEmpty,
     "class": "w-full max-w-xl justify-center bg-blue-800 hover:bg-blue-700 shadow-lg shadow-blue-500/50 text-white font-bold rounded-lg py-4 mt-5 sm:m-3 sm:w-full md:m-3 md:w-full xl:m-3 xl:full"
-  }, " Continuar ", 8 /* PROPS */, _hoisted_32)])], 32 /* HYDRATE_EVENTS */)])])], 2 /* CLASS */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), !$data.loading ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Footer, {
+  }, " Continuar ", 8 /* PROPS */, _hoisted_36)])], 32 /* HYDRATE_EVENTS */)])])], 2 /* CLASS */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), !$data.loading ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Footer, {
     key: 2
   })) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 64 /* STABLE_FRAGMENT */);
 }
@@ -27795,13 +27799,13 @@ var _hoisted_66 = {
   "class": "w-1/2"
 };
 var _hoisted_67 = {
-  "class": "w-full flex gap-2 pl-3"
+  "class": "w-full flex items-center pl-3"
 };
 var _hoisted_68 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", {
   "class": "w-1/2"
 }, " Chassis:", -1 /* HOISTED */);
 var _hoisted_69 = {
-  "class": "w-1/2",
+  "class": "w-1/2 break-words",
   style: {
     "text-transform": "uppercase"
   }
@@ -29324,57 +29328,83 @@ var _hoisted_15 = /*#__PURE__*/_withScopeId(function () {
     "class": "text-red-400 inl"
   }, "*")], -1 /* HOISTED */);
 });
-var _hoisted_16 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
-    "class": "pt-1 font-bold"
-  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Marca "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
-    "class": "text-red-400 inl"
-  }, "*")], -1 /* HOISTED */);
-});
-var _hoisted_17 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
-    "class": "pt-1 font-bold"
-  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Modelo "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
-    "class": "text-red-400 inl"
-  }, "*")], -1 /* HOISTED */);
-});
-var _hoisted_18 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
-    "class": "pt-1 font-bold"
-  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Año "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
-    "class": "text-red-400 inl"
-  }, "*")], -1 /* HOISTED */);
-});
-var _hoisted_19 = ["value"];
-var _hoisted_20 = {
+var _hoisted_16 = ["value"];
+var _hoisted_17 = {
   key: 1,
   value: "",
   disabled: "",
   selected: "",
   hidden: ""
 };
-var _hoisted_21 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<option value=\"2022\" data-v-75a2a991>2024</option><option value=\"2022\" data-v-75a2a991>2023</option><option value=\"2022\" data-v-75a2a991>2022</option><option value=\"2021\" data-v-75a2a991>2021</option><option value=\"2020\" data-v-75a2a991>2020</option><option value=\"2019\" data-v-75a2a991>2019</option><option value=\"2018\" data-v-75a2a991>2018</option><option value=\"2017\" data-v-75a2a991>2017</option><option value=\"2016\" data-v-75a2a991>2016</option><option value=\"2015\" data-v-75a2a991>2015</option><option value=\"2014\" data-v-75a2a991>2014</option><option value=\"2013\" data-v-75a2a991>2013</option><option value=\"2012\" data-v-75a2a991>2012</option><option value=\"2011\" data-v-75a2a991>2011</option><option value=\"2010\" data-v-75a2a991>2010</option><option value=\"2009\" data-v-75a2a991>2009</option><option value=\"2008\" data-v-75a2a991>2008</option><option value=\"2007\" data-v-75a2a991>2007</option><option value=\"2006\" data-v-75a2a991>2006</option><option value=\"2005\" data-v-75a2a991>2005</option><option value=\"2004\" data-v-75a2a991>2004</option><option value=\"2003\" data-v-75a2a991>2003</option><option value=\"2002\" data-v-75a2a991>2002</option><option value=\"2001\" data-v-75a2a991>2001</option><option value=\"2000\" data-v-75a2a991>2000</option><option value=\"1999\" data-v-75a2a991>1999</option><option value=\"1998\" data-v-75a2a991>1998</option><option value=\"1997\" data-v-75a2a991>1997</option><option value=\"1996\" data-v-75a2a991>1996</option><option value=\"1996\" data-v-75a2a991>1995</option><option value=\"1996\" data-v-75a2a991>1994</option><option value=\"1996\" data-v-75a2a991>1993</option><option value=\"1996\" data-v-75a2a991>1992</option><option value=\"1996\" data-v-75a2a991>1991</option><option value=\"1996\" data-v-75a2a991>1990</option><option value=\"1996\" data-v-75a2a991>1989</option><option value=\"1996\" data-v-75a2a991>1987</option><option value=\"1996\" data-v-75a2a991>1986</option><option value=\"1996\" data-v-75a2a991>1985</option><option value=\"1996\" data-v-75a2a991>1984</option><option value=\"1996\" data-v-75a2a991>1983</option><option value=\"1996\" data-v-75a2a991>1982</option><option value=\"1996\" data-v-75a2a991>1981</option><option value=\"1996\" data-v-75a2a991>1980</option><option value=\"1996\" data-v-75a2a991>1979</option><option value=\"1996\" data-v-75a2a991>1978</option><option value=\"1996\" data-v-75a2a991>1977</option><option value=\"1996\" data-v-75a2a991>1976</option><option value=\"1996\" data-v-75a2a991>1975</option><option value=\"1996\" data-v-75a2a991>1974</option>", 50);
-var _hoisted_71 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_18 = ["value"];
+var _hoisted_19 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+    "class": "pt-1 font-bold"
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Marca "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+    "class": "text-red-400 inl"
+  }, "*")], -1 /* HOISTED */);
+});
+var _hoisted_20 = ["value"];
+var _hoisted_21 = {
+  key: 1,
+  value: "",
+  disabled: "",
+  selected: "",
+  hidden: ""
+};
+var _hoisted_22 = ["value"];
+var _hoisted_23 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+    "class": "pt-1 font-bold"
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Modelo "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+    "class": "text-red-400 inl"
+  }, "*")], -1 /* HOISTED */);
+});
+var _hoisted_24 = ["value"];
+var _hoisted_25 = {
+  key: 1,
+  value: "",
+  disabled: "",
+  selected: "",
+  hidden: ""
+};
+var _hoisted_26 = ["value"];
+var _hoisted_27 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+    "class": "pt-1 font-bold"
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Año "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+    "class": "text-red-400 inl"
+  }, "*")], -1 /* HOISTED */);
+});
+var _hoisted_28 = ["value"];
+var _hoisted_29 = {
+  key: 1,
+  value: "",
+  disabled: "",
+  selected: "",
+  hidden: ""
+};
+var _hoisted_30 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<option value=\"2022\" data-v-75a2a991>2024</option><option value=\"2022\" data-v-75a2a991>2023</option><option value=\"2022\" data-v-75a2a991>2022</option><option value=\"2021\" data-v-75a2a991>2021</option><option value=\"2020\" data-v-75a2a991>2020</option><option value=\"2019\" data-v-75a2a991>2019</option><option value=\"2018\" data-v-75a2a991>2018</option><option value=\"2017\" data-v-75a2a991>2017</option><option value=\"2016\" data-v-75a2a991>2016</option><option value=\"2015\" data-v-75a2a991>2015</option><option value=\"2014\" data-v-75a2a991>2014</option><option value=\"2013\" data-v-75a2a991>2013</option><option value=\"2012\" data-v-75a2a991>2012</option><option value=\"2011\" data-v-75a2a991>2011</option><option value=\"2010\" data-v-75a2a991>2010</option><option value=\"2009\" data-v-75a2a991>2009</option><option value=\"2008\" data-v-75a2a991>2008</option><option value=\"2007\" data-v-75a2a991>2007</option><option value=\"2006\" data-v-75a2a991>2006</option><option value=\"2005\" data-v-75a2a991>2005</option><option value=\"2004\" data-v-75a2a991>2004</option><option value=\"2003\" data-v-75a2a991>2003</option><option value=\"2002\" data-v-75a2a991>2002</option><option value=\"2001\" data-v-75a2a991>2001</option><option value=\"2000\" data-v-75a2a991>2000</option><option value=\"1999\" data-v-75a2a991>1999</option><option value=\"1998\" data-v-75a2a991>1998</option><option value=\"1997\" data-v-75a2a991>1997</option><option value=\"1996\" data-v-75a2a991>1996</option><option value=\"1996\" data-v-75a2a991>1995</option><option value=\"1996\" data-v-75a2a991>1994</option><option value=\"1996\" data-v-75a2a991>1993</option><option value=\"1996\" data-v-75a2a991>1992</option><option value=\"1996\" data-v-75a2a991>1991</option><option value=\"1996\" data-v-75a2a991>1990</option><option value=\"1996\" data-v-75a2a991>1989</option><option value=\"1996\" data-v-75a2a991>1987</option><option value=\"1996\" data-v-75a2a991>1986</option><option value=\"1996\" data-v-75a2a991>1985</option><option value=\"1996\" data-v-75a2a991>1984</option><option value=\"1996\" data-v-75a2a991>1983</option><option value=\"1996\" data-v-75a2a991>1982</option><option value=\"1996\" data-v-75a2a991>1981</option><option value=\"1996\" data-v-75a2a991>1980</option><option value=\"1996\" data-v-75a2a991>1979</option><option value=\"1996\" data-v-75a2a991>1978</option><option value=\"1996\" data-v-75a2a991>1977</option><option value=\"1996\" data-v-75a2a991>1976</option><option value=\"1996\" data-v-75a2a991>1975</option><option value=\"1996\" data-v-75a2a991>1974</option>", 50);
+var _hoisted_80 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
     "class": "pt-1 font-bold"
   }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("No. de Placa "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
     "class": "text-red-400 inl"
   }, "*")], -1 /* HOISTED */);
 });
-var _hoisted_72 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_81 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
     "class": "pt-1 font-bold"
   }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("No. de Chasis "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
     "class": "text-red-400 inl"
   }, "*")], -1 /* HOISTED */);
 });
-var _hoisted_73 = {
+var _hoisted_82 = {
   "class": "w-full mt-5 mx-5 my-4 justify-self-center self-center text-center"
 };
-var _hoisted_74 = ["disabled"];
+var _hoisted_83 = ["disabled"];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_Header = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Header");
-  var _component_model_list_select = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("model-list-select");
   var _component_Footer = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Footer");
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["bg-gray-200 pb-6", {
@@ -29393,46 +29423,58 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return $options.submit && $options.submit.apply($options, arguments);
     }, ["prevent"])),
     "class": "flex flex-col"
-  }, [_hoisted_15, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <select class=\"rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80 border-gray-300\"\r\n                        v-model=\"form.tipo\" required>\r\n                        <option :value=\"car.tipoName\" disabled selected hidden v-if=\"car.tipoName != ''\">{{ car.tipoName }}\r\n                        </option>\r\n                        <option value=\"\" disabled selected hidden v-else>TIPO DE VEHÍCULO</option>\r\n                        <option v-for=\"tipo in tipos\" :value=\"tipo.id\" :key=\"tipo.id\">{{ tipo.nombre }} </option>\r\n                    </select> "), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_model_list_select, {
-    "class": "selectSearch",
-    modelValue: $data.form.tipo,
+  }, [_hoisted_15, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+    "class": "rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80 border-gray-300",
     "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
       return $data.form.tipo = $event;
     }),
-    value: $props.tipos.id,
-    list: $props.tipos,
-    key: $props.tipos.id,
-    "option-value": "id",
-    "option-text": "nombre",
-    placeholder: "VEHICULO",
     required: ""
-  }, null, 8 /* PROPS */, ["modelValue", "value", "list"])), _hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("    <select class=\"rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80 border-gray-300\"\r\n                        v-model=\"marca\" required>\r\n                        <option :value=\"car.marcaName\" disabled selected hidden v-if=\"car.marcaName != ''\">{{ car.marcaName\r\n                        }}\r\n                        </option>\r\n                        <option value=\"\" disabled selected hidden v-else>MARCA</option>\r\n                        <option v-for=\"marca in marcas\" :value=\"marca.ID\" :key=\"marca.ID\">{{ marca.DESCRIPCION }}\r\n                        </option>\r\n                    </select> "), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_model_list_select, {
-    "class": "selectSearch",
-    modelValue: $data.marca,
+  }, [$props.car.tipoName != '' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("option", {
+    key: 0,
+    value: $props.car.tipoName,
+    disabled: "",
+    selected: "",
+    hidden: ""
+  }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.car.tipoName), 9 /* TEXT, PROPS */, _hoisted_16)) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("option", _hoisted_17, "TIPO DE VEHÍCULO")), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.tipos, function (tipo) {
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("option", {
+      value: tipo.id,
+      key: tipo.id
+    }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(tipo.nombre), 9 /* TEXT, PROPS */, _hoisted_18);
+  }), 128 /* KEYED_FRAGMENT */))], 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.form.tipo]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <model-list-select\r\n                        class=\"selectSearch\"\r\n                        v-model=\"form.tipo\"\r\n                        :value=\"tipos.id\"\r\n                        :list=\"tipos\"\r\n                        :key=\"tipos.id\"\r\n                        option-value=\"id\"\r\n                        option-text=\"nombre\"\r\n                        placeholder=\"VEHICULO\"\r\n                        required\r\n                    >\r\n                    </model-list-select> "), _hoisted_19, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+    "class": "rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80 border-gray-300",
     "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
       return $data.marca = $event;
     }),
-    value: $props.marcas.ID,
-    list: $props.marcas,
-    key: $props.marcas.ID,
-    "option-value": "ID",
-    "option-text": "DESCRIPCION",
-    placeholder: "MARCA",
     required: ""
-  }, null, 8 /* PROPS */, ["modelValue", "value", "list"])), _hoisted_17, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <select class=\"rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80 border-gray-300\"\r\n                        v-model=\"form.modelo\" required>\r\n                        <option :value=\"car.modeloName\" disabled selected hidden v-if=\"car.modeloName != ''\">\r\n                            {{ car.modeloName }}\r\n                        </option>\r\n                        <option value=\"\" disabled selected hidden v-else>MODELO</option>\r\n                        <option v-for=\"modelo in models\" :value=\"modelo.ID\" :key=\"modelo.ID\">{{\r\n                            modelo.descripcion\r\n                        }}\r\n                        </option>\r\n                    </select> "), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_model_list_select, {
-    "class": "selectSearch",
-    modelValue: $data.form.modelo,
+  }, [$props.car.marcaName != '' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("option", {
+    key: 0,
+    value: $props.car.marcaName,
+    disabled: "",
+    selected: "",
+    hidden: ""
+  }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.car.marcaName), 9 /* TEXT, PROPS */, _hoisted_20)) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("option", _hoisted_21, "MARCA")), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.marcas, function (marca) {
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("option", {
+      value: marca.ID,
+      key: marca.ID
+    }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(marca.DESCRIPCION), 9 /* TEXT, PROPS */, _hoisted_22);
+  }), 128 /* KEYED_FRAGMENT */))], 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.marca]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("  <model-list-select\r\n                        class=\"selectSearch\"\r\n                        v-model=\"marca\"\r\n                        :value=\"marcas.ID\"\r\n                        :list=\"marcas\"\r\n                        :key=\"marcas.ID\"\r\n                        option-value=\"ID\"\r\n                        option-text=\"DESCRIPCION\"\r\n                        placeholder=\"MARCA\"\r\n                        required\r\n                    >\r\n                    </model-list-select> "), _hoisted_23, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+    "class": "rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80 border-gray-300",
     "onUpdate:modelValue": _cache[3] || (_cache[3] = function ($event) {
       return $data.form.modelo = $event;
     }),
-    required: "",
+    required: ""
+  }, [$props.car.modeloName != '' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("option", {
+    key: 0,
     value: $props.car.modeloName,
-    list: !$data.models ? [{}] : $data.models,
-    key: $props.car.modeloName,
-    "option-value": "ID",
-    "option-text": "descripcion",
-    placeholder: "MODELO"
-  }, null, 8 /* PROPS */, ["modelValue", "value", "list"])), _hoisted_18, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+    disabled: "",
+    selected: "",
+    hidden: ""
+  }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.car.modeloName), 9 /* TEXT, PROPS */, _hoisted_24)) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("option", _hoisted_25, "MODELO")), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.models, function (modelo) {
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("option", {
+      value: modelo.ID,
+      key: modelo.ID
+    }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(modelo.descripcion), 9 /* TEXT, PROPS */, _hoisted_26);
+  }), 128 /* KEYED_FRAGMENT */))], 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.form.modelo]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("  <model-list-select\r\n                        class=\"selectSearch\"\r\n                        v-model=\"form.modelo\"\r\n                        required\r\n                        :value=\"car.modeloName\"\r\n                        :list=\"!models ? [{}] : models\"\r\n                        :key=\"car.modeloName\"\r\n                        option-value=\"ID\"\r\n                        option-text=\"descripcion\"\r\n                        placeholder=\"MODELO\"\r\n                    >\r\n                    </model-list-select> "), _hoisted_27, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
     "class": "rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80 border-gray-300",
     "onUpdate:modelValue": _cache[4] || (_cache[4] = function ($event) {
       return $data.form.year = $event;
@@ -29444,7 +29486,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     disabled: "",
     selected: "",
     hidden: ""
-  }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.car.year), 9 /* TEXT, PROPS */, _hoisted_19)) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("option", _hoisted_20, " AÑO ")), _hoisted_21], 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.form.year]]), _hoisted_71, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.car.year), 9 /* TEXT, PROPS */, _hoisted_28)) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("option", _hoisted_29, " AÑO ")), _hoisted_30], 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.form.year]]), _hoisted_80, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     "class": "rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80 border-gray-300",
     style: {
       "text-transform": "uppercase"
@@ -29456,7 +29498,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return $data.form.placa = $event;
     }),
     required: ""
-  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.form.placa]]), _hoisted_72, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.form.placa]]), _hoisted_81, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     "class": "rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80 border-gray-300",
     style: {
       "text-transform": "uppercase"
@@ -29468,10 +29510,10 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return $data.form.chasis = $event;
     }),
     required: ""
-  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.form.chasis]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_73, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.form.chasis]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_82, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     disabled: $data.isTipoCarroEmpty || $data.isMarcaEmpty || $data.isModeloEmpty,
     "class": "w-full max-w-xl justify-center bg-blue-800 hover:bg-blue-700 shadow-lg shadow-blue-500/50 text-white font-bold rounded-lg py-4 mt-5 sm:m-3 sm:w-full md:m-3 md:w-full xl:m-3 xl:full"
-  }, " Continuar ", 8 /* PROPS */, _hoisted_74)])], 32 /* HYDRATE_EVENTS */)])])], 2 /* CLASS */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Footer)], 64 /* STABLE_FRAGMENT */);
+  }, " Continuar ", 8 /* PROPS */, _hoisted_83)])], 32 /* HYDRATE_EVENTS */)])])], 2 /* CLASS */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Footer)], 64 /* STABLE_FRAGMENT */);
 }
 
 /***/ }),

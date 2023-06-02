@@ -74,15 +74,15 @@
                         <span class="text-red-400 inl">*</span></label
                     >
 
-                    <!-- <select class="rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80 border-gray-300"
+                    <select class="rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80 border-gray-300"
                         v-model="form.tipo" required>
                         <option :value="car.tipoName" disabled selected hidden v-if="car.tipoName != ''">{{ car.tipoName }}
                         </option>
                         <option value="" disabled selected hidden v-else>TIPO DE VEHÍCULO</option>
                         <option v-for="tipo in tipos" :value="tipo.id" :key="tipo.id">{{ tipo.nombre }} </option>
-                    </select> -->
+                    </select>
 
-                    <model-list-select
+                    <!-- <model-list-select
                         class="selectSearch"
                         v-model="form.tipo"
                         :value="tipos.id"
@@ -93,12 +93,12 @@
                         placeholder="VEHICULO"
                         required
                     >
-                    </model-list-select>
+                    </model-list-select> -->
 
                     <label class="pt-1 font-bold"
                         >Marca <span class="text-red-400 inl">*</span></label
                     >
-                    <!--    <select class="rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80 border-gray-300"
+                       <select class="rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80 border-gray-300"
                         v-model="marca" required>
                         <option :value="car.marcaName" disabled selected hidden v-if="car.marcaName != ''">{{ car.marcaName
                         }}
@@ -106,9 +106,9 @@
                         <option value="" disabled selected hidden v-else>MARCA</option>
                         <option v-for="marca in marcas" :value="marca.ID" :key="marca.ID">{{ marca.DESCRIPCION }}
                         </option>
-                    </select> -->
+                    </select>
 
-                    <model-list-select
+                   <!--  <model-list-select
                         class="selectSearch"
                         v-model="marca"
                         :value="marcas.ID"
@@ -119,12 +119,12 @@
                         placeholder="MARCA"
                         required
                     >
-                    </model-list-select>
+                    </model-list-select> -->
 
                     <label class="pt-1 font-bold"
                         >Modelo <span class="text-red-400 inl">*</span></label
                     >
-                    <!-- <select class="rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80 border-gray-300"
+                    <select class="rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80 border-gray-300"
                         v-model="form.modelo" required>
                         <option :value="car.modeloName" disabled selected hidden v-if="car.modeloName != ''">
                             {{ car.modeloName }}
@@ -134,9 +134,9 @@
                             modelo.descripcion
                         }}
                         </option>
-                    </select> -->
+                    </select>
 
-                    <model-list-select
+                   <!--  <model-list-select
                         class="selectSearch"
                         v-model="form.modelo"
                         required
@@ -147,7 +147,7 @@
                         option-text="descripcion"
                         placeholder="MODELO"
                     >
-                    </model-list-select>
+                    </model-list-select> -->
 
                     <label class="pt-1 font-bold"
                         >Año <span class="text-red-400 inl">*</span></label
