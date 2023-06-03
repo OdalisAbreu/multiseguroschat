@@ -232,10 +232,10 @@
                     <b class="w-1/2"> Año:</b>
                     <p class="w-1/2">{{ car.year }}</p>
                 </div>
-                <div class="w-full flex gap-2 pl-3">
+                <div class="w-full flex items-center pl-3">
                     <b class="w-1/2"> Chassis:</b>
 
-                    <label class="w-1/2" style="text-transform: uppercase"
+                    <label class="w-1/2 break-words" style="text-transform: uppercase"
                         >{{ car.chasis }}
                     </label>
                 </div>

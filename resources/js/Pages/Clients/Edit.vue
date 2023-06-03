@@ -234,7 +234,7 @@
                         <span class="text-red-400 inl">*</span></label
                     >
 
-                    <!-- <select class="rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80 border-gray-300"
+                    <select class="rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80 border-gray-300"
                         v-model="province" required>
                         <option :value="clientProvince.id" selected>
                             {{ clientProvince.descrip }}
@@ -242,9 +242,9 @@
                         <option v-for="province in provinces" :value="province.id" :key="province.id">
                             {{ province.descrip }}
                         </option>
-                    </select> -->
+                    </select>
 
-                    <model-list-select
+                    <!-- <model-list-select
                         class="selectSearch"
                         selected
                         :list="!provinces ? nuevaProvincia : provinces"
@@ -256,13 +256,13 @@
                         placeholder="PROVINCIA"
                         required
                     >
-                    </model-list-select>
+                    </model-list-select> -->
 
                     <label class="pt-1 font-bold"
                         >Ciudad <span class="text-red-400 inl">*</span></label
                     >
 
-                    <!-- <select class="rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80 border-gray-300"
+                    <select class="rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80 border-gray-300"
                         v-model="form.city" required>
                         <option :value="form.city" selected>
                             {{ form.city }}
@@ -270,9 +270,9 @@
                         <option v-for="city in ciudades" :value="city.descrip" :key="city.id">
                             {{ city.descrip }}
                         </option>
-                    </select> -->
+                    </select>
 
-                    <model-list-select
+                  <!--   <model-list-select
                         class="selectSearch"
                         selected
                         :list="!ciudades ? nuevaCiudad : ciudades"
@@ -284,7 +284,7 @@
                         option-text="descrip"
                         placeholder="CIUDAD"
                     >
-                    </model-list-select>
+                    </model-list-select> -->
 
                     <div
                         class="w-full mt-5 mx-5 my-4 justify-self-center self-center text-center"
