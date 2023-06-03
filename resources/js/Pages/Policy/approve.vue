@@ -69,6 +69,7 @@
                     </div>
                 </div>
             </div>
+            
             <div
                 class="w-full font-bold rounded  overflow-x-hidden border-t flex flex-col gap-2 text-lg justify-between pt-4">
                 <p>Sub Total: ${{ new Intl.NumberFormat('en-IN').format(totalGeneral) }}.00</p>
