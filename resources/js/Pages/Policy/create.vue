@@ -16,7 +16,7 @@
             </div>
 
             <div
-                class="flex h-28 items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-3">
+                class="flex h-28 items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-3 max-w-4xl mx-auto">
                 <div class="flex flex-col justify-start">
                     <h3 class="font-bold text-lg">Asegurado</h3>
                     <p>{{ client.name }} {{ client.lastname }} </p>
@@ -32,7 +32,7 @@
             </div>
 
             <div
-                class="flex h-28 items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-3">
+                class="flex h-28 items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-3 max-w-4xl mx-auto">
                 <div class="flex flex-col justify-start">
                     <h3 class="font-bold text-lg">Vehículo</h3>
                     <p> {{ car.marcaName }} {{ car.modeloName }}, {{ car.year }}</p>
@@ -46,14 +46,14 @@
             </div>
 
             <div
-                class="flex h-28 items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-3">
+                class="relative flex h-28 items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-3 max-w-4xl mx-auto">
                 <div class="flex flex-col justify-start">
                     <h3 class="font-bold text-lg">Aseguradora</h3>
                     <p class="mr-14">{{ insurres.nombre }} | {{ services[0].time }} | RD$ {{
                         Intl.NumberFormat('en-IN').format(polizaValor) }}
                     </p>
                 </div>
-                <div class="absolute right-8 mt-2 flex flex-col justify-end gap-1 items-center cursor-pointer">
+                <div class="absolute right-5 mt-2 flex flex-col justify-end gap-1 items-center cursor-pointer">
                     <a @click="caseguradoraReturn()" class="p-2 min-h-48 min-w-48 rounded-full bg-blue-800">
                         <img src="../../../../public/ima/edit.png" alt="Editar">
                     </a>
@@ -63,7 +63,7 @@
             </div>
 
             <section
-                class="flex flex-col justify-center items-center bg-slate-100 rounded-xl border-2 border-gray-300 mb-2">
+                class="flex flex-col justify-center items-center bg-slate-100 rounded-xl border-2 border-gray-300 mb-2 max-w-4xl mx-auto">
 
                 <div class="p-3">
                     <div class="text-black font-bold text-center text-2xl sm:text-2xl md:text-3xl xl:text-3xl">Servicios
@@ -102,7 +102,7 @@
                         <div class="w-full mx-5 my-2 justify-self-center self-center text-center">
 
                             <button v-on:click="submit"
-                                class="w-full max-w-xl justify-center bg-blue-800 hover:bg-blue-700 shadow-lg shadow-blue-500/50 text-white font-bold rounded-lg py-4 mt-5 sm:m-3 md:m-3 xl:m-3">
+                                class="w-full max-w-xl justify-center bg-blue-800 hover:bg-blue-700 shadow-lg shadow-blue-500/50 text-white font-bold rounded-lg py-4 mt-5 mx-auto">
                                 Continuar
                             </button>
                         </div>

@@ -31,7 +31,7 @@ const isOpen3 = ref(false)
                 </svg>
             </div>
 
-            <div class="flex items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-3">
+            <div class="flex items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-3 max-w-4xl mx-auto">
 
                 <div class="flex flex-col justify-start">
                     <h3 class="font-bold text-lg">Asegurado</h3>
@@ -46,7 +46,7 @@ const isOpen3 = ref(false)
                 </div>
             </div>
 
-            <div class="flex items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-3">
+            <div class="flex items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-3 max-w-4xl mx-auto">
                 <div class="flex flex-col justify-start">
                     <h3 class="font-bold text-lg">Vehículo</h3>
                     <p> {{ car.marcaName }} {{ car.modeloName }}, {{ car.year }}</p>
@@ -60,7 +60,7 @@ const isOpen3 = ref(false)
             </div>
 
 
-            <section class="flex flex-col bg-slate-100 rounded-xl border-2 border-gray-300 mb-2 px-4 p-3">
+            <section class="flex flex-col bg-slate-100 rounded-xl border-2 border-gray-300 mb-2 px-4 p-3 max-w-4xl mx-auto">
 
                 <div class="p-2">
                     <div class="text-left text-black font-bold text-xl sm:text-2xl md:text-3xl xl:text-3xl">

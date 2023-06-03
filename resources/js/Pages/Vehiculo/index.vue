@@ -32,7 +32,7 @@
             </div>
 
             <div
-                class="flex min-h-90 items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-3"
+                class="flex min-h-90 items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-3 max-w-4xl mx-auto"
             >
                 <div class="flex flex-col justify-start">
                     <h3 class="font-bold text-lg">Asegurado</h3>
@@ -58,7 +58,7 @@
             </div>
 
             <div
-                class="flex flex-col p-3 px-5 sm:px-5 md:px-3 xl:px-3 bg-slate-100 rounded-xl border-2 border-gray-300 mb-2"
+                class="flex flex-col p-3 px-5 sm:px-5 md:px-3 xl:px-3 bg-slate-100 rounded-xl border-2 border-gray-300 mb-2 max-w-4xl mx-auto"
             >
                 <div class="mt-2 py-2">
                     <div
@@ -74,7 +74,7 @@
                         <span class="text-red-400 inl">*</span></label
                     >
 
-                    <select class="rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80 border-gray-300"
+                    <select class="rounded-lg w-full border-gray-300"
                         v-model="form.tipo" required>
                         <option :value="car.tipoName" disabled selected hidden v-if="car.tipoName != ''">{{ car.tipoName }}
                         </option>
@@ -98,7 +98,7 @@
                     <label class="pt-1 font-bold"
                         >Marca <span class="text-red-400 inl">*</span></label
                     >
-                       <select class="rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80 border-gray-300"
+                       <select class="rounded-lg w-full border-gray-300"
                         v-model="marca" required>
                         <option :value="car.marcaName" disabled selected hidden v-if="car.marcaName != ''">{{ car.marcaName
                         }}
@@ -124,7 +124,7 @@
                     <label class="pt-1 font-bold"
                         >Modelo <span class="text-red-400 inl">*</span></label
                     >
-                    <select class="rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80 border-gray-300"
+                    <select class="rounded-lg w-full border-gray-300"
                         v-model="form.modelo" required>
                         <option :value="car.modeloName" disabled selected hidden v-if="car.modeloName != ''">
                             {{ car.modeloName }}
@@ -153,7 +153,7 @@
                         >Año <span class="text-red-400 inl">*</span></label
                     >
                     <select
-                        class="rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80 border-gray-300"
+                        class="rounded-lg w-full border-gray-300"
                         v-model="form.year"
                         required
                     >
@@ -226,7 +226,7 @@
                         <span class="text-red-400 inl">*</span></label
                     >
                     <input
-                        class="rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80 border-gray-300"
+                        class="rounded-lg w-full border-gray-300"
                         style="text-transform: uppercase"
                         type="text"
                         maxlength="10"
@@ -238,7 +238,7 @@
                         >No. de Chasis <span class="text-red-400 inl">*</span>
                     </label>
                     <input
-                        class="rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80 border-gray-300"
+                        class="rounded-lg w-full border-gray-300"
                         style="text-transform: uppercase"
                         type="text"
                         maxlength="17"

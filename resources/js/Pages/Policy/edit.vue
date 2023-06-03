@@ -1,12 +1,12 @@
 <template>
     <section
-        class="bg-gray-200 pb-6 h-full"
+        class="bg-gray-200 h-full pb-4"
         :class="{ 'animate-pulse': Loading, 'opacity-50': Loading }"
     >
         <Header :width="75" />
         <section class="p-3 relative rounded-xl bg-white mx-3 z-50 mt-4">
             <div
-                class="flex h-28 items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-3"
+                class="flex h-28 items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-3 max-w-4xl mx-auto"
             >
                 <div class="flex flex-col justify-start">
                     <h3 class="font-bold text-lg">Asegurado</h3>
@@ -55,7 +55,7 @@
             </div>
 
             <div
-                class="flex h-28 items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-3"
+                class="flex h-28 items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-3 max-w-4xl mx-auto"
             >
                 <div class="flex flex-col justify-start">
                     <h3 class="font-bold text-lg">Vehículo</h3>
@@ -82,7 +82,7 @@
             </div>
 
             <div
-                class="flex h-28 items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-3"
+                class="relative flex h-28 items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-3 max-w-4xl mx-auto"
             >
                 <div class="flex flex-col justify-start">
                     <h3 class="font-bold text-lg">Aseguradora</h3>
@@ -93,7 +93,7 @@
                 </div>
 
                 <div
-                    class="absolute right-8 mt-2 flex flex-col justify-end gap-1 items-center cursor-pointer"
+                    class="absolute right-5 mt-2 flex flex-col justify-end gap-1 items-center cursor-pointer"
                 >
                     <a
                         @click="caseguradoraReturn()"
@@ -111,7 +111,7 @@
             </div>
 
             <div
-                class="flex min-h-90 items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-3 pb-6"
+                class="relative flex min-h-90 items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-3 pb-6 max-w-4xl mx-auto"
             >
                 <div class="flex flex-col w-full justify-end">
                     <div
@@ -121,7 +121,7 @@
                             Servicios Opcionales
                         </h3>
 
-                        <div class="absolute right-8 mt-7 cursor-pointer">
+                        <div class="absolute right-5 mt-7 cursor-pointer">
                             <a
                                 @click="serviciosReturn()"
                                 class="col-2 p-2 min-h-48 min-w-48 flex justify-center items-center rounded-full bg-blue-800"
@@ -177,7 +177,7 @@
 
             <!--  -->
             <section
-                class="flex flex-col items-start justify-center bg-slate-100 rounded-xl border-2 border-gray-100 py-3"
+                class="flex flex-col items-start justify-center bg-slate-100 rounded-xl border-2 border-gray-300 py-3 max-w-4xl mx-auto"
             >
                 <div
                     class="flex mx-auto justify-self-center text-center mb-2 pl-3"
@@ -235,7 +235,9 @@
                 <div class="w-full flex items-center pl-3">
                     <b class="w-1/2"> Chassis:</b>
 
-                    <label class="w-1/2 break-words" style="text-transform: uppercase"
+                    <label
+                        class="w-1/2 break-words"
+                        style="text-transform: uppercase"
                         >{{ car.chasis }}
                     </label>
                 </div>
@@ -308,33 +310,6 @@
                     </p>
                 </div>
 
-                <div class="w-full flex justify-center items-center mt-4">
-                    <button
-                        v-if="!Descuento"
-                        v-on:click="Descuento = true"
-                        href="#"
-                        class="text-center px-6 py-2 bg-blue-800 hover:bg-blue-700 text-white text-sm italic"
-                    >
-                        Tengo código de descuento
-                    </button>
-
-                    <div v-if="Descuento">
-                        <input
-                            class="border-blue-800"
-                            type="text"
-                            placeholder="CÓDIGO DE DESCUENTO"
-                            name="codigo"
-                            id="codigo"
-                        />
-                        <button
-                            v-on:click="descuento()"
-                            class="max-w-xl px-6 py-2 text-center bg-blue-800 text-white text-lg font-bold"
-                        >
-                            Aplicar
-                        </button>
-                    </div>
-                </div>
-
                 <div
                     class="w-full font-bold rounded overflow-x-hidden border-t flex flex-col gap-2 text-lg justify-between pt-4 mt-4 pl-3"
                 >
@@ -347,7 +322,38 @@
                             })
                         }}
                     </p>
-                    <p>
+
+                    <div class="w-full flex justify-center items-center">
+                        <button
+                            v-if="!Descuento"
+                            v-on:click="Descuento = true"
+                            href="#"
+                            class="text-center px-6 py-2 bg-blue-800 hover:bg-blue-700 text-white text-sm italic"
+                        >
+                            Tengo código de descuento
+                        </button>
+
+                        <div
+                            v-if="Descuento"
+                            class="flex flex-wrap justify-center items-center"
+                        >
+                            <input
+                                class="border-blue-800"
+                                type="text"
+                                placeholder="CÓDIGO DE DESCUENTO"
+                                name="codigo"
+                                id="codigo"
+                            />
+                            <button
+                                v-on:click="descuento()"
+                                class="max-w-xl px-6 py-2 text-center bg-blue-800 text-white text-lg font-bold"
+                            >
+                                Aplicar
+                            </button>
+                        </div>
+                    </div>
+
+                    <p v-if="Descuento">
                         Descuento:
                         {{
                             form3.descontar.toLocaleString("es-DO", {
@@ -374,7 +380,9 @@
                 <img class="inline pb-12 pt-4 w-56" src="ima/tarjetas.png" />
             </div> -->
 
-            <div class="mx-5 my-1 justify-self-center self-center text-center mt-6">
+            <div
+                class="mx-5 my-1 justify-self-center self-center text-center mt-6"
+            >
                 <button
                     v-on:click="submit"
                     class="w-full max-w-xl justify-center bg-blue-800 hover:bg-blue-700 shadow-lg shadow-blue-500/50 text-white font-bold rounded-lg py-4 sm:m-3 sm:w-full md:m-3 md:w-full xl:m-3 xl:full"
@@ -383,8 +391,8 @@
                 </button>
             </div>
         </section>
-        <!-- <Footer class="absolute bottom-0 w-full"></Footer> -->
     </section>
+    <Footer />
 </template>
 <script>
 import { Head, Link } from "@inertiajs/inertia-vue3";
