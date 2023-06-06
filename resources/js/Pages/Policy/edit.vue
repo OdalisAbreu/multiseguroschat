@@ -188,23 +188,23 @@
                 <div class="w-full flex gap-2 pl-3">
                     <b class="w-1/2">Asegurado:</b>
                     <p class="w-1/2">
-                        {{ cliente.name }} {{ cliente.lastname }}
+                        {{ client.name }} {{ client.lastname }}
                     </p>
                 </div>
 
                 <div class="w-full flex gap-2 pl-3">
                     <b class="w-1/2">Cédula:</b>
-                    <p class="w-1/2">{{ cliente.cardnumber }}</p>
+                    <p class="w-1/2">{{ client.cardnumber }}</p>
                 </div>
 
                 <div class="w-full flex gap-2 pl-3">
                     <b class="w-1/2">Dirección:</b>
-                    <p class="w-1/2">{{ cliente.adrress }}</p>
+                    <p class="w-1/2">{{ client.adrress }}</p>
                 </div>
 
                 <div class="w-full flex gap-2 pl-3">
                     <b class="w-1/2">Teléfono:</b>
-                    <p class="w-1/2">{{ cliente.phonenumber }}</p>
+                    <p class="w-1/2">{{ client.phonenumber }}</p>
                 </div>
 
                 <div
@@ -436,7 +436,6 @@ export default {
         marca: String,
         tipo: String,
         modelo: String,
-        cliente: Array,
         totalGeneral: String,
         insurre: Array,
         codigosDescuento: Array,
@@ -490,7 +489,7 @@ export default {
             },
             form3: {
                 car: this.car,
-                cliente: this.cliente,
+                cliente: this.client,
                 services: this.services,
                 totalGeneral: this.totalGeneral,
                 policyTime: this.policyTime,
@@ -503,6 +502,7 @@ export default {
         };
     },
     mounted() {
+        console.log(this.client)
         //------------------ Guardar Vista por el cliente -------------------------------------
         axios.get(
             "/api/V1/validarVista/" +
