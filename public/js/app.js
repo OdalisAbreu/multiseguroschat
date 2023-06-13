@@ -22179,7 +22179,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
     },
     descuento: function descuento() {
       var _console, _console2, _console3;
-      /* eslint-disable */(_console = console).log.apply(_console, _toConsumableArray(oo_oo("debc16a_0", document.getElementById("codigo").value)));
+      /* eslint-disable */(_console = console).log.apply(_console, _toConsumableArray(oo_oo("27d452ba_0", document.getElementById("codigo").value)));
       var codigoIngresado = document.getElementById("codigo").value;
       var count = 0;
       var percentage = 0;
@@ -22190,11 +22190,11 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
         }
       });
       /* eslint-disable */
-      (_console2 = console).log.apply(_console2, _toConsumableArray(oo_oo("debc16a_1", percentage)));
+      (_console2 = console).log.apply(_console2, _toConsumableArray(oo_oo("27d452ba_1", percentage)));
       this.form.descontar = this.totalGeneral * percentage / 100;
       var aplicado = this.totalGeneral - this.form.descontar;
       /* eslint-disable */
-      (_console3 = console).log.apply(_console3, _toConsumableArray(oo_oo("debc16a_2", aplicado)));
+      (_console3 = console).log.apply(_console3, _toConsumableArray(oo_oo("27d452ba_2", aplicado)));
       if (count > 0) {
         this.form.totalGeneral = aplicado;
       } else {
@@ -22222,7 +22222,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
   watch: {
     suma: function suma() {
       var _console4;
-      /* eslint-disable */(_console4 = console).log.apply(_console4, _toConsumableArray(oo_oo("debc16a_3", "Entro")));
+      /* eslint-disable */(_console4 = console).log.apply(_console4, _toConsumableArray(oo_oo("27d452ba_3", "Entro")));
     }
   }
 });
@@ -27829,7 +27829,7 @@ var _hoisted_87 = {
   "class": "w-1/2"
 };
 var _hoisted_88 = {
-  "class": "w-1/2",
+  "class": "w-1/2 flex items-center justify-start",
   style: {
     "text-transform": "uppercase"
   }

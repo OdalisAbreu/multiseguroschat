@@ -323,7 +323,7 @@
                 >
                     <b class="w-1/2"> {{ servicio.serviceName }}:</b>
 
-                    <label class="w-1/2" style="text-transform: uppercase">
+                    <label class="w-1/2 flex items-center justify-start" style="text-transform: uppercase">
                         RD${{ servicio.servicePrice }}.00
                     </label>
                 </div>
