@@ -78,7 +78,7 @@
 
         <div class="p-3 relative rounded-xl bg-white mx-3 z-40">
             <div
-                class="p-3 px-5 sm:px-5 md:px-5 xl:px-5 bg-slate-100 rounded-xl border-2 border-gray-300 mb-4"
+                class="p-3 px-5 sm:px-5 md:px-5 xl:px-5 bg-slate-100 rounded-xl border-2 border-gray-300 mb-4 max-w-4xl mx-auto"
             >
                 <div>
                     <div
@@ -96,12 +96,15 @@
                     </div>
                 </div>
 
-                <form @submit.prevent="submit" class="flex flex-col">
+                <form
+                    @submit.prevent="submit"
+                    class="flex flex-col lg:items-center"
+                >
                     <label class="pt-1 justify-start font-bold"
                         >Nombres <span class="text-red-400 inl">*</span>
                     </label>
                     <input
-                        class="rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80 border-gray-300"
+                        class="rounded-lg w-full border-gray-300"
                         style="text-transform: uppercase"
                         type="text"
                         placeholder="Nombre"
@@ -113,7 +116,7 @@
                         <span class="text-red-400 inl">*</span></label
                     >
                     <input
-                        class="rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80 border-gray-300"
+                        class="rounded-lg w-full border-gray-300"
                         style="text-transform: uppercase"
                         type="text"
                         placeholder="Apellido"
@@ -121,89 +124,86 @@
                         required
                     />
 
-                    <div>
-                        <div>
-                            <label class="pt-1 font-bold"
-                                >Documento de Identidad
-                                <span class="text-red-400 inl">*</span> </label
-                            ><br />
+                    <label class="pt-1 font-bold"
+                        >Documento de Identidad
+                        <span class="text-red-400 inl">*</span> </label
+                    ><br />
 
-                            <div
-                                class="flex justify-center items-center gap-x-8 py-2"
-                            >
-                                <div class="flex items-center gap-2">
-                                    <p>Cédula:</p>
-                                    <input
-                                        v-model="eleccionCedula"
-                                        :checked="eleccionCedula"
-                                        type="radio"
-                                        value="eleccionCedula"
-                                        @click="
-                                            (eleccionCedula = true),
-                                                (eleccionPasaporte = null)
-                                        "
-                                    />
-                                </div>
-                                <div class="flex items-center gap-2">
-                                    <p>Pasaporte:</p>
-                                    <input
-                                        v-model="eleccionPasaporte"
-                                        :checked="eleccionPasaporte"
-                                        type="radio"
-                                        value="eleccionPasaporte"
-                                        @click="
-                                            (eleccionPasaporte = true),
-                                                (eleccionCedula = null)
-                                        "
-                                    />
-                                </div>
-                            </div>
-
+                    <div class="flex justify-center items-center gap-x-8 py-2">
+                        <div class="flex items-center gap-2">
+                            <p>Cédula:</p>
                             <input
-                                v-if="eleccionPasaporte && !eleccionCedula"
-                                class="rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80 border-gray-300"
-                                style="text-transform: uppercase"
-                                type="text"
-                                placeholder="Pasaporte"
-                                v-model="form.passportnumber"
-                                required
-                            />
-
-                            <input
-                                v-if="!eleccionPasaporte && eleccionCedula"
-                                class="rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80 border-gray-300"
-                                style="text-transform: uppercase"
-                                type="text"
-                                placeholder="Cédula"
-                                v-model="form.cardnumber"
-                                required
+                                v-model="eleccionCedula"
+                                :checked="eleccionCedula"
+                                type="radio"
+                                value="eleccionCedula"
+                                @click="
+                                    (eleccionCedula = true),
+                                        (eleccionPasaporte = null)
+                                "
                             />
                         </div>
-
-                        <div v-if="eleccionPasaporte && !eleccionCedula">
-                            <label class="pt-1 font-bold"
-                                >Nacionalidad
-                                <span class="text-red-400 inl">*</span></label
-                            ><br />
-                            <model-list-select
-                                class="selectSearch"
-                                :list="paises"
-                                v-model="form.pais"
-                                :value="clientepais.id"
-                                required
-                                option-value="id"
-                                option-text="pais"
-                                placeholder="NACIONALIDAD"
-                            >
-                            </model-list-select>
+                        <div class="flex items-center gap-2">
+                            <p>Pasaporte:</p>
+                            <input
+                                v-model="eleccionPasaporte"
+                                :checked="eleccionPasaporte"
+                                type="radio"
+                                value="eleccionPasaporte"
+                                @click="
+                                    (eleccionPasaporte = true),
+                                        (eleccionCedula = null)
+                                "
+                            />
                         </div>
+                    </div>
+
+                    <input
+                        v-if="eleccionPasaporte && !eleccionCedula"
+                        class="rounded-lg w-full border-gray-300"
+                        style="text-transform: uppercase"
+                        type="text"
+                        placeholder="Pasaporte"
+                        v-model="form.passportnumber"
+                        required
+                    />
+
+                    <input
+                        v-if="!eleccionPasaporte && eleccionCedula"
+                        class="rounded-lg w-full border-gray-300"
+                        style="text-transform: uppercase"
+                        type="text"
+                        placeholder="Cédula"
+                        v-model="form.cardnumber"
+                        required
+                    />
+
+                    <div
+                        class="w-full flex flex-col lg:items-center"
+                        v-if="eleccionPasaporte && !eleccionCedula"
+                    >
+                        <label class="mx-auto pt-1 font-bold"
+                            >Nacionalidad
+                            <span class="text-red-400 inl">*</span></label
+                        ><br />
+                        <model-list-select
+                            class="selectSearch"
+                            :list="paises"
+                            v-model="form.pais"
+                            :value="clientepais.id"
+                            required
+                            option-value="id"
+                            option-text="pais"
+                            placeholder="NACIONALIDAD"
+                        >
+                        </model-list-select>
                     </div>
 
                     <label class="pt-1 font-bold"
                         >Celular <span class="text-red-400 inl">*</span></label
                     >
                     <input
-                        class="rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80 border-gray-300"
+                        class="rounded-lg w-full border-gray-300"
                         style="text-transform: uppercase"
                         type="text"
                         placeholder="Telefono"
@@ -212,7 +212,7 @@
                     />
                     <label class="pt-1 font-bold">Correo Electrónico </label>
                     <input
-                        class="rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80 border-gray-300"
+                        class="rounded-lg w-full border-gray-300"
                         type="text"
                         placeholder="Email"
                         v-model="form.email"
@@ -223,7 +223,7 @@
                         <span class="text-red-400 inl">*</span></label
                     >
                     <input
-                        class="rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80 border-gray-300"
+                        class="rounded-lg w-full border-gray-300"
                         type="text"
                         placeholder="Dirección"
                         v-model="form.adrress"
@@ -234,12 +234,19 @@
                         <span class="text-red-400 inl">*</span></label
                     >
 
-                    <select class="rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80 border-gray-300"
-                        v-model="province" required>
+                    <select
+                        class="rounded-lg w-full border-gray-300"
+                        v-model="province"
+                        required
+                    >
                         <option :value="clientProvince.id" selected>
                             {{ clientProvince.descrip }}
                         </option>
-                        <option v-for="province in provinces" :value="province.id" :key="province.id">
+                        <option
+                            v-for="province in provinces"
+                            :value="province.id"
+                            :key="province.id"
+                        >
                             {{ province.descrip }}
                         </option>
                     </select>
@@ -262,17 +269,24 @@
                         >Ciudad <span class="text-red-400 inl">*</span></label
                     >
 
-                    <select class="rounded-lg w-full mb-2 sm:m-3 sm:w-40 md:m-3 md:w-60 xl:m-3 xl:w-80 border-gray-300"
-                        v-model="form.city" required>
+                    <select
+                        class="rounded-lg w-full border-gray-300"
+                        v-model="form.city"
+                        required
+                    >
                         <option :value="form.city" selected>
                             {{ form.city }}
                         </option>
-                        <option v-for="city in ciudades" :value="city.descrip" :key="city.id">
+                        <option
+                            v-for="city in ciudades"
+                            :value="city.descrip"
+                            :key="city.id"
+                        >
                             {{ city.descrip }}
                         </option>
                     </select>
 
-                  <!--   <model-list-select
+                    <!--   <model-list-select
                         class="selectSearch"
                         selected
                         :list="!ciudades ? nuevaCiudad : ciudades"
@@ -438,6 +452,7 @@ export default {
 <!--Este bloque sirve para crear clases personalizadas-->
 <style scoped>
 .selectSearch {
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
