@@ -311,6 +311,27 @@
                 </div>
 
                 <div
+                    class="w-full flex items-center justify-start text-white bg-blue-800 my-2 pl-3"
+                >
+                    <h3 class="text-lg">Servicios Opcionales</h3>
+                </div>
+
+                <div
+                    v-for="servicio in service"
+                    :key="servicio.id"
+                    class="w-full flex gap-2 pl-3"
+                >
+                    <b class="w-1/2"> {{ servicio.serviceName }}:</b>
+
+                    <label class="w-1/2" style="text-transform: uppercase">
+                        RD${{ servicio.servicePrice }}.00
+                    </label>
+                </div>
+                <p v-if="service.length == 0" class="text-center w-full my-2">
+                    No hay servivios seleccionados
+                </p>
+
+                <div
                     class="w-full font-bold rounded overflow-x-hidden border-t flex flex-col gap-2 text-lg justify-between pt-4 mt-4 pl-3"
                 >
                     <p>
