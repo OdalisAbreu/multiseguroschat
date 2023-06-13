@@ -432,22 +432,12 @@ export default {
         provinces: Array,
         clientepais: Array,
         paises: Object,
+        codigosDescuento: Array,
+        Descuento: false,
 
         /*  */
 
-        car: Array,
-        tarifa: Array,
-        sellers: Array,
-        services: Array,
-        service: Array,
-        policyTime: String,
-        marca: String,
-        tipo: String,
-        modelo: String,
-        totalGeneral: String,
-        insurre: Array,
-        codigosDescuento: Array,
-        Descuento: false,
+
     },
     data() {
         return {
@@ -510,7 +500,7 @@ export default {
         };
     },
     mounted() {
-        console.log(this.client)
+        console.log(this.insurre)
         //------------------ Guardar Vista por el cliente -------------------------------------
         axios.get(
             "/api/V1/validarVista/" +
@@ -531,7 +521,6 @@ export default {
     methods: {
         submit() {
             this.Loading = true;
-            this.$inertia.post(this.route("servicesapprove"), this.form);
             this.$inertia.post(this.route("generatepolicy"), this.form3);
         },
         descuento() {
