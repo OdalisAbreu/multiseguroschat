@@ -311,6 +311,27 @@
                 </div>
 
                 <div
+                    class="w-full flex items-center justify-start text-white bg-blue-800 my-2 pl-3"
+                >
+                    <h3 class="text-lg">Servicios Opcionales</h3>
+                </div>
+
+                <div
+                    v-for="servicio in service"
+                    :key="servicio.id"
+                    class="w-full flex gap-2 pl-3"
+                >
+                    <b class="w-1/2"> {{ servicio.serviceName }}:</b>
+
+                    <label class="w-1/2 flex items-center justify-start" style="text-transform: uppercase">
+                        RD${{ servicio.servicePrice }}.00
+                    </label>
+                </div>
+                <p v-if="service.length == 0" class="text-center w-full my-2">
+                    No hay servivios seleccionados
+                </p>
+
+                <div
                     class="w-full font-bold rounded overflow-x-hidden border-t flex flex-col gap-2 text-lg justify-between pt-4 mt-4 pl-3"
                 >
                     <p>
@@ -389,6 +410,121 @@
                 >
                     Realizar Compra
                 </button>
+
+                <form 
+                :action="`${paymentUrl}`"
+                method="POST"
+                name="CardNet"
+                class="CardNet flex flex-col justify-center items-center"
+                id="CardNet"
+            >
+                <input
+                    type="hidden"
+                    name="TransactionType"
+                    id="TransactionType"
+                    value="0200"
+                />
+                <input
+                    type="hidden"
+                    name="CurrencyCode"
+                    id="CurrencyCode"
+                    value="214"
+                />
+                <input
+                    type="hidden"
+                    name="AcquiringInstitutionCode"
+                    id="AcquiringInstitutionCode"
+                    value="349"
+                />
+                <input
+                    type="hidden"
+                    name="MerchantType"
+                    id="MerchantType"
+                    v-model="form.merchanttype"
+                />
+                <input
+                    type="hidden"
+                    name="MerchantNumber"
+                    id="MerchantNumber"
+                    v-model="form.merchantnumber"
+                />
+                <input
+                    type="hidden"
+                    name="MerchantTerminal"
+                    id="MerchantTerminal"
+                    v-model="form.merchantterminal"
+                />
+                <input
+                    type="hidden"
+                    name="ReturnUrl"
+                    id="ReturnUrl"
+                    v-model="form.urlreturn"
+                />
+                <input
+                    type="hidden"
+                    name="CancelUrl"
+                    id="CancelUrl"
+                    v-model="form.urlreturn"
+                />
+                <input
+                    type="hidden"
+                    name="PageLanguaje"
+                    id="PageLanguaje"
+                    value="ESP"
+                />
+                <input
+                    type="hidden"
+                    name="OrdenId"
+                    id="OrdenId"
+                    v-model="form.transaction_uuid"
+                />
+                <input
+                    type="hidden"
+                    name="TransactionId"
+                    id="TransactionId"
+                    v-model="form.transactionid"
+                />
+                <input
+                    type="hidden"
+                    name="Amount"
+                    id="Amount"
+                    v-model="form.total"
+                />
+                <input type="hidden" name="Tax" id="Tax" v-model="form.tax" />
+                <input
+                    type="hidden"
+                    name="MerchantName"
+                    id="MerchantName"
+                    v-model="form.client_name"
+                />
+                <input
+                    type="hidden"
+                    name="KeyEncriptionKey"
+                    id="KeyEncriptionKey"
+                    v-model="form.transaction_uuid"
+                />
+                <input
+                    type="hidden"
+                    name="Ipclient"
+                    id="Ipclient"
+                    v-model="form.clientip"
+                />
+                <input type="hidden" name="loteid" Value="001" />
+                <input type="hidden" name="seqid" id="seqid" Value="001" />
+
+                <div
+                    class="w-full mt-5 mx-5 my-4 pb-8 justify-self-center self-center text-center"
+                >
+                    <button
+                        :onclick="(Loading = true)"
+                        ref="myButton"
+                        class="w-full max-w-xl justify-center bg-blue-800 hover:bg-blue-700 shadow-lg shadow-blue-500/50 text-white font-bold rounded-lg py-4 sm:m-3 sm:w-full md:m-3 md:w-full xl:m-3 xl:full"
+                    >Realizar Compra</button>
+                </div>
+            </form>
+
+
+
             </div>
         </section>
     </section>
@@ -496,7 +632,7 @@ export default {
                 descontar: 0,
                 insurre: this.insurre,
                 service: this.service,
-            },
+            },q
         };
     },
     mounted() {
