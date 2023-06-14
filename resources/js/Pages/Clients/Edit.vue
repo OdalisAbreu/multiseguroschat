@@ -300,6 +300,7 @@
                     >
                     </model-list-select> -->
 
+                    
                     <div
                         class="w-full mt-5 mx-5 my-4 justify-self-center self-center text-center"
                     >
@@ -400,7 +401,7 @@ export default {
         } */
     },
     mounted() {
-        console.log(this.clientProvince);
+       // console.log(this.clientProvince);
         this.form.city;
         this.Loading = false;
         if (this.activarPresentacion == "False") {
@@ -426,9 +427,9 @@ export default {
 
     /*  */
     watch: {
+
         province: function (key) {
-            /*         console.log(this.cities)
-                    console.log(this.ciudades) */
+            console.log('Entro');
             this.ciudades = this.cities.filter(
                 (ciudad) => ciudad.id_prov == key
             );

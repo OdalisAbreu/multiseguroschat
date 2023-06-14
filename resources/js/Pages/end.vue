@@ -109,7 +109,7 @@
                 <div>Prima Total:</div>
                 <div>{{ invoice.totalGeneral }}</div>
             </div>
-            <div>Gracias por elegir MultiSeguros</div>
+            <div>Gracias por elegir SegurosChat</div>
             <div class="foother_poliza"></div>
         </div>
     </div>
