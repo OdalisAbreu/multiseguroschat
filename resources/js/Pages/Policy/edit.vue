@@ -395,11 +395,11 @@
                 </div>
             </section>
 
-            <!--  <div class="flex flex-col items-center justify-center">
+             <div class="flex flex-col items-center justify-center">
                 <img class="inline max-w-xs" src="ima/cardnetLogo.png" />
                 <p class="font-bold text-2xl text-center">Aceptamos:</p>
                 <img class="inline pb-12 pt-4 w-56" src="ima/tarjetas.png" />
-            </div> -->
+            </div>
 
             <div
                 class="mx-5 my-1 justify-self-center self-center text-center mt-6"

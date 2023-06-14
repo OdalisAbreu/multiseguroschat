@@ -435,12 +435,12 @@ export default {
             this.form.city = "";
             this.form.provincia = key;
         },
-        "form.city": function () {
+        /* "form.city": function () {
             this.isCityEmpty = !this.form.city; // Verifica si form.city es nulo o vacío
         },
         province: function () {
             this.isprovinciaEmpty = !this.province; // Verifica si form.city es nulo o vacío
-        },
+        }, */
     },
     computed: {
         optionList() {

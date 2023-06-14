@@ -226,7 +226,7 @@
         <div class="w-1/4 flex justify-center items-center flex-wrap gap-12">
             <div class="flex flex-col items-center justify-center">
                 <img
-                    class="w-10 bold mb-2"
+                    class="w-11 bold mb-2"
                     style="padding: 3px"
                     src="../../../public/ima/telefono.png"
                     alt="Instagram"
