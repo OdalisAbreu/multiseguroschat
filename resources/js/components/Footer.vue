@@ -3,7 +3,9 @@
         class="flex flex-col justify-center items-center text-center py-4 bg-gray-300"
     >
         <div class="cursor-pointer text-gray-700 hover:text-blue-800">
-            <p>Seguros Chat. Todos los derechos reservados</p>
+            <p>
+                SegurosChat®. Todos los derechos reservados © {{ currentYear }}
+            </p>
         </div>
         <div class="flex justify-center items-center gap-x-2">
             <button
@@ -217,7 +219,16 @@ export default {
         return {
             politicas: false,
             terminos: false,
+            currentYear: null,
         };
+    },
+    mounted() {
+        this.getCurrentYear();
+    },
+    methods: {
+        getCurrentYear() {
+            this.currentYear = new Date().getFullYear();
+        },
     },
 };
 </script>

@@ -111,7 +111,7 @@ const isOpen3 = ref(false)
                                             <button v-on:click="insurances_id = seller.insurances_id, time = 'seismeses'"
                                             :class="{'border-blue-600 border-2' : seller.isChecked && time == 'seismeses'}"
                                                 @click="marcarItem(seller, 'button2', index)"
-                                                class="relative flex hover:border-blue-600 hover:cursor-pointer flex-col items-center justify-center mb-1 text-sm font-semibold text-gray-900 border border-gray-300 bg-white text-center rounded-lg w-full h-16 px-2">
+                                                class="relative flex hover:border-blue-600 hover:cursor-pointer flex-col items-center justify-center mb-1 text-sm font-semibold text-gray-900 border bg-white text-center rounded-lg w-full h-16 px-2">
                                                 <p>6 Meses</p>
                                             <p>RD$ {{
                                                 new
@@ -129,7 +129,7 @@ const isOpen3 = ref(false)
                                             <button v-on:click="insurances_id = seller.insurances_id, time = 'docemeses'"
                                             :class="{'border-blue-600 border-2' : seller.isChecked && time == 'docemeses'}"
                                                 @click="marcarItem(seller, 'button3', index)"
-                                                class="relative flex hover:border-blue-600 hover:cursor-pointer flex-col items-center justify-center mb-1 text-sm font-semibold text-gray-900 border border-gray-300 bg-white text-center rounded-lg w-full h-16 px-2">
+                                                class="relative flex hover:border-blue-600 hover:cursor-pointer flex-col items-center justify-center mb-1 text-sm font-semibold text-gray-900 border bg-white text-center rounded-lg w-full h-16 px-2">
                                                 <p>Anual</p>
                                                 <p>RD$ {{
                                                     new
