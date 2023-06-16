@@ -109,7 +109,7 @@ const isOpen3 = ref(false)
                                        
 
                                             <button v-on:click="insurances_id = seller.insurances_id, time = 'seismeses'"
-                                            :class="{'border-blue-600 border-2' : seller.isChecked && time == 'seismeses'}"
+                                            :class="{'border-blue-600 border-2' : seller.isChecked && time == 'seismeses' && quitarBorde === false}"
                                                 @click="marcarItem(seller, 'button2', index)"
                                                 class="relative flex hover:border-blue-600 hover:cursor-pointer flex-col items-center justify-center mb-1 text-sm font-semibold text-gray-900 border bg-white text-center rounded-lg w-full h-16 px-2">
                                                 <p>6 Meses</p>
@@ -118,7 +118,7 @@ const isOpen3 = ref(false)
                                                     Intl.NumberFormat('en-IN').format(seller.seismeses)
                                             }}.00</p>
                                             <div>
-                                                <input style=" top: -4px; right: -4px;" type="checkbox"
+                                                <input @click="quitarBorde = true, seller.time = null, seller.isChecked = null" style=" top: -4px; right: -4px;" type="checkbox"
                                                     :checked="seller.isChecked && seller.selectedButton === 'button2'"
                                                     class="absolute rounded-full checked:bg-blue-800 p-2 ">
                                             </div>
@@ -127,7 +127,7 @@ const isOpen3 = ref(false)
 
                                     <div class="relative w-1/2 flex flex-col justify-around items-stretch">                                                                                                                                                                            
                                             <button v-on:click="insurances_id = seller.insurances_id, time = 'docemeses'"
-                                            :class="{'border-blue-600 border-2' : seller.isChecked && time == 'docemeses'}"
+                                            :class="{'border-blue-600 border-2' : seller.isChecked && time == 'docemeses' && quitarBorde === false}"
                                                 @click="marcarItem(seller, 'button3', index)"
                                                 class="relative flex hover:border-blue-600 hover:cursor-pointer flex-col items-center justify-center mb-1 text-sm font-semibold text-gray-900 border bg-white text-center rounded-lg w-full h-16 px-2">
                                                 <p>Anual</p>
@@ -136,8 +136,8 @@ const isOpen3 = ref(false)
                                                         Intl.NumberFormat('en-IN').format(seller.docemeses)
                                                 }}.00</p>
                                                 <div>
-                                                    <input style="top: -4px; right: -4px;" type="checkbox"
-                                                        :checked="seller.isChecked && seller.selectedButton === 'button3'"
+                                                    <input @click="quitarBorde = true, seller.time = null, seller.isChecked = null" style="top: -4px; right: -4px;" type="checkbox"
+                                                        :checked="seller.isChecked && seller.selectedButton === 'button3' "
                                                         class="absolute rounded-full checked:bg-blue-800 p-2 ">
                                                 </div>
                                             </button>
@@ -160,35 +160,35 @@ const isOpen3 = ref(false)
 
                                         <div v-if="isOpen"
                                             class="w-full flex flex-col justify-center items-center text-center mb-2 bg-white p-1 rounded-md">
-                                            <div class="w-full flex justify-around font-bold text-sm text-blue-700"
+                                            <div class="w-full flex items-center font-bold text-sm text-blue-700 pl-1 md:px-4 lg:px-10"
                                                 v-if="sellers[1].DanosPropiedadAjena > 0">
-                                                <p class="text-center">Daños Propiedad Ajena:</p>
-                                                <p class="text-center">RD${{ Number(sellers[0].DanosPropiedadAjena).toLocaleString() }}</p>
+                                                <p class="w-8/12 text-left">Daños Propiedad Ajena:</p>
+                                                <p class="w-4/12 text-left">RD${{ Number(sellers[0].DanosPropiedadAjena).toLocaleString() }}</p>
                                             </div>
 
-                                            <div class="w-full flex justify-around font-bold text-sm text-blue-700"
+                                            <div class="w-full flex items-center font-bold text-sm text-blue-700 pl-1 md:px-4 lg:px-10"
                                                 v-if="sellers[1].ResponsabilidadCivil > 0">
-                                                <p class="text-center">Responsabilidad Civil:</p>
-                                                <p class="text-center">RD${{ Number(sellers[0].ResponsabilidadCivil).toLocaleString() }}</p>
+                                                <p class="w-8/12 text-left">Responsabilidad Civil:</p>
+                                                <p class="w-4/12 text-left">RD${{ Number(sellers[0].ResponsabilidadCivil).toLocaleString() }}</p>
                                             </div>
 
 
-                                            <div class="w-full flex justify-around font-bold text-sm text-blue-700"
+                                            <div class="w-full flex items-center  font-bold text-sm text-blue-700 pl-1 md:px-4 lg:px-10"
                                                 v-if="sellers[1].ResponsabilidadCivil2 > 0">
-                                                <p class="text-center">Responsabilidad Civil 2:</p>
-                                                <p class="text-center">RD${{ Number(sellers[0].ResponsabilidadCivil2).toLocaleString() }}</p>
+                                                <p class="w-8/12 text-left">Responsabilidad Civil 2:</p>
+                                                <p class="w-4/12 text-left">RD${{ Number(sellers[0].ResponsabilidadCivil2).toLocaleString() }}</p>
                                             </div>
 
-                                            <div class="w-full flex justify-around font-bold text-sm text-blue-700"
+                                            <div class="w-full flex items-center  font-bold text-sm text-blue-700 pl-1 md:px-4 lg:px-10"
                                                 v-if="sellers[1].UnaPersona > 0">
-                                                <p class="text-left">Una Persona:</p>
-                                                <p class="text-right">RD${{ Number(sellers[0].UnaPersona).toLocaleString() }}</p>
+                                                <p class="w-8/12 text-left">Una Persona:</p>
+                                                <p class="w-4/12 text-left">RD${{ Number(sellers[0].UnaPersona).toLocaleString() }}</p>
                                             </div>
 
-                                            <div class="w-full flex justify-around font-bold text-sm text-blue-700"
+                                            <div class="w-full flex items-center  font-bold text-sm text-blue-700 pl-1 md:px-4 lg:px-10"
                                                 v-if="sellers[1].FianzaJudicial > 0">
-                                                <p class="text-left">Fianza Judicial:</p>
-                                                <p class="text-right">RD${{ Number(sellers[0].FianzaJudicial).toLocaleString() }}</p>
+                                                <p class="w-8/12 text-left">Fianza Judicial:</p>
+                                                <p class="w-4/12 text-left">RD${{ Number(sellers[0].FianzaJudicial).toLocaleString() }}</p>
                                             </div>
                                         </div>
 
@@ -208,36 +208,36 @@ const isOpen3 = ref(false)
                                         </div>
 
                                         <div v-if="isOpen2"
-                                            class="w-full flex flex-col justify-center items-center text-center mb-2 bg-white p-1 rounded-md">
-                                            <div class="w-full flex justify-around font-bold text-sm text-blue-700"
-                                                v-if="sellers[1].DanosPropiedadAjena > 0">
-                                                <p class="text-center">Daños Propiedad Ajena:</p>
-                                                <p class="text-center">RD${{ Number(sellers[0].DanosPropiedadAjena).toLocaleString() }}</p>
-                                            </div>
-
-                                            <div class="w-full flex justify-around font-bold text-sm text-blue-700"
-                                                v-if="sellers[1].ResponsabilidadCivil > 0">
-                                                <p class="text-center">Responsabilidad Civil:</p>
-                                                <p class="text-center">RD${{ Number(sellers[0].ResponsabilidadCivil).toLocaleString() }}</p>
-                                            </div>
-
-
-                                            <div class="w-full flex justify-around font-bold text-sm text-blue-700"
-                                                v-if="sellers[1].ResponsabilidadCivil2 > 0">
-                                                <p class="text-center">Responsabilidad Civil 2:</p>
-                                                <p class="text-center">RD${{ Number(sellers[0].ResponsabilidadCivil2).toLocaleString() }}</p>
-                                            </div>
-
-                                            <div class="w-full flex justify-around font-bold text-sm text-blue-700"
-                                                v-if="sellers[1].UnaPersona > 0">
-                                                <p class="text-left">Una Persona:</p>
-                                                <p class="text-right">RD${{ Number(sellers[0].UnaPersona).toLocaleString() }}</p>
+                                        class="w-full flex flex-col justify-center items-center text-center mb-2 bg-white p-1 rounded-md">
+                                        <div class="w-full flex items-center font-bold text-sm text-blue-700 pl-1 md:px-4 lg:px-10"
+                                            v-if="sellers[1].DanosPropiedadAjena > 0">
+                                            <p class="w-8/12 text-left">Daños Propiedad Ajena:</p>
+                                            <p class="w-4/12 text-left">RD${{ Number(sellers[0].DanosPropiedadAjena).toLocaleString() }}</p>
                                         </div>
 
-                                        <div class="w-full flex justify-around font-bold text-sm text-blue-700"
+                                        <div class="w-full flex items-center font-bold text-sm text-blue-700 pl-1 md:px-4 lg:px-10"
+                                            v-if="sellers[1].ResponsabilidadCivil > 0">
+                                            <p class="w-8/12 text-left">Responsabilidad Civil:</p>
+                                            <p class="w-4/12 text-left">RD${{ Number(sellers[0].ResponsabilidadCivil).toLocaleString() }}</p>
+                                        </div>
+
+
+                                        <div class="w-full flex items-center  font-bold text-sm text-blue-700 pl-1 md:px-4 lg:px-10"
+                                            v-if="sellers[1].ResponsabilidadCivil2 > 0">
+                                            <p class="w-8/12 text-left">Responsabilidad Civil 2:</p>
+                                            <p class="w-4/12 text-left">RD${{ Number(sellers[0].ResponsabilidadCivil2).toLocaleString() }}</p>
+                                        </div>
+
+                                        <div class="w-full flex items-center  font-bold text-sm text-blue-700 pl-1 md:px-4 lg:px-10"
+                                            v-if="sellers[1].UnaPersona > 0">
+                                            <p class="w-8/12 text-left">Una Persona:</p>
+                                            <p class="w-4/12 text-left">RD${{ Number(sellers[0].UnaPersona).toLocaleString() }}</p>
+                                        </div>
+
+                                        <div class="w-full flex items-center  font-bold text-sm text-blue-700 pl-1 md:px-4 lg:px-10"
                                             v-if="sellers[1].FianzaJudicial > 0">
-                                            <p class="text-left">Fianza Judicial:</p>
-                                            <p class="text-right">RD${{ Number(sellers[0].FianzaJudicial).toLocaleString() }}</p>
+                                            <p class="w-8/12 text-left">Fianza Judicial:</p>
+                                            <p class="w-4/12 text-left">RD${{ Number(sellers[0].FianzaJudicial).toLocaleString() }}</p>
                                         </div>
                                     </div>
 
@@ -258,38 +258,38 @@ const isOpen3 = ref(false)
                                         </div>
 
                                         <div v-if="isOpen3"
-                                            class="w-full flex flex-col justify-center items-center text-center mb-2 bg-white p-1 rounded-md">
-                                            <div class="w-full flex justify-around font-bold text-sm text-blue-700"
-                                                v-if="sellers[1].DanosPropiedadAjena > 0">
-                                                <p class="text-center">Daños Propiedad Ajena:</p>
-                                                <p class="text-center">RD${{ Number(sellers[0].DanosPropiedadAjena).toLocaleString() }}</p>
-                                            </div>
-
-                                            <div class="w-full flex justify-around font-bold text-sm text-blue-700"
-                                                v-if="sellers[1].ResponsabilidadCivil > 0">
-                                                <p class="text-center">Responsabilidad Civil:</p>
-                                                <p class="text-center">RD${{ Number(sellers[0].ResponsabilidadCivil).toLocaleString() }}</p>
-                                            </div>
-
-
-                                            <div class="w-full flex justify-around font-bold text-sm text-blue-700"
-                                                v-if="sellers[1].ResponsabilidadCivil2 > 0">
-                                                <p class="text-center">Responsabilidad Civil 2:</p>
-                                                <p class="text-center">RD${{ Number(sellers[0].ResponsabilidadCivil2).toLocaleString() }}</p>
-                                            </div>
-
-                                            <div class="w-full flex justify-around font-bold text-sm text-blue-700"
-                                                v-if="sellers[1].UnaPersona > 0">
-                                                <p class="text-left">Una Persona:</p>
-                                                <p class="text-right">RD${{ Number(sellers[0].UnaPersona).toLocaleString() }}</p>
-                                            </div>
-
-                                            <div class="w-full flex justify-around font-bold text-sm text-blue-700"
-                                                v-if="sellers[1].FianzaJudicial > 0">
-                                                <p class="text-left">Fianza Judicial:</p>
-                                                <p class="text-right">RD${{ Number(sellers[0].FianzaJudicial).toLocaleString() }}</p>
-                                            </div>
+                                        class="w-full flex flex-col justify-center items-center text-center mb-2 bg-white p-1 rounded-md">
+                                        <div class="w-full flex items-center font-bold text-sm text-blue-700 pl-1 md:px-4 lg:px-10"
+                                            v-if="sellers[1].DanosPropiedadAjena > 0">
+                                            <p class="w-8/12 text-left">Daños Propiedad Ajena:</p>
+                                            <p class="w-4/12 text-left">RD${{ Number(sellers[0].DanosPropiedadAjena).toLocaleString() }}</p>
                                         </div>
+
+                                        <div class="w-full flex items-center font-bold text-sm text-blue-700 pl-1 md:px-4 lg:px-10"
+                                            v-if="sellers[1].ResponsabilidadCivil > 0">
+                                            <p class="w-8/12 text-left">Responsabilidad Civil:</p>
+                                            <p class="w-4/12 text-left">RD${{ Number(sellers[0].ResponsabilidadCivil).toLocaleString() }}</p>
+                                        </div>
+
+
+                                        <div class="w-full flex items-center  font-bold text-sm text-blue-700 pl-1 md:px-4 lg:px-10"
+                                            v-if="sellers[1].ResponsabilidadCivil2 > 0">
+                                            <p class="w-8/12 text-left">Responsabilidad Civil 2:</p>
+                                            <p class="w-4/12 text-left">RD${{ Number(sellers[0].ResponsabilidadCivil2).toLocaleString() }}</p>
+                                        </div>
+
+                                        <div class="w-full flex items-center  font-bold text-sm text-blue-700 pl-1 md:px-4 lg:px-10"
+                                            v-if="sellers[1].UnaPersona > 0">
+                                            <p class="w-8/12 text-left">Una Persona:</p>
+                                            <p class="w-4/12 text-left">RD${{ Number(sellers[0].UnaPersona).toLocaleString() }}</p>
+                                        </div>
+
+                                        <div class="w-full flex items-center  font-bold text-sm text-blue-700 pl-1 md:px-4 lg:px-10"
+                                            v-if="sellers[1].FianzaJudicial > 0">
+                                            <p class="w-8/12 text-left">Fianza Judicial:</p>
+                                            <p class="w-4/12 text-left">RD${{ Number(sellers[0].FianzaJudicial).toLocaleString() }}</p>
+                                        </div>
+                                    </div>
 
                                     </div>
 
@@ -329,6 +329,7 @@ export default {
     },
     data() {
         return {
+            quitarBorde: false,
             marcado: false,
             Loading: false,
             checkedItems: Array,
@@ -432,6 +433,7 @@ export default {
                     seller.isChecked = false;
                     this.marcado = false
                 } else {
+                    this.quitarBorde = false
                     this.marcado = true
                     seller.isChecked = true;
                     seller.selectedButton = buttonId;

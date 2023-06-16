@@ -32,6 +32,14 @@ Route::get('/', function () {
     return Inertia::render('index');
 });
 
+Route::get('/Terminos', function () {
+    return Inertia::render('Terminos');
+});
+
+Route::get('/Politicas', function () {
+    return Inertia::render('Politicas');
+});
+
 //Route::get('client/{phone}', [ClientController::class, 'show'])->name('client');
 Route::resource('client', ClientController::class);
 Route::post('policy/{marcaid}', [PoliciesController::class, 'index'])->name('policy');
