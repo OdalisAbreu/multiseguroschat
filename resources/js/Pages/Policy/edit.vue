@@ -404,15 +404,15 @@
             <div
                 class="mx-5 my-1 justify-self-center self-center text-center mt-6"
             >
-                <button
+             <!--   <button
                     v-on:click="submit"
                     class="w-full max-w-xl justify-center bg-blue-800 hover:bg-blue-700 shadow-lg shadow-blue-500/50 text-white font-bold rounded-lg py-4 sm:m-3 sm:w-full md:m-3 md:w-full xl:m-3 xl:full"
                 >
                     Realizar Compra
-                </button>
+                </button>-->
 
                 <form 
-                :action="`${paymentUrl}`"
+                :action="`${insurre.payment_url}`"
                 method="POST"
                 name="CardNet"
                 class="CardNet flex flex-col justify-center items-center"
@@ -440,19 +440,19 @@
                     type="hidden"
                     name="MerchantType"
                     id="MerchantType"
-                    v-model="form.merchanttype"
+                    v-model="form.insurre.merchanttype"
                 />
                 <input
                     type="hidden"
                     name="MerchantNumber"
                     id="MerchantNumber"
-                    v-model="form.merchantnumber"
+                    v-model="form.insurre.merchantnumber"
                 />
                 <input
                     type="hidden"
                     name="MerchantTerminal"
                     id="MerchantTerminal"
-                    v-model="form.merchantterminal"
+                    v-model="form.insurre.merchantterminal"
                 />
                 <input
                     type="hidden"
@@ -482,7 +482,7 @@
                     type="hidden"
                     name="TransactionId"
                     id="TransactionId"
-                    v-model="form.transactionid"
+                    v-model="form.transaction_uuid"
                 />
                 <input
                     type="hidden"
@@ -516,7 +516,6 @@
                     class="w-full mt-5 mx-5 my-4 pb-8 justify-self-center self-center text-center"
                 >
                     <button
-                        :onclick="(Loading = true)"
                         ref="myButton"
                         class="w-full max-w-xl justify-center bg-blue-800 hover:bg-blue-700 shadow-lg shadow-blue-500/50 text-white font-bold rounded-lg py-4 sm:m-3 sm:w-full md:m-3 md:w-full xl:m-3 xl:full"
                     >Realizar Compra</button>
@@ -569,6 +568,8 @@ export default {
         clientepais: Array,
         paises: Object,
         codigosDescuento: Array,
+        urlreturn: String,
+        clientip: String,
         Descuento: false,
 
         /*  */
@@ -599,6 +600,11 @@ export default {
                 clientepais: this.clientepais,
                 paises: this.paises,
                 service: this.service,
+                urlreturn: this.urlreturn,
+                transaction_uuid: this.invoice_id,
+                clientip: this.clientip,
+                client_name: this.client.name + ' ' + this.client.lastname,
+                total: this.totalGeneral + '00'
             },
             form2: {
                 car: this.car,
@@ -632,7 +638,7 @@ export default {
                 descontar: 0,
                 insurre: this.insurre,
                 service: this.service,
-            },q
+            },
         };
     },
     mounted() {

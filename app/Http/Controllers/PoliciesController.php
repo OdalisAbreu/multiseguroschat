@@ -205,7 +205,6 @@ class PoliciesController extends Controller
         $serviciosString = json_encode($servicios); //transforma los id de los servicios para guardarlos en la Base de Datos 
         //Buscar si hay algun proceso de compra inconcluso
         $invoice =  Invoices::where([['client_id',$request->client['id']],['payment_status', 'pending']])->first();
-        
         if($invoice){
             $invoice = Invoices::find($invoice->id);
             $invoice->policyTime = $policyTime;
