@@ -89,6 +89,8 @@ RUN cp docker/nginx.conf /etc/nginx/sites-enabled/default
 # PHP Error Log Files
 RUN mkdir /var/log/php
 RUN touch /var/log/php/errors.log && chmod 777 /var/log/php/errors.log
+RUN php artisan config:cache
+RUN php artisan route:cache
 
 #copy.env
 #COPY docker/.env.dev /var/www/html/.env
