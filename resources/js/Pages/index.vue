@@ -65,7 +65,7 @@
             <a
                 class="w-full relative flex items-center justify-center py-2 bg-blue-700 hover:bg-blue-900 text-white font-bold mx-3 rounded-lg shadow-lg hover:shadow-xl transition duration-200 sm:mx-3"
                 target="_blank"
-                href="https://api.whatsapp.com/send/?phone=18494722428&text&type=phone_number&app_absent=0"
+                href="https://api.whatsapp.com/send?phone=18494722428&text=%C2%A1S%C3%AD%2C%20quiero%20comprar%20mis%20seguros!"
             >
                 Contáctanos por WhatsApp
                 <img

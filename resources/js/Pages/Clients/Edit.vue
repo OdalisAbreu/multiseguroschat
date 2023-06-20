@@ -300,6 +300,7 @@
                     >
                     </model-list-select> -->
 
+                    
                     <div
                         class="w-full mt-5 mx-5 my-4 justify-self-center self-center text-center"
                     >
@@ -400,7 +401,17 @@ export default {
         } */
     },
     mounted() {
-        console.log(this.clientProvince);
+       //Validar si la seccion esta activa
+       axios.get("/api/V1/validarCesion/" + this.client.id).then((response) => {
+                if(!response.data.status){
+                    alert('Su cesión se encuentra inactiva')
+                    window.location.href = "https://api.whatsapp.com/send?phone=18494722428&text=Hola";
+                }
+            })
+            .catch((error) => {
+                console.log(error.response);
+            });
+
         this.form.city;
         this.Loading = false;
         if (this.activarPresentacion == "False") {
@@ -426,9 +437,9 @@ export default {
 
     /*  */
     watch: {
+
         province: function (key) {
-            /*         console.log(this.cities)
-                    console.log(this.ciudades) */
+            console.log('Entro');
             this.ciudades = this.cities.filter(
                 (ciudad) => ciudad.id_prov == key
             );

@@ -165,12 +165,9 @@ class PoliciesController extends Controller
 
     public function show(Request $request)
     {
-
        // return $request->servicios;
         $service = array();
         $totalServicios = 0;
-        $sericesId = '';
-        $clente = Client::find($request->clien_id);
         $tipo = Vehicle_type_tarif::find($request->car['tipo']);
         $marca = Vehicle_brands::find($request->car['marca']);
         $modelo = Vehicle_models::find($request->car['modelo']);
@@ -186,15 +183,62 @@ class PoliciesController extends Controller
         if ($request->policyTime == 'tresmeses') {
             $policyTime = '3 Meses';
             $time = 'priceThreeMonths';
+            $policyTime = 3;
         } elseif ($request->policyTime == 'seismeses') {
             $policyTime = '6 Meses';
             $time = 'priceSixMonths';
+            $policyTime = 6;
         } else {
             $policyTime = '12 Meses';
             $time = 'priceTwelveMonths';
+            $policyTime = 12;
         }
         //$totalGeneral = $totalServicios + $request->seller[0][$time];
         $totalGeneral = $totalServicios + $price[0][$time];
+        //********************************************************************************
+        $codigosDescuento = Discounts::where('active', '1')->get();
+        $urlReturn = 'https://seguroschat.com/api/statusPayment';
+        $servicios = [];
+        foreach($service as $service){
+            array_push($servicios, $service['id']);
+        }
+        $serviciosString = json_encode($servicios); //transforma los id de los servicios para guardarlos en la Base de Datos 
+        //Buscar si hay algun proceso de compra inconcluso
+        $invoice =  Invoices::where([['client_id',$request->client['id']],['payment_status', 'pending']])->first();
+        if($invoice){
+            $invoice = Invoices::find($invoice->id);
+            $invoice->policyTime = $policyTime;
+            $invoice->chassis = $request->car['chasis'];
+            $invoice->licensePlate = $request->car['placa'];
+            $invoice->year = $request->car['year'];
+            $invoice->totalGeneral = $totalGeneral;
+            $invoice->sellers_id = $request->insurre['insurance_id'];;
+            $invoice->car_tipe = $request->car['tipo'];
+            $invoice->car_brand = $request->car['marca'];
+            $invoice->car_model = $request->car['modelo'];
+            $invoice->client_id = $request->client['id'];
+            $invoice->services = $serviciosString;
+            $invoice->discount_id = 0;
+            $invoice->payment_status = 'pending';
+            $invoice->update();
+        }else{
+            $invoice = new Invoices();
+            $invoice->policyTime = $policyTime;
+            $invoice->chassis = $request->car['chasis'];
+            $invoice->licensePlate = $request->car['placa'];
+            $invoice->year = $request->car['year'];
+            $invoice->totalGeneral = $totalGeneral;
+            $invoice->sellers_id = $request->insurre['insurance_id'];;
+            $invoice->car_tipe = $request->car['tipo'];
+            $invoice->car_brand = $request->car['marca'];
+            $invoice->car_model = $request->car['modelo'];
+            $invoice->client_id = $request->client['id'];
+            $invoice->services = $serviciosString;
+            $invoice->discount_id = 0;
+            $invoice->payment_status = 'pending';
+            $invoice->save();
+        }
+
 
         return Inertia::render('Policy/edit', [
             'car' => $request->car,
@@ -206,7 +250,7 @@ class PoliciesController extends Controller
             'marca' => $marca['DESCRIPCION'],
             'tipo' => $tipo['nombre'],
             'modelo' => $modelo['descripcion'],
-            'cliente' => $clente,
+            'cliente' => $request->client,
             'service' => $service,
             'services' => $request->services,
             'insurre' => $request->insurre,
@@ -219,9 +263,15 @@ class PoliciesController extends Controller
             'provinces' => $request->provinces,
             'cities' => $request->cities,
             'clientepais' => $request->clientepais,
-            'paises' => $request->paises
-            
-
+            'paises' => $request->paises,
+            //-----------------------------------------------------
+            'codigosDescuento' => $codigosDescuento,
+            'total' => $totalGeneral,
+            'urlreturn' => $urlReturn,
+            'date' => gmdate("Y-m-d\TH:i:s\Z"),
+            'tax' => '0', 
+            'invoice_id' => $invoice->id,
+            'clientip' => $_SERVER['REMOTE_ADDR']
         ]);
     }
 

@@ -88,15 +88,6 @@ class ClientsController extends Controller
         }
     }
 
-    public function update(Request $request, Client $client)
-    {
-        //
-    }
-
-    public function destroy(Client $client)
-    {
-        //
-    }
 
     public function clientPilicy($cedula)
     {
@@ -382,5 +373,25 @@ class ClientsController extends Controller
         $client->vista = $vista;
         $client->save();
         return $client;
+    }
+    public function validarCesion($id)
+    {
+        $client = Client::where('id', $id)->first();
+        if($client){
+            if($client->session == 'A'){
+                return[
+                    'status' => true
+                ];
+            }else{
+                return[
+                    'status' => false
+                ];
+            }
+        }else{
+            return[
+                'status' => false
+            ];
+        }
+
     }
 }

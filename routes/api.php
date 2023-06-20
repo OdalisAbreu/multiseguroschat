@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\Jetstream\Rules\Role;
 
-Route::apiResource('V1/client', ClientsController::class);
+Route::post('V1/client', [ClientsController::class, 'store']);
 Route::get('V1/client/{id}/{idConversacion}', [ClientsController::class,'show']);
 Route::get('V1/getpolicy/{cedula}', [ClientsController::class, 'clientPilicy'])->name('getpolicy');// Ruta optner poliza 
 Route::get('V1/invoice/{poliza}', [InvoicesController::class, 'getInvoice']); // optiene los datos de la factura 
@@ -28,3 +28,4 @@ Route::get('V1/confirmarPositivo/{phone}', [ClientsController::class,'confirmarP
 Route::get('V1/confirmarNegativo/{phone}', [ClientsController::class,'confirmarNegativo']);
 Route::get('V1/desactivarSesion/{idClient}', [ClientsController::class,'desactivarSesion']);
 Route::get('V1/validarVista/{idClient}/{vista}', [ClientsController::class,'validarVista']);
+Route::get('V1/validarCesion/{id}', [ClientsController::class,'validarCesion']);

@@ -188,23 +188,23 @@
                 <div class="w-full flex gap-2 pl-3">
                     <b class="w-1/2">Asegurado:</b>
                     <p class="w-1/2">
-                        {{ cliente.name }} {{ cliente.lastname }}
+                        {{ client.name }} {{ client.lastname }}
                     </p>
                 </div>
 
                 <div class="w-full flex gap-2 pl-3">
                     <b class="w-1/2">Cédula:</b>
-                    <p class="w-1/2">{{ cliente.cardnumber }}</p>
+                    <p class="w-1/2">{{ client.cardnumber }}</p>
                 </div>
 
                 <div class="w-full flex gap-2 pl-3">
                     <b class="w-1/2">Dirección:</b>
-                    <p class="w-1/2">{{ cliente.adrress }}</p>
+                    <p class="w-1/2">{{ client.adrress }}</p>
                 </div>
 
                 <div class="w-full flex gap-2 pl-3">
                     <b class="w-1/2">Teléfono:</b>
-                    <p class="w-1/2">{{ cliente.phonenumber }}</p>
+                    <p class="w-1/2">{{ client.phonenumber }}</p>
                 </div>
 
                 <div
@@ -404,12 +404,126 @@
             <div
                 class="mx-5 my-1 justify-self-center self-center text-center mt-6"
             >
-                <button
+             <!--   <button
                     v-on:click="submit"
                     class="w-full max-w-xl justify-center bg-blue-800 hover:bg-blue-700 shadow-lg shadow-blue-500/50 text-white font-bold rounded-lg py-4 sm:m-3 sm:w-full md:m-3 md:w-full xl:m-3 xl:full"
                 >
                     Realizar Compra
-                </button>
+                </button>-->
+
+                <form 
+                :action="`${insurre.payment_url}`"
+                method="POST"
+                name="CardNet"
+                class="CardNet flex flex-col justify-center items-center"
+                id="CardNet"
+            >
+                <input
+                    type="hidden"
+                    name="TransactionType"
+                    id="TransactionType"
+                    value="0200"
+                />
+                <input
+                    type="hidden"
+                    name="CurrencyCode"
+                    id="CurrencyCode"
+                    value="214"
+                />
+                <input
+                    type="hidden"
+                    name="AcquiringInstitutionCode"
+                    id="AcquiringInstitutionCode"
+                    value="349"
+                />
+                <input
+                    type="hidden"
+                    name="MerchantType"
+                    id="MerchantType"
+                    v-model="form.insurre.merchanttype"
+                />
+                <input
+                    type="hidden"
+                    name="MerchantNumber"
+                    id="MerchantNumber"
+                    v-model="form.insurre.merchantnumber"
+                />
+                <input
+                    type="hidden"
+                    name="MerchantTerminal"
+                    id="MerchantTerminal"
+                    v-model="form.insurre.merchantterminal"
+                />
+                <input
+                    type="hidden"
+                    name="ReturnUrl"
+                    id="ReturnUrl"
+                    v-model="form.urlreturn"
+                />
+                <input
+                    type="hidden"
+                    name="CancelUrl"
+                    id="CancelUrl"
+                    v-model="form.urlreturn"
+                />
+                <input
+                    type="hidden"
+                    name="PageLanguaje"
+                    id="PageLanguaje"
+                    value="ESP"
+                />
+                <input
+                    type="hidden"
+                    name="OrdenId"
+                    id="OrdenId"
+                    v-model="form.transaction_uuid"
+                />
+                <input
+                    type="hidden"
+                    name="TransactionId"
+                    id="TransactionId"
+                    v-model="form.transaction_uuid"
+                />
+                <input
+                    type="hidden"
+                    name="Amount"
+                    id="Amount"
+                    v-model="form.total"
+                />
+                <input type="hidden" name="Tax" id="Tax" v-model="form.tax" />
+                <input
+                    type="hidden"
+                    name="MerchantName"
+                    id="MerchantName"
+                    v-model="form.client_name"
+                />
+                <input
+                    type="hidden"
+                    name="KeyEncriptionKey"
+                    id="KeyEncriptionKey"
+                    v-model="form.transaction_uuid"
+                />
+                <input
+                    type="hidden"
+                    name="Ipclient"
+                    id="Ipclient"
+                    v-model="form.clientip"
+                />
+                <input type="hidden" name="loteid" Value="001" />
+                <input type="hidden" name="seqid" id="seqid" Value="001" />
+
+                <div
+                    class="w-full mt-5 mx-5 my-4 pb-8 justify-self-center self-center text-center"
+                >
+                    <button
+                        ref="myButton"
+                        class="w-full max-w-xl justify-center bg-blue-800 hover:bg-blue-700 shadow-lg shadow-blue-500/50 text-white font-bold rounded-lg py-4 sm:m-3 sm:w-full md:m-3 md:w-full xl:m-3 xl:full"
+                    >Realizar Compra</button>
+                </div>
+            </form>
+
+
+
             </div>
         </section>
     </section>
@@ -453,23 +567,14 @@ export default {
         provinces: Array,
         clientepais: Array,
         paises: Object,
+        codigosDescuento: Array,
+        urlreturn: String,
+        clientip: String,
+        Descuento: false,
 
         /*  */
 
-        car: Array,
-        tarifa: Array,
-        sellers: Array,
-        services: Array,
-        service: Array,
-        policyTime: String,
-        marca: String,
-        tipo: String,
-        modelo: String,
-        cliente: Array,
-        totalGeneral: String,
-        insurre: Array,
-        codigosDescuento: Array,
-        Descuento: false,
+
     },
     data() {
         return {
@@ -495,6 +600,11 @@ export default {
                 clientepais: this.clientepais,
                 paises: this.paises,
                 service: this.service,
+                urlreturn: this.urlreturn,
+                transaction_uuid: this.invoice_id,
+                clientip: this.clientip,
+                client_name: this.client.name + ' ' + this.client.lastname,
+                total: this.totalGeneral + '00'
             },
             form2: {
                 car: this.car,
@@ -519,7 +629,7 @@ export default {
             },
             form3: {
                 car: this.car,
-                cliente: this.cliente,
+                cliente: this.client,
                 services: this.services,
                 totalGeneral: this.totalGeneral,
                 policyTime: this.policyTime,
@@ -532,6 +642,18 @@ export default {
         };
     },
     mounted() {
+               //Validar si la seccion esta activa
+       axios.get("/api/V1/validarCesion/" + this.client.id).then((response) => {
+                if(!response.data.status){
+                    alert('Su cesión se encuentra inactiva')
+                    window.location.href = "https://api.whatsapp.com/send?phone=18494722428&text=Hola";
+                }
+            })
+            .catch((error) => {
+                console.log(error.response);
+            });
+
+        console.log(this.insurre)
         //------------------ Guardar Vista por el cliente -------------------------------------
         axios.get(
             "/api/V1/validarVista/" +
@@ -552,7 +674,6 @@ export default {
     methods: {
         submit() {
             this.Loading = true;
-            this.$inertia.post(this.route("servicesapprove"), this.form);
             this.$inertia.post(this.route("generatepolicy"), this.form3);
         },
         descuento() {
