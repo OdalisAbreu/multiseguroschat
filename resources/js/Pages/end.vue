@@ -187,7 +187,6 @@ export default defineComponent({
         tipo: Array,
     },
     mounted() {
-        console.log(this.Client);
         //------------------ Guardar Vista por el cliente -------------------------------------
         axios.get(
             "/api/V1/validarVista/" + this.Client.id + "/Pago Completado"
@@ -237,14 +236,15 @@ export default defineComponent({
 
         setTimeout(() => {
             this.display = "none";
-        }, 5000);
-        //--------------------------- Enviar a BotPro-----------------------------------------//
+        }, 1000);
+
+       /* //--------------------------- Enviar a BotPro-----------------------------------------//
         axios.get(
             "/api/V1/enviarIdPolizaBot/" +
                 this.invoice.id +
                 "/" +
                 this.Client.idConversacion
-        );
+        );*/
         //--------------------------- Generar PDF-----------------------------------------//
         axios.get(
             "/api/V1/generarPdf/" + this.invoice.police_transactionId
@@ -308,6 +308,11 @@ export default defineComponent({
             "/api/V1/desactivarSesion/" + this.Client.id
             //"/api/V1/confirmarPositivo/51185"
         );
+        const cuentaRegresiva = () => {
+            window.location.href = "https://api.whatsapp.com/send?phone=18494722428&text=";
+        };
+
+        const timeoutId = setTimeout(cuentaRegresiva, 15000);
     },
 });
 </script>

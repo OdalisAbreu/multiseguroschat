@@ -311,7 +311,7 @@ class PoliciesController extends Controller
         }
         $tarifaServices = explode("-", $request->servicios);
         $services = array();
-        $servicios = Service::all();
+        $servicios = Service::where([['insurances_id', $insurresId], ['activo', 'si']])->get();
         if($time == 'tresmeses'){
             $plazo = '3 meses';
         }
@@ -321,9 +321,9 @@ class PoliciesController extends Controller
         if($time == 'docemeses'){
             $plazo = '12 meses';
         }
-        foreach ($tarifaServices as $service) {
+       // return $servicios;
+       // foreach ($tarifaServices as $service) {
             foreach ($servicios as $servicio) {
-                if ($servicio['id'] == $service) {
                     $service2 = array(
                         'serviceName' => $servicio['nombre'],
                         'servicePrice' => $servicio[$time],
@@ -331,9 +331,9 @@ class PoliciesController extends Controller
                         'time' => $plazo
                     );
                     array_push($services, $service2);
-                }
             }
-        }
+      //  }
+       // return $services;
         $insurres = DB::table('insurances')
             ->join('data_payment_gateway', 'insurances.id', 'data_payment_gateway.insurance_id')
             ->where('insurances.id', $insurresId)

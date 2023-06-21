@@ -652,8 +652,6 @@ export default {
             .catch((error) => {
                 console.log(error.response);
             });
-
-        console.log(this.insurre)
         //------------------ Guardar Vista por el cliente -------------------------------------
         axios.get(
             "/api/V1/validarVista/" +

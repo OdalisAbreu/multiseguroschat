@@ -103,6 +103,16 @@ export default {
     components: {},
     props: {},
     mounted() {
+                       //Validar si la seccion esta activa
+       axios.get("/api/V1/validarCesion/" + this.client.id).then((response) => {
+                if(!response.data.status){
+                    alert('Su cesión se encuentra inactiva')
+                    window.location.href = "https://api.whatsapp.com/send?phone=18494722428&text=Hola";
+                }
+            })
+            .catch((error) => {
+                console.log(error.response);
+            });
         var node = document.getElementById("image");
 
          toPng(node)
