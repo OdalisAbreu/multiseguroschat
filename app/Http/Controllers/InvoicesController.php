@@ -79,7 +79,7 @@ class InvoicesController extends Controller
                                         },
                                         "insuranceCarrierId": '.$invoices->sellers_id.',
                                         "services":  '.$invoices->services.',
-                                        "policyStartDate": "'.gmdate("Y-m-d\TH:i:s\Z").'",
+                                        "policyStartDate": "'.$invoices->policyInitDate.'",
                                         "policyValidity": '.$invoices->policyTime.',
                                     }',
                 CURLOPT_HTTPHEADER => array(
@@ -185,7 +185,7 @@ class InvoicesController extends Controller
                                     },
                                     "insuranceCarrierId": '.$invoices->sellers_id.',
                                     "services":  '.$invoices->services.',
-                                    "policyStartDate": "'.gmdate("Y-m-d\TH:i:s\Z").'",
+                                    "policyStartDate": "'.$invoices->policyInitDate.'",
                                     "policyValidity": '.$invoices->policyTime.',
                                     "Total": '.round($invoices->totalGeneral).'
                                 }',

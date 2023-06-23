@@ -864,7 +864,7 @@ export default {
         // Asignar el arreglo de objetos a tu variable items
         /*  console.log(this.checkedItems) */
 
-        window.addEventListener('beforeunload', this.showConfirmation);
+      /*   window.addEventListener('beforeunload', this.showConfirmation); */
 
         const cuentaRegresiva = () => {
             axios.get("/api/V1/confirmarNegativo/" + this.client.phonenumber);
@@ -911,14 +911,14 @@ export default {
             this.Loading = true;
             this.$inertia.post(this.route("carReturn"), this.form2);
         },
-        showConfirmation(event) {
+  /*       showConfirmation(event) {
             event.preventDefault();
             event.returnValue = ""; // Necesario para mostrar el mensaje en algunos navegadores antiguos
             return "¿Estás seguro de que quieres salir? Todos los cambios no guardados se perderán.";
-        },
+        }, */
     },
-    beforeUnmount() {
+   /*  beforeUnmount() {
         window.removeEventListener("beforeunload", this.showConfirmation);
-    },
+    }, */
 };
 </script>

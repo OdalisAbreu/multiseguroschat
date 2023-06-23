@@ -421,7 +421,6 @@ export default {
                 this.loading = false;
             }, 5000);
         }
-
         const cuentaRegresiva = () => {
             axios.get("/api/V1/confirmarNegativo/" + this.client.phonenumber);
         };
