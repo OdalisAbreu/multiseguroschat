@@ -837,11 +837,14 @@ export default {
         });
     },
     mounted() {
-               //Validar si la seccion esta activa
-       axios.get("/api/V1/validarCesion/" + this.client.id).then((response) => {
-                if(!response.data.status){
-                    alert('Su cesión se encuentra inactiva')
-                    window.location.href = "https://api.whatsapp.com/send?phone=18494722428&text=Hola";
+        //Validar si la seccion esta activa
+        axios
+            .get("/api/V1/validarCesion/" + this.client.id)
+            .then((response) => {
+                if (!response.data.status) {
+                    alert("Su cesión se encuentra inactiva");
+                    window.location.href =
+                        "https://api.whatsapp.com/send?phone=18494722428&text=Hola";
                 }
             })
             .catch((error) => {
@@ -861,6 +864,8 @@ export default {
         // Asignar el arreglo de objetos a tu variable items
         /*  console.log(this.checkedItems) */
 
+        window.addEventListener('beforeunload', this.showConfirmation);
+
         const cuentaRegresiva = () => {
             axios.get("/api/V1/confirmarNegativo/" + this.client.phonenumber);
         };
@@ -874,12 +879,13 @@ export default {
     methods: {
         procesar: function (insurances_id, time) {
             if (insurances_id && time) {
-                this.form.date = this.form.date.toISOString()
+                this.form.date = this.form.date.toISOString();
                 this.Loading = true;
-                this.$inertia.post(
+                console.log(this.form.date);
+                /*                 this.$inertia.post(
                     this.route("services", [insurances_id, time]),
                     this.form
-                );
+                ); */
             } else {
                 alert("¡Seleccione una aseguradora para poder continuar!");
             }
@@ -905,6 +911,14 @@ export default {
             this.Loading = true;
             this.$inertia.post(this.route("carReturn"), this.form2);
         },
+        showConfirmation(event) {
+            event.preventDefault();
+            event.returnValue = ""; // Necesario para mostrar el mensaje en algunos navegadores antiguos
+            return "¿Estás seguro de que quieres salir? Todos los cambios no guardados se perderán.";
+        },
+    },
+    beforeUnmount() {
+        window.removeEventListener("beforeunload", this.showConfirmation);
     },
 };
 </script>
