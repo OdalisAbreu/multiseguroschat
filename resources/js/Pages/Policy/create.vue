@@ -146,6 +146,7 @@ export default {
         clientProvince: Array,
         clientepais: Array,
         paises: Object,
+        date: String
 
     },
     data() {
@@ -171,6 +172,7 @@ export default {
                 polizaValor: this.polizaValor,
                 clientepais: this.clientepais,
                 paises: this.paises,
+                date: this.date
 
             }, form2: {
                 cities: this.cities,

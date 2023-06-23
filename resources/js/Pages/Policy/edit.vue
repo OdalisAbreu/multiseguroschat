@@ -139,7 +139,7 @@
                         </div>
                     </div>
 
-                    <p v-for="servicio in service" :key="servicio.id">
+                    <p v-for="servicio in form.service" :key="servicio.id">
                         {{ servicio.serviceName }}: RD$
                         {{ servicio.servicePrice }}.00
                         <br />
@@ -299,7 +299,7 @@
                 </div>
 
                 <div class="w-full flex gap-2 pl-3">
-                    <b class="w-1/2">Fianza Judicial:</b>
+                    <b class="w-1/2">Fianza Judicial:</b> 
                     <p class="w-1/2">
                         {{
                             Number(sellers[0].FianzaJudicial).toLocaleString(
@@ -490,7 +490,8 @@
                     id="Amount"
                     v-model="form.total"
                 />
-                <input type="hidden" name="Tax" id="Tax" v-model="form.tax" />
+                <input type="hidden" name="Tax" id="Tax" Value="00" />
+                <!--<input type="text" name="Tax" id="Tax" v-model="form.tax" />-->
                 <input
                     type="hidden"
                     name="MerchantName"
@@ -571,6 +572,7 @@ export default {
         urlreturn: String,
         clientip: String,
         Descuento: false,
+        invoice_id: String
 
         /*  */
 
@@ -642,6 +644,7 @@ export default {
         };
     },
     mounted() {
+        console.log(this.service);
                //Validar si la seccion esta activa
        axios.get("/api/V1/validarCesion/" + this.client.id).then((response) => {
                 if(!response.data.status){

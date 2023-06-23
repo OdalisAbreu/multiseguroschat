@@ -220,6 +220,7 @@ class PoliciesController extends Controller
             $invoice->services = $serviciosString;
             $invoice->discount_id = 0;
             $invoice->payment_status = 'pending';
+            $invoice->policyInitDate = $request->date;
             $invoice->update();
         }else{
             $invoice = new Invoices();
@@ -236,6 +237,7 @@ class PoliciesController extends Controller
             $invoice->services = $serviciosString;
             $invoice->discount_id = 0;
             $invoice->payment_status = 'pending';
+            $invoice->policyInitDate = $request->date;
             $invoice->save();
         }
 
@@ -360,7 +362,8 @@ class PoliciesController extends Controller
             'provinces' => $request->provinces,
             'clientProvince' => $request->clientProvince,
             'clientepais' => $request->clientepais,
-            'paises' => $request->paises
+            'paises' => $request->paises,
+            'date' => $request->date
         ]);
     }
     public function carReturn(Request $request)
