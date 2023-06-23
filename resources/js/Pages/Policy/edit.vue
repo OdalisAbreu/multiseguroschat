@@ -139,6 +139,10 @@
                         </div>
                     </div>
 
+                    <!----------------------------------------QUITAR CUANDO SE TERMINEN LAS PRUEBAS------------------------------------------>
+                    <!-- Imprime los servicios seleccionados -->
+                    {{ service }}
+
                     <p v-for="servicio in form.service" :key="servicio.id">
                         {{ servicio.serviceName }}: RD$
                         {{ servicio.servicePrice }}.00
@@ -187,9 +191,7 @@
 
                 <div class="w-full flex gap-2 pl-3">
                     <b class="w-1/2">Asegurado:</b>
-                    <p class="w-1/2">
-                        {{ client.name }} {{ client.lastname }}
-                    </p>
+                    <p class="w-1/2">{{ client.name }} {{ client.lastname }}</p>
                 </div>
 
                 <div class="w-full flex gap-2 pl-3">
@@ -299,7 +301,7 @@
                 </div>
 
                 <div class="w-full flex gap-2 pl-3">
-                    <b class="w-1/2">Fianza Judicial:</b> 
+                    <b class="w-1/2">Fianza Judicial:</b>
                     <p class="w-1/2">
                         {{
                             Number(sellers[0].FianzaJudicial).toLocaleString(
@@ -323,7 +325,10 @@
                 >
                     <b class="w-1/2"> {{ servicio.serviceName }}:</b>
 
-                    <label class="w-1/2 flex items-center justify-start" style="text-transform: uppercase">
+                    <label
+                        class="w-1/2 flex items-center justify-start"
+                        style="text-transform: uppercase"
+                    >
                         RD${{ servicio.servicePrice }}.00
                     </label>
                 </div>
@@ -395,7 +400,7 @@
                 </div>
             </section>
 
-             <div class="flex flex-col items-center justify-center">
+            <div class="flex flex-col items-center justify-center">
                 <img class="inline max-w-xs" src="ima/cardnetLogo.png" />
                 <p class="font-bold text-2xl text-center">Aceptamos:</p>
                 <img class="inline pb-12 pt-4 w-56" src="ima/tarjetas.png" />
@@ -404,127 +409,127 @@
             <div
                 class="mx-5 my-1 justify-self-center self-center text-center mt-6"
             >
-             <!--   <button
+                <!--   <button
                     v-on:click="submit"
                     class="w-full max-w-xl justify-center bg-blue-800 hover:bg-blue-700 shadow-lg shadow-blue-500/50 text-white font-bold rounded-lg py-4 sm:m-3 sm:w-full md:m-3 md:w-full xl:m-3 xl:full"
                 >
                     Realizar Compra
                 </button>-->
 
-                <form 
-                :action="`${insurre.payment_url}`"
-                method="POST"
-                name="CardNet"
-                class="CardNet flex flex-col justify-center items-center"
-                id="CardNet"
-            >
-                <input
-                    type="hidden"
-                    name="TransactionType"
-                    id="TransactionType"
-                    value="0200"
-                />
-                <input
-                    type="hidden"
-                    name="CurrencyCode"
-                    id="CurrencyCode"
-                    value="214"
-                />
-                <input
-                    type="hidden"
-                    name="AcquiringInstitutionCode"
-                    id="AcquiringInstitutionCode"
-                    value="349"
-                />
-                <input
-                    type="hidden"
-                    name="MerchantType"
-                    id="MerchantType"
-                    v-model="form.insurre.merchanttype"
-                />
-                <input
-                    type="hidden"
-                    name="MerchantNumber"
-                    id="MerchantNumber"
-                    v-model="form.insurre.merchantnumber"
-                />
-                <input
-                    type="hidden"
-                    name="MerchantTerminal"
-                    id="MerchantTerminal"
-                    v-model="form.insurre.merchantterminal"
-                />
-                <input
-                    type="hidden"
-                    name="ReturnUrl"
-                    id="ReturnUrl"
-                    v-model="form.urlreturn"
-                />
-                <input
-                    type="hidden"
-                    name="CancelUrl"
-                    id="CancelUrl"
-                    v-model="form.urlreturn"
-                />
-                <input
-                    type="hidden"
-                    name="PageLanguaje"
-                    id="PageLanguaje"
-                    value="ESP"
-                />
-                <input
-                    type="hidden"
-                    name="OrdenId"
-                    id="OrdenId"
-                    v-model="form.transaction_uuid"
-                />
-                <input
-                    type="hidden"
-                    name="TransactionId"
-                    id="TransactionId"
-                    v-model="form.transaction_uuid"
-                />
-                <input
-                    type="hidden"
-                    name="Amount"
-                    id="Amount"
-                    v-model="form.total"
-                />
-                <input type="hidden" name="Tax" id="Tax" Value="00" />
-                <!--<input type="text" name="Tax" id="Tax" v-model="form.tax" />-->
-                <input
-                    type="hidden"
-                    name="MerchantName"
-                    id="MerchantName"
-                    v-model="form.client_name"
-                />
-                <input
-                    type="hidden"
-                    name="KeyEncriptionKey"
-                    id="KeyEncriptionKey"
-                    v-model="form.transaction_uuid"
-                />
-                <input
-                    type="hidden"
-                    name="Ipclient"
-                    id="Ipclient"
-                    v-model="form.clientip"
-                />
-                <input type="hidden" name="loteid" Value="001" />
-                <input type="hidden" name="seqid" id="seqid" Value="001" />
-
-                <div
-                    class="w-full mt-5 mx-5 my-4 pb-8 justify-self-center self-center text-center"
+                <form
+                    :action="`${insurre.payment_url}`"
+                    method="POST"
+                    name="CardNet"
+                    class="CardNet flex flex-col justify-center items-center"
+                    id="CardNet"
                 >
-                    <button
-                        ref="myButton"
-                        class="w-full max-w-xl justify-center bg-blue-800 hover:bg-blue-700 shadow-lg shadow-blue-500/50 text-white font-bold rounded-lg py-4 sm:m-3 sm:w-full md:m-3 md:w-full xl:m-3 xl:full"
-                    >Realizar Compra</button>
-                </div>
-            </form>
+                    <input
+                        type="hidden"
+                        name="TransactionType"
+                        id="TransactionType"
+                        value="0200"
+                    />
+                    <input
+                        type="hidden"
+                        name="CurrencyCode"
+                        id="CurrencyCode"
+                        value="214"
+                    />
+                    <input
+                        type="hidden"
+                        name="AcquiringInstitutionCode"
+                        id="AcquiringInstitutionCode"
+                        value="349"
+                    />
+                    <input
+                        type="hidden"
+                        name="MerchantType"
+                        id="MerchantType"
+                        v-model="form.insurre.merchanttype"
+                    />
+                    <input
+                        type="hidden"
+                        name="MerchantNumber"
+                        id="MerchantNumber"
+                        v-model="form.insurre.merchantnumber"
+                    />
+                    <input
+                        type="hidden"
+                        name="MerchantTerminal"
+                        id="MerchantTerminal"
+                        v-model="form.insurre.merchantterminal"
+                    />
+                    <input
+                        type="hidden"
+                        name="ReturnUrl"
+                        id="ReturnUrl"
+                        v-model="form.urlreturn"
+                    />
+                    <input
+                        type="hidden"
+                        name="CancelUrl"
+                        id="CancelUrl"
+                        v-model="form.urlreturn"
+                    />
+                    <input
+                        type="hidden"
+                        name="PageLanguaje"
+                        id="PageLanguaje"
+                        value="ESP"
+                    />
+                    <input
+                        type="hidden"
+                        name="OrdenId"
+                        id="OrdenId"
+                        v-model="form.transaction_uuid"
+                    />
+                    <input
+                        type="hidden"
+                        name="TransactionId"
+                        id="TransactionId"
+                        v-model="form.transaction_uuid"
+                    />
+                    <input
+                        type="hidden"
+                        name="Amount"
+                        id="Amount"
+                        v-model="form.total"
+                    />
+                    <input type="hidden" name="Tax" id="Tax" Value="00" />
+                    <!--<input type="text" name="Tax" id="Tax" v-model="form.tax" />-->
+                    <input
+                        type="hidden"
+                        name="MerchantName"
+                        id="MerchantName"
+                        v-model="form.client_name"
+                    />
+                    <input
+                        type="hidden"
+                        name="KeyEncriptionKey"
+                        id="KeyEncriptionKey"
+                        v-model="form.transaction_uuid"
+                    />
+                    <input
+                        type="hidden"
+                        name="Ipclient"
+                        id="Ipclient"
+                        v-model="form.clientip"
+                    />
+                    <input type="hidden" name="loteid" Value="001" />
+                    <input type="hidden" name="seqid" id="seqid" Value="001" />
 
-
-
+                    <div
+                        class="w-full mt-5 mx-5 my-4 pb-8 justify-self-center self-center text-center"
+                    >
+                        <button
+                            ref="myButton"
+                            @click="mostrarConfirmacion = false"
+                            class="w-full max-w-xl justify-center bg-blue-800 hover:bg-blue-700 shadow-lg shadow-blue-500/50 text-white font-bold rounded-lg py-4 sm:m-3 sm:w-full md:m-3 md:w-full xl:m-3 xl:full"
+                        >
+                            Realizar Compra
+                        </button>
+                    </div>
+                </form>
             </div>
         </section>
     </section>
@@ -572,14 +577,13 @@ export default {
         urlreturn: String,
         clientip: String,
         Descuento: false,
-        invoice_id: String
+        invoice_id: String,
 
         /*  */
-
-
     },
     data() {
         return {
+            mostrarConfirmacion: true,
             total: 50,
             Loading: false,
             form: {
@@ -605,8 +609,8 @@ export default {
                 urlreturn: this.urlreturn,
                 transaction_uuid: this.invoice_id,
                 clientip: this.clientip,
-                client_name: this.client.name + ' ' + this.client.lastname,
-                total: this.totalGeneral + '00'
+                client_name: this.client.name + " " + this.client.lastname,
+                total: this.totalGeneral + "00",
             },
             form2: {
                 car: this.car,
@@ -644,12 +648,14 @@ export default {
         };
     },
     mounted() {
-        console.log(this.service);
-               //Validar si la seccion esta activa
-       axios.get("/api/V1/validarCesion/" + this.client.id).then((response) => {
-                if(!response.data.status){
-                    alert('Su cesión se encuentra inactiva')
-                    window.location.href = "https://api.whatsapp.com/send?phone=18494722428&text=Hola";
+        //Validar si la seccion esta activa
+        axios
+            .get("/api/V1/validarCesion/" + this.client.id)
+            .then((response) => {
+                if (!response.data.status) {
+                    alert("Su cesión se encuentra inactiva");
+                    window.location.href =
+                        "https://api.whatsapp.com/send?phone=18494722428&text=Hola";
                 }
             })
             .catch((error) => {

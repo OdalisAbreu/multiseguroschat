@@ -147,7 +147,6 @@ export default {
         clientepais: Array,
         paises: Object,
         date: String
-
     },
     data() {
         return {

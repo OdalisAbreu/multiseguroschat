@@ -74,12 +74,30 @@
                         <span class="text-red-400 inl">*</span></label
                     >
 
-                    <select class="rounded-lg w-full border-gray-300"
-                        v-model="form.tipo" required>
-                        <option :value="car.tipoName" disabled selected hidden v-if="car.tipoName != ''">{{ car.tipoName }}
+                    <select
+                        class="rounded-lg w-full border-gray-300"
+                        v-model="form.tipo"
+                        required
+                    >
+                        <option
+                            :value="car.tipoName"
+                            disabled
+                            selected
+                            hidden
+                            v-if="car.tipoName != ''"
+                        >
+                            {{ car.tipoName }}
                         </option>
-                        <option value="" disabled selected hidden v-else>TIPO DE VEHÍCULO</option>
-                        <option v-for="tipo in tipos" :value="tipo.id" :key="tipo.id">{{ tipo.nombre }} </option>
+                        <option value="" disabled selected hidden v-else>
+                            TIPO DE VEHÍCULO
+                        </option>
+                        <option
+                            v-for="tipo in tipos"
+                            :value="tipo.id"
+                            :key="tipo.id"
+                        >
+                            {{ tipo.nombre }}
+                        </option>
                     </select>
 
                     <!-- <model-list-select
@@ -98,17 +116,33 @@
                     <label class="pt-1 font-bold"
                         >Marca <span class="text-red-400 inl">*</span></label
                     >
-                       <select class="rounded-lg w-full border-gray-300"
-                        v-model="marca" required>
-                        <option :value="car.marcaName" disabled selected hidden v-if="car.marcaName != ''">{{ car.marcaName
-                        }}
+                    <select
+                        class="rounded-lg w-full border-gray-300"
+                        v-model="marca"
+                        required
+                    >
+                        <option
+                            :value="car.marcaName"
+                            disabled
+                            selected
+                            hidden
+                            v-if="car.marcaName != ''"
+                        >
+                            {{ car.marcaName }}
                         </option>
-                        <option value="" disabled selected hidden v-else>MARCA</option>
-                        <option v-for="marca in marcas" :value="marca.ID" :key="marca.ID">{{ marca.DESCRIPCION }}
+                        <option value="" disabled selected hidden v-else>
+                            MARCA
+                        </option>
+                        <option
+                            v-for="marca in marcas"
+                            :value="marca.ID"
+                            :key="marca.ID"
+                        >
+                            {{ marca.DESCRIPCION }}
                         </option>
                     </select>
 
-                   <!--  <model-list-select
+                    <!--  <model-list-select
                         class="selectSearch"
                         v-model="marca"
                         :value="marcas.ID"
@@ -124,19 +158,33 @@
                     <label class="pt-1 font-bold"
                         >Modelo <span class="text-red-400 inl">*</span></label
                     >
-                    <select class="rounded-lg w-full border-gray-300"
-                        v-model="form.modelo" required>
-                        <option :value="car.modeloName" disabled selected hidden v-if="car.modeloName != ''">
+                    <select
+                        class="rounded-lg w-full border-gray-300"
+                        v-model="form.modelo"
+                        required
+                    >
+                        <option
+                            :value="car.modeloName"
+                            disabled
+                            selected
+                            hidden
+                            v-if="car.modeloName != ''"
+                        >
                             {{ car.modeloName }}
                         </option>
-                        <option value="" disabled selected hidden v-else>MODELO</option>
-                        <option v-for="modelo in models" :value="modelo.ID" :key="modelo.ID">{{
-                            modelo.descripcion
-                        }}
+                        <option value="" disabled selected hidden v-else>
+                            MODELO
+                        </option>
+                        <option
+                            v-for="modelo in models"
+                            :value="modelo.ID"
+                            :key="modelo.ID"
+                        >
+                            {{ modelo.descripcion }}
                         </option>
                     </select>
 
-                   <!--  <model-list-select
+                    <!--  <model-list-select
                         class="selectSearch"
                         v-model="form.modelo"
                         required
@@ -337,11 +385,16 @@ export default {
         };
     },
     mounted() {
-                       //Validar si la seccion esta activa
-       axios.get("/api/V1/validarCesion/" + this.client.id).then((response) => {
-                if(!response.data.status){
-                    alert('Su cesión se encuentra inactiva')
-                    window.location.href = "https://api.whatsapp.com/send?phone=18494722428&text=Hola";
+        window.addEventListener("beforeunload", this.showConfirmation);
+
+        //Validar si la seccion esta activa
+        axios
+            .get("/api/V1/validarCesion/" + this.client.id)
+            .then((response) => {
+                if (!response.data.status) {
+                    alert("Su cesión se encuentra inactiva");
+                    window.location.href =
+                        "https://api.whatsapp.com/send?phone=18494722428&text=Hola";
                 }
             })
             .catch((error) => {
@@ -373,6 +426,11 @@ export default {
             this.Loading = true;
             this.$inertia.post(this.route("clientReturn"), this.form2);
         },
+        showConfirmation(event) {
+            event.preventDefault();
+            event.returnValue = ""; // Necesario para mostrar el mensaje en algunos navegadores antiguos
+            return "¿Estás seguro de que quieres salir? Todos los cambios no guardados se perderán.";
+        },
     },
     watch: {
         marca: function (value) {
@@ -382,15 +440,11 @@ export default {
             );
             console.log(this.models);
         },
-/*         "form.tipo": function () {
-            this.isTipoCarroEmpty = !this.form.tipo; // Verifica si form.city es nulo o vacío
-        },
-        "marca": function () {
-            this.isMarcaEmpty = !this.marca; // Verifica si form.city es nulo o vacío
-        },
-        "form.modelo": function () {
-            this.isModeloEmpty = !this.form.modelo; // Verifica si form.city es nulo o vacío
-        }, */
+    },
+    beforeUnmount() {
+        if (this.mostrarConfirmacion == true) {
+            window.removeEventListener("beforeunload", this.showConfirmation);
+        }
     },
 };
 </script>
