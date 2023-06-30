@@ -193,7 +193,7 @@ export default {
                //Validar si la seccion esta activa
        axios.get("/api/V1/validarCesion/" + this.client.id).then((response) => {
                 if(!response.data.status){
-                    alert('Su cesión se encuentra inactiva')
+                    alert('Su sesión se encuentra inactiva')
                     window.location.href = "https://api.whatsapp.com/send?phone=18494722428&text=Hola";
                 }
             })
@@ -220,19 +220,19 @@ export default {
     },
     methods: {
         submit() {
-            this.Loading = true
+           // this.Loading = true
             this.$inertia.post(this.route('servicespolicy'), this.form)
         },
         clientReturn() {
-            this.Loading = true
+           // this.Loading = true
             this.$inertia.post(this.route('clientReturn'), this.form2)
         },
         cartReturn() {
-            this.Loading = true
+          //  this.Loading = true
             this.$inertia.post(this.route('carReturn'), this.form2)
         },
         caseguradoraReturn() {
-            this.Loading = true
+          //  this.Loading = true
             this.$inertia.post(this.route('caseguradoraReturn'), this.form2)
         }
     },

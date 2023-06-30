@@ -166,25 +166,28 @@ class PoliciesController extends Controller
     public function show(Request $request)
     {
        // return $request->servicios;
-        $service = array();
+        $services = array();
         $totalServicios = 0;
         $tipo = Vehicle_type_tarif::find($request->car['tipo']);
         $marca = Vehicle_brands::find($request->car['marca']);
         $modelo = Vehicle_models::find($request->car['modelo']);
         $price = Price::where([['insurances_id', $request->insurre['insurance_id']], ['vehicle_type_id', $request->car['tipo']]])->get();
+
+   
+
         foreach ($request->servicios as $serviciosActivo) {
             foreach ($request->services as $servicio) {
                 if ($servicio['id'] == $serviciosActivo) {
                     $totalServicios = $totalServicios + $servicio['servicePrice'];
-                    array_push($service, $servicio);
+                    array_push($services, $servicio);
                 }
             }
         }
-        if ($request->policyTime == 'tresmeses') {
+        if ($request->policyTime == 'tresmeses' or $request->policyTime == 3) {
             $policyTime = '3 Meses';
             $time = 'priceThreeMonths';
             $policyTime = 3;
-        } elseif ($request->policyTime == 'seismeses') {
+        } elseif ($request->policyTime == 'seismeses'or $request->policyTime == 6) {
             $policyTime = '6 Meses';
             $time = 'priceSixMonths';
             $policyTime = 6;
@@ -199,11 +202,12 @@ class PoliciesController extends Controller
         $codigosDescuento = Discounts::where('active', '1')->get();
         $urlReturn = 'https://seguroschat.com/api/statusPayment';
         $servicios = [];
-        foreach($service as $service){
+        foreach($services as $service){
             array_push($servicios, $service['id']);
         }
         $serviciosString = json_encode($servicios); //transforma los id de los servicios para guardarlos en la Base de Datos 
         //Buscar si hay algun proceso de compra inconcluso
+
         $invoice =  Invoices::where([['client_id',$request->client['id']],['payment_status', 'pending']])->first();
         if($invoice){
             $invoice = Invoices::find($invoice->id);
@@ -240,8 +244,6 @@ class PoliciesController extends Controller
             $invoice->policyInitDate = $request->date;
             $invoice->save();
         }
-
-
         return Inertia::render('Policy/edit', [
             'car' => $request->car,
             'tarifa' => $request->tarifa,
@@ -253,7 +255,7 @@ class PoliciesController extends Controller
             'tipo' => $tipo['nombre'],
             'modelo' => $modelo['descripcion'],
             'cliente' => $request->client,
-            'service' => $service,
+            'service' => $services,
             'services' => $request->services,
             'insurre' => $request->insurre,
             'client' => $request->client,
