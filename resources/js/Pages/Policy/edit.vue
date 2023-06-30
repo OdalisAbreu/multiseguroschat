@@ -141,9 +141,7 @@
 
                     <!----------------------------------------QUITAR CUANDO SE TERMINEN LAS PRUEBAS------------------------------------------>
                     <!-- Imprime los servicios seleccionados -->
-                    {{ service }}
-
-                    <p v-for="servicio in form.service" :key="servicio.id">
+                    <p v-for="servicio in service" :key="servicio.id">
                         {{ servicio.serviceName }}: RD$
                         {{ servicio.servicePrice }}.00
                         <br />
@@ -501,7 +499,7 @@
                         type="hidden"
                         name="MerchantName"
                         id="MerchantName"
-                        v-model="form.client_name"
+                        v-model="form.insurre.nombre"
                     />
                     <input
                         type="hidden"
