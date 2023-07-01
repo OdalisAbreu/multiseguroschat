@@ -139,8 +139,6 @@
                         </div>
                     </div>
 
-                    <!----------------------------------------QUITAR CUANDO SE TERMINEN LAS PRUEBAS------------------------------------------>
-                    <!-- Imprime los servicios seleccionados -->
                     <p v-for="servicio in service" :key="servicio.id">
                         {{ servicio.serviceName }}: RD$
                         {{ servicio.servicePrice }}.00
@@ -398,10 +396,33 @@
                 </div>
             </section>
 
-            <div class="flex flex-col items-center justify-center">
-                <img class="inline max-w-xs" src="ima/cardnetLogo.png" />
-                <p class="font-bold text-2xl text-center">Aceptamos:</p>
-                <img class="inline pb-12 pt-4 w-56" src="ima/tarjetas.png" />
+            <div
+                class="flex flex-col items-center justify-center border-2 border-blue-800 bg-white max-w-4xl mt-6 rounded-xl mx-auto px-6 py-3 shadow-lg shadow-blue-500/50"
+            >
+                <p
+                    class="flex gap-x-1 justify-center items-start max-w-sm text-justify"
+                >
+                    <img
+                        class="w-4 pt-1"
+                        src="../../../../public/ima/info.png"
+                        alt="info"
+                    />
+                    A continuación te redireccionaremos a la pasarela de pagos
+                    de CardNet®. Las primas son cobradas directamente por la
+                    aseguradora seleccionada.
+                </p>
+                <img class="inline w-64 px-6" src="ima/cardnetLogo.png" />
+                <img class="inline pt-4 w-64 px-8" src="ima/tarjetas.png" />
+                <span
+                    class="flex gap-x-1 justify-center items-start max-w-sm text-justify mt-8"
+                    ><img
+                        class="w-4 pt-1"
+                        src="../../../../public/ima/info.png"
+                        alt="info"
+                    />
+                    Una vez aprobada la transacción, recibirás los documentos de
+                    tu póliza en tu WhatsApp</span
+                >
             </div>
 
             <div
@@ -516,10 +537,25 @@
                     <input type="hidden" name="loteid" Value="001" />
                     <input type="hidden" name="seqid" id="seqid" Value="001" />
 
+                    <div class="flex justify-center items-start my-3 gap-x-2">
+                        <input
+                            type="checkbox"
+                            @change="condiciones != condiciones"
+                            v-model="condiciones"
+                        />
+                        <p class="text-justify text-sm">
+                            Al hacer click en "Comprar" acepto los términos y
+                            condiciones de SegurosChat® en la compra de mis
+                            pólizas
+                        </p>
+                    </div>
+
                     <div
                         class="w-full mt-5 mx-5 my-4 pb-8 justify-self-center self-center text-center"
                     >
                         <button
+                            :class="{ 'bg-slate-600 shadow-none hover:bg-slate-600': condiciones == false }"
+                            :disabled="condiciones == false"
                             ref="myButton"
                             @click="mostrarConfirmacion = false"
                             class="w-full max-w-xl justify-center bg-blue-800 hover:bg-blue-700 shadow-lg shadow-blue-500/50 text-white font-bold rounded-lg py-4 sm:m-3 sm:w-full md:m-3 md:w-full xl:m-3 xl:full"
@@ -581,6 +617,7 @@ export default {
     },
     data() {
         return {
+            condiciones: false,
             mostrarConfirmacion: true,
             total: 50,
             Loading: false,
