@@ -385,7 +385,7 @@ export default {
         };
     },
     mounted() {
-        window.addEventListener("beforeunload", this.showConfirmation);
+        /* window.addEventListener("beforeunload", this.showConfirmation); */
 
         //Validar si la seccion esta activa
         axios
@@ -426,11 +426,11 @@ export default {
             this.Loading = true;
             this.$inertia.post(this.route("clientReturn"), this.form2);
         },
-        showConfirmation(event) {
+/*         showConfirmation(event) {
             event.preventDefault();
             event.returnValue = ""; // Necesario para mostrar el mensaje en algunos navegadores antiguos
             return "¿Estás seguro de que quieres salir? Todos los cambios no guardados se perderán.";
-        },
+        }, */
     },
     watch: {
         marca: function (value) {
