@@ -1,5 +1,13 @@
 <template>
-    <main
+          <div>
+    <iframe
+      src="https://home.seguroschat.com/" 
+      frameborder="0"
+      width="100%"
+      style="height: 100vh;"
+    ></iframe>
+  </div>
+  <!--  <main
         style="font-family: Helvetica"
         class="bg-slate-100 h-full w-full mx-auto shadow-2xl pb-16"
     >
@@ -25,7 +33,7 @@
             >
                 <label
                     class="relative text-white font-bold lg:text-6xl text-4xl mb-8 pr-20"
-                    >Compra tus seguros desde WhatsApp<span
+                    >Compra tus seguros desde WhatsApp <span
                         style="font-family: Roboto"
                         class="bottom-0 absolute first-letter:text-blue-700 text-6xl font-bold rounded-full"
                         >.</span
@@ -82,7 +90,9 @@
         </div>
     </main>
 
-    <div class="w-full bg-white flex flex-col justify-center items-center gap-y-4 p-4">
+    <div
+        class="w-full bg-white flex flex-col justify-center items-center gap-y-4 p-4"
+    >
         <img
             class="w-full"
             src="../../../public/ima/logo_nuevo_x_2.png"
@@ -247,7 +257,7 @@
                 >
             </div>
         </div>
-    </div>
+    </div>-->
 </template>
 
 <style scoped>

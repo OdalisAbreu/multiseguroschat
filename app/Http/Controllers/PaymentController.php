@@ -105,7 +105,7 @@ class PaymentController extends Controller
 //----------------------------------------------------------------------------------------------------------------------------------------------
     public function cardNet(Request $request){
         $codigo = 0 ;
-        if($request->descuento != ''){
+       /* if($request->descuento != ''){
             $value = Discounts::where([['code',$request->descuento],['active', 1]])->count();
             
             if($value == 0){
@@ -114,7 +114,7 @@ class PaymentController extends Controller
                 $value = Discounts::where([['code',$request->descuento],['active', 1]])->get();
                 $codigo = $value[0]->id;
             }
-        }
+        }*/
         
         $urlReturn = 'https://seguroschat.com/api/statusPayment';
         $servicios = [];
@@ -142,7 +142,8 @@ class PaymentController extends Controller
         $invoice->car_model = $request->car['modelo'];
         $invoice->client_id = $request->cliente['id'];
         $invoice->services = $serviciosString;
-        $invoice->discount_id = $codigo;
+      //  $invoice->discount_id = $codigo;
+        $invoice->discount_id = 1;
         $invoice->payment_status = 'peding';
         $invoice->save();
         return Inertia::render('Payment/cardnet', [

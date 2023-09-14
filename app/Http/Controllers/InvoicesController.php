@@ -277,4 +277,11 @@ class InvoicesController extends Controller
             ]);
         } 
     }
+
+    public function aplicarDescuento($id, $descuento_id, $totalGeneral){
+            $invoice = Invoices::find($id);
+            $invoice->totalGeneral = $totalGeneral;
+            $invoice->discount_id = $descuento_id;
+            $invoice->save();
+    }
 }

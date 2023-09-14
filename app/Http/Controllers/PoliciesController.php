@@ -163,7 +163,7 @@ class PoliciesController extends Controller
         ]);
     }
 
-    public function show(Request $request)
+    public function  show(Request $request)
     {
        // return $request->servicios;
         $services = array();
@@ -207,7 +207,7 @@ class PoliciesController extends Controller
         }
         $serviciosString = json_encode($servicios); //transforma los id de los servicios para guardarlos en la Base de Datos 
         //Buscar si hay algun proceso de compra inconcluso
-
+        //return $request->date;
         $invoice =  Invoices::where([['client_id',$request->client['id']],['payment_status', 'pending']])->first();
         if($invoice){
             $invoice = Invoices::find($invoice->id);
@@ -268,11 +268,12 @@ class PoliciesController extends Controller
             'cities' => $request->cities,
             'clientepais' => $request->clientepais,
             'paises' => $request->paises,
+            'costoPoliza' => $price[0][$time],
             //-----------------------------------------------------
             'codigosDescuento' => $codigosDescuento,
             'total' => $totalGeneral,
             'urlreturn' => $urlReturn,
-            'date' => gmdate("Y-m-d\TH:i:s\Z"),
+            'date' => $request->date,
             'tax' => '0', 
             'invoice_id' => $invoice->id,
             'clientip' => $_SERVER['REMOTE_ADDR']
@@ -421,7 +422,8 @@ class PoliciesController extends Controller
             'polizaValor' => $request->polizaValor,
             'insurres' => $request->insurre,
             'clientepais' => $request->clientepais,
-            'paises' => $request->paises
+            'paises' => $request->paises,
+            'date' => $request->date
 
         ]);
     }

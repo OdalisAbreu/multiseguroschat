@@ -16,6 +16,8 @@ Route::post('statusPayment', [InvoicesController::class, 'waitingRoom']); //Ir a
 //-----------------------------Redired a Index si intenta actualizar en un punto ----------------------------------
 Route::get('statusPayment', function () {return Inertia::render('index');});
 
+Route::get('V1/aplicardescuento/{id}/{descuento}/{totalGeneral}', [InvoicesController::class, 'aplicarDescuento']); 
+
 //-----------------------------Generar la Imagen de la poliza ----------------------------------
 Route::get('V1/enviarIdPolizaBot/{idPoliza}/{idConversacion}', [ClientsController::class,'enviarIdPolizaBot']);
 Route::get('V1/getPolizaImage/{idPoliza}', [ClientsController::class,'getPolizaImage']);

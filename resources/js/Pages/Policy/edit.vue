@@ -378,7 +378,7 @@
                     <p v-if="Descuento">
                         Descuento:
                         {{
-                            form3.descontar.toLocaleString("es-DO", {
+                            form.descontar.toLocaleString("es-DO", {
                                 style: "currency",
                                 currency: "DOP",
                             })
@@ -387,7 +387,7 @@
                     <p>
                         Total a pagar:
                         {{
-                            form3.totalGeneral.toLocaleString("es-DO", {
+                            form.totalGeneral.toLocaleString("es-DO", {
                                 style: "currency",
                                 currency: "DOP",
                             })
@@ -612,7 +612,9 @@ export default {
         clientip: String,
         Descuento: false,
         invoice_id: String,
-
+        costoPoliza: String,
+        descuentoID: String,
+        date: String
         /*  */
     },
     data() {
@@ -646,6 +648,10 @@ export default {
                 clientip: this.clientip,
                 client_name: this.client.name + " " + this.client.lastname,
                 total: this.totalGeneral + "00",
+                descontar: 0,
+                costoPoliza: this.costoPoliza,
+                descuentoID: 0,
+                date: this.date
             },
             form2: {
                 car: this.car,
@@ -667,6 +673,8 @@ export default {
                 clientepais: this.clientepais,
                 paises: this.paises,
                 service: this.service,
+                costoPoliza: this.costoPoliza,
+                date: this.date
             },
             form3: {
                 car: this.car,
@@ -679,11 +687,14 @@ export default {
                 descontar: 0,
                 insurre: this.insurre,
                 service: this.service,
+                costoPoliza: this.costoPoliza,
+                date: this.date
             },
         };
     },
     mounted() {
         //Validar si la seccion esta activa
+        console.log(this.date);
         axios
             .get("/api/V1/validarCesion/" + this.client.id)
             .then((response) => {
@@ -723,18 +734,25 @@ export default {
             var codigoIngresado = document.getElementById("codigo").value;
             var count = 0;
             var percentage = 0;
+            var id = 0;
             this.codigosDescuento.forEach(function (codigo) {
                 if (codigoIngresado == codigo.code) {
                     count++;
                     percentage = codigo.discount_amount;
+                    id = codigo.id;
                 }
             });
-            console.log(percentage);
-            this.form.descontar = (this.totalGeneral * percentage) / 100;
+            // console.log(percentage);
+            //   this.form.descontar = (this.totalGeneral * percentage) / 100;
+            this.form.descontar = Math.round((this.costoPoliza * percentage) / 100);  
             var aplicado = this.totalGeneral - this.form.descontar;
-            console.log(aplicado);
+            // console.log(aplicado);
             if (count > 0) {
-                this.form.totalGeneral = aplicado;
+                this.form.descuentoID = id
+                this.form.totalGeneral = Math.round(aplicado);
+                this.form.total = Math.round(aplicado) + "00";
+                console.log(this.form.total);
+                axios.get("/api/V1/aplicardescuento/"+ this.invoice_id + "/"+this.form.descuentoID +"/" + this.form.totalGeneral);
             } else {
                 alert(
                     "Código vencido o invalido, favor de verificar su código e introducirlo nuevamente"
