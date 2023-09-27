@@ -14,7 +14,8 @@ class DiscountsController extends Controller
      */
     public function index()
     {
-        //
+        $codigosDescuento = Discounts::all();
+        return $codigosDescuento;
     }
 
     /**
@@ -35,7 +36,14 @@ class DiscountsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $codigo = new Discounts();
+        $codigo->code = $request->code;
+        $codigo->discount_amount = $request->discount_amount;
+        $codigo->active = 1;
+        $codigo->save();
+
+        $codigos = Discounts::all();
+        return $codigos;
     }
 
     /**
@@ -59,27 +67,16 @@ class DiscountsController extends Controller
     {
         //
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Discounts  $discounts
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Discounts $discounts)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Discounts  $discounts
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Discounts $discounts)
+    public function destroy($id)
     {
-        //
+        $discounts = Discounts::find($id);
+        $discounts->delete();
+        $codigos =  $this->index();
+        return $codigos;
     }
 }
