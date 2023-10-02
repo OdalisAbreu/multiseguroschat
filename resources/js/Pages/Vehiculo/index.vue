@@ -334,6 +334,8 @@ export default {
             years: [],
             marca: "", 
             filteredMarcas: [], 
+            showDropdown: false,
+            blurTimeout: null,
         };
     },
     created() {
@@ -384,6 +386,7 @@ export default {
             this.$inertia.post(this.route("clientReturn"), this.form2);
         },
         filterMarcas() {
+            this.showDropdown = true;
             const searchText = this.marca.toLowerCase();
             this.filteredMarcas = this.marcas.filter(marca =>
             marca.DESCRIPCION.toLowerCase().includes(searchText)
@@ -400,7 +403,9 @@ export default {
         },
 
         handleBlur() {
-            this.filteredMarcas = []; 
+            this.blurTimeout = setTimeout(() => {
+                this.showDropdown = false;
+            }, 200);
         },
 /*         showConfirmation(event) {
             event.preventDefault();
