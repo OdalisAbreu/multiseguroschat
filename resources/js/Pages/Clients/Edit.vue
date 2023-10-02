@@ -229,27 +229,32 @@
                         v-model="form.adrress"
                         required
                     />
-                    <label class="pt-1 font-bold"
-                        >Provincia
-                        <span class="text-red-400 inl">*</span></label
-                    >
-
-                    <select
-                        class="rounded-lg w-full border-gray-300"
-                        v-model="province"
-                        required
-                    >
-                        <option :value="clientProvince.id" selected>
-                            {{ clientProvince.descrip }}
-                        </option>
-                        <option
-                            v-for="province in provinces"
-                            :value="province.id"
-                            :key="province.id"
-                        >
-                            {{ province.descrip }}
-                        </option>
-                    </select>
+                    <label class="pt-1 font-bold">Provincia <span class="text-red-400">*</span></label>
+                    <div class="relative w-full"> 
+                        <input
+                            class="rounded-lg w-full border-gray-300"
+                            style="text-transform: uppercase"
+                            type="text"
+                            placeholder="PROVINCIA"
+                            v-model="province"
+                            @input="filterProvincias"
+                            @focus="handleFocus"
+                            @blur="handleBlur"
+                            required
+                        />
+                        <div v-if="filteredProvinces.length > 0 && showDropdown" class="absolute z-10 mt-1 w-full bg-white border border-gray-300 rounded-lg shadow-md" style="max-height: 425px; overflow-y: auto; bottom: 100%;">
+                            <ul class="py-2">
+                                <li
+                                    v-for="province in filteredProvinces"
+                                    :key="province.id"
+                                    @click="selectProvincia(province)"
+                                    class="px-4 py-2 cursor-pointer hover:bg-gray-100"
+                                >
+                                    {{ province.descrip }}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
 
                     <!-- <model-list-select
                         class="selectSearch"
@@ -386,6 +391,10 @@ export default {
                 paises: this.paises,
             },
             Loading: false,
+            province: "", 
+            filteredProvinces: [], 
+            showDropdown: false,
+            blurTimeout: null,
         };
     },
     methods: {
@@ -395,6 +404,29 @@ export default {
                 this.route("client.update", this.client.id),
                 this.form
             );
+        },
+        filterProvincias() {
+            this.showDropdown = true;
+            const searchText = this.province.toLowerCase();
+            this.filteredProvinces = this.provinces.filter(province =>
+                province.descrip.toLowerCase().includes(searchText)
+            );
+        },
+        selectProvincia(province) {
+            this.province = province.descrip;
+            this.filteredProvinces = [];
+            if (this.blurTimeout) {
+                clearTimeout(this.blurTimeout);
+            }
+        },
+        handleFocus() {
+            this.filterProvincias();
+        },
+        handleBlur() {
+            this.blurTimeout = setTimeout(() => {
+                this.showDropdown = false;
+            }, 
+            200);
         },
         /*  validateInput() {
             this.isInputEmpty = this.form.city.trim() === '';
