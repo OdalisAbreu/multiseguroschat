@@ -126,7 +126,7 @@
                         @blur="handleBlur"
                         required
                     />
-                    <div v-if="filteredMarcas.length > 0" class="absolute z-10 mt-1 w-full bg-white border border-gray-300 rounded-lg shadow-md" style="max-height: 425px; overflow-y: auto;">
+                    <div v-if="filteredMarcas.length > 0 && showDropdown" class="absolute z-10 mt-1 w-full bg-white border border-gray-300 rounded-lg shadow-md" style="max-height: 425px; overflow-y: auto;">
                         <ul class="py-2">
                         <li
                             v-for="marca in filteredMarcas"
