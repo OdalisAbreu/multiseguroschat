@@ -12,7 +12,7 @@ Route::post('V1/client', [ClientsController::class, 'store']);
 Route::get('V1/client/{id}/{idConversacion}', [ClientsController::class, 'show']);
 Route::get('V1/getpolicy/{cedula}', [ClientsController::class, 'clientPilicy'])->name('getpolicy'); // Ruta optner poliza 
 Route::get('V1/invoice/{poliza}', [InvoicesController::class, 'getInvoice']); // optiene los datos de la factura 
-
+Route::get('V1/UpdateDescuento/{id}', [DiscountsController::class, 'UpdateDescuento']); // Actualiza en Multiseguro el codigo de descuento si aplica
 Route::post('statusPayment', [InvoicesController::class, 'waitingRoom']); //Ir al area de cargar
 //-----------------------------Redired a Index si intenta actualizar en un punto ----------------------------------
 Route::get('statusPayment', function () {
