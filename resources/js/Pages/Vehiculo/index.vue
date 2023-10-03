@@ -113,34 +113,32 @@
                     >
                     </model-list-select> -->
 
-                    <label class="pt-1 font-bold"
-                        >Marca <span class="text-red-400 inl">*</span></label
-                    >
-                    <select
+                    <label class="pt-1 font-bold">Marca <span class="text-red-400">*</span></label>
+                    <div class="relative">
+                    <input
                         class="rounded-lg w-full border-gray-300"
+                        style="text-transform: uppercase"
+                        type="text"
+                        placeholder="MARCA"
                         v-model="marca"
+                        @input="filterMarcas"
+                        @focus="handleFocus"
+                        @blur="handleBlur"
                         required
-                    >
-                        <option
-                            :value="car.marcaName"
-                            disabled
-                            selected
-                            hidden
-                            v-if="car.marcaName != ''"
-                        >
-                            {{ car.marcaName }}
-                        </option>
-                        <option value="" disabled selected hidden v-else>
-                            MARCA
-                        </option>
-                        <option
-                            v-for="marca in marcas"
-                            :value="marca.ID"
+                    />
+                    <div v-if="filteredMarcas.length > 0 && showDropdown" class="absolute z-10 mt-1 w-full bg-white border border-gray-300 rounded-lg shadow-md" style="max-height: 425px; overflow-y: auto;">
+                        <ul class="py-2">
+                        <li
+                            v-for="marca in filteredMarcas"
                             :key="marca.ID"
+                            @click="selectMarca(marca)"
+                            class="px-4 py-2 cursor-pointer hover:bg-gray-100"
                         >
                             {{ marca.DESCRIPCION }}
-                        </option>
-                    </select>
+                        </li>
+                        </ul>
+                    </div>
+                    </div>
 
                     <!--  <model-list-select
                         class="selectSearch"
@@ -217,56 +215,7 @@
                         <option value="" disabled selected hidden v-else>
                             AÑO
                         </option>
-                        <option value="2022">2024</option>
-                        <option value="2022">2023</option>
-                        <option value="2022">2022</option>
-                        <option value="2021">2021</option>
-                        <option value="2020">2020</option>
-                        <option value="2019">2019</option>
-                        <option value="2018">2018</option>
-                        <option value="2017">2017</option>
-                        <option value="2016">2016</option>
-                        <option value="2015">2015</option>
-                        <option value="2014">2014</option>
-                        <option value="2013">2013</option>
-                        <option value="2012">2012</option>
-                        <option value="2011">2011</option>
-                        <option value="2010">2010</option>
-                        <option value="2009">2009</option>
-                        <option value="2008">2008</option>
-                        <option value="2007">2007</option>
-                        <option value="2006">2006</option>
-                        <option value="2005">2005</option>
-                        <option value="2004">2004</option>
-                        <option value="2003">2003</option>
-                        <option value="2002">2002</option>
-                        <option value="2001">2001</option>
-                        <option value="2000">2000</option>
-                        <option value="1999">1999</option>
-                        <option value="1998">1998</option>
-                        <option value="1997">1997</option>
-                        <option value="1996">1996</option>
-                        <option value="1996">1995</option>
-                        <option value="1996">1994</option>
-                        <option value="1996">1993</option>
-                        <option value="1996">1992</option>
-                        <option value="1996">1991</option>
-                        <option value="1996">1990</option>
-                        <option value="1996">1989</option>
-                        <option value="1996">1987</option>
-                        <option value="1996">1986</option>
-                        <option value="1996">1985</option>
-                        <option value="1996">1984</option>
-                        <option value="1996">1983</option>
-                        <option value="1996">1982</option>
-                        <option value="1996">1981</option>
-                        <option value="1996">1980</option>
-                        <option value="1996">1979</option>
-                        <option value="1996">1978</option>
-                        <option value="1996">1977</option>
-                        <option value="1996">1976</option>
-                        <option value="1996">1975</option>
-                        <option value="1996">1974</option>
+                        <option v-for="year in years" :value="year">{{ year }}</option>
                     </select>
 
                     <label class="pt-1 font-bold"
@@ -382,7 +331,17 @@ export default {
                 paises: this.paises,
             },
             Loading: false,
+            years: [],
+            marca: "", 
+            filteredMarcas: [], 
+            showDropdown: false,
+            blurTimeout: null,
         };
+    },
+    created() {
+        for (let year = 1970; year <= 2024; year++) {
+        this.years.push(year.toString());
+        }
     },
     mounted() {
         /* window.addEventListener("beforeunload", this.showConfirmation); */
@@ -425,6 +384,28 @@ export default {
         clientReturn() {
             this.Loading = true;
             this.$inertia.post(this.route("clientReturn"), this.form2);
+        },
+        filterMarcas() {
+            this.showDropdown = true;
+            const searchText = this.marca.toLowerCase();
+            this.filteredMarcas = this.marcas.filter(marca =>
+            marca.DESCRIPCION.toLowerCase().includes(searchText)
+            );
+        },
+
+        selectMarca(marca) {
+            this.marca = marca.DESCRIPCION;
+            this.filteredMarcas = []; 
+        },
+
+        handleFocus() {
+            this.filterMarcas()
+        },
+
+        handleBlur() {
+            this.blurTimeout = setTimeout(() => {
+                this.showDropdown = false;
+            }, 200);
         },
 /*         showConfirmation(event) {
             event.preventDefault();
