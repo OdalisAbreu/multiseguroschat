@@ -240,6 +240,7 @@
                             @input="filterProvincias"
                             @focus="handleFocus"
                             @blur="handleBlur"
+                            @change="filterCities"
                             required
                         />
                         <div v-if="filteredProvinces.length > 0 && showDropdown" class="absolute z-10 mt-1 w-full bg-white border border-gray-300 rounded-lg shadow-md" style="max-height: 425px; overflow-y: auto; bottom: 100%;">
@@ -268,12 +269,9 @@
                         placeholder="PROVINCIA"
                         required
                     >
-                    </model-list-select> -->
+                    </model-list-select> -->                
 
-                    <label class="pt-1 font-bold"
-                        >Ciudad <span class="text-red-400 inl">*</span></label
-                    >
-
+                    <label class="pt-1 font-bold">Ciudad <span class="text-red-400 inl">*</span></label>
                     <select
                         class="rounded-lg w-full border-gray-300"
                         v-model="form.city"
@@ -366,7 +364,7 @@ export default {
             eleccionPasaporte: false,
             eleccionCedula: true,
             ciudades: "",
-            province: this.client.province,
+            province: this.clientProvince.descrip,
             pais: this.client.nacionalidad,
             loading: true,
             form: {
@@ -391,7 +389,6 @@ export default {
                 paises: this.paises,
             },
             Loading: false,
-            province: "", 
             filteredProvinces: [], 
             showDropdown: false,
             blurTimeout: null,
@@ -400,6 +397,17 @@ export default {
     methods: {
         submit() {
             this.Loading = true;
+
+            const selectedProvince = this.provinces.find(
+                (province) => province.descrip === this.province
+            );
+
+            if (selectedProvince) {
+                this.form.provincia = selectedProvince.id;
+            } else {
+                console.error('No se encontró provincia para ', this.province);
+            }
+
             this.$inertia.put(
                 this.route("client.update", this.client.id),
                 this.form
@@ -428,6 +436,20 @@ export default {
             }, 
             200);
         },
+        filterCities() {
+            console.log('Provincia Seleccionada:', this.form.provincia);
+            if (this.form.provincia) {
+                const selectedProvince = this.provinces.find(
+                    province => province.descrip === this.form.provincia
+                );
+                if (selectedProvince) {
+                    this.ciudades = this.cities.filter(
+                        city => city.id_prov === selectedProvince.id
+                    );
+                }
+            }
+        },
+
         /*  validateInput() {
             this.isInputEmpty = this.form.city.trim() === '';
         } */
@@ -468,15 +490,18 @@ export default {
 
     /*  */
     watch: {
-
         province: function (key) {
+            this.form.provincia = key;
+            this.filterCities();
+        },
+        /* province: function (key) {
             console.log('Entro');
             this.ciudades = this.cities.filter(
                 (ciudad) => ciudad.id_prov == key
             );
             this.form.city = "";
             this.form.provincia = key;
-        },
+        }, */
         /* "form.city": function () {
             this.isCityEmpty = !this.form.city; // Verifica si form.city es nulo o vacío
         },
