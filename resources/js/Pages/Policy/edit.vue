@@ -743,8 +743,8 @@ export default {
                 }
             });
             // console.log(percentage);
-            //   this.form.descontar = (this.totalGeneral * percentage) / 100;
-            this.form.descontar = Math.round((this.costoPoliza * percentage) / 100);  
+               this.form.descontar = (this.totalGeneral * percentage) / 100;
+           // this.form.descontar = Math.round((this.costoPoliza * percentage) / 100);  
             var aplicado = this.totalGeneral - this.form.descontar;
             // console.log(aplicado);
             if (count > 0) {
