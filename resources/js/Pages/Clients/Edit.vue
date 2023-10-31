@@ -426,6 +426,7 @@ export default {
             if (this.blurTimeout) {
                 clearTimeout(this.blurTimeout);
             }
+            this.form.city = "";
         },
         handleFocus() {
             this.filterProvincias();
