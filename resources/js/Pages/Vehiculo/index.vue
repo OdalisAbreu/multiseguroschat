@@ -131,6 +131,7 @@
                         <li
                             v-for="marca in filteredMarcas"
                             :key="marca.ID"
+                            :value="marca.ID"
                             @click="selectMarca(marca)"
                             class="px-4 py-2 cursor-pointer hover:bg-gray-100"
                         >
@@ -153,34 +154,31 @@
                     >
                     </model-list-select> -->
 
-                    <label class="pt-1 font-bold"
-                        >Modelo <span class="text-red-400 inl">*</span></label
-                    >
-                    <select
-                        class="rounded-lg w-full border-gray-300"
-                        v-model="form.modelo"
-                        required
-                    >
-                        <option
-                            :value="car.modeloName"
-                            disabled
-                            selected
-                            hidden
-                            v-if="car.modeloName != ''"
-                        >
-                            {{ car.modeloName }}
-                        </option>
-                        <option value="" disabled selected hidden v-else>
-                            MODELO
-                        </option>
-                        <option
-                            v-for="modelo in models"
-                            :value="modelo.ID"
-                            :key="modelo.ID"
-                        >
-                            {{ modelo.descripcion }}
-                        </option>
-                    </select>
+                    <label class="pt-1 font-bold">Modelo <span class="text-red-400 inl">*</span></label>
+                    <div class="relative">
+                        <input
+                            class="rounded-lg w-full border-gray-300"
+                            type="text"
+                            placeholder="MODELO"
+                            v-model="modelo"
+                            @input="filterModelos"
+                            @focus="handleModeloFocus"
+                            @blur="handleModeloBlur"
+                            required
+                        />
+                        <div v-if="filteredModelos.length > 0 && showModeloDropdown" class="absolute z-10 mt-1 w-full bg-white border border-gray-300 rounded-lg shadow-md" style="max-height: 425px; overflow-y: auto;">
+                            <ul class="py-2">
+                                <li
+                                    v-for="modelo in filteredModelos"
+                                    :key="modelo.ID"
+                                    @click="selectModelo(modelo)"
+                                    class="px-4 py-2 cursor-pointer hover:bg-gray-100"
+                                >
+                                    {{ modelo.descripcion }}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>                
 
                     <!--  <model-list-select
                         class="selectSearch"
@@ -218,6 +216,7 @@
                         <option v-for="year in years" :value="year">{{ year }}</option>
                     </select>
 
+                    
                     <label class="pt-1 font-bold"
                         >No. de Placa
                         <span class="text-red-400 inl">*</span></label
@@ -336,6 +335,9 @@ export default {
             filteredMarcas: [], 
             showDropdown: false,
             blurTimeout: null,
+            selectedBrand: this.car.marca,
+            filteredModelos: [], 
+            showModeloDropdown: false,
         };
     },
     created() {
@@ -388,19 +390,52 @@ export default {
         filterMarcas() {
             this.showDropdown = true;
             const searchText = this.marca.toLowerCase();
-            this.filteredMarcas = this.marcas.filter(marca =>
-            marca.DESCRIPCION.toLowerCase().includes(searchText)
+            this.filteredMarcas = this.marcas.filter((marca) =>
+                marca.DESCRIPCION.toLowerCase().includes(searchText)
+            );
+        },
+        
+        filterModelos() {            
+            this.showModeloDropdown = true;
+            const searchText = this.modelo.toLowerCase();
+            this.filteredModelos = this.models.filter((modelo) =>
+                modelo.descripcion.toLowerCase().includes(searchText)
+            );
+        },
+
+        selectModelo(modelo) {
+            this.modelo = modelo.descripcion;
+            this.filteredModelos = [];
+        },
+
+        handleModeloFocus() {
+            this.filterModelos(); 
+        },
+
+        handleModeloBlur() {
+            this.blurTimeout = setTimeout(() => {
+                this.showModeloDropdown = false;
+            }, 200);
+        },
+
+        updateModels() {
+            this.models = this.modelos.filter(
+                (model) => model.IDMARCA === this.selectedBrand
             );
         },
 
         selectMarca(marca) {
             this.marca = marca.DESCRIPCION;
-            this.filteredMarcas = []; 
+            this.selectedBrand = marca.ID; 
+            this.filteredMarcas = [];
+            this.updateModels();
         },
+
 
         handleFocus() {
             this.filterMarcas()
         },
+        
 
         handleBlur() {
             this.blurTimeout = setTimeout(() => {
@@ -412,16 +447,7 @@ export default {
             event.returnValue = ""; // Necesario para mostrar el mensaje en algunos navegadores antiguos
             return "¿Estás seguro de que quieres salir? Todos los cambios no guardados se perderán.";
         }, */
-    },
-    watch: {
-        marca: function (value) {
-            this.form.modelo = "";
-            this.models = this.modelos.filter(
-                (model) => model.IDMARCA == value
-            );
-            console.log(this.models);
-        },
-    },
+    },    
     beforeUnmount() {
         if (this.mostrarConfirmacion == true) {
             window.removeEventListener("beforeunload", this.showConfirmation);
