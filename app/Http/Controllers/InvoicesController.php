@@ -299,4 +299,9 @@ class InvoicesController extends Controller
         $invoice = $this->invoice->getInvoices($request);
         return $invoice;
     }
+    public function getInvoice($id)
+    {
+        $invoice = $this->invoice->getInvoice($id);
+        return $invoice;
+    }
 }
