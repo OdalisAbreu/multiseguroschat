@@ -210,6 +210,16 @@
                 </div>
             </div>
             </div>
+        </section>        
+        <section class="pt-20" style="margin-top: 0px">
+            <div class="flex justify-evenly">
+            <div class="logo mr-2">
+                <img src="images/logoSURA.png" alt="sura-logo" style="width: 250px; height: 100px;"/>
+            </div>
+            <div class="logo mr-2">
+                <img src="images/logoONE_Alliance.png" alt="onealliance-logo" style="width: 250px; height: 100px;"/>
+            </div>            
+            </div>
         </section>
         <section class="pt-20">
             <div class="flex justify-evenly">
@@ -264,7 +274,7 @@
                 <p>Instagram</p>
             </a>
             </li>
-            <li class="mx-5">
+            <li class="mx-4">
             <a
                 class="flex flex-col"
                 href="https://www.facebook.com/seguroschatrd"
@@ -273,7 +283,7 @@
                 <img
                 src="images/Facebook.37b64d85.svg"
                 alt="Facebook"
-                class="h-14 mx-auto p-1 w-14"
+                class="mx-auto w-14"
                 />
                 <p>Facebook</p>
             </a>
