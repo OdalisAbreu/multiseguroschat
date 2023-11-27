@@ -229,11 +229,11 @@ class InvoicesController extends Controller
         //--------------------------------------------------------------------------------------------
 
         //--------------------Desactivar Descuento----------------------------------------------------
-        if ($invoice->discount_id > 0) {
-            $descuento = Discounts::find($invoice->discount_id);
-            $descuento->active = 0;
-            $descuento->update();
-        }
+        // if ($invoice->discount_id > 0) {
+        //     $descuento = Discounts::find($invoice->discount_id);
+        //     $descuento->active = 0;
+        //     $descuento->update();
+        // }
         //-------------------------------------------------------------------------------------------
         /*   echo 'ResponseCode:'. $request->ResponseCode. '<br/>';
             echo 'TransactionID:'. $request->TransactionID. '<br/>';

@@ -255,7 +255,7 @@
                                 </li>
                             </ul>
                         </div>
-                    </div>
+                    </div> 
 
                     <!-- <model-list-select
                         class="selectSearch"
@@ -269,7 +269,7 @@
                         placeholder="PROVINCIA"
                         required
                     >
-                    </model-list-select> -->                
+                    </model-list-select>               -->
 
                     <label class="pt-1 font-bold">Ciudad <span class="text-red-400 inl">*</span></label>
                     <select
@@ -396,7 +396,7 @@ export default {
     },
     methods: {
         submit() {
-            this.Loading = true;
+         this.Loading = true;
 
             const selectedProvince = this.provinces.find(
                 (province) => province.descrip === this.province
@@ -438,7 +438,6 @@ export default {
             200);
         },
         filterCities() {
-            console.log('Provincia Seleccionada:', this.form.provincia);
             if (this.form.provincia) {
                 const selectedProvince = this.provinces.find(
                     province => province.descrip === this.form.provincia
@@ -457,6 +456,7 @@ export default {
     },
     mounted() {
        //Validar si la seccion esta activa
+       console.log(this.clientProvince)
        axios.get("/api/V1/validarCesion/" + this.client.id).then((response) => {
                 if(!response.data.status){
                     alert('Su sesión se encuentra inactiva')

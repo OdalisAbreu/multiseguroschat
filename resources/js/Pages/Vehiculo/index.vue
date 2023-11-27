@@ -156,7 +156,7 @@
 
                     <label class="pt-1 font-bold">Modelo <span class="text-red-400 inl">*</span></label>
                     <div class="relative">
-                        <input
+                        <!-- <input
                             class="rounded-lg w-full border-gray-300"
                             type="text"
                             placeholder="MODELO"
@@ -177,21 +177,21 @@
                                     {{ modelo.descripcion }}
                                 </li>
                             </ul>
-                        </div>
+                        </div> -->
+                        <model-list-select
+                           class="selectSearch"
+                           v-model="form.modelo"
+                           required
+                           :value="car.modeloName"
+                           :list="!models ? [{}] : models"
+                           :key="car.modeloName"
+                           option-value="ID"
+                           option-text="descripcion"
+                           placeholder="MODELO"
+                       >
+                       </model-list-select>
                     </div>                
 
-                    <!--  <model-list-select
-                        class="selectSearch"
-                        v-model="form.modelo"
-                        required
-                        :value="car.modeloName"
-                        :list="!models ? [{}] : models"
-                        :key="car.modeloName"
-                        option-value="ID"
-                        option-text="descripcion"
-                        placeholder="MODELO"
-                    >
-                    </model-list-select> -->
 
                     <label class="pt-1 font-bold"
                         >Año <span class="text-red-400 inl">*</span></label
@@ -341,13 +341,11 @@ export default {
         };
     },
     created() {
-        for (let year = 1970; year <= 2024; year++) {
+        for (let year = 2024; year >= 1970; year--) {
         this.years.push(year.toString());
         }
     },
     mounted() {
-        /* window.addEventListener("beforeunload", this.showConfirmation); */
-
         //Validar si la seccion esta activa
         axios
             .get("/api/V1/validarCesion/" + this.client.id)
@@ -380,8 +378,8 @@ export default {
     },
     methods: {
         submit() {
-            this.Loading = true;
-            this.$inertia.post(this.route("policy", this.marca), this.form);
+           //this.Loading = true;
+           this.$inertia.post(this.route("policy", this.marca), this.form);
         },
         clientReturn() {
             this.Loading = true;
