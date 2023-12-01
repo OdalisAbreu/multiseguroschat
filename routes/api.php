@@ -34,8 +34,9 @@ Route::get('V1/confirmarNegativo/{phone}', [ClientsController::class, 'confirmar
 Route::get('V1/desactivarSesion/{idClient}', [ClientsController::class, 'desactivarSesion']);
 Route::get('V1/validarVista/{idClient}/{vista}', [ClientsController::class, 'validarVista']);
 Route::get('V1/validarCesion/{id}', [ClientsController::class, 'validarCesion']);
-Route::post('V1/invoices', [InvoicesController::class, 'getInvoices']);
+Route::get('V1/invoices', [InvoicesController::class, 'getInvoices']);
 Route::get('V1/invoice/{id}', [InvoicesController::class, 'getInvoice']);
+Route::get('V1/service/{id}', [InvoicesController::class, 'getService']);
 
 //------------------------------------Uso Interno ----------------------------------------------------------------
 Route::resource('internal/codigoDescuento', DiscountsController::class);

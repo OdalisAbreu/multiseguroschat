@@ -1,7 +1,7 @@
 /<script setup>
 import axios from "axios";
 import Nav from "../../components/Nav.vue";
-import Sider from "../../Components/Sider.vue";
+import Sider from "../../components/Sider.vue";
 </script>
 
 <template><section class="w-full h-full pb-8">

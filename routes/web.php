@@ -130,3 +130,9 @@ Route::get('/admin', function () {
 Route::get('/admin/codigo', function () {
     return Inertia::render('AdminPages/codigos');
 });
+Route::get('/admin/reporte-polizas', function () {
+    return Inertia::render('AdminPages/reportePolizas');
+});
+Route::get('/admin/reporte-polizas/{invoices_id}', function ($invoices_id) {
+    return Inertia::render('AdminPages/visualizarPoliza', ['invoices_id' => $invoices_id]);
+})->name('admin.visualizar-polizas');
