@@ -14,7 +14,7 @@
                 <button @click="generateReport" class="bg-blue-500 text-white py-2 px-4 rounded-full flex items-center space-x-2">
                     <span>Generar Reporte</span>
                 </button>
-                <button class="bg-green-500 text-white py-2 px-4 rounded-full flex items-center space-x-2">
+                <button @click="downloadCSV" class="bg-green-500 text-white py-2 px-4 rounded-full flex items-center space-x-2">
                     <span>Descargar</span>
                     <img src="../../../assets/excelLogo.svg" alt="Excel Logo" class="h-4 w-4" />
                 </button>
@@ -160,7 +160,35 @@
             },   
             generatePolizaUrl(invoiceId) {
                 return `/admin/reporte-polizas/${invoiceId}`;
-            },         
+            },   
+            downloadCSV() {
+                const startDateFormatted = new Date(this.startDate).toISOString().split('T')[0];
+                const endDateFormatted = new Date(this.endDate).toISOString().split('T')[0];
+                const filename = `polizas_${startDateFormatted}_${endDateFormatted}.csv`;
+                const csvContent = [
+                    'No. Poliza,Aseguradora,Vigencia,Asegurado,Tipo,Marca,Modelo,Servicios Op.,Estatus,Total',
+                    ...this.invoices.map(invoice =>
+                    [
+                        invoice.numero_poliza,
+                        invoice.asegurtadora,
+                        invoice.policy_time,
+                        `${invoice.cliente_nombre} ${invoice.cliente_apellido}`,
+                        invoice.tipo_vehiculo,
+                        invoice.marca,
+                        invoice.modelo,
+                        this.parseServiceIds(invoice.servecios_id).length,
+                        invoice.estatus_pago,
+                        invoice.total
+                    ].join(',')
+                    )
+                ].join('\n');
+                const blob = new Blob([csvContent], { type: 'text/csv' });
+                const link = document.createElement('a');
+                link.href = window.URL.createObjectURL(blob);
+                link.download = filename;
+
+                link.click();
+            }
         },
     };
 </script>
