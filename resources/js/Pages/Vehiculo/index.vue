@@ -181,13 +181,13 @@
                         <model-list-select
                            class="selectSearch"
                            v-model="form.modelo"
-                           required
                            :value="car.modeloName"
                            :list="!models ? [{}] : models"
                            :key="car.modeloName"
                            option-value="ID"
                            option-text="descripcion"
                            placeholder="MODELO"
+                           required
                        >
                        </model-list-select>
                     </div>                
@@ -378,7 +378,15 @@ export default {
     },
     methods: {
         submit() {
-           //this.Loading = true;
+           this.Loading = true;
+           //validar si this.car.modeloName tiene un valor si no enviar un aler de error y no seguir con el siguiente paso
+           if(this.car.modeloName == ""){
+               alert("Por favor seleccione un modelo");
+               this.Loading = false;
+               //colocar el puntero en el input de modelo
+               this.$refs.inputModelo.focus(); 
+               return;
+           }
            this.$inertia.post(this.route("policy", this.marca), this.form);
         },
         clientReturn() {
