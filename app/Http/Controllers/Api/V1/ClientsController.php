@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Client;
 use App\Models\Invoices;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Symfony\Component\CssSelector\Parser\Token;
 use Illuminate\Support\Facades\Storage;
 
@@ -44,7 +45,7 @@ class ClientsController extends Controller
         $client->idConversacion = $request->idConversacion;
         $client->session = 'A';
         $client->save();
-
+        Log::info("Crear cliente", $client);
         if ($client) {
             return ['status' => '00', 'message' => 'Usuario creado correctamente', 'cantidadPoliza' => 0];
         } else {
@@ -66,6 +67,7 @@ class ClientsController extends Controller
             $client->idConversacion = $idConversacion;
             $client->session = 'A';
             $client->save();
+            Log::info("Activar Sesión", ["id" => $client->id, "session" => $client->session]);
 
             // Calcula la cantidad de poliza
             $invoince = Invoices::where('client_id', $client->cardnumber)->count(); //
@@ -243,11 +245,11 @@ class ClientsController extends Controller
 
     public function enviarMensajeBotCitie(Request $request)
     {
-       // return $request->phone . '  ' . $request->type . '     ' . $request->text;
+        // return $request->phone . '  ' . $request->type . '     ' . $request->text;
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-            CURLOPT_URL => 'https://api.respond.io/v2/contact/phone:+'.$request->phone.'/message',
+            CURLOPT_URL => 'https://api.respond.io/v2/contact/phone:+' . $request->phone . '/message',
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
@@ -257,8 +259,8 @@ class ClientsController extends Controller
             CURLOPT_CUSTOMREQUEST => 'POST',
             CURLOPT_POSTFIELDS => '{
                                         "message": {
-                                                        "type": "'.$request->type.'",
-                                                        "text": "'.$request->text.'"
+                                                        "type": "' . $request->type . '",
+                                                        "text": "' . $request->text . '"
                                                     }
                                     }',
             CURLOPT_HTTPHEADER => array(
@@ -289,8 +291,8 @@ class ClientsController extends Controller
      "message": {
                     "type": "attachment",
                     "attachment":{
-                        "type": "'. $request->type .'",
-                        "url": "'.$request->url .'"
+                        "type": "' . $request->type . '",
+                        "url": "' . $request->url . '"
                         }
                     }
                 }
@@ -366,32 +368,33 @@ class ClientsController extends Controller
         // return $client;
         $client->session = 'I';
         $client->save();
+        Log::info("Desactivar Sesión", ["id" => $client->id, "session" => $client->session]);
     }
     public function validarVista($idClient, $vista)
     {
         $client = Client::where('id', $idClient)->first();
         $client->vista = $vista;
         $client->save();
+        Log::info("Validar Vista", ["id" => $client->id, "vista" => $client->vista]);
         return $client;
     }
     public function validarCesion($id)
     {
         $client = Client::where('id', $id)->first();
-        if($client){
-            if($client->session == 'A'){
-                return[
+        if ($client) {
+            if ($client->session == 'A') {
+                return [
                     'status' => true
                 ];
-            }else{
-                return[
+            } else {
+                return [
                     'status' => false
                 ];
             }
-        }else{
-            return[
+        } else {
+            return [
                 'status' => false
             ];
         }
-
     }
 }

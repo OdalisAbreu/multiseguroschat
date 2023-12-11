@@ -13,6 +13,7 @@ use Faker\Provider\sv_SE\Municipality;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
 use PhpParser\Node\Stmt\TryCatch;
 
@@ -28,7 +29,7 @@ class ClientController extends Controller
     {
 
         //Esto no va
-       $token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyTmFtZSI6InNlbmRpdV9kZXNhcnJvbGxvIiwibmJmIjoxNjU1NDgwODg5LCJleHAiOjE2NTYwODU2ODksImlhdCI6MTY1NTQ4MDg4OX0.z0KshbCzm9aQiFR7rDYp3sqJacbZ7R6aKZ6zcq2w8Ok';
+        $token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyTmFtZSI6InNlbmRpdV9kZXNhcnJvbGxvIiwibmJmIjoxNjU1NDgwODg5LCJleHAiOjE2NTYwODU2ODksImlhdCI6MTY1NTQ4MDg4OX0.z0KshbCzm9aQiFR7rDYp3sqJacbZ7R6aKZ6zcq2w8Ok';
         /*$token = Http::post('http://multiseguros.com.do:5050/api/User/Authenticate',[
             'username' => 'sendiu_desarrollo',
             'password' => 'Admin1234'
@@ -53,14 +54,14 @@ class ClientController extends Controller
     public function show($phone)
     {
 
-       $string = array("-"," ");
-       $phone = str_replace($string,"",$phone); // Quita los espacios en blanco y los guiones
+        $string = array("-", " ");
+        $phone = str_replace($string, "", $phone); // Quita los espacios en blanco y los guiones
 
-       // Falta validar si tiene 1
+        // Falta validar si tiene 1
 
         $client = Client::where('phonenumber', $phone)->first();
 
-        if($client){
+        if ($client) {
             $cities = Municipalities::orderBy('descrip')->get();
             $provinces = Province::orderBy('descrip')->get();
             $clientProvince = Province::find($client->province);
@@ -68,13 +69,16 @@ class ClientController extends Controller
             $marcas = Vehicle_brands::orderBy('DESCRIPCION')->get();
             $modelos = Vehicle_models::orderBy('descripcion')->get();
             $paises = DB::select('select * from nacionalidad order by nacionalidad asc');
-            if(!$client->nacionalidad){
+            if (!$client->nacionalidad) {
                 $client->nacionalidad = 0;
             }
-            if(!$clientProvince){
+            if (!$clientProvince) {
                 $clientProvince['id'] = 0;
             }
-            $Clientepais = DB::select('select * from nacionalidad where id = '.$client->nacionalidad);
+            $Clientepais = DB::select('select * from nacionalidad where id = ' . $client->nacionalidad);
+
+            Log::info("cliente", [$client]);
+
             return Inertia::render('Clients/Edit', [
                 'client' => $client,
                 'cities' => $cities,
@@ -83,19 +87,17 @@ class ClientController extends Controller
                 'tipos' => $tipos,
                 'marcas' => $marcas,
                 'modelos' => $modelos,
-                'paises' => $paises, 
+                'paises' => $paises,
                 'clientepais' => $Clientepais
             ]);
-
-        }else{
+        } else {
             return Inertia::render('index', []);
         }
-
     }
 
     public function update(Request $request, $id)
     {
-       $request->validate([
+        $request->validate([
             'name' => 'required'
         ]);
         $client = Client::find($id);
@@ -110,10 +112,10 @@ class ClientController extends Controller
         $client->province = strtoupper($request->provincia);
         $client->phonenumber = $request->phonenumber;
         $client->save();
-        
-        if(isset($request->car)){
+
+        if (isset($request->car)) {
             $car = $request->car;
-        }else{
+        } else {
             $car = [
                 "tipo" => '',
                 "tipoName" => '',
@@ -126,7 +128,7 @@ class ClientController extends Controller
                 "year" => ''
             ];
         }
-        
+
 
         $tipos = $request->tipos;
         $marcas = $request->marcas;
@@ -145,45 +147,45 @@ class ClientController extends Controller
             'clientepais' => $request->clientepais,
             'paises' => $request->paises
         ]);
-
     }
 
 
-    public function seller(Request $request){
+    public function seller(Request $request)
+    {
 
         $token = $request['token'];
 
-            $tipos = Http::withToken($token)->get('http://multiseguros.com.do:5050/api/Seguros/Make');
-            $tipos = $tipos->json();
+        $tipos = Http::withToken($token)->get('http://multiseguros.com.do:5050/api/Seguros/Make');
+        $tipos = $tipos->json();
 
-            $marcas = Http::withToken($token)->get('http://multiseguros.com.do:5050/api/Seguros/Make');
-            $marcas = $marcas->json();
+        $marcas = Http::withToken($token)->get('http://multiseguros.com.do:5050/api/Seguros/Make');
+        $marcas = $marcas->json();
 
-            $modelos = Http::withToken($token)->get('http://multiseguros.com.do:5050/api/Seguros/Model');
-            $modelos = $modelos->json();
+        $modelos = Http::withToken($token)->get('http://multiseguros.com.do:5050/api/Seguros/Model');
+        $modelos = $modelos->json();
 
-            return Inertia::render('Vehiculo/index', [
-                'tipos' => $tipos,
-                'marcas' => $marcas,
-                'modelos' => $modelos,
-                'token' => $token
-            ]);
+        return Inertia::render('Vehiculo/index', [
+            'tipos' => $tipos,
+            'marcas' => $marcas,
+            'modelos' => $modelos,
+            'token' => $token
+        ]);
     }
-    public function clientReturn(Request $request){
+    public function clientReturn(Request $request)
+    {
 
-            return Inertia::render('Clients/Edit', [
-                'client' => $request->client,
-                'cities' => $request->cities,
-                'provinces' => $request->provinces,
-                'clientProvince' => $request->clientProvince, 
-                'tipos' => $request->tipos,
-                'marcas' => $request->marcas,
-                'modelos' => $request->modelos,
-                'activarPresentacion' => 'False',
-                'car' => $request->car,
-                'clientepais' => $request->clientepais,
-                'paises' => $request->paises
-            ]);
-
+        return Inertia::render('Clients/Edit', [
+            'client' => $request->client,
+            'cities' => $request->cities,
+            'provinces' => $request->provinces,
+            'clientProvince' => $request->clientProvince,
+            'tipos' => $request->tipos,
+            'marcas' => $request->marcas,
+            'modelos' => $request->modelos,
+            'activarPresentacion' => 'False',
+            'car' => $request->car,
+            'clientepais' => $request->clientepais,
+            'paises' => $request->paises
+        ]);
     }
 }

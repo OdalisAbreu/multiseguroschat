@@ -11,6 +11,7 @@ use App\Models\Vehicle_models;
 use App\Models\Vehicle_type_tarif;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
 
 use function PHPUnit\Framework\isNull;
@@ -57,33 +58,33 @@ class InvoicesController extends Controller
                 CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
                 CURLOPT_CUSTOMREQUEST => 'POST',
                 CURLOPT_POSTFIELDS => '{
-                                        "sellerInternalId": "102054-' . $invoices->id.'",
+                                        "sellerInternalId": "102054-' . $invoices->id . '",
                                         "vehicle": {
-                                            "vehicleTypeId": '.$invoices->car_tipe.',
-                                            "vehicleMakeId": '.$invoices->car_brand.',
-                                            "vehicleModelId": '.$invoices->car_model.',
-                                            "year": '.$invoices->year.',
-                                            "chassis": "'.$invoices->chassis.'",
-                                            "licensePlate": "'.$invoices->licensePlate.'"
+                                            "vehicleTypeId": ' . $invoices->car_tipe . ',
+                                            "vehicleMakeId": ' . $invoices->car_brand . ',
+                                            "vehicleModelId": ' . $invoices->car_model . ',
+                                            "year": ' . $invoices->year . ',
+                                            "chassis": "' . $invoices->chassis . '",
+                                            "licensePlate": "' . $invoices->licensePlate . '"
                                         },
                                         "insured": {
-                                            "name": "'.$name.'",
-                                            "lastName": "'.$lastname.'",
-                                            "identificationCardNumber": "'.$cardnumber.'",
-                                            "passportNumber": "'.$passportnumber.'",
-                                            "emailAddress": "'.$email.'",
-                                            "phoneNumber": '.$phonenumber.',
-                                            "residenceAddress": "'.$adrress.'",
-                                            "cityOfResidence": "'.$city .'",
+                                            "name": "' . $name . '",
+                                            "lastName": "' . $lastname . '",
+                                            "identificationCardNumber": "' . $cardnumber . '",
+                                            "passportNumber": "' . $passportnumber . '",
+                                            "emailAddress": "' . $email . '",
+                                            "phoneNumber": ' . $phonenumber . ',
+                                            "residenceAddress": "' . $adrress . '",
+                                            "cityOfResidence": "' . $city . '",
                                             "nationality": ""
                                         },
-                                        "insuranceCarrierId": '.$invoices->sellers_id.',
-                                        "services":  '.$invoices->services.',
-                                        "policyStartDate": "'.$invoices->policyInitDate.'",
-                                        "policyValidity": '.$invoices->policyTime.',
+                                        "insuranceCarrierId": ' . $invoices->sellers_id . ',
+                                        "services":  ' . $invoices->services . ',
+                                        "policyStartDate": "' . $invoices->policyInitDate . '",
+                                        "policyValidity": ' . $invoices->policyTime . ',
                                     }',
                 CURLOPT_HTTPHEADER => array(
-                    'Authorization: Bearer '.$token['token'],
+                    'Authorization: Bearer ' . $token['token'],
                     'Content-Type: application/json'
                 ),
             ));
@@ -94,7 +95,7 @@ class InvoicesController extends Controller
             sleep(1);
 
             return $poliza;
-            
+
 
 
             $invoice = Invoices::find($invoiceId);
@@ -119,13 +120,14 @@ class InvoicesController extends Controller
         }
     }
 
-    public function statusPaymentCardNet(Request $request){
+    public function statusPaymentCardNet(Request $request)
+    {
         //-----------------Consulta las tablas para generar las polizas----------------
         $invoices = Invoices::find($request->TransactionID);
         $seller = Insurance::find($invoices['sellers_id']);
         //  return $seller['logo'];
         $client = Client::where('id', $invoices->client_id)->get();
-        
+
         //---------------------------------------------------------------------------------
         //----------------Generar Token----------------------------------------------------
         $token = Http::post('http://multiseguros.com.do:5050/api/User/Authenticate', [
@@ -135,7 +137,7 @@ class InvoicesController extends Controller
         sleep(2);
         $token = $token->json();
         //------------------------------------------------------------------------------
-        
+
         //--------Procesar Poliza ----------------------------------------------
         $name = $client[0]->name;
         $lastname = $client[0]->lastname;
@@ -152,6 +154,35 @@ class InvoicesController extends Controller
         $modelo = $modelos->descripcion;
         $tipo = Vehicle_type_tarif::find($invoices->car_tipe);
 
+        Log::info("peticion de poliza", '{
+                                    "sellerInternalId": "102054-' . $request->AuthorizationCode . '",
+                                    "vehicle": {
+                                        "vehicleTypeId": ' . $invoices->car_tipe . ',
+                                        "vehicleMakeId": ' . $invoices->car_brand . ',
+                                        "vehicleModelId": ' . $invoices->car_model . ',
+                                        "year": ' . $invoices->year . ',
+                                        "chassis": "' . $invoices->chassis . '",
+                                        "licensePlate": "' . $invoices->licensePlate . '"
+                                    },
+                                    "insured": {
+                                        "name": "' . $name . '",
+                                        "lastName": "' . $lastname . '",
+                                        "identificationCardNumber": "' . $cardnumber . '",
+                                        "passportNumber": "' . $passportnumber . '",
+                                        "emailAddress": "' . $email . '",
+                                        "phoneNumber": ' . $phonenumber . ',
+                                        "residenceAddress": "' . $adrress . '",
+                                        "cityOfResidence": "' . $city . '",
+                                        "nationality": ""
+                                    },
+                                    "insuranceCarrierId": ' . $invoices->sellers_id . ',
+                                    "services":  ' . $invoices->services . ',
+                                    "policyStartDate": "' . $invoices->policyInitDate . '",
+                                    "policyValidity": ' . $invoices->policyTime . ',
+                                    "Total": ' . round($invoices->totalGeneral) . '
+                                }',);
+
+
         $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_URL => 'http://multiseguros.com.do:5050/api/Seguros/Policy',
@@ -163,34 +194,34 @@ class InvoicesController extends Controller
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => 'POST',
             CURLOPT_POSTFIELDS => '{
-                                    "sellerInternalId": "102054-' . $request->AuthorizationCode.'",
+                                    "sellerInternalId": "102054-' . $request->AuthorizationCode . '",
                                     "vehicle": {
-                                        "vehicleTypeId": '.$invoices->car_tipe.',
-                                        "vehicleMakeId": '.$invoices->car_brand.',
-                                        "vehicleModelId": '.$invoices->car_model.',
-                                        "year": '.$invoices->year.',
-                                        "chassis": "'.$invoices->chassis.'",
-                                        "licensePlate": "'.$invoices->licensePlate.'"
+                                        "vehicleTypeId": ' . $invoices->car_tipe . ',
+                                        "vehicleMakeId": ' . $invoices->car_brand . ',
+                                        "vehicleModelId": ' . $invoices->car_model . ',
+                                        "year": ' . $invoices->year . ',
+                                        "chassis": "' . $invoices->chassis . '",
+                                        "licensePlate": "' . $invoices->licensePlate . '"
                                     },
                                     "insured": {
-                                        "name": "'.$name.'",
-                                        "lastName": "'.$lastname.'",
-                                        "identificationCardNumber": "'.$cardnumber.'",
-                                        "passportNumber": "'.$passportnumber.'",
-                                        "emailAddress": "'.$email.'",
-                                        "phoneNumber": '.$phonenumber.',
-                                        "residenceAddress": "'.$adrress.'",
-                                        "cityOfResidence": "'.$city .'",
+                                        "name": "' . $name . '",
+                                        "lastName": "' . $lastname . '",
+                                        "identificationCardNumber": "' . $cardnumber . '",
+                                        "passportNumber": "' . $passportnumber . '",
+                                        "emailAddress": "' . $email . '",
+                                        "phoneNumber": ' . $phonenumber . ',
+                                        "residenceAddress": "' . $adrress . '",
+                                        "cityOfResidence": "' . $city . '",
                                         "nationality": ""
                                     },
-                                    "insuranceCarrierId": '.$invoices->sellers_id.',
-                                    "services":  '.$invoices->services.',
-                                    "policyStartDate": "'.$invoices->policyInitDate.'",
-                                    "policyValidity": '.$invoices->policyTime.',
-                                    "Total": '.round($invoices->totalGeneral).'
+                                    "insuranceCarrierId": ' . $invoices->sellers_id . ',
+                                    "services":  ' . $invoices->services . ',
+                                    "policyStartDate": "' . $invoices->policyInitDate . '",
+                                    "policyValidity": ' . $invoices->policyTime . ',
+                                    "Total": ' . round($invoices->totalGeneral) . '
                                 }',
             CURLOPT_HTTPHEADER => array(
-                'Authorization: Bearer '.$token['token'],
+                'Authorization: Bearer ' . $token['token'],
                 'Content-Type: application/json'
             ),
         ));
@@ -200,34 +231,36 @@ class InvoicesController extends Controller
         curl_close($curl);
         $poliza = json_decode($response);
         sleep(1);
-    //-----------------------------------------------------------------------------------------
 
-    //----------------Actualizar Factura---------------------------------------
+        Log::info("poliza", $poliza);
+        //-----------------------------------------------------------------------------------------
 
-            $invoice = Invoices::find($request->TransactionID);
-            //$invoice->payment_status = $request->decision;
-            $invoice->payment_status = 'ACCEPT';
-            $invoice->tranf_number = $request->req_transaction_uuid;
-            $invoice->transaction_id = $request->TransactionID;
-            $invoice->RemoteResponseCode = $request->RemoteResponseCode;
-            $invoice->AuthorizationCode = $request->AuthorizationCode;
-            $invoice->RetrivalReferenceNumber = $request->RetrivalReferenceNumber;
-            $invoice->TxToken =  $request->RetrivalReferenceNumber;
-            $invoice->police_number = $poliza->insurancePolicyNumber;
-           $invoice->police_number = $poliza->insurancePolicyNumber;;
-            $invoice->police_transactionId = $poliza->transactionId;
-            $invoice->update();
-            
-    //--------------------------------------------------------------------------------------------
-  
-    //--------------------Desactivar Descuento----------------------------------------------------
-        if($invoice->discount_id > 0){
+        //----------------Actualizar Factura---------------------------------------
+
+        $invoice = Invoices::find($request->TransactionID);
+        //$invoice->payment_status = $request->decision;
+        $invoice->payment_status = 'ACCEPT';
+        $invoice->tranf_number = $request->req_transaction_uuid;
+        $invoice->transaction_id = $request->TransactionID;
+        $invoice->RemoteResponseCode = $request->RemoteResponseCode;
+        $invoice->AuthorizationCode = $request->AuthorizationCode;
+        $invoice->RetrivalReferenceNumber = $request->RetrivalReferenceNumber;
+        $invoice->TxToken =  $request->RetrivalReferenceNumber;
+        $invoice->police_number = $poliza->insurancePolicyNumber;
+        $invoice->police_number = $poliza->insurancePolicyNumber;;
+        $invoice->police_transactionId = $poliza->transactionId;
+        $invoice->update();
+        Log::info("invoice", $invoice);
+        //--------------------------------------------------------------------------------------------
+
+        //--------------------Desactivar Descuento----------------------------------------------------
+        if ($invoice->discount_id > 0) {
             $descuento = Discounts::find($invoice->discount_id);
             $descuento->active = 0;
             $descuento->update();
         }
-    //-------------------------------------------------------------------------------------------
-         /*   echo 'ResponseCode:'. $request->ResponseCode. '<br/>';
+        //-------------------------------------------------------------------------------------------
+        /*   echo 'ResponseCode:'. $request->ResponseCode. '<br/>';
             echo 'TransactionID:'. $request->TransactionID. '<br/>';
             echo 'RemoteResponseCode:'. $request->RemoteResponseCode. '<br/>';
             echo 'AuthorizationCode:'. $request->AuthorizationCode. '<br/>';
@@ -238,8 +271,8 @@ class InvoicesController extends Controller
             'TransactionID' => $request->TransactionID,
             'RemoteResponseCode' => $request->RemoteResponseCode,
             'AuthorizationCode' => $request->AuthorizationCode,
-            'RetrivalReferenceNumber'=> $request->RetrivalReferenceNumber,
-            'TxToken'=>  $request->TxToken,
+            'RetrivalReferenceNumber' => $request->RetrivalReferenceNumber,
+            'TxToken' =>  $request->TxToken,
             'transactionId' => $poliza->transactionId,
             'logo' => $seller['logo'],
             'Poliza' => $poliza->insurancePolicyNumber,
@@ -252,36 +285,59 @@ class InvoicesController extends Controller
         ]);
     }
 
-  /*  public function getInvoice($policeId){
+    /*  public function getInvoice($policeId){
         return 'Hola'; 
     }*/
 
-    public function waitingRoom(Request $request){
-        if($request->ResponseCode != '00'){
+    public function waitingRoom(Request $request)
+    {
+        if ($request->ResponseCode != '00') {
+
+            Log::error("Error Pago", [
+                'ResponseCode' => $request->ResponseCode,
+                'TransactionID' => $request->TransactionID,
+                'RemoteResponseCode' => $request->RemoteResponseCode,
+                'AuthorizationCode' => $request->AuthorizationCode,
+                'RetrivalReferenceNumber' => $request->RetrivalReferenceNumber,
+                'TxToken' =>  $request->TxToken
+            ]);
+
             return Inertia::render('error', [
                 'ResponseCode' => $request->ResponseCode,
                 'TransactionID' => $request->TransactionID,
                 'RemoteResponseCode' => $request->RemoteResponseCode,
                 'AuthorizationCode' => $request->AuthorizationCode,
-                'RetrivalReferenceNumber'=> $request->RetrivalReferenceNumber,
-                'TxToken'=>  $request->TxToken
+                'RetrivalReferenceNumber' => $request->RetrivalReferenceNumber,
+                'TxToken' =>  $request->TxToken
             ]);
-        }else{
+        } else {
+
+            Log::info("Success Pago", [
+                'ResponseCode' => $request->ResponseCode,
+                'TransactionID' => $request->TransactionID,
+                'RemoteResponseCode' => $request->RemoteResponseCode,
+                'AuthorizationCode' => $request->AuthorizationCode,
+                'RetrivalReferenceNumber' => $request->RetrivalReferenceNumber,
+                'TxToken' =>  $request->TxToken
+            ]);
+
             return Inertia::render('Welcome', [
                 'ResponseCode' => $request->ResponseCode,
                 'TransactionID' => $request->TransactionID,
                 'RemoteResponseCode' => $request->RemoteResponseCode,
                 'AuthorizationCode' => $request->AuthorizationCode,
-                'RetrivalReferenceNumber'=> $request->RetrivalReferenceNumber,
-                'TxToken'=>  $request->TxToken
+                'RetrivalReferenceNumber' => $request->RetrivalReferenceNumber,
+                'TxToken' =>  $request->TxToken
             ]);
-        } 
+        }
     }
 
-    public function aplicarDescuento($id, $descuento_id, $totalGeneral){
-            $invoice = Invoices::find($id);
-            $invoice->totalGeneral = $totalGeneral;
-            $invoice->discount_id = $descuento_id;
-            $invoice->save();
+    public function aplicarDescuento($id, $descuento_id, $totalGeneral)
+    {
+        $invoice = Invoices::find($id);
+        $invoice->totalGeneral = $totalGeneral;
+        $invoice->discount_id = $descuento_id;
+        $invoice->save();
+        Log::info("descuento", ["invoice_id" => $id, "discount_id" => $descuento_id, "totalGeneral" => $totalGeneral]);
     }
 }
