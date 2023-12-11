@@ -12,6 +12,7 @@ use App\Models\Vehicle_type_tarif;
 use App\Services\InvoicesServices;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
 use phpDocumentor\Reflection\Types\Resource_;
 
@@ -160,6 +161,35 @@ class InvoicesController extends Controller
         $modelo = $modelos->descripcion;
         $tipo = Vehicle_type_tarif::find($invoices->car_tipe);
 
+        Log::info("peticion de poliza", '{
+                                    "sellerInternalId": "102054-' . $request->AuthorizationCode . '",
+                                    "vehicle": {
+                                        "vehicleTypeId": ' . $invoices->car_tipe . ',
+                                        "vehicleMakeId": ' . $invoices->car_brand . ',
+                                        "vehicleModelId": ' . $invoices->car_model . ',
+                                        "year": ' . $invoices->year . ',
+                                        "chassis": "' . $invoices->chassis . '",
+                                        "licensePlate": "' . $invoices->licensePlate . '"
+                                    },
+                                    "insured": {
+                                        "name": "' . $name . '",
+                                        "lastName": "' . $lastname . '",
+                                        "identificationCardNumber": "' . $cardnumber . '",
+                                        "passportNumber": "' . $passportnumber . '",
+                                        "emailAddress": "' . $email . '",
+                                        "phoneNumber": ' . $phonenumber . ',
+                                        "residenceAddress": "' . $adrress . '",
+                                        "cityOfResidence": "' . $city . '",
+                                        "nationality": ""
+                                    },
+                                    "insuranceCarrierId": ' . $invoices->sellers_id . ',
+                                    "services":  ' . $invoices->services . ',
+                                    "policyStartDate": "' . $invoices->policyInitDate . '",
+                                    "policyValidity": ' . $invoices->policyTime . ',
+                                    "Total": ' . round($invoices->totalGeneral) . '
+                                }',);
+
+
         $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_URL => 'http://multiseguros.com.do:5050/api/Seguros/Policy',
@@ -208,9 +238,13 @@ class InvoicesController extends Controller
         curl_close($curl);
         $poliza = json_decode($response);
         sleep(1);
+
+
+        Log::info("poliza", $poliza);
         //-----------------------------------------------------------------------------------------
 
         //----------------Actualizar Factura---------------------------------------
+
 
         $invoice = Invoices::find($request->TransactionID);
         //$invoice->payment_status = $request->decision;
@@ -226,6 +260,8 @@ class InvoicesController extends Controller
         $invoice->police_transactionId = $poliza->transactionId;
         $invoice->update();
 
+        Log::info("invoice", $invoice);
+
         //--------------------------------------------------------------------------------------------
 
         //--------------------Desactivar Descuento----------------------------------------------------
@@ -234,6 +270,7 @@ class InvoicesController extends Controller
         //     $descuento->active = 0;
         //     $descuento->update();
         // }
+
         //-------------------------------------------------------------------------------------------
         /*   echo 'ResponseCode:'. $request->ResponseCode. '<br/>';
             echo 'TransactionID:'. $request->TransactionID. '<br/>';
@@ -267,6 +304,16 @@ class InvoicesController extends Controller
     public function waitingRoom(Request $request)
     {
         if ($request->ResponseCode != '00') {
+
+            Log::error("Error Pago", [
+                'ResponseCode' => $request->ResponseCode,
+                'TransactionID' => $request->TransactionID,
+                'RemoteResponseCode' => $request->RemoteResponseCode,
+                'AuthorizationCode' => $request->AuthorizationCode,
+                'RetrivalReferenceNumber' => $request->RetrivalReferenceNumber,
+                'TxToken' =>  $request->TxToken
+            ]);
+
             return Inertia::render('error', [
                 'ResponseCode' => $request->ResponseCode,
                 'TransactionID' => $request->TransactionID,
@@ -276,6 +323,17 @@ class InvoicesController extends Controller
                 'TxToken' =>  $request->TxToken
             ]);
         } else {
+
+            Log::info("Success Pago", [
+                'ResponseCode' => $request->ResponseCode,
+                'TransactionID' => $request->TransactionID,
+                'RemoteResponseCode' => $request->RemoteResponseCode,
+                'AuthorizationCode' => $request->AuthorizationCode,
+                'RetrivalReferenceNumber' => $request->RetrivalReferenceNumber,
+                'TxToken' =>  $request->TxToken
+            ]);
+
+
             return Inertia::render('Welcome', [
                 'ResponseCode' => $request->ResponseCode,
                 'TransactionID' => $request->TransactionID,
@@ -293,6 +351,9 @@ class InvoicesController extends Controller
         $invoice->totalGeneral = $totalGeneral;
         $invoice->discount_id = $descuento_id;
         $invoice->save();
+
+        Log::info("descuento", ["invoice_id" => $id, "discount_id" => $descuento_id, "totalGeneral" => $totalGeneral]);
+
     }
     public function getInvoices(Request $request)
     {
@@ -302,6 +363,6 @@ class InvoicesController extends Controller
     public function getInvoice($id)
     {
         $invoice = $this->invoice->getInvoice($id);
-        return $invoice;
+
     }
 }
