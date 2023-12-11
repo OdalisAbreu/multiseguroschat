@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Discounts;
+use App\Models\Invoices;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class DiscountsController extends Controller
 {
@@ -46,37 +48,24 @@ class DiscountsController extends Controller
         return $codigos;
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Discounts  $discounts
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Discounts $discounts)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Discounts  $discounts
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Discounts $discounts)
-    {
-        //
-    }
-    public function update(Request $request, Discounts $discounts)
-    {
-        //
-    }
-
     public function destroy($id)
     {
         $discounts = Discounts::find($id);
         $discounts->delete();
         $codigos =  $this->index();
         return $codigos;
+    }
+    public function UpdateDescuento($id)
+    {
+        $invoice = Invoices::find($id);
+
+        if ($invoice->discount_id != 0) {
+            $descuento = Discounts::find($invoice->discount_id);
+            $response = Http::withHeaders([
+                'Accept' => '*/*',
+                'User-Agent' => 'Thunder Client (https://www.thunderclient.com)',
+            ])
+                ->get('https://multiseguros.com.do/ws_schat/update_descount_code.php?transactionId=' . $invoice->police_transactionId . '&code=' . $descuento->code . '&value=' . $descuento->discount_amount);
+        }
     }
 }

@@ -113,34 +113,33 @@
                     >
                     </model-list-select> -->
 
-                    <label class="pt-1 font-bold"
-                        >Marca <span class="text-red-400 inl">*</span></label
-                    >
-                    <select
+                    <label class="pt-1 font-bold">Marca <span class="text-red-400">*</span></label>
+                    <div class="relative">
+                    <input
                         class="rounded-lg w-full border-gray-300"
+                        style="text-transform: uppercase"
+                        type="text"
+                        placeholder="MARCA"
                         v-model="marca"
+                        @input="filterMarcas"
+                        @focus="handleFocus"
+                        @blur="handleBlur"
                         required
-                    >
-                        <option
-                            :value="car.marcaName"
-                            disabled
-                            selected
-                            hidden
-                            v-if="car.marcaName != ''"
-                        >
-                            {{ car.marcaName }}
-                        </option>
-                        <option value="" disabled selected hidden v-else>
-                            MARCA
-                        </option>
-                        <option
-                            v-for="marca in marcas"
-                            :value="marca.ID"
+                    />
+                    <div v-if="filteredMarcas.length > 0 && showDropdown" class="absolute z-10 mt-1 w-full bg-white border border-gray-300 rounded-lg shadow-md" style="max-height: 425px; overflow-y: auto;">
+                        <ul class="py-2">
+                        <li
+                            v-for="marca in filteredMarcas"
                             :key="marca.ID"
+                            :value="marca.ID"
+                            @click="selectMarca(marca)"
+                            class="px-4 py-2 cursor-pointer hover:bg-gray-100"
                         >
                             {{ marca.DESCRIPCION }}
-                        </option>
-                    </select>
+                        </li>
+                        </ul>
+                    </div>
+                    </div>
 
                     <!--  <model-list-select
                         class="selectSearch"
@@ -155,47 +154,44 @@
                     >
                     </model-list-select> -->
 
-                    <label class="pt-1 font-bold"
-                        >Modelo <span class="text-red-400 inl">*</span></label
-                    >
-                    <select
-                        class="rounded-lg w-full border-gray-300"
-                        v-model="form.modelo"
-                        required
-                    >
-                        <option
-                            :value="car.modeloName"
-                            disabled
-                            selected
-                            hidden
-                            v-if="car.modeloName != ''"
-                        >
-                            {{ car.modeloName }}
-                        </option>
-                        <option value="" disabled selected hidden v-else>
-                            MODELO
-                        </option>
-                        <option
-                            v-for="modelo in models"
-                            :value="modelo.ID"
-                            :key="modelo.ID"
-                        >
-                            {{ modelo.descripcion }}
-                        </option>
-                    </select>
+                    <label class="pt-1 font-bold">Modelo <span class="text-red-400 inl">*</span></label>
+                    <div class="relative">
+                        <!-- <input
+                            class="rounded-lg w-full border-gray-300"
+                            type="text"
+                            placeholder="MODELO"
+                            v-model="modelo"
+                            @input="filterModelos"
+                            @focus="handleModeloFocus"
+                            @blur="handleModeloBlur"
+                            required
+                        />
+                        <div v-if="filteredModelos.length > 0 && showModeloDropdown" class="absolute z-10 mt-1 w-full bg-white border border-gray-300 rounded-lg shadow-md" style="max-height: 425px; overflow-y: auto;">
+                            <ul class="py-2">
+                                <li
+                                    v-for="modelo in filteredModelos"
+                                    :key="modelo.ID"
+                                    @click="selectModelo(modelo)"
+                                    class="px-4 py-2 cursor-pointer hover:bg-gray-100"
+                                >
+                                    {{ modelo.descripcion }}
+                                </li>
+                            </ul>
+                        </div> -->
+                        <model-list-select
+                           class="selectSearch"
+                           v-model="form.modelo"
+                           :value="car.modeloName"
+                           :list="!models ? [{}] : models"
+                           :key="car.modeloName"
+                           option-value="ID"
+                           option-text="descripcion"
+                           placeholder="MODELO"
+                           required
+                       >
+                       </model-list-select>
+                    </div>                
 
-                    <!--  <model-list-select
-                        class="selectSearch"
-                        v-model="form.modelo"
-                        required
-                        :value="car.modeloName"
-                        :list="!models ? [{}] : models"
-                        :key="car.modeloName"
-                        option-value="ID"
-                        option-text="descripcion"
-                        placeholder="MODELO"
-                    >
-                    </model-list-select> -->
 
                     <label class="pt-1 font-bold"
                         >Año <span class="text-red-400 inl">*</span></label
@@ -217,58 +213,10 @@
                         <option value="" disabled selected hidden v-else>
                             AÑO
                         </option>
-                        <option value="2022">2024</option>
-                        <option value="2022">2023</option>
-                        <option value="2022">2022</option>
-                        <option value="2021">2021</option>
-                        <option value="2020">2020</option>
-                        <option value="2019">2019</option>
-                        <option value="2018">2018</option>
-                        <option value="2017">2017</option>
-                        <option value="2016">2016</option>
-                        <option value="2015">2015</option>
-                        <option value="2014">2014</option>
-                        <option value="2013">2013</option>
-                        <option value="2012">2012</option>
-                        <option value="2011">2011</option>
-                        <option value="2010">2010</option>
-                        <option value="2009">2009</option>
-                        <option value="2008">2008</option>
-                        <option value="2007">2007</option>
-                        <option value="2006">2006</option>
-                        <option value="2005">2005</option>
-                        <option value="2004">2004</option>
-                        <option value="2003">2003</option>
-                        <option value="2002">2002</option>
-                        <option value="2001">2001</option>
-                        <option value="2000">2000</option>
-                        <option value="1999">1999</option>
-                        <option value="1998">1998</option>
-                        <option value="1997">1997</option>
-                        <option value="1996">1996</option>
-                        <option value="1996">1995</option>
-                        <option value="1996">1994</option>
-                        <option value="1996">1993</option>
-                        <option value="1996">1992</option>
-                        <option value="1996">1991</option>
-                        <option value="1996">1990</option>
-                        <option value="1996">1989</option>
-                        <option value="1996">1987</option>
-                        <option value="1996">1986</option>
-                        <option value="1996">1985</option>
-                        <option value="1996">1984</option>
-                        <option value="1996">1983</option>
-                        <option value="1996">1982</option>
-                        <option value="1996">1981</option>
-                        <option value="1996">1980</option>
-                        <option value="1996">1979</option>
-                        <option value="1996">1978</option>
-                        <option value="1996">1977</option>
-                        <option value="1996">1976</option>
-                        <option value="1996">1975</option>
-                        <option value="1996">1974</option>
+                        <option v-for="year in years" :value="year">{{ year }}</option>
                     </select>
 
+                    
                     <label class="pt-1 font-bold"
                         >No. de Placa
                         <span class="text-red-400 inl">*</span></label
@@ -382,11 +330,22 @@ export default {
                 paises: this.paises,
             },
             Loading: false,
+            years: [],
+            marca: "", 
+            filteredMarcas: [], 
+            showDropdown: false,
+            blurTimeout: null,
+            selectedBrand: this.car.marca,
+            filteredModelos: [], 
+            showModeloDropdown: false,
         };
     },
+    created() {
+        for (let year = 2024; year >= 1970; year--) {
+        this.years.push(year.toString());
+        }
+    },
     mounted() {
-        /* window.addEventListener("beforeunload", this.showConfirmation); */
-
         //Validar si la seccion esta activa
         axios
             .get("/api/V1/validarCesion/" + this.client.id)
@@ -419,28 +378,82 @@ export default {
     },
     methods: {
         submit() {
-            this.Loading = true;
-            this.$inertia.post(this.route("policy", this.marca), this.form);
+           this.Loading = true;
+           //validar si this.car.modeloName tiene un valor si no enviar un aler de error y no seguir con el siguiente paso
+           if(this.car.modeloName == ""){
+               alert("Por favor seleccione un modelo");
+               this.Loading = false;
+               //colocar el puntero en el input de modelo
+               this.$refs.inputModelo.focus(); 
+               return;
+           }
+           this.$inertia.post(this.route("policy", this.marca), this.form);
         },
         clientReturn() {
             this.Loading = true;
             this.$inertia.post(this.route("clientReturn"), this.form2);
+        },
+        filterMarcas() {
+            this.showDropdown = true;
+            const searchText = this.marca.toLowerCase();
+            this.filteredMarcas = this.marcas.filter((marca) =>
+                marca.DESCRIPCION.toLowerCase().includes(searchText)
+            );
+        },
+        
+        filterModelos() {            
+            this.showModeloDropdown = true;
+            const searchText = this.modelo.toLowerCase();
+            this.filteredModelos = this.models.filter((modelo) =>
+                modelo.descripcion.toLowerCase().includes(searchText)
+            );
+        },
+
+        selectModelo(modelo) {
+            this.modelo = modelo.descripcion;
+            this.filteredModelos = [];
+        },
+
+        handleModeloFocus() {
+            this.filterModelos(); 
+        },
+
+        handleModeloBlur() {
+            this.blurTimeout = setTimeout(() => {
+                this.showModeloDropdown = false;
+            }, 200);
+        },
+
+        updateModels() {
+            this.models = this.modelos.filter(
+                (model) => model.IDMARCA === this.selectedBrand
+            );
+        },
+
+        selectMarca(marca) {
+            this.marca = marca.DESCRIPCION;
+            this.selectedBrand = marca.ID; 
+            this.filteredMarcas = [];
+            this.updateModels();
+        },
+
+
+        handleFocus() {
+            this.filterMarcas()
+        },
+        
+
+        handleBlur() {
+            this.blurTimeout = setTimeout(() => {
+                this.showDropdown = false;
+            }, 200);
         },
 /*         showConfirmation(event) {
             event.preventDefault();
             event.returnValue = ""; // Necesario para mostrar el mensaje en algunos navegadores antiguos
             return "¿Estás seguro de que quieres salir? Todos los cambios no guardados se perderán.";
         }, */
-    },
-    watch: {
-        marca: function (value) {
-            this.form.modelo = "";
-            this.models = this.modelos.filter(
-                (model) => model.IDMARCA == value
-            );
-            console.log(this.models);
-        },
-    },
+    },    
     beforeUnmount() {
         if (this.mostrarConfirmacion == true) {
             window.removeEventListener("beforeunload", this.showConfirmation);

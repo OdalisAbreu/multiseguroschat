@@ -153,7 +153,7 @@ export default {
             this.$inertia.post(this.route('generatepolicy'), this.form)
         },
         descuento() {
-            console.log(document.getElementById('codigo').value)
+            console.log('Entro')
             var codigoIngresado = document.getElementById('codigo').value
             var count = 0
             var percentage = 0
@@ -164,9 +164,8 @@ export default {
                 }
             });
             console.log(percentage)
-            this.form.descontar = this.totalGeneral * percentage / 100
+            this.form.descontar = Math.round(this.totalGeneral * percentage / 100)
             var aplicado = this.totalGeneral - this.form.descontar
-            console.log(aplicado)
             if (count > 0) {
                 this.form.totalGeneral = aplicado
             } else {

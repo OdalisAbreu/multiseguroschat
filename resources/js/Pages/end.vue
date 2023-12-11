@@ -248,13 +248,15 @@ export default defineComponent({
         //--------------------------- Generar PDF-----------------------------------------//
         axios.get(
             "/api/V1/generarPdf/" + this.invoice.police_transactionId
-            //"/api/V1/generarPdf/51185"
+        );
+        //--------------------------- Actualiza el codigo de descuento en multiseguros-----------------------------------------//
+        axios.get(
+            "/api/V1/UpdateDescuento/" + this.invoice.id
         );
         //--------------------------- Enviar Mensaje al cliente -------------------------------//
         console.log(this.Client.phonenumber);
         axios
             .post("/api/V1/enviarMensajeBotCitie", {
-                //.post("/api/V1/enviarMensajeBotCitie", {
                 type: "text",
                 text: "¡Tu póliza está lista! Gracias por comprar en *SegurosChat*.🕐 _En breve estarás recibiendo tus documentos.._",
                 phone: this.Client.phonenumber,

@@ -28,7 +28,7 @@ class PoliciesController extends Controller
      */
     public function index(Request $request, $marcaid)
     {
-        $tipo= '';
+        $tipo = '';
         $tipoName = '';
         $modelo = '';
         $modeloName = '';
@@ -36,36 +36,36 @@ class PoliciesController extends Controller
         $marcaName = '';
         //return $request->modelos;
         // Si llegan string no realiza la búsqueda del nombre porque ya viene en la variable base
-        if(!is_string($request->tipo)){
-            foreach($request->tipos as $tipo){
-                if($tipo['id'] == $request->tipo ){
-                   $tipoName = $tipo['nombre'];
-                   break;
+        if (!is_string($request->tipo)) {
+            foreach ($request->tipos as $tipo) {
+                if ($tipo['id'] == $request->tipo) {
+                    $tipoName = $tipo['nombre'];
+                    break;
                 }
             }
-        }else{
+        } else {
             $tipoName = $request->tipo;
         }
-        if(!is_string($request->modelo)){
-            foreach($request->modelos as $modelo){
-                if($modelo['ID'] == $request->modelo ){
+        if (!is_string($request->modelo)) {
+            foreach ($request->modelos as $modelo) {
+                if ($modelo['ID'] == $request->modelo) {
                     $modeloName = $modelo['descripcion'];
-                   break;
+                    break;
                 }
             }
-        }else{
+        } else {
             $modeloName = $request->modelo;
         }
 
-        foreach($request->marcas as $marca){
-            if($marca['ID'] == $marcaid ){
+        foreach ($request->marcas as $marca) {
+            if ($marca['DESCRIPCION'] == $marcaid) {
                 $marcaName = $marca['DESCRIPCION'];
                 $marcaid = $marca['ID'];
-               break;
+                break;
             }
         }
         //Validar si el valor de tipo, modelo y marca viene del edit, para poder porcesar el ID de cada uno
-        if(is_int($request->tipo) and is_int($marcaid) and is_int($request->modelo) ){
+        if (is_int($request->tipo) and is_int($marcaid) and is_int($request->modelo)) {
             $car = array(
                 'tipo' => $request->tipo,
                 'tipoName' => $tipoName,
@@ -77,7 +77,7 @@ class PoliciesController extends Controller
                 'chasis' => $request->chasis,
                 'year' => $request->year,
             );
-        }else{
+        } else {
             $car = array(
                 'tipo' => '',
                 'tipoName' => $tipoName,
@@ -89,28 +89,29 @@ class PoliciesController extends Controller
                 'chasis' => $request->chasis,
                 'year' => $request->year,
             );
-            if(is_string($request->tipo)){
-                foreach($request->tipos as $tipo){
-                    if($tipo['nombre'] == $request->tipo ){
+
+            if (is_string($request->tipo)) {
+                foreach ($request->tipos as $tipo) {
+                    if ($tipo['nombre'] == $request->tipo) {
                         $car['tipo'] = $tipo['id'];
                         break;
                     }
                 };
-            }else{
+            } else {
                 $car['tipo'] = $request->tipo;
             }
-            if(is_string($marcaid)){
-                foreach($request->marcas as $marca){
-                    if($marca['DESCRIPCION'] == $marcaid ){
+            if (is_string($marcaid)) {
+                foreach ($request->marcas as $marca) {
+                    if ($marca['DESCRIPCION'] == $marcaid) {
                         $car['marcaName'] = $marcaid;
                         $car['marca'] = $marca['ID'];
                         break;
                     }
                 }
             }
-            if(is_string($request->modelo)){
-                foreach($request->modelos as $modelo){
-                    if($modelo['descripcion'] == $request->modelo ){
+            if (is_string($request->modelo)) {
+                foreach ($request->modelos as $modelo) {
+                    if ($modelo['descripcion'] == $request->modelo) {
                         $car['modelo'] = $modelo['ID'];
                         break;
                     }
@@ -155,7 +156,7 @@ class PoliciesController extends Controller
             'provinces' => $request->provinces,
             'clientProvince' => $request->clientProvince,
             'client' => $request->client,
-            'tipos' => $request->tipos, 
+            'tipos' => $request->tipos,
             'modelos' => $request->modelos,
             'marcas' => $request->marcas,
             'clientepais' => $request->clientepais,
@@ -165,7 +166,7 @@ class PoliciesController extends Controller
 
     public function  show(Request $request)
     {
-       // return $request->servicios;
+        // return $request->servicios;
         $services = array();
         $totalServicios = 0;
         $tipo = Vehicle_type_tarif::find($request->car['tipo']);
@@ -173,7 +174,7 @@ class PoliciesController extends Controller
         $modelo = Vehicle_models::find($request->car['modelo']);
         $price = Price::where([['insurances_id', $request->insurre['insurance_id']], ['vehicle_type_id', $request->car['tipo']]])->get();
 
-   
+
 
         foreach ($request->servicios as $serviciosActivo) {
             foreach ($request->services as $servicio) {
@@ -187,7 +188,7 @@ class PoliciesController extends Controller
             $policyTime = '3 Meses';
             $time = 'priceThreeMonths';
             $policyTime = 3;
-        } elseif ($request->policyTime == 'seismeses'or $request->policyTime == 6) {
+        } elseif ($request->policyTime == 'seismeses' or $request->policyTime == 6) {
             $policyTime = '6 Meses';
             $time = 'priceSixMonths';
             $policyTime = 6;
@@ -202,14 +203,14 @@ class PoliciesController extends Controller
         $codigosDescuento = Discounts::where('active', '1')->get();
         $urlReturn = 'https://seguroschat.com/api/statusPayment';
         $servicios = [];
-        foreach($services as $service){
+        foreach ($services as $service) {
             array_push($servicios, $service['id']);
         }
         $serviciosString = json_encode($servicios); //transforma los id de los servicios para guardarlos en la Base de Datos 
         //Buscar si hay algun proceso de compra inconcluso
         //return $request->date;
-        $invoice =  Invoices::where([['client_id',$request->client['id']],['payment_status', 'pending']])->first();
-        if($invoice){
+        $invoice =  Invoices::where([['client_id', $request->client['id']], ['payment_status', 'pending']])->first();
+        if ($invoice) {
             $invoice = Invoices::find($invoice->id);
             $invoice->policyTime = $policyTime;
             $invoice->chassis = $request->car['chasis'];
@@ -226,7 +227,7 @@ class PoliciesController extends Controller
             $invoice->payment_status = 'pending';
             $invoice->policyInitDate = $request->date;
             $invoice->update();
-        }else{
+        } else {
             $invoice = new Invoices();
             $invoice->policyTime = $policyTime;
             $invoice->chassis = $request->car['chasis'];
@@ -259,7 +260,7 @@ class PoliciesController extends Controller
             'services' => $request->services,
             'insurre' => $request->insurre,
             'client' => $request->client,
-            'tipos' => $request->tipos, 
+            'tipos' => $request->tipos,
             'modelos' => $request->modelos,
             'marcas' => $request->marcas,
             'polizaValor' => $request->polizaValor,
@@ -274,7 +275,7 @@ class PoliciesController extends Controller
             'total' => $totalGeneral,
             'urlreturn' => $urlReturn,
             'date' => $request->date,
-            'tax' => '0', 
+            'tax' => '0',
             'invoice_id' => $invoice->id,
             'clientip' => $_SERVER['REMOTE_ADDR']
         ]);
@@ -284,7 +285,7 @@ class PoliciesController extends Controller
     {
         //Traer los coddigos de descuentos activos
         $codigosDescuento = Discounts::where('active', '1')->get();
-        return Inertia::render('Policy/approve',[
+        return Inertia::render('Policy/approve', [
             'car' => $request->car,
             'tarifa' => $request->tarifa,
             'sellers' => $request->seller,
@@ -297,7 +298,7 @@ class PoliciesController extends Controller
             'cliente' => $request->client,
             'insurre' => $request->insurre,
             'client' => $request->client,
-            'tipos' => $request->tipos, 
+            'tipos' => $request->tipos,
             'marcas' => $request->marcas,
             'modelos' => $request->modelos,
             'codigosDescuento' => $codigosDescuento,
@@ -310,44 +311,44 @@ class PoliciesController extends Controller
 
     public function services($insurresId, $time, Request $request)
     {
-        $plazo ='';
+        $plazo = '';
         if ($time == '') {
             return 'Debes seleccionar un tiempo de vigencia de la póliza ';
         }
         $tarifaServices = explode("-", $request->servicios);
         $services = array();
         $servicios = Service::where([['insurances_id', $insurresId], ['activo', 'si']])->get();
-        if($time == 'tresmeses'){
+        if ($time == 'tresmeses') {
             $plazo = '3 meses';
         }
-        if($time == 'seismeses'){
+        if ($time == 'seismeses') {
             $plazo = '6 meses';
         }
-        if($time == 'docemeses'){
+        if ($time == 'docemeses') {
             $plazo = '12 meses';
         }
-       // return $servicios;
-       // foreach ($tarifaServices as $service) {
-            foreach ($servicios as $servicio) {
-                    $service2 = array(
-                        'serviceName' => $servicio['nombre'],
-                        'servicePrice' => $servicio[$time],
-                        'id' => $servicio['id'],
-                        'time' => $plazo
-                    );
-                    array_push($services, $service2);
-            }
-      //  }
-       // return $services;
+        // return $servicios;
+        // foreach ($tarifaServices as $service) {
+        foreach ($servicios as $servicio) {
+            $service2 = array(
+                'serviceName' => $servicio['nombre'],
+                'servicePrice' => $servicio[$time],
+                'id' => $servicio['id'],
+                'time' => $plazo
+            );
+            array_push($services, $service2);
+        }
+        //  }
+        // return $services;
         $insurres = DB::table('insurances')
             ->join('data_payment_gateway', 'insurances.id', 'data_payment_gateway.insurance_id')
             ->where('insurances.id', $insurresId)
             ->get();
-       foreach($request->seller as $seller){
-        if($seller['insurances_id'] == $insurresId){
-            $polizaValor = $seller[$time];
+        foreach ($request->seller as $seller) {
+            if ($seller['insurances_id'] == $insurresId) {
+                $polizaValor = $seller[$time];
+            }
         }
-       }
         return Inertia::render('Policy/create', [
             'car' => $request->car,
             'sellers' => $request->seller,
@@ -374,7 +375,7 @@ class PoliciesController extends Controller
         return Inertia::render('Vehiculo/index', [
             'cities' => $request->cities,
             'provinces' => $request->provinces,
-            'clientProvince' => $request->clientProvince, 
+            'clientProvince' => $request->clientProvince,
             'client' => $request->client,
             'tipos' => $request->tipos,
             'marcas' => $request->marcas,
@@ -392,7 +393,7 @@ class PoliciesController extends Controller
             'clien_id' => $request->clien_id,
             'cities' => $request->cities,
             'provinces' => $request->provinces,
-            'clientProvince' => $request->clientProvince, 
+            'clientProvince' => $request->clientProvince,
             'client' => $request->client,
             'tipos' => $request->tipos,
             'marcas' => $request->marcas,
@@ -403,14 +404,14 @@ class PoliciesController extends Controller
     }
     public function serviciosReturn(Request $request)
     {
-       //return $request->insurre;
+        //return $request->insurre;
         return Inertia::render('Policy/create', [
             'car' => $request->car,
             'sellers' => $request->sellers,
             'clien_id' => $request->clien_id,
             'cities' => $request->cities,
             'provinces' => $request->provinces,
-            'clientProvince' => $request->clientProvince, 
+            'clientProvince' => $request->clientProvince,
             'client' => $request->client,
             'tipos' => $request->tipos,
             'marcas' => $request->marcas,
@@ -427,9 +428,9 @@ class PoliciesController extends Controller
 
         ]);
     }
-    public function verPoliza($policeId){
+    public function verPoliza($policeId)
+    {
 
         return Inertia::render('poliza');
-  
     }
 }

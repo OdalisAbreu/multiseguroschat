@@ -229,27 +229,33 @@
                         v-model="form.adrress"
                         required
                     />
-                    <label class="pt-1 font-bold"
-                        >Provincia
-                        <span class="text-red-400 inl">*</span></label
-                    >
-
-                    <select
-                        class="rounded-lg w-full border-gray-300"
-                        v-model="province"
-                        required
-                    >
-                        <option :value="clientProvince.id" selected>
-                            {{ clientProvince.descrip }}
-                        </option>
-                        <option
-                            v-for="province in provinces"
-                            :value="province.id"
-                            :key="province.id"
-                        >
-                            {{ province.descrip }}
-                        </option>
-                    </select>
+                    <label class="pt-1 font-bold">Provincia <span class="text-red-400">*</span></label>
+                    <div class="relative w-full"> 
+                        <input
+                            class="rounded-lg w-full border-gray-300"
+                            style="text-transform: uppercase"
+                            type="text"
+                            placeholder="PROVINCIA"
+                            v-model="province"
+                            @input="filterProvincias"
+                            @focus="handleFocus"
+                            @blur="handleBlur"
+                            @change="filterCities"
+                            required
+                        />
+                        <div v-if="filteredProvinces.length > 0 && showDropdown" class="absolute z-10 mt-1 w-full bg-white border border-gray-300 rounded-lg shadow-md" style="max-height: 425px; overflow-y: auto; bottom: 100%;">
+                            <ul class="py-2">
+                                <li
+                                    v-for="province in filteredProvinces"
+                                    :key="province.id"
+                                    @click="selectProvincia(province)"
+                                    class="px-4 py-2 cursor-pointer hover:bg-gray-100"
+                                >
+                                    {{ province.descrip }}
+                                </li>
+                            </ul>
+                        </div>
+                    </div> 
 
                     <!-- <model-list-select
                         class="selectSearch"
@@ -263,12 +269,9 @@
                         placeholder="PROVINCIA"
                         required
                     >
-                    </model-list-select> -->
+                    </model-list-select>               -->
 
-                    <label class="pt-1 font-bold"
-                        >Ciudad <span class="text-red-400 inl">*</span></label
-                    >
-
+                    <label class="pt-1 font-bold">Ciudad <span class="text-red-400 inl">*</span></label>
                     <select
                         class="rounded-lg w-full border-gray-300"
                         v-model="form.city"
@@ -361,7 +364,7 @@ export default {
             eleccionPasaporte: false,
             eleccionCedula: true,
             ciudades: "",
-            province: this.client.province,
+            province: this.clientProvince.descrip,
             pais: this.client.nacionalidad,
             loading: true,
             form: {
@@ -386,22 +389,74 @@ export default {
                 paises: this.paises,
             },
             Loading: false,
+            filteredProvinces: [], 
+            showDropdown: false,
+            blurTimeout: null,
         };
     },
     methods: {
         submit() {
-            this.Loading = true;
+         this.Loading = true;
+
+            const selectedProvince = this.provinces.find(
+                (province) => province.descrip === this.province
+            );
+
+            if (selectedProvince) {
+                this.form.provincia = selectedProvince.id;
+            } else {
+                console.error('No se encontró provincia para ', this.province);
+            }
+
             this.$inertia.put(
                 this.route("client.update", this.client.id),
                 this.form
             );
         },
+        filterProvincias() {
+            this.showDropdown = true;
+            const searchText = this.province.toLowerCase();
+            this.filteredProvinces = this.provinces.filter(province =>
+                province.descrip.toLowerCase().includes(searchText)
+            );
+        },
+        selectProvincia(province) {
+            this.province = province.descrip;
+            this.filteredProvinces = [];
+            if (this.blurTimeout) {
+                clearTimeout(this.blurTimeout);
+            }
+            this.form.city = "";
+        },
+        handleFocus() {
+            this.filterProvincias();
+        },
+        handleBlur() {
+            this.blurTimeout = setTimeout(() => {
+                this.showDropdown = false;
+            }, 
+            200);
+        },
+        filterCities() {
+            if (this.form.provincia) {
+                const selectedProvince = this.provinces.find(
+                    province => province.descrip === this.form.provincia
+                );
+                if (selectedProvince) {
+                    this.ciudades = this.cities.filter(
+                        city => city.id_prov === selectedProvince.id
+                    );
+                }
+            }
+        },
+
         /*  validateInput() {
             this.isInputEmpty = this.form.city.trim() === '';
         } */
     },
     mounted() {
        //Validar si la seccion esta activa
+       console.log(this.clientProvince)
        axios.get("/api/V1/validarCesion/" + this.client.id).then((response) => {
                 if(!response.data.status){
                     alert('Su sesión se encuentra inactiva')
@@ -436,15 +491,18 @@ export default {
 
     /*  */
     watch: {
-
         province: function (key) {
+            this.form.provincia = key;
+            this.filterCities();
+        },
+        /* province: function (key) {
             console.log('Entro');
             this.ciudades = this.cities.filter(
                 (ciudad) => ciudad.id_prov == key
             );
             this.form.city = "";
             this.form.provincia = key;
-        },
+        }, */
         /* "form.city": function () {
             this.isCityEmpty = !this.form.city; // Verifica si form.city es nulo o vacío
         },

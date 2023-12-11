@@ -9,15 +9,22 @@ use App\Models\Invoices;
 use App\Models\Vehicle_brands;
 use App\Models\Vehicle_models;
 use App\Models\Vehicle_type_tarif;
+use App\Services\InvoicesServices;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
+use phpDocumentor\Reflection\Types\Resource_;
 
 use function PHPUnit\Framework\isNull;
 
 class InvoicesController extends Controller
 {
+    protected $invoice;
+    public function __construct(InvoicesServices $invoice)
+    {
+        $this->invoice = $invoice;
+    }
     public function statusPaymentVisaNet(Request $request)
     {
         $invoiceId = $request->req_reference_number;
@@ -232,10 +239,12 @@ class InvoicesController extends Controller
         $poliza = json_decode($response);
         sleep(1);
 
+
         Log::info("poliza", $poliza);
         //-----------------------------------------------------------------------------------------
 
         //----------------Actualizar Factura---------------------------------------
+
 
         $invoice = Invoices::find($request->TransactionID);
         //$invoice->payment_status = $request->decision;
@@ -250,15 +259,18 @@ class InvoicesController extends Controller
         $invoice->police_number = $poliza->insurancePolicyNumber;;
         $invoice->police_transactionId = $poliza->transactionId;
         $invoice->update();
+
         Log::info("invoice", $invoice);
+
         //--------------------------------------------------------------------------------------------
 
         //--------------------Desactivar Descuento----------------------------------------------------
-        if ($invoice->discount_id > 0) {
-            $descuento = Discounts::find($invoice->discount_id);
-            $descuento->active = 0;
-            $descuento->update();
-        }
+        // if ($invoice->discount_id > 0) {
+        //     $descuento = Discounts::find($invoice->discount_id);
+        //     $descuento->active = 0;
+        //     $descuento->update();
+        // }
+
         //-------------------------------------------------------------------------------------------
         /*   echo 'ResponseCode:'. $request->ResponseCode. '<br/>';
             echo 'TransactionID:'. $request->TransactionID. '<br/>';
@@ -321,6 +333,7 @@ class InvoicesController extends Controller
                 'TxToken' =>  $request->TxToken
             ]);
 
+
             return Inertia::render('Welcome', [
                 'ResponseCode' => $request->ResponseCode,
                 'TransactionID' => $request->TransactionID,
@@ -338,6 +351,18 @@ class InvoicesController extends Controller
         $invoice->totalGeneral = $totalGeneral;
         $invoice->discount_id = $descuento_id;
         $invoice->save();
+
         Log::info("descuento", ["invoice_id" => $id, "discount_id" => $descuento_id, "totalGeneral" => $totalGeneral]);
+
+    }
+    public function getInvoices(Request $request)
+    {
+        $invoice = $this->invoice->getInvoices($request);
+        return $invoice;
+    }
+    public function getInvoice($id)
+    {
+        $invoice = $this->invoice->getInvoice($id);
+
     }
 }

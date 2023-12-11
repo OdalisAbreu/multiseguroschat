@@ -77,6 +77,7 @@ class ClientController extends Controller
             }
             $Clientepais = DB::select('select * from nacionalidad where id = ' . $client->nacionalidad);
 
+
             Log::info("cliente", [$client]);
 
             return Inertia::render('Clients/Edit', [
@@ -109,7 +110,7 @@ class ClientController extends Controller
         $client->passportnumber = $request->passportnumber;
         $client->nacionalidad = $request->pais;
         $client->city = strtoupper($request->city);
-        $client->province = strtoupper($request->provincia);
+        $client->province = $request->provincia;
         $client->phonenumber = $request->phonenumber;
         $client->save();
 
@@ -130,10 +131,10 @@ class ClientController extends Controller
         }
 
 
+        $clientProvince = Province::find($request->provincia);
         $tipos = $request->tipos;
         $marcas = $request->marcas;
         $modelos = $request->modelos;
-
         return Inertia::render('Vehiculo/index', [
             'tipos' => $tipos,
             'marcas' => $marcas,
@@ -142,7 +143,7 @@ class ClientController extends Controller
             'client' => $client,
             'cities' => $request->cities,
             'provinces' => $request->provinces,
-            'clientProvince' => $request->clientProvince,
+            'clientProvince' => $clientProvince,
             'car' => $car,
             'clientepais' => $request->clientepais,
             'paises' => $request->paises
