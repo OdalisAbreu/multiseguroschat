@@ -27,6 +27,13 @@ const logout = () => {
             <img class="w-5 sm:absolute sm:right-4" src="../../assets/consultaSocioLogo.png" alt="Consulta Socio Logo" />
         </div>
         </Link>
+        <Link href="/admin/reporte-polizas"> 
+        <div
+            class="flex md:pr-10 gap-2 items-center hover:bg-blue-400 w-full justify-start border-l-2 border-b-2 border-black py-2 pl-4">
+            <p>Reportes de Pólizas</p>
+            <img class="w-5 sm:absolute sm:right-4" src="../../assets/adminReportePoliza.svg" alt="Consulta Reporte de Polizas Logo" />
+        </div>
+        </Link>
 
       <!-- <Link href="/Admin/ConsultarSocio">
         <div

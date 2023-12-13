@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use App\Models\Client;
 use App\Models\Discounts;
 use App\Models\Insurance;
@@ -364,5 +365,10 @@ class InvoicesController extends Controller
     {
         $invoice = $this->invoice->getInvoice($id);
 
+    }
+    public function getService($id)
+    {
+        $service = DB::select("SELECT * FROM services WHERE id = '$id'");
+        return $service;
     }
 }
