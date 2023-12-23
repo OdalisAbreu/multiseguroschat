@@ -132,6 +132,8 @@ class InvoicesController extends Controller
         //-----------------Consulta las tablas para generar las polizas----------------
         $invoices = Invoices::find($request->TransactionID);
         $seller = Insurance::find($invoices['sellers_id']);
+        Log::info([$invoices]);
+        Log::info([$seller]);
         //  return $seller['logo'];
         $client = Client::where('id', $invoices->client_id)->get();
 
@@ -161,34 +163,32 @@ class InvoicesController extends Controller
         $modelo = $modelos->descripcion;
         $tipo = Vehicle_type_tarif::find($invoices->car_tipe);
 
-        Log::info("peticion de poliza", '{
-                                    "sellerInternalId": "102054-' . $request->AuthorizationCode . '",
-                                    "vehicle": {
-                                        "vehicleTypeId": ' . $invoices->car_tipe . ',
-                                        "vehicleMakeId": ' . $invoices->car_brand . ',
-                                        "vehicleModelId": ' . $invoices->car_model . ',
-                                        "year": ' . $invoices->year . ',
-                                        "chassis": "' . $invoices->chassis . '",
-                                        "licensePlate": "' . $invoices->licensePlate . '"
-                                    },
-                                    "insured": {
-                                        "name": "' . $name . '",
-                                        "lastName": "' . $lastname . '",
-                                        "identificationCardNumber": "' . $cardnumber . '",
-                                        "passportNumber": "' . $passportnumber . '",
-                                        "emailAddress": "' . $email . '",
-                                        "phoneNumber": ' . $phonenumber . ',
-                                        "residenceAddress": "' . $adrress . '",
-                                        "cityOfResidence": "' . $city . '",
-                                        "nationality": ""
-                                    },
-                                    "insuranceCarrierId": ' . $invoices->sellers_id . ',
-                                    "services":  ' . $invoices->services . ',
-                                    "policyStartDate": "' . $invoices->policyInitDate . '",
-                                    "policyValidity": ' . $invoices->policyTime . ',
-                                    "Total": ' . round($invoices->totalGeneral) . '
-                                }',);
-
+        $json = [
+            "sellerInternalId" => "102054-' . $request->AuthorizationCode . '",
+            "vehicle" => [
+                "vehicleTypeId" => $invoices->car_tipe,
+                "vehicleMakeId" => $invoices->car_brand,
+                "vehicleModelId" => $invoices->car_model,
+                "year" => $invoices->year,
+                "chassis" => $invoices->chassis,
+                "licensePlate" => $invoices->licensePlate
+            ],
+            "insured" => [
+                "name" => $name,
+                "lastName" => $lastname,
+                "identificationCardNumber" => $cardnumber,
+                "passportNumber" => $passportnumber,
+                "emailAddress" => $email,
+                "phoneNumber" => $phonenumber,
+                "residenceAddress" => $adrress,
+                "cityOfResidence" => $city
+            ],
+            "insuranceCarrierId" => $invoices->sellers_id,
+            "services" => $invoices->services,
+            "policyStartDate" => $invoices->policyInitDate,
+            "policyValidity" => $invoices->policyTime
+        ];
+        Log::info(["peticion de poliza" => $json]);
 
         $curl = curl_init();
         curl_setopt_array($curl, array(
@@ -239,28 +239,15 @@ class InvoicesController extends Controller
         $poliza = json_decode($response);
         sleep(1);
 
-
-        Log::info("poliza", $poliza);
         //-----------------------------------------------------------------------------------------
 
         //----------------Actualizar Factura---------------------------------------
 
 
         $invoice = Invoices::find($request->TransactionID);
-        //$invoice->payment_status = $request->decision;
-        $invoice->payment_status = 'ACCEPT';
-        $invoice->tranf_number = $request->req_transaction_uuid;
-        $invoice->transaction_id = $request->TransactionID;
-        $invoice->RemoteResponseCode = $request->RemoteResponseCode;
-        $invoice->AuthorizationCode = $request->AuthorizationCode;
-        $invoice->RetrivalReferenceNumber = $request->RetrivalReferenceNumber;
-        $invoice->TxToken =  $request->RetrivalReferenceNumber;
         $invoice->police_number = $poliza->insurancePolicyNumber;
-        $invoice->police_number = $poliza->insurancePolicyNumber;;
         $invoice->police_transactionId = $poliza->transactionId;
         $invoice->update();
-
-        Log::info("invoice", $invoice);
 
         //--------------------------------------------------------------------------------------------
 
@@ -303,6 +290,7 @@ class InvoicesController extends Controller
 
     public function waitingRoom(Request $request)
     {
+        $estatus = '';
         if ($request->ResponseCode != '00') {
 
             Log::error("Error Pago", [
@@ -313,6 +301,15 @@ class InvoicesController extends Controller
                 'RetrivalReferenceNumber' => $request->RetrivalReferenceNumber,
                 'TxToken' =>  $request->TxToken
             ]);
+            $invoice = Invoices::find($request->TransactionID);
+            $invoice->payment_status = 'DECLINED';
+            $invoice->payment_messeger = $request->ResponseCode;
+            $invoice->transaction_id = $request->TransactionID;
+            $invoice->RemoteResponseCode = $request->RemoteResponseCode;
+            $invoice->AuthorizationCode = $request->AuthorizationCode;
+            $invoice->RetrivalReferenceNumber = $request->RetrivalReferenceNumber;
+            $invoice->TxToken =  $request->TxToken;
+            $invoice->update();
 
             return Inertia::render('error', [
                 'ResponseCode' => $request->ResponseCode,
@@ -333,6 +330,15 @@ class InvoicesController extends Controller
                 'TxToken' =>  $request->TxToken
             ]);
 
+            $invoice = Invoices::find($request->TransactionID);
+            $invoice->payment_status = 'ACCEPT';
+            $invoice->payment_messeger = $request->ResponseCode;
+            $invoice->transaction_id = $request->TransactionID;
+            $invoice->RemoteResponseCode = $request->RemoteResponseCode;
+            $invoice->AuthorizationCode = $request->AuthorizationCode;
+            $invoice->RetrivalReferenceNumber = $request->RetrivalReferenceNumber;
+            $invoice->TxToken =  $request->TxToken;
+            $invoice->update();
 
             return Inertia::render('Welcome', [
                 'ResponseCode' => $request->ResponseCode,
@@ -343,6 +349,16 @@ class InvoicesController extends Controller
                 'TxToken' =>  $request->TxToken
             ]);
         }
+
+        $invoice = Invoices::find($request->TransactionID);
+        $invoice->payment_status = $estatus;
+        $invoice->payment_messeger = $request->ResponseCode;
+        $invoice->transaction_id = $request->TransactionID;
+        $invoice->RemoteResponseCode = $request->RemoteResponseCode;
+        $invoice->AuthorizationCode = $request->AuthorizationCode;
+        $invoice->RetrivalReferenceNumber = $request->RetrivalReferenceNumber;
+        $invoice->TxToken =  $request->TxToken;
+        $invoice->update();
     }
 
     public function aplicarDescuento($id, $descuento_id, $totalGeneral)
@@ -352,8 +368,7 @@ class InvoicesController extends Controller
         $invoice->discount_id = $descuento_id;
         $invoice->save();
 
-        Log::info("descuento", ["invoice_id" => $id, "discount_id" => $descuento_id, "totalGeneral" => $totalGeneral]);
-
+        Log::info(["invoice_id" => $id, "discount_id" => $descuento_id, "totalGeneral" => $totalGeneral]);
     }
     public function getInvoices(Request $request)
     {
@@ -363,6 +378,5 @@ class InvoicesController extends Controller
     public function getInvoice($id)
     {
         $invoice = $this->invoice->getInvoice($id);
-
     }
 }

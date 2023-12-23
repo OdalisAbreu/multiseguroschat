@@ -378,15 +378,12 @@ export default {
     },
     methods: {
         submit() {
-           this.Loading = true;
-           //validar si this.car.modeloName tiene un valor si no enviar un aler de error y no seguir con el siguiente paso
-           if(this.car.modeloName == ""){
+           
+           if(this.form.modelo == ""){
                alert("Por favor seleccione un modelo");
-               this.Loading = false;
-               //colocar el puntero en el input de modelo
-               this.$refs.inputModelo.focus(); 
                return;
            }
+            this.Loading = true;
            this.$inertia.post(this.route("policy", this.marca), this.form);
         },
         clientReturn() {

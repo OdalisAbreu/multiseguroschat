@@ -45,7 +45,6 @@ class ClientsController extends Controller
         $client->idConversacion = $request->idConversacion;
         $client->session = 'A';
         $client->save();
-        Log::info("Crear cliente", $client);
         if ($client) {
             return ['status' => '00', 'message' => 'Usuario creado correctamente', 'cantidadPoliza' => 0];
         } else {
@@ -70,7 +69,7 @@ class ClientsController extends Controller
             Log::info("Activar Sesión", ["id" => $client->id, "session" => $client->session]);
 
             // Calcula la cantidad de poliza
-            $invoince = Invoices::where('client_id', $client->cardnumber)->count(); //
+            $invoince = Invoices::where('client_id', $client->id)->count(); //
 
             return [
                 'status' => '00',
@@ -173,18 +172,18 @@ class ClientsController extends Controller
     }
     public function savePolizaImage(Request $request)
     {
-        $invoince = Invoices::find($request->idPoliza);
-        $invoince->imagenPoliza = $request->image;
-        $invoince->save();
+        // $invoince = Invoices::find($request->idPoliza);
+        // $invoince->imagenPoliza = $request->image;
+        // $invoince->save();
 
-        $imagen = str_replace('data:image/png;base64,', '', $request->image,);
-        $bin = base64_decode($imagen);
-        $im = imageCreateFromString($bin);
-        if (!$im) {
-            die('Base64 value is not a valid image');
-        }
-        $img_file = 'polizas/' . $request->idPoliza . '.png';
-        imagepng($im, $img_file, 0);
+        // $imagen = str_replace('data:image/png;base64,', '', $request->image,);
+        // $bin = base64_decode($imagen);
+        // $im = imageCreateFromString($bin);
+        // if (!$im) {
+        //     die('Base64 value is not a valid image');
+        // }
+        // $img_file = 'polizas/' . $request->idPoliza . '.png';
+        // imagepng($im, $img_file, 0);
 
         return [
             'status' => 'OK'

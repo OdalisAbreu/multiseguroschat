@@ -396,22 +396,21 @@ export default {
     },
     methods: {
         submit() {
-         this.Loading = true;
-
             const selectedProvince = this.provinces.find(
                 (province) => province.descrip === this.province
-            );
-
-            if (selectedProvince) {
+                );
+                
+                if (selectedProvince) {
+                 this.Loading = true;
                 this.form.provincia = selectedProvince.id;
+                this.$inertia.put(
+                    this.route("client.update", this.client.id),
+                    this.form
+                );
             } else {
-                console.error('No se encontró provincia para ', this.province);
+                alert("¡Seleccione una provincia valida para poder continuar!");
             }
 
-            this.$inertia.put(
-                this.route("client.update", this.client.id),
-                this.form
-            );
         },
         filterProvincias() {
             this.showDropdown = true;

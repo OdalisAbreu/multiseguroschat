@@ -2,20 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\cities;
 use App\Models\Client;
 use App\Models\Municipalities;
 use App\Models\Province;
 use App\Models\Vehicle_brands;
 use App\Models\Vehicle_models;
 use App\Models\Vehicle_type_tarif;
-use Faker\Provider\sv_SE\Municipality;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
-use PhpParser\Node\Stmt\TryCatch;
 
 
 class ClientController extends Controller
@@ -76,9 +72,6 @@ class ClientController extends Controller
                 $clientProvince['id'] = 0;
             }
             $Clientepais = DB::select('select * from nacionalidad where id = ' . $client->nacionalidad);
-
-
-            Log::info("cliente", [$client]);
 
             return Inertia::render('Clients/Edit', [
                 'client' => $client,

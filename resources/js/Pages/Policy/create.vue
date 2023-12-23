@@ -201,7 +201,6 @@ export default {
                 console.log(error.response);
             });
 
-        console.log(this.client)
         //------------------ Guardar Vista por el cliente -------------------------------------
         axios.get(
                 "/api/V1/validarVista/"+this.client.id+"/Servicios Opcionales"
