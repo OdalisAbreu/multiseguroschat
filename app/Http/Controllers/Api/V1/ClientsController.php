@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use App\Models\Client;
 use App\Models\Invoices;
+use DateTime;
+use DateTimeZone;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Symfony\Component\CssSelector\Parser\Token;
@@ -244,7 +246,6 @@ class ClientsController extends Controller
 
     public function enviarMensajeBotCitie(Request $request)
     {
-        // return $request->phone . '  ' . $request->type . '     ' . $request->text;
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
@@ -395,5 +396,12 @@ class ClientsController extends Controller
                 'status' => false
             ];
         }
+    }
+    public function accesoCarnet($id)
+    {
+        //Asignar a la variable $horaAcceso la hora actual en Santo Domingo
+        $horaAcceso = new DateTime('now', new DateTimeZone('America/Santo_Domingo'));
+        $horaAcceso = $horaAcceso->format('Y-m-d H:i:s');
+        Log::info("Acceso Carnet -> clientId: " . $id, ["horaAcceso" => $horaAcceso, "clientId" => $id]);
     }
 }

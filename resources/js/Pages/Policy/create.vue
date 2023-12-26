@@ -219,7 +219,7 @@ export default {
     },
     methods: {
         submit() {
-           // this.Loading = true
+            this.Loading = true
             this.$inertia.post(this.route('servicespolicy'), this.form)
         },
         clientReturn() {

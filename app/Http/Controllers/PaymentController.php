@@ -109,7 +109,7 @@ class PaymentController extends Controller
         ]);
     }
     //----------------------------------------------------------------------------------------------------------------------------------------------
-    public function cardNet(Request $request)
+    public function cardNet(Request $request) //VISTA 5 RESUMEN
     {
         $codigo = 0;
         /* if($request->descuento != ''){
@@ -123,7 +123,7 @@ class PaymentController extends Controller
             }
         }*/
 
-        $urlReturn = 'https://seguroschat.com/api/statusPayment';
+        $urlReturn = env('APP_URL') . 'api/statusPayment';
         $servicios = [];
         if ($request->policyTime == '3 Meses') {
             $policyTime = 3;
@@ -153,9 +153,19 @@ class PaymentController extends Controller
         $invoice->discount_id = 1;
         $invoice->payment_status = 'peding';
         $invoice->save();
-
-        Log::info($invoice);
-
+        return $invoice;
+        Log::info("inovice -> id: " . $invoice->client_id, [$invoice]);
+        if (env('APP_ENV' == 'production')) {
+            $merchanttype = $request->insurre['merchanttype'];
+            $merchantnumber =  $request->insurre['merchantnumber'];
+            $merchantterminal = $request->insurre['merchantterminal'];
+            $payment_url = $request->insurre['payment_url'];
+        } else {
+            $merchanttype = '7997';
+            $merchantnumber =  '349000000';
+            $merchantterminal = '58585858';
+            $payment_url = 'https://lab.cardnet.com.do/authorize';
+        }
         return Inertia::render('Payment/cardnet', [
             'total' => $request->totalGeneral,
             'invoice_id' => $invoice->id,
@@ -163,12 +173,12 @@ class PaymentController extends Controller
             'urlreturn' => $urlReturn,
             'date' => gmdate("Y-m-d\TH:i:s\Z"),
             'tax' => '0',
-            'merchanttype' => $request->insurre['merchanttype'],
-            'merchantnumber' => $request->insurre['merchantnumber'],
-            'merchantterminal' => $request->insurre['merchantterminal'],
+            'merchanttype' => $merchanttype,
+            'merchantnumber' => $merchantnumber,
+            'merchantterminal' => $merchantterminal,
             'client_name' => $request->insurre['client_name'],
             'transactionid' => $invoice->id,
-            'paymentUrl' => $request->insurre['payment_url'],
+            'paymentUrl' => $payment_url,
             'clientip' => $_SERVER['REMOTE_ADDR']
         ]);
     }
