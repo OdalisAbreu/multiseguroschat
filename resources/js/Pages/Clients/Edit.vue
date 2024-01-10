@@ -133,50 +133,46 @@
                         <div class="flex items-center gap-2">
                             <p>Cédula:</p>
                             <input
-                                v-model="eleccionCedula"
                                 :checked="eleccionCedula"
                                 type="radio"
-                                value="eleccionCedula"
-                                @click="
-                                    (eleccionCedula = true),
-                                        (eleccionPasaporte = null)
-                                "
+                                @click="changeId"
                             />
                         </div>
                         <div class="flex items-center gap-2">
                             <p>Pasaporte:</p>
                             <input
-                                v-model="eleccionPasaporte"
                                 :checked="eleccionPasaporte"
                                 type="radio"
-                                value="eleccionPasaporte"
-                                @click="
-                                    (eleccionPasaporte = true),
-                                        (eleccionCedula = null)
-                                "
+                                @click="changePassport"
                             />
                         </div>
                     </div>
+                    <div  v-if="eleccionPasaporte && !eleccionCedula" class="w-full">
+                        <input
+                            class="rounded-lg w-full border-gray-300"
+                            :class="{'invalid': v$.form.passportnumber.$error}"
+                            style="text-transform: uppercase"
+                            type="text"
+                            placeholder="Pasaporte"
+                            v-model="form.passportnumber"
+                            maxlength="15"
+                        />
+                        <span v-if="v$.form.passportnumber.$error" class="text-red-500">{{ v$.form.passportnumber.$errors[0].$message }}</span>
+                    </div>
 
-                    <input
-                        v-if="eleccionPasaporte && !eleccionCedula"
-                        class="rounded-lg w-full border-gray-300"
-                        style="text-transform: uppercase"
-                        type="text"
-                        placeholder="Pasaporte"
-                        v-model="form.passportnumber"
-                        required
-                    />
-
-                    <input
-                        v-if="!eleccionPasaporte && eleccionCedula"
-                        class="rounded-lg w-full border-gray-300"
-                        style="text-transform: uppercase"
-                        type="text"
-                        placeholder="Cédula"
-                        v-model="form.cardnumber"
-                        required
-                    />
+                    <div v-if="!eleccionPasaporte && eleccionCedula" class="w-full">
+                        <input
+                            class="rounded-lg w-full border-gray-300"
+                            :class="{'invalid': v$.form.cardnumber.$error}"
+                            style="text-transform: uppercase"
+                            type="text"
+                            placeholder="Cédula"
+                            v-model="form.cardnumber"
+                            maxlength="11"
+                        />
+                        <span v-if="v$.form.cardnumber.$error" class="text-red-500">{{ v$.form.cardnumber.$errors[0].$message }}</span>
+                        <span v-if="!validateId() && form.cardnumber.length == 11" class="text-red-500">Cédula Invalida</span>
+                    </div>
 
                     <div
                         class="w-full flex flex-col lg:items-center"
@@ -328,6 +324,9 @@ import Footer from "../../components/Footer.vue";
 import { ModelListSelect } from "vue-search-select";
 import "vue-search-select/dist/VueSearchSelect.css";
 import { ref, onUnmounted } from "vue";
+import sdq from 'sdq';
+import useVuelidate from "@vuelidate/core";
+import { minLength, numeric,required,alphaNum, maxLength,requiredIf } from '@vuelidate/validators'
 
 export default {
     components: {
@@ -352,6 +351,7 @@ export default {
     },
     data() {
         return {
+            v$: useVuelidate(),
             isCityEmpty: false,
             isprovinciaEmpty: false,
             nuevaCiudad: [{ descrip: this.client.city }],
@@ -394,8 +394,29 @@ export default {
             blurTimeout: null,
         };
     },
+
+    validations:{
+        form:{
+            cardnumber:{
+                required,
+                numeric,
+                minLength: minLength(11),
+            }, 
+            passportnumber: {
+                required:requiredIf(false),
+                alphaNum,
+                minLength:minLength(6),
+                maxLength:maxLength(15),
+            },
+        },
+    },
     methods: {
-        submit() {
+        async submit() {
+            const isFormCorrect = await this.v$.form.$validate()
+            if(!isFormCorrect || !this.validateId()){
+                return;
+            }
+            this.Loading = true;
             const selectedProvince = this.provinces.find(
                 (province) => province.descrip === this.province
                 );
@@ -452,6 +473,19 @@ export default {
         /*  validateInput() {
             this.isInputEmpty = this.form.city.trim() === '';
         } */
+
+        validateId(){
+            //verifica que sea una cedula dominicana valida
+            return sdq.isCedula(this.form.cardnumber)
+        },
+        changeId(){
+            this.eleccionCedula = true;
+            this.eleccionPasaporte = false;
+        },
+        changePassport(){
+            this.eleccionPasaporte = true;
+            this.eleccionCedula = false;
+        },
     },
     mounted() {
        //Validar si la seccion esta activa
@@ -480,7 +514,6 @@ export default {
         };
 
         const timeoutId = setTimeout(cuentaRegresiva, 900000);
-
         onUnmounted(() => {
             clearTimeout(timeoutId);
         });
@@ -494,6 +527,10 @@ export default {
             this.form.provincia = key;
             this.filterCities();
         },
+        eleccionPasaporte () {
+            this.v$.form['selectedId'] = this.eleccionCedula;
+            this.v$.form['selectedPassport'] = this.eleccionPasaporte;
+        }
         /* province: function (key) {
             console.log('Entro');
             this.ciudades = this.cities.filter(
@@ -527,5 +564,10 @@ export default {
     height: 2.6rem;
     margin-bottom: 0.5rem;
     color: rgb(229 231 235 / var(--tw-text-opacity));
+}
+
+.invalid {
+  background-color: pink;
+  border: solid 1px red;
 }
 </style>

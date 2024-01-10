@@ -27,6 +27,8 @@
     },
     "dependencies": {
         "@formkit/auto-animate": "^1.0.0-beta.6",
+        "@vuelidate/core": "^2.0.3",
+        "@vuelidate/validators": "^2.0.4",
         "@vuepic/vue-datepicker": "^5.3.0",
         "dom-to-image-more": "^3.1.1",
         "en": "^1.0.1",
@@ -35,6 +37,7 @@
         "html": "^1.0.0",
         "html-to-image": "^1.11.11",
         "imagen": "^1.0.0",
+        "sdq": "^1.0.0",
         "vue-search-select": "^3.1.0"
     }
 }
