@@ -133,7 +133,7 @@
                         <div class="flex items-center gap-2">
                             <p>Cédula:</p>
                             <input
-                                :checked="eleccionCedula"
+                                :checked="selecctedId"
                                 type="radio"
                                 @click="changeId"
                             />
@@ -141,13 +141,13 @@
                         <div class="flex items-center gap-2">
                             <p>Pasaporte:</p>
                             <input
-                                :checked="eleccionPasaporte"
+                                :checked="!selecctedId"
                                 type="radio"
-                                @click="changePassport"
+                                @click="changeId"
                             />
                         </div>
                     </div>
-                    <div  v-if="eleccionPasaporte && !eleccionCedula" class="w-full">
+                    <div  v-if="!selecctedId" class="w-full">
                         <input
                             class="rounded-lg w-full border-gray-300"
                             :class="{'invalid': v$.form.passportnumber.$error}"
@@ -160,10 +160,10 @@
                         <span v-if="v$.form.passportnumber.$error" class="text-red-500">{{ v$.form.passportnumber.$errors[0].$message }}</span>
                     </div>
 
-                    <div v-if="!eleccionPasaporte && eleccionCedula" class="w-full">
+                    <div v-if="selecctedId" class="w-full" >
                         <input
                             class="rounded-lg w-full border-gray-300"
-                            :class="{'invalid': v$.form.cardnumber.$error}"
+                            :class="{'invalid': v$.form.cardnumber.$error || (!validateId() && form.cardnumber.length == 11)}"
                             style="text-transform: uppercase"
                             type="text"
                             placeholder="Cédula"
@@ -176,7 +176,7 @@
 
                     <div
                         class="w-full flex flex-col lg:items-center"
-                        v-if="eleccionPasaporte && !eleccionCedula"
+                        v-if="!selecctedId"
                     >
                         <label class="mx-auto pt-1 font-bold"
                             >Nacionalidad
@@ -361,8 +361,7 @@ export default {
                     descrip: this.clientProvince.descrip,
                 },
             ],
-            eleccionPasaporte: false,
-            eleccionCedula: true,
+            selecctedId: true,
             ciudades: "",
             province: this.clientProvince.descrip,
             pais: this.client.nacionalidad,
@@ -412,6 +411,7 @@ export default {
     },
     methods: {
         async submit() {
+            console.log(this.$v);
             const isFormCorrect = await this.v$.form.$validate()
             if(!isFormCorrect || !this.validateId()){
                 return;
@@ -479,12 +479,7 @@ export default {
             return sdq.isCedula(this.form.cardnumber)
         },
         changeId(){
-            this.eleccionCedula = true;
-            this.eleccionPasaporte = false;
-        },
-        changePassport(){
-            this.eleccionPasaporte = true;
-            this.eleccionCedula = false;
+            this.selecctedId = !this.selecctedId
         },
     },
     mounted() {
@@ -527,10 +522,6 @@ export default {
             this.form.provincia = key;
             this.filterCities();
         },
-        eleccionPasaporte () {
-            this.v$.form['selectedId'] = this.eleccionCedula;
-            this.v$.form['selectedPassport'] = this.eleccionPasaporte;
-        }
         /* province: function (key) {
             console.log('Entro');
             this.ciudades = this.cities.filter(
