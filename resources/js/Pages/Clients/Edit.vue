@@ -130,24 +130,24 @@
                     ><br />
 
                     <div class="flex justify-center items-center gap-x-8 py-2">
-                        <div class="flex items-center gap-2">
+                        <div id="id-radio" class="flex items-center gap-2">
                             <p>Cédula:</p>
                             <input
-                                :checked="selecctedId"
+                                :checked="selectedDocument"
                                 type="radio"
                                 @click="changeId"
                             />
                         </div>
-                        <div class="flex items-center gap-2">
+                        <div id="passport-radio" class="flex items-center gap-2">
                             <p>Pasaporte:</p>
                             <input
-                                :checked="!selecctedId"
+                                :checked="!selectedDocument"
                                 type="radio"
                                 @click="changeId"
                             />
                         </div>
                     </div>
-                    <div  v-if="!selecctedId" class="w-full">
+                    <div  v-if="!selectedDocument" class="w-full">
                         <input
                             class="rounded-lg w-full border-gray-300"
                             :class="{'invalid': v$.form.passportnumber.$error}"
@@ -160,7 +160,7 @@
                         <span v-if="v$.form.passportnumber.$error" class="text-red-500">{{ v$.form.passportnumber.$errors[0].$message }}</span>
                     </div>
 
-                    <div v-if="selecctedId" class="w-full" >
+                    <div v-if="selectedDocument" class="w-full" >
                         <input
                             class="rounded-lg w-full border-gray-300"
                             :class="{'invalid': v$.form.cardnumber.$error || (!validateId() && form.cardnumber.length == 11)}"
@@ -176,7 +176,7 @@
 
                     <div
                         class="w-full flex flex-col lg:items-center"
-                        v-if="!selecctedId"
+                        v-if="!selectedDocument"
                     >
                         <label class="mx-auto pt-1 font-bold"
                             >Nacionalidad
@@ -360,7 +360,7 @@ export default {
                     descrip: this.clientProvince.descrip,
                 },
             ],
-            selecctedId: true,
+            selectedDocument: true,
             ciudades: "",
             province: this.clientProvince.descrip,
             pais: this.client.nacionalidad,
@@ -398,12 +398,12 @@ export default {
 
             form:{
                 cardnumber:{
-                    required: helpers.withMessage('El campo no puede estar vacio', requiredIf(this.selecctedId)),
+                    required: helpers.withMessage('El campo no puede estar vacio', requiredIf(this.selectedDocument)),
                     numeric: helpers.withMessage('Solo se acepta numeros',numeric),
                     minLength: helpers.withMessage('Debe Contener 11 numeros minimos',minLength(11)),
                 }, 
                 passportnumber: {
-                    required: helpers.withMessage('El campo no puede estar vacio', requiredIf(!this.selecctedId)),
+                    required: helpers.withMessage('El campo no puede estar vacio', requiredIf(!this.selectedDocument)),
                     alphaNum: helpers.withMessage('no puede escribir caracteres especiales',alphaNum),
                     minLength: helpers.withMessage('Debe Contener 6 caracteres minimos',minLength(6)),
                     maxLength: helpers.withMessage('Debe Contener 15 caracteres maximos',maxLength(15)),
@@ -414,7 +414,7 @@ export default {
     methods: {
         async submit() {
             const isFormCorrect = await this.v$.form.$validate()
-            if(!isFormCorrect || (!this.validateId() && this.selecctedId)){
+            if(!isFormCorrect || (!this.validateId() && this.selectedDocument)){
                 return;
             }
             this.Loading = true;
@@ -480,7 +480,7 @@ export default {
             return sdq.isCedula(this.form.cardnumber)
         },
         changeId(){
-            this.selecctedId = !this.selecctedId
+            this.selectedDocument = !this.selectedDocument
         },
     },
     mounted() {
