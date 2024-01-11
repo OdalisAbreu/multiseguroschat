@@ -400,7 +400,7 @@ export default {
                 cardnumber:{
                     required: helpers.withMessage('El campo no puede estar vacio', requiredIf(this.selectedDocument)),
                     numeric: helpers.withMessage('Solo se acepta numeros',numeric),
-                    minLength: helpers.withMessage('Debe Contener 11 numeros minimos',minLength(11)),
+                    minLength: helpers.withMessage('Debe contener 11 caracteres, sin guiones',minLength(11)),
                 }, 
                 passportnumber: {
                     required: helpers.withMessage('El campo no puede estar vacio', requiredIf(!this.selectedDocument)),
