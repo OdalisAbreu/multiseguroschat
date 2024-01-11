@@ -326,7 +326,7 @@ import "vue-search-select/dist/VueSearchSelect.css";
 import { ref, onUnmounted } from "vue";
 import sdq from 'sdq';
 import useVuelidate from "@vuelidate/core";
-import { minLength, numeric,required,alphaNum, maxLength,requiredIf } from '@vuelidate/validators'
+import { minLength, numeric,alphaNum, maxLength,requiredIf,helpers } from '@vuelidate/validators'
 
 export default {
     components: {
@@ -341,7 +341,7 @@ export default {
         cities: Object,
         paises: Object,
         provinces: Object,
-        clientProvince: Array,
+        clientProvince: Object,
         activarPresentacion: String,
         car: Array,
         tipos: Array,
@@ -351,7 +351,6 @@ export default {
     },
     data() {
         return {
-            v$: useVuelidate(),
             isCityEmpty: false,
             isprovinciaEmpty: false,
             nuevaCiudad: [{ descrip: this.client.city }],
@@ -393,27 +392,29 @@ export default {
             blurTimeout: null,
         };
     },
+    setup: () => ({ v$: useVuelidate() }),
+    validations(){
+        return{
 
-    validations:{
-        form:{
-            cardnumber:{
-                required,
-                numeric,
-                minLength: minLength(11),
-            }, 
-            passportnumber: {
-                required:requiredIf(false),
-                alphaNum,
-                minLength:minLength(6),
-                maxLength:maxLength(15),
+            form:{
+                cardnumber:{
+                    required: helpers.withMessage('El campo no puede estar vacio', requiredIf(this.selecctedId)),
+                    numeric: helpers.withMessage('Solo se acepta numeros',numeric),
+                    minLength: helpers.withMessage('Debe Contener 11 numeros minimos',minLength(11)),
+                }, 
+                passportnumber: {
+                    required: helpers.withMessage('El campo no puede estar vacio', requiredIf(!this.selecctedId)),
+                    alphaNum: helpers.withMessage('no puede escribir caracteres especiales',alphaNum),
+                    minLength: helpers.withMessage('Debe Contener 6 caracteres minimos',minLength(6)),
+                    maxLength: helpers.withMessage('Debe Contener 15 caracteres maximos',maxLength(15)),
+                },
             },
-        },
+        }
     },
     methods: {
         async submit() {
-            console.log(this.$v);
             const isFormCorrect = await this.v$.form.$validate()
-            if(!isFormCorrect || !this.validateId()){
+            if(!isFormCorrect || (!this.validateId() && this.selecctedId)){
                 return;
             }
             this.Loading = true;
