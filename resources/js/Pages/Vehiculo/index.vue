@@ -243,7 +243,9 @@
                         v-model="form.chasis"
                     />
                     <span v-if="v$.form.chasis.$error" class="text-red-500">{{ v$.form.chasis.$errors[0].$message }}</span>
-                    <span v-if="form.chasis.length >= 10 ">Valide que el chasis <strong class=" text-red-500">"{{ form.chasis }}"</strong> este correcto</span>
+                    <span v-if="form.chasis.length >= 10" >
+                        Valide que el chasis <strong class=" text-red-500"> "{{ form.chasis.toUpperCase() }}"</strong> este correcto
+                    </span>
 
                     <div
                         class="w-full mt-5 mx-5 my-4 justify-self-center self-center text-center"
