@@ -163,7 +163,7 @@
                     <div v-if="selectedDocument" class="w-full" >
                         <input
                             class="rounded-lg w-full border-gray-300"
-                            :class="{'invalid': v$.form.cardnumber.$error || (!validateId() && form.cardnumber.length == 11)}"
+                            :class="{'invalid': v$.form.cardnumber.$error || !validateId()}"
                             style="text-transform: uppercase"
                             type="text"
                             placeholder="Cédula"
@@ -171,7 +171,7 @@
                             maxlength="11"
                         />
                         <span v-if="v$.form.cardnumber.$error" class="text-red-500">{{ v$.form.cardnumber.$errors[0].$message }}</span>
-                        <span v-if="!validateId() && form.cardnumber.length == 11" class="text-red-500">Cédula Invalida</span>
+                        <span v-if="!validateId()" class="text-red-500">Cédula Invalida</span>
                     </div>
 
                     <div
@@ -477,6 +477,10 @@ export default {
 
         validateId(){
             //verifica que sea una cedula dominicana valida
+            if(this.form.cardnumber == null)
+                return true
+            else if(this.form.cardnumber.length !== 11)
+                return true
             return sdq.isCedula(this.form.cardnumber)
         },
         changeId(){
