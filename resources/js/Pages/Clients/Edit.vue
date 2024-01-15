@@ -469,10 +469,11 @@ export default {
                     );
                 }
             }
-        },
-        isValidProvince (){
-            return !this.form.provinces.some(province => province.descrip == this.form.provincia)
-        }    
+            else{
+                this.form.city = ""
+                this.ciudades = ""
+            }
+        },   
 
         /*  validateInput() {
             this.isInputEmpty = this.form.city.trim() === '';
