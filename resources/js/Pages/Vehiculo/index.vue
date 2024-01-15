@@ -235,13 +235,17 @@
                     </label>
                     <input
                         class="rounded-lg w-full border-gray-300"
+                        :class="{'invalid': v$.form.chasis.$error}"
                         style="text-transform: uppercase"
                         type="text"
                         maxlength="17"
                         placeholder="CHASIS"
                         v-model="form.chasis"
-                        required
                     />
+                    <span v-if="v$.form.chasis.$error" class="text-red-500">{{ v$.form.chasis.$errors[0].$message }}</span>
+                    <span v-if="form.chasis.length >= 10" >
+                        Valide que el chasis <strong class=" text-red-500"> "{{ form.chasis.toUpperCase() }}"</strong> este correcto
+                    </span>
 
                     <div
                         class="w-full mt-5 mx-5 my-4 justify-self-center self-center text-center"
@@ -270,6 +274,8 @@ import Footer from "../../components/Footer.vue";
 import { ModelListSelect } from "vue-search-select";
 import "vue-search-select/dist/VueSearchSelect.css";
 import { ref, onUnmounted } from "vue";
+import useVuelidate from "@vuelidate/core";
+import { minLength, alphaNum, maxLength, helpers, required} from '@vuelidate/validators'
 
 export default {
     components: {
@@ -284,17 +290,17 @@ export default {
         marcas: Array,
         modelos: Array,
         clien_id: String,
-        years: [2022, 2021, 2020],
         cities: Object,
         provinces: Object,
-        clientProvince: Array,
-        client: Array,
-        car: Array,
+        clientProvince: Object,
+        client: Object,
+        car: Object,
         clientepais: Array,
         paises: Object,
     },
     data() {
         return {
+            years: [2022, 2021, 2020],
             isTipoCarroEmpty: false,
             isMarcaEmpty: false,
             isModeloEmpty: false,
@@ -340,6 +346,20 @@ export default {
             showModeloDropdown: false,
         };
     },
+    setup: () => ({ v$: useVuelidate() }),
+    validations(){
+        return{
+
+            form:{
+                chasis:{
+                    required: helpers.withMessage('El campo no puede estar vacio', required),
+                    alphaNum: helpers.withMessage('no puede escribir caracteres especiales',alphaNum),
+                    minLength: helpers.withMessage('Chasis inválido o incompleto',minLength(10)),
+                    maxLength: helpers.withMessage('Chasis inválido o incompleto',maxLength(17)),
+                }, 
+            },
+        }
+    },
     created() {
         for (let year = 2024; year >= 1970; year--) {
         this.years.push(year.toString());
@@ -377,8 +397,11 @@ export default {
         });
     },
     methods: {
-        submit() {
-           
+        async submit() {
+            const isFormCorrect = await this.v$.form.$validate()
+            if(!isFormCorrect)
+                return;
+
            if(this.form.modelo == ""){
                alert("Por favor seleccione un modelo");
                return;
@@ -469,5 +492,9 @@ export default {
     height: 2.6rem;
     margin-bottom: 0.5rem;
     color: rgb(229 231 235 / var(--tw-text-opacity));
+}
+.invalid {
+  background-color: pink;
+  border: solid 1px red;
 }
 </style>
