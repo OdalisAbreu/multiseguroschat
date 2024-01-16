@@ -417,6 +417,10 @@ export default {
             this.$inertia.post(this.route("clientReturn"), this.form2);
         },
         filterMarcas() {
+            if(!this.form.marca){
+                this.form.modelo = ""
+                this.models = ""
+            }
             this.showDropdown = true;
             const searchText = this.form.marca.toLowerCase();
             this.filteredMarcas = this.marcas.filter((marca) =>
@@ -432,7 +436,7 @@ export default {
             );
         },
 
-        selectModelo(modelo) {
+        selectModelo(modelo) {    
             this.modelo = modelo.descripcion;
             this.filteredModelos = [];
         },
@@ -447,13 +451,13 @@ export default {
             }, 200);
         },
 
-        updateModels() {
+        updateModels() {    
             this.models = this.modelos.filter(
                 (model) => model.IDMARCA === this.selectedBrand
             );
         },
 
-        selectMarca(marca) {
+        selectMarca(marca) {    
             this.form.marca = marca.DESCRIPCION;
             this.selectedBrand = marca.ID; 
             this.filteredMarcas = [];
