@@ -473,6 +473,9 @@ export default {
                     let marca = this.filteredMarcas[0]
                     this.selectMarca(marca)
                 }
+                else{
+                    this.form.marca = ""
+                }
                 this.showDropdown = false;
             }, 200);
         },

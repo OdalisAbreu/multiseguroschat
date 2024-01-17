@@ -458,6 +458,9 @@ export default {
                     let province = this.filteredProvinces[0]
                     this.selectProvincia(province)
                 }
+                else{
+                    this.province = ""
+                }
                 this.showDropdown = false;
             }, 
             200);
