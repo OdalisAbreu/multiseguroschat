@@ -134,7 +134,7 @@
                                     :key="marca.ID"
                                     :value="marca.ID"
                                     @click="selectMarca(marca)"
-                                    class="px-4 py-2 cursor-pointer hover:bg-gray-100"
+                                    class="px-4 py-2 cursor-pointer hover:bg-gray-100 w-full"
                                 >
                                     {{ marca.DESCRIPCION }}
                                 </li>
@@ -464,14 +464,15 @@ export default {
             this.updateModels();
         },
 
-
         handleFocus() {
             this.filterMarcas()
         },
-        
-
         handleBlur() {
             this.blurTimeout = setTimeout(() => {
+                if (this.filteredMarcas.length === 1) {
+                    let marca = this.filteredMarcas[0]
+                    this.selectMarca(marca)
+                }
                 this.showDropdown = false;
             }, 200);
         },

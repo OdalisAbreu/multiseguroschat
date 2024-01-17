@@ -407,7 +407,7 @@ export default {
             form:{
                 provincia:{
                     required: helpers.withMessage('El campo no puede estar vacio', required),
-                    isValidProvince: helpers.withMessage('Esta no es un provincia valida',() => this.form.provinces.some(province => province.descrip == this.province))
+                    isValidProvince: helpers.withMessage('Seleccione una de las opciones',() => this.form.provinces.some(province => province.descrip == this.province))
                 },
                 city:{
                     required: helpers.withMessage('El campo no puede estar vacio', required),
@@ -454,6 +454,10 @@ export default {
         },
         handleBlur() {
             this.blurTimeout = setTimeout(() => {
+                if (this.filteredProvinces.length === 1) {
+                    let province = this.filteredProvinces[0]
+                    this.selectProvincia(province)
+                }
                 this.showDropdown = false;
             }, 
             200);
