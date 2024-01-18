@@ -115,30 +115,31 @@
 
                     <label class="pt-1 font-bold">Marca <span class="text-red-400">*</span></label>
                     <div class="relative">
-                    <input
-                        class="rounded-lg w-full border-gray-300"
-                        style="text-transform: uppercase"
-                        type="text"
-                        placeholder="MARCA"
-                        v-model="marca"
-                        @input="filterMarcas"
-                        @focus="handleFocus"
-                        @blur="handleBlur"
-                        required
-                    />
-                    <div v-if="filteredMarcas.length > 0 && showDropdown" class="absolute z-10 mt-1 w-full bg-white border border-gray-300 rounded-lg shadow-md" style="max-height: 425px; overflow-y: auto;">
-                        <ul class="py-2">
-                        <li
-                            v-for="marca in filteredMarcas"
-                            :key="marca.ID"
-                            :value="marca.ID"
-                            @click="selectMarca(marca)"
-                            class="px-4 py-2 cursor-pointer hover:bg-gray-100"
-                        >
-                            {{ marca.DESCRIPCION }}
-                        </li>
-                        </ul>
-                    </div>
+                        <input
+                            class="rounded-lg w-full border-gray-300"
+                            :class="{'invalid': v$.form.marca.$error}"
+                            style="text-transform: uppercase"
+                            type="text"
+                            placeholder="MARCA"
+                            v-model="form.marca"
+                            @input="filterMarcas"
+                            @focus="handleFocus"
+                            @blur="handleBlur"
+                        />
+                        <span v-if="v$.form.marca.$error" class="text-red-500">{{ v$.form.marca.$errors[0].$message }}</span>
+                        <div v-if="filteredMarcas.length > 0 && showDropdown" class="absolute z-10 mt-1 w-full bg-white border border-gray-300 rounded-lg shadow-md" style="max-height: 425px; overflow-y: auto;">
+                            <ul class="py-2">
+                                <li
+                                    v-for="marca in filteredMarcas"
+                                    :key="marca.ID"
+                                    :value="marca.ID"
+                                    @click="selectMarca(marca)"
+                                    class="px-4 py-2 cursor-pointer hover:bg-gray-100 w-full"
+                                >
+                                    {{ marca.DESCRIPCION }}
+                                </li>
+                            </ul>
+                        </div>
                     </div>
 
                     <!--  <model-list-select
@@ -180,6 +181,7 @@
                         </div> -->
                         <model-list-select
                            class="selectSearch"
+                           :class="{'invalid': v$.form.modelo.$error}"
                            v-model="form.modelo"
                            :value="car.modeloName"
                            :list="!models ? [{}] : models"
@@ -187,11 +189,10 @@
                            option-value="ID"
                            option-text="descripcion"
                            placeholder="MODELO"
-                           required
                        >
                        </model-list-select>
                     </div>                
-
+                    <span v-if="v$.form.modelo.$error" class="text-red-500">{{ v$.form.modelo.$errors[0].$message }}</span>
 
                     <label class="pt-1 font-bold"
                         >Año <span class="text-red-400 inl">*</span></label
@@ -241,12 +242,10 @@
                         maxlength="17"
                         placeholder="CHASIS"
                         v-model="form.chasis"
+                        @input="cleanSpaces"
                     />
                     <span v-if="v$.form.chasis.$error" class="text-red-500">{{ v$.form.chasis.$errors[0].$message }}</span>
-                    <span v-if="form.chasis.length >= 10" >
-                        Valide que el chasis <strong class=" text-red-500"> "{{ form.chasis.toUpperCase() }}"</strong> este correcto
-                    </span>
-
+                    
                     <div
                         class="w-full mt-5 mx-5 my-4 justify-self-center self-center text-center"
                     >
@@ -306,10 +305,10 @@ export default {
             isModeloEmpty: false,
             newCar: [{ id: this.car.id, name: this.car.tipoName }],
             models: "",
-            marca: this.car.marcaName,
             form: {
                 tipo: this.car.tipoName,
                 modelo: this.car.modeloName,
+                marca: this.car.marcaName,
                 year: this.car.year,
                 placa: this.car.placa,
                 chasis: this.car.chasis,
@@ -337,7 +336,6 @@ export default {
             },
             Loading: false,
             years: [],
-            marca: "", 
             filteredMarcas: [], 
             showDropdown: false,
             blurTimeout: null,
@@ -351,12 +349,19 @@ export default {
         return{
 
             form:{
+                marca: {
+                    required: helpers.withMessage('El campo no puede estar vacio', required),
+                    isValidBrand: helpers.withMessage('Esta no es un marca valida',() => this.marcas.some(brand => brand.DESCRIPCION == this.form.marca))
+                },
+                modelo: {
+                    required: helpers.withMessage('El campo no puede estar vacio', required),
+                }, 
                 chasis:{
                     required: helpers.withMessage('El campo no puede estar vacio', required),
-                    alphaNum: helpers.withMessage('no puede escribir caracteres especiales',alphaNum),
-                    minLength: helpers.withMessage('Chasis inválido o incompleto',minLength(10)),
+                    alphaNum: helpers.withMessage('no puede escribir caracteres especiales',helpers.regex(/^[a-zA-Z0-9\\-]+$/)),
+                    minLength: helpers.withMessage('Chasis inválido o incompleto',minLength(8)),
                     maxLength: helpers.withMessage('Chasis inválido o incompleto',maxLength(17)),
-                }, 
+                },
             },
         }
     },
@@ -402,20 +407,20 @@ export default {
             if(!isFormCorrect)
                 return;
 
-           if(this.form.modelo == ""){
-               alert("Por favor seleccione un modelo");
-               return;
-           }
             this.Loading = true;
-           this.$inertia.post(this.route("policy", this.marca), this.form);
+           this.$inertia.post(this.route("policy", this.form.marca), this.form);
         },
         clientReturn() {
             this.Loading = true;
             this.$inertia.post(this.route("clientReturn"), this.form2);
         },
         filterMarcas() {
+            if(!this.form.marca){
+                this.form.modelo = ""
+                this.models = ""
+            }
             this.showDropdown = true;
-            const searchText = this.marca.toLowerCase();
+            const searchText = this.form.marca.toLowerCase();
             this.filteredMarcas = this.marcas.filter((marca) =>
                 marca.DESCRIPCION.toLowerCase().includes(searchText)
             );
@@ -429,7 +434,7 @@ export default {
             );
         },
 
-        selectModelo(modelo) {
+        selectModelo(modelo) {    
             this.modelo = modelo.descripcion;
             this.filteredModelos = [];
         },
@@ -444,30 +449,34 @@ export default {
             }, 200);
         },
 
-        updateModels() {
+        updateModels() {    
             this.models = this.modelos.filter(
                 (model) => model.IDMARCA === this.selectedBrand
             );
         },
 
-        selectMarca(marca) {
-            this.marca = marca.DESCRIPCION;
+        selectMarca(marca) {    
+            this.form.marca = marca.DESCRIPCION;
             this.selectedBrand = marca.ID; 
             this.filteredMarcas = [];
             this.updateModels();
         },
 
-
         handleFocus() {
             this.filterMarcas()
         },
-        
-
         handleBlur() {
             this.blurTimeout = setTimeout(() => {
+                if (this.filteredMarcas.length === 1) {
+                    let marca = this.filteredMarcas[0]
+                    this.selectMarca(marca)
+                }
                 this.showDropdown = false;
             }, 200);
         },
+        cleanSpaces(){
+            this.form.chasis = this.form.chasis.trim()
+        }
 /*         showConfirmation(event) {
             event.preventDefault();
             event.returnValue = ""; // Necesario para mostrar el mensaje en algunos navegadores antiguos
@@ -494,7 +503,7 @@ export default {
     color: rgb(229 231 235 / var(--tw-text-opacity));
 }
 .invalid {
-  background-color: pink;
-  border: solid 1px red;
+  background-color: pink !important;
+  border: solid 1px red !important;
 }
 </style>

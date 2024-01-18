@@ -1105,6 +1105,9 @@ select {
 .col-span-9 {
   grid-column: span 9 / span 9;
 }
+.float-left {
+  float: left;
+}
 .-mx-1 {
   margin-left: -0.25rem;
   margin-right: -0.25rem;
