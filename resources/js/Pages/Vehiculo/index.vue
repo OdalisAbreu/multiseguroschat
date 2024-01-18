@@ -358,8 +358,8 @@ export default {
                 }, 
                 chasis:{
                     required: helpers.withMessage('El campo no puede estar vacio', required),
-                    alphaNum: helpers.withMessage('no puede escribir caracteres especiales',alphaNum),
-                    minLength: helpers.withMessage('Chasis inválido o incompleto',minLength(10)),
+                    alphaNum: helpers.withMessage('no puede escribir caracteres especiales',helpers.regex(/^[a-zA-Z0-9\\-]+$/)),
+                    minLength: helpers.withMessage('Chasis inválido o incompleto',minLength(8)),
                     maxLength: helpers.withMessage('Chasis inválido o incompleto',maxLength(17)),
                 },
             },
