@@ -438,7 +438,7 @@ export default {
             this.showDropdown = true;
             const searchText = this.province.toLowerCase();
             this.filteredProvinces = this.provinces.filter(province =>
-                province.descrip.toLowerCase().includes(searchText)
+                province?.descrip?.toLowerCase().includes(searchText)
             );
         },
         selectProvincia(province) {
