@@ -130,7 +130,7 @@
                     ><br />
 
                     <div class="flex justify-center items-center gap-x-8 py-2">
-                        <div id="id-radio" class="flex items-center gap-2">
+                        <div class="flex items-center gap-2">
                             <p>Cédula:</p>
                             <input
                                 :checked="selectedDocument"
@@ -138,15 +138,17 @@
                                 @click="changeId"
                             />
                         </div>
-                        <div id="passport-radio" class="flex items-center gap-2">
+                        <div class="flex items-center gap-2">
                             <p>Pasaporte:</p>
                             <input
                                 :checked="!selectedDocument"
                                 type="radio"
+                                value="eleccionPasaporte"
                                 @click="changeId"
                             />
                         </div>
                     </div>
+
                     <div  v-if="!selectedDocument" class="w-full">
                         <input
                             class="rounded-lg w-full border-gray-300"
@@ -160,7 +162,7 @@
                         <span v-if="v$.form.passportnumber.$error" class="text-red-500">{{ v$.form.passportnumber.$errors[0].$message }}</span>
                     </div>
 
-                    <div v-if="selectedDocument" class="w-full" >
+                    <div v-if="selectedDocument" class="w-full">
                         <input
                             class="rounded-lg w-full border-gray-300"
                             :class="{'invalid': v$.form.cardnumber.$error || !validateId()}"
@@ -229,6 +231,7 @@
                     <div class="relative w-full"> 
                         <input
                             class="rounded-lg w-full border-gray-300"
+                            :class="{'invalid': v$.form.provincia.$error}"
                             style="text-transform: uppercase"
                             type="text"
                             placeholder="PROVINCIA"
@@ -237,8 +240,9 @@
                             @focus="handleFocus"
                             @blur="handleBlur"
                             @change="filterCities"
-                            required
                         />
+                        <span v-if="v$.form.provincia.$error" class="text-red-500">{{ v$.form.provincia.$errors[0].$message }}</span>
+
                         <div v-if="filteredProvinces.length > 0 && showDropdown" class="absolute z-10 mt-1 w-full bg-white border border-gray-300 rounded-lg shadow-md" style="max-height: 425px; overflow-y: auto; bottom: 100%;">
                             <ul class="py-2">
                                 <li
@@ -270,8 +274,8 @@
                     <label class="pt-1 font-bold">Ciudad <span class="text-red-400 inl">*</span></label>
                     <select
                         class="rounded-lg w-full border-gray-300"
+                        :class="{'invalid': v$.form.city.$error}"
                         v-model="form.city"
-                        required
                     >
                         <option :value="form.city" selected>
                             {{ form.city }}
@@ -284,6 +288,9 @@
                             {{ city.descrip }}
                         </option>
                     </select>
+                    <div class="relatice w-full">
+                        <span v-if="v$.form.city.$error" class="text-red-500 float-left">{{ v$.form.city.$errors[0].$message }}</span>
+                    </div>
 
                     <!--   <model-list-select
                         class="selectSearch"
@@ -326,7 +333,7 @@ import "vue-search-select/dist/VueSearchSelect.css";
 import { ref, onUnmounted } from "vue";
 import sdq from 'sdq';
 import useVuelidate from "@vuelidate/core";
-import { minLength, numeric,alphaNum, maxLength,requiredIf,helpers } from '@vuelidate/validators'
+import { minLength, numeric,alphaNum, maxLength,requiredIf,helpers,required } from '@vuelidate/validators'
 
 export default {
     components: {
@@ -361,6 +368,8 @@ export default {
                 },
             ],
             selectedDocument: true,
+            eleccionPasaporte: false,
+            eleccionCedula: true,
             ciudades: "",
             province: this.clientProvince.descrip,
             pais: this.client.nacionalidad,
@@ -395,7 +404,6 @@ export default {
     setup: () => ({ v$: useVuelidate() }),
     validations(){
         return{
-
             form:{
                 cardnumber:{
                     required: helpers.withMessage('El campo no puede estar vacio', requiredIf(this.selectedDocument)),
@@ -408,16 +416,22 @@ export default {
                     minLength: helpers.withMessage('Debe Contener 6 caracteres minimos',minLength(6)),
                     maxLength: helpers.withMessage('Debe Contener 15 caracteres maximos',maxLength(15)),
                 },
+                provincia:{
+                    required: helpers.withMessage('El campo no puede estar vacio', required),
+                    isValidProvince: helpers.withMessage('Seleccione una de las opciones',() => this.form.provinces.some(province => province.descrip == this.province))
+                },
+                city:{
+                    required: helpers.withMessage('El campo no puede estar vacio', required),
+                }
             },
         }
     },
     methods: {
         async submit() {
             const isFormCorrect = await this.v$.form.$validate()
-            if(!isFormCorrect || (!this.validateId() && this.selectedDocument)){
+            if(!isFormCorrect || (!this.validateId() && this.selectedDocument))
                 return;
-            }
-            this.Loading = true;
+
             const selectedProvince = this.provinces.find(
                 (province) => province.descrip === this.province
                 );
@@ -429,16 +443,13 @@ export default {
                     this.route("client.update", this.client.id),
                     this.form
                 );
-            } else {
-                alert("¡Seleccione una provincia valida para poder continuar!");
             }
-
         },
         filterProvincias() {
             this.showDropdown = true;
             const searchText = this.province.toLowerCase();
             this.filteredProvinces = this.provinces.filter(province =>
-                province.descrip.toLowerCase().includes(searchText)
+                province?.descrip?.toLowerCase().includes(searchText)
             );
         },
         selectProvincia(province) {
@@ -454,6 +465,13 @@ export default {
         },
         handleBlur() {
             this.blurTimeout = setTimeout(() => {
+                if (this.filteredProvinces.length === 1) {
+                    let province = this.filteredProvinces[0]
+                    this.selectProvincia(province)
+                }
+                else{
+                    this.province = ""
+                }
                 this.showDropdown = false;
             }, 
             200);
@@ -469,12 +487,15 @@ export default {
                     );
                 }
             }
-        },
+            else{
+                this.form.city = ""
+                this.ciudades = ""
+            }
+        },   
 
         /*  validateInput() {
             this.isInputEmpty = this.form.city.trim() === '';
         } */
-
         validateId(){
             //verifica que sea una cedula dominicana valida
             if(this.form.cardnumber == null)
@@ -514,6 +535,7 @@ export default {
         };
 
         const timeoutId = setTimeout(cuentaRegresiva, 900000);
+
         onUnmounted(() => {
             clearTimeout(timeoutId);
         });
@@ -561,7 +583,6 @@ export default {
     margin-bottom: 0.5rem;
     color: rgb(229 231 235 / var(--tw-text-opacity));
 }
-
 .invalid {
   background-color: pink;
   border: solid 1px red;
