@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'https://multiseguros.botpropanel.com'),
+    'url' => env('APP_URL', 'https://seguroschat.com'),
 
     'asset_url' => env('ASSET_URL', null),
 
@@ -67,7 +67,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'America/Santo_Domingo', 'UTC',
 
     /*
     |--------------------------------------------------------------------------
