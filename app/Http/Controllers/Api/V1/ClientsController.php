@@ -71,7 +71,7 @@ class ClientsController extends Controller
             Log::info("Activar Sesión", ["id" => $client->id, "session" => $client->session]);
 
             // Calcula la cantidad de poliza
-            $invoince = Invoices::where('client_id', $client->id)->count(); //
+            $invoince = Invoices::where([['client_id', $client->id], ['payment_status', 'ACCEPT']])->count(); //
 
             return [
                 'status' => '00',
