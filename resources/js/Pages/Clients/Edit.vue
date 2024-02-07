@@ -218,7 +218,7 @@
 
 
                    <CustomInput
-                    v-model= "hola.hi"
+                    v-model= "form.adrress"
                     labelName="Direccion"
                     typeInput="text"
                     placeholder="Direccion"
@@ -340,7 +340,7 @@ export default {
         ModelListSelect,
         CustomButton,
         CustomInput
-    },
+    }, 
     props: {
         client: Object,
         cities: Object,

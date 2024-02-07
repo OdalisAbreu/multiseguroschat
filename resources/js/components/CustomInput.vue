@@ -2,7 +2,7 @@
     <div class="w-full flex flex-col lg:items-center mt-1">
         <label class="pt-1 font-bold w-auto">
             {{ labelName }}
-            <span v-if="isObligatory" class="text-red-400 inl">* {{ value }}</span>
+            <span v-if="isObligatory" class="text-red-400 inl">*</span>
         </label>
         <input
             class="rounded-lg w-full border-gray-300"
@@ -13,7 +13,7 @@
             :type="typeInput"
             :placeholder="placeholder"
             :disabled="disabled"
-            @input="$emit('input', $event.target.value)"
+            @input="$emit('update:modelValue', $event.target.value)"
         />
     </div>
     <div class="relative w-full">
