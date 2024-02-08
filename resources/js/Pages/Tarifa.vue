@@ -14,15 +14,16 @@
             >
                 <div class="flex-1 flex-col lg:items-center">
                     <SearchInput 
-                    v-model="typeTarifa"
-                    @SubmitEvent="submit"
+                        v-model="typeTarifa"
+                        @SubmitEvent="submit"
                     />
                 </div>
                 <CustomTable 
-                    :data="filteredTarifas"
-                    :isVisible="filteredTarifas.length"    
+                :data="filteredTarifas"
+                :isVisible="filteredTarifas.length"    
                 />
             </div>
+            <CustomDropodown/>
         </div>
     </div>
     <Footer class="fixed inset-y-0" />
@@ -33,6 +34,7 @@ import SearchInput from "../components/SearchInput.vue";
 import CustomButton from "../components/CustomButton.vue";
 import CustomHeader from "../components/CustomHeader.vue";
 import CustomTable from "../components/CustomTable.vue";
+import CustomDropodown from "../components/CustomDropodown.vue";
 import Footer from "../components/Footer.vue";
 import SquareButton from "../components/squareButton.vue";
 import EditTarifa from "./EditTarifa.vue";
@@ -47,7 +49,8 @@ export default {
         CustomTable,
         Footer,
         SquareButton,
-        EditTarifa
+        EditTarifa,
+        CustomDropodown
     },
     data() {
         return{
