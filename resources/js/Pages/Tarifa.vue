@@ -12,13 +12,16 @@
             <div
                 class="p-3 px-5 sm:px-5 md:px-5 xl:px-5 bg-slate-100 rounded-xl border-2 border-gray-300 mb-4 max-w-4xl mx-auto"
             >
-                <form class="flex-1 flex-col lg:items-center">
+                <div class="flex-1 flex-col lg:items-center">
                     <SearchInput 
-                    class="mb-4"
                     v-model="typeTarifa"
+                    @SubmitEvent="submit"
                     />
-                </form>
-                <CustomTable :data="filteredTarifas"/>
+                </div>
+                <CustomTable 
+                    :data="filteredTarifas"
+                    :isVisible="filteredTarifas.length"    
+                />
             </div>
         </div>
     </div>
@@ -57,6 +60,11 @@ export default {
         this.getPrices();
     },
     methods: {
+        async submit() {
+            if(!this.typeTarifa)
+                return
+            this.filterTarifa()
+        },
         async getPrices() {
             try {
                 const response =  await axios.get('/api/V1/prices');
@@ -65,15 +73,15 @@ export default {
                 console.error('Error al obtener los precios:', error);
             }
         },
-        
-    },
-    computed:{
         filterTarifa() {
             const searchText = this.typeTarifa?.toLowerCase();
             this.filteredTarifas =  this.prices.filter(price =>
                 price?.tipoDeVehiculo?.toLowerCase().includes(searchText)
             );
         },
+        
+    },
+    computed:{
     },
 };
 </script>

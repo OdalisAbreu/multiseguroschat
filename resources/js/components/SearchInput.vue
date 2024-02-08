@@ -1,6 +1,6 @@
 <template>
   
-<form class="w-full">   
+<div class="w-full">   
     <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only ligth:text-white">{{labelName}}</label>
     <div class="relative">
         <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
@@ -18,19 +18,18 @@
             :type="typeInput"
             :disabled="disabled"
             @input="$emit('update:modelValue', $event.target.value)"
-            @focus="$emit('focus',$event)"
             >
         <button 
             type="submit" 
             class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 ligth:bg-blue-600 ligth:hover:bg-blue-700 ligth:focus:ring-blue-800"
+            @click="$emit('SubmitEvent')"
             >Search</button>
     </div>
     <div class="relative w-full">
-        <span v-if="error" class="text-red-500 float-left">{{
-            errorMessage
-        }}</span>
+        <span v-if="error" class="text-red-500 float-left">
+        {{ errorMessage }}</span>
     </div>
-</form>
+</div>
 
 </template>
 
@@ -41,7 +40,6 @@ export default {
         id: String,
         labelName: {
             type: String,
-            required: true,
             default: "Label",
         },
         modelValue: { type: String, required: true },
