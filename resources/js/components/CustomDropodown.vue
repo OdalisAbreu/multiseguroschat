@@ -1,27 +1,30 @@
 <template>
-    <div>
+    <div class="relative mx-2 min-w-48">
         <label
             for="first_name"
-            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-            >First name</label
+            class="block mb-2 text-sm font-medium text-gray-900 light:text-black"
+            >{{ label }}</label
         >
         <input
             type="text"
-            id="first_name"
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="John"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 light:bg-gray-700 light:border-gray-600 light:placeholder-gray-400 light:text-white light:focus:ring-blue-500 light:focus:border-blue-500"
+            :placeholder="placeholder"
+            :value="selectedOption"
+            @click="toggleOptions"
         />
-    </div>
-    <div
-        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ligth:bg-gray-700 ligth:border-gray-600 ligth:placeholder-gray-400 ligth:text-white ligth:focus:ring-blue-500 ligth:focus:border-blue-500"
-    >
-        <div class="options" v-show="showOptions">
-            <div
-                v-for="option in options"
-                :key="option.value"
-                @click="selectOption(option)"
-            >
-                {{ option }}
+        <div
+            v-show="showOptions"
+            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ligth:bg-gray-700 ligth:border-gray-600 ligth:placeholder-gray-400 ligth:text-white ligth:focus:ring-blue-500 ligth:focus:border-blue-500 overflow-auto max-h-48 absolute z-40"
+        >
+            <div>
+                <div
+                    class="hover:bg-blue-500 rounded"
+                    v-for="option in options"
+                    :key="option.value"
+                    @click="selectOption(option)"
+                >
+                    {{ option.value }}
+                </div>
             </div>
         </div>
     </div>
@@ -29,15 +32,16 @@
 
 <script>
 export default {
+    name:"CustomDropdown",
+    props:{
+        label:String,
+        options:Array,
+        placeholder:String,
+        modelValue:String
+    },
     data() {
         return {
-            options: [
-                { value: "US", label: "United States" },
-                { value: "CA", label: "Canada" },
-                { value: "FR", label: "France" },
-                { value: "DE", label: "Germany" },
-            ],
-            selectedOption: "Choose a country",
+            selectedOption: " ",
             showOptions: false,
         };
     },
@@ -46,8 +50,9 @@ export default {
             this.showOptions = !this.showOptions;
         },
         selectOption(option) {
-            this.selectedOption = option.label;
+            this.selectedOption = option.value;
             this.showOptions = false;
+            this.$emit('update:modelValue', this.selectedOption)
         },
     },
 };
