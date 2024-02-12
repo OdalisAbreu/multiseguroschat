@@ -35,8 +35,14 @@
                     />
                 </div>
                 <CustomTable
-                    :data="filteredTarifas"
+                    :headers="tableHeaders"
+                    :data="paginatedItems"
                     :isVisible="filteredTarifas.length"
+                    :withOption="true"
+                />
+                <Pagination 
+                    :data="tableCells"
+                    @paginated-data="onPaginatedData"
                 />
             </div>
         </div>
@@ -51,8 +57,7 @@ import CustomHeader from "../components/CustomHeader.vue";
 import CustomTable from "../components/CustomTable.vue";
 import CustomDropodown from "../components/CustomDropodown.vue";
 import Footer from "../components/Footer.vue";
-import SquareButton from "../components/squareButton.vue";
-import EditTarifa from "./EditTarifa.vue";
+import Pagination from '../components/Pagination.vue';
 import axios from "axios";
 
 export default {
@@ -63,9 +68,8 @@ export default {
         CustomHeader,
         CustomTable,
         Footer,
-        SquareButton,
-        EditTarifa,
         CustomDropodown,
+        Pagination
     },
     data() {
         return {
@@ -73,6 +77,8 @@ export default {
             typeVehicleSearch: "",
             insurerSearch:"",
             filteredTarifas: [],
+            tableHeaders: ["id", "Nombre", "Aseguradora", "3 Meses", "6 Meses", "12 Meses", "Estado", "Opciones"],
+            paginatedItems:[]
         };
     },
     mounted() {
@@ -83,16 +89,20 @@ export default {
             try {
                 const response = await axios.get("/api/V1/prices");
                 this.prices = response.data;
+                this.filteredTarifas = this.prices
             } catch (error) {
                 console.error("Error al obtener los precios:", error);
             }
         },
         filterTarifa() {
             this.filteredTarifas = this.prices.filter((price) =>
-                price?.tipoDeVehiculo?.toLowerCase().includes(this.typeVehicleSearch?.toLowerCase()) &&
-                price.aseguradora?.toLowerCase().includes(this.insurerSearch?.toLowerCase())
+                price?.tipoDeVehiculo.toLowerCase().includes(this.typeVehicleSearch.toLowerCase()) &&
+                price?.aseguradora.toLowerCase().includes(this.insurerSearch.toLowerCase())
             );
         },
+        onPaginatedData(paginatedData){
+            this.paginatedItems = paginatedData
+        }
     },
     computed: {
         fillDropTypeVehicle() {
@@ -107,6 +117,17 @@ export default {
                 .map((obj) => ({ value: obj.aseguradora }));
             return insurers;
         },
+        tableCells() {
+            return this.filteredTarifas.map(item => ({
+                id: item.id,
+                tipoDeVehiculo: item.tipoDeVehiculo,
+                aseguradora: item.aseguradora,
+                priceThreeMonths: item.priceThreeMonths,
+                priceSixMonths: item.priceSixMonths,
+                priceTwelveMonths: item.priceTwelveMonths,
+                state: 'si'
+            }))
+        }
     },
 };
 </script>

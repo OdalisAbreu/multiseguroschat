@@ -4,56 +4,17 @@
     <table class="w-full text-sm text-left rtl:text-right text-gray-500 ligth:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 ligth:bg-gray-700 ligth:text-gray-400">
             <tr>
-                <th scope="col" class="px-3 py-3">
-                    #
-                </th>
-                <th scope="col" class="px-3 py-3">
-                    Nombre
-                </th>
-                <th scope="col" class="px-3 py-3">
-                    Aseguradora
-                </th>
-                <th scope="col" class="px-3 py-3">
-                    3 Meses
-                </th>
-                <th scope="col" class="px-3 py-3">
-                    6 Meses
-                </th>
-                <th scope="col" class="px-3 py-3">
-                    12 Meses
-                </th>
-                <th scope="col" class="px-3 py-3">
-                    Estado
-                </th>
-                <th scope="col" class="px-3 py-3">
-                    Opciones
+                <th v-for="head in headers" :key="head" scope="col" class="px-3 py-3">
+                    {{head}}
                 </th>
             </tr>
         </thead>
         <tbody v-for="item in data" :key="item.id">
             <tr class="odd:bg-white odd:ligth:bg-gray-900 even:bg-gray-50 even:ligth:bg-gray-800 border-b ligth:border-gray-700">
-                <td class="px-3 py-4">
-                    {{ item.id }}
+                <td v-for="value in item" :key="value" scope="col" class="px-3 py-4">
+                    {{ value }}
                 </td>
-                <th scope="row" class="px-3 py-4 font-medium text-gray-900 whitespace-nowrap ligth:text-white">
-                    {{item.tipoDeVehiculo}}
-                </th>
-                <th class="px-3 py-4">
-                    {{item.aseguradora}}
-                </th>
-                <td class="px-3 py-4">
-                    {{item.priceThreeMonths}}
-                </td>
-                <td class="px-3 py-4">
-                    {{item.priceSixMonths}}
-                </td>
-                <td class="px-3 py-4">
-                    {{item.priceTwelveMonths}}
-                </td>
-                <td class="px-3 py-4">
-                    si
-                </td>
-                <td class="px-3 py-4">
+                <td v-if="withOption" class="px-3 py-4">
                     <a href="#" class="font-medium text-green-600 ligth:text-blue-500 hover:underline"> Editar</a>
                     <a href="#" class="font-medium text-red-600 ligth:text-blue-500 hover:underline"> Eliminar</a>
                 </td>
@@ -71,8 +32,10 @@
 export default {
     name:"CustomTable",
     props:{
+        headers: Array,
         data:Object,
-        isVisible: Boolean
+        isVisible: Boolean,
+        withOption: Boolean
     },
 }
 </script>
