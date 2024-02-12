@@ -36,13 +36,14 @@
                 </div>
                 <CustomTable
                     :headers="tableHeaders"
-                    :data="paginatedItems"
+                    :data="paginatedData"
                     :isVisible="filteredTarifas.length"
                     :withOption="true"
                 />
                 <Pagination 
                     :data="tableCells"
-                    @paginated-data="onPaginatedData"
+                    @starIndex="onStarIndex"
+                    @endIndex="onEndIndex"
                 />
             </div>
         </div>
@@ -78,7 +79,9 @@ export default {
             insurerSearch:"",
             filteredTarifas: [],
             tableHeaders: ["id", "Nombre", "Aseguradora", "3 Meses", "6 Meses", "12 Meses", "Estado", "Opciones"],
-            paginatedItems:[]
+            paginatedItems:[],
+            starIndex:0,
+            endIndex:10,
         };
     },
     mounted() {
@@ -100,8 +103,11 @@ export default {
                 price?.aseguradora.toLowerCase().includes(this.insurerSearch.toLowerCase())
             );
         },
-        onPaginatedData(paginatedData){
-            this.paginatedItems = paginatedData
+        onStarIndex(starIndex){
+            this.starIndex = starIndex
+        },
+        onEndIndex(endIndex){
+            this.endIndex = endIndex
         }
     },
     computed: {
@@ -118,7 +124,7 @@ export default {
             return insurers;
         },
         tableCells() {
-            return this.filteredTarifas.map(item => ({
+            return this.filteredTarifas.map((item,index) => ({
                 id: item.id,
                 tipoDeVehiculo: item.tipoDeVehiculo,
                 aseguradora: item.aseguradora,
@@ -127,6 +133,9 @@ export default {
                 priceTwelveMonths: item.priceTwelveMonths,
                 state: 'si'
             }))
+        },
+        paginatedData(){
+            return this.tableCells.slice(this.starIndex,this.endIndex)
         }
     },
 };

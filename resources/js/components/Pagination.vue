@@ -14,7 +14,7 @@
     <div>
       <p class="text-sm text-gray-700">
         Mostrando del
-        <span class="font-medium">{{ starIndex }}</span>
+        <span class="font-medium">{{ starIndex + 1 }}</span>
         al
         <span class="font-medium">{{ endIndex }}</span>
         de
@@ -80,7 +80,8 @@ export default {
         this.currentPage++
     },
     emitPaginatedData(){
-      this.$emit('paginated-data',this.paginatedData)
+      this.$emit('starIndex',this.starIndex)
+      this.$emit('endIndex',this.endIndex)
     }
   },
   
@@ -91,7 +92,7 @@ export default {
   },
   computed:{
     starIndex(){
-      return (this.currentPage -1) * this.itemPerPage + 1
+      return (this.currentPage -1) * this.itemPerPage
     },
     endIndex(){
       const starIndex = (this.currentPage -1) * this.itemPerPage
@@ -103,9 +104,6 @@ export default {
     totalItems(){
       return this.data.length
     },
-    paginatedData(){
-      return this.data.slice(this.starIndex,this.endIndex)
-    }
   }
 }
 </script>
