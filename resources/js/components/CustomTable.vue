@@ -11,12 +11,13 @@
         </thead>
         <tbody v-for="item in data" :key="item.id">
             <tr class="odd:bg-white odd:ligth:bg-gray-900 even:bg-gray-50 even:ligth:bg-gray-800 border-b ligth:border-gray-700">
-                <td v-for="value in item" :key="value" scope="col" class="px-3 py-4">
+                <td v-for="value in item" :key="value.id" scope="col" class="px-3 py-4">
                     {{ value }}
                 </td>
                 <td v-if="withOption" class="px-3 py-4">
-                    <a href="#" class="font-medium text-green-600 ligth:text-blue-500 hover:underline"> Editar</a>
-                    <a href="#" class="font-medium text-red-600 ligth:text-blue-500 hover:underline"> Eliminar</a>
+                    <div>
+                        <slot :selectedId="value.id" name="options"></slot>
+                    </div>
                 </td>
             </tr>
         </tbody>

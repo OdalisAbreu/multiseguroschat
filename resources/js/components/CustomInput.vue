@@ -15,11 +15,11 @@
             :disabled="disabled"
             @input="$emit('update:modelValue', $event.target.value)"
         />
-    </div>
-    <div class="relative w-full">
-        <span v-if="error" class="text-red-500 float-left">{{
-            errorMessage
-        }}</span>
+        <div class="relative w-full">
+            <span v-if="error" class="text-red-500 float-left">{{
+                errorMessage
+            }}</span>
+        </div>
     </div>
 </template>
 
@@ -29,11 +29,7 @@ export default {
     name: "CustomInput",
     props: {
         id: String,
-        labelName: {
-            type: String,
-            required: true,
-            default: "Label",
-        },
+        labelName: { type: String, required: true, default: "Label"},
         modelValue: { type: String, required: true },
         isObligatory: { type: Boolean, default: false,},
         typeInput: { type: String, default: "text"},

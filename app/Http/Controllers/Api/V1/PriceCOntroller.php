@@ -17,7 +17,7 @@ class PriceCOntroller extends Controller
     public function index()
     {
         $prices =  DB::table('prices as P')
-            ->select('P.id as id', 'I.nombre as aseguradora', 'VTT.nombre as tipoDeVehiculo', 'priceThreeMonths', 'priceSixMonths', 'priceTwelveMonths', 'DanosPropiedadAjena', 'ResponsabilidadCivil', 'ResponsabilidadCivil2', 'UnaPersona', 'FianzaJudicial')
+            ->select('P.id as id', 'I.nombre as aseguradora', 'VTT.nombre as tipoDeVehiculo', 'VTT.activo as state', 'VTT.placas', 'priceThreeMonths', 'priceSixMonths', 'priceTwelveMonths', 'DanosPropiedadAjena', 'ResponsabilidadCivil', 'ResponsabilidadCivil2', 'UnaPersona', 'FianzaJudicial')
             ->join('vehicle_type_tarifs as VTT', 'VTT.id', '=', 'P.vehicle_type_id')
             ->join('insurances as I', 'I.id', '=', 'P.insurances_id')
             ->get();
