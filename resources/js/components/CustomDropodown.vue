@@ -1,5 +1,5 @@
 <template>
-    <div class="relative mx-2 min-w-48">
+    <div class="relative mx-2 min-w-48" @blur="showOptions = false">
         <label
             for="first_name"
             class="block mb-2 text-sm font-medium text-gray-900 light:text-black"
@@ -20,10 +20,10 @@
                 <div
                     class="hover:bg-blue-500 rounded"
                     v-for="option in options"
-                    :key="option.value"
+                    :key="option"
                     @click="selectOption(option)"
                 >
-                    {{ option.value }}
+                    {{ option }}
                 </div>
             </div>
         </div>
@@ -50,7 +50,7 @@ export default {
             this.showOptions = !this.showOptions;
         },
         selectOption(option) {
-            this.selectedOption = option.value;
+            this.selectedOption = option;
             this.showOptions = false;
             this.$emit('update:modelValue', this.selectedOption)
         },

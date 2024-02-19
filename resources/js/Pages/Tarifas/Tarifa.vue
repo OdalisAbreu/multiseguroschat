@@ -75,6 +75,7 @@ import Footer from "../../components/Footer.vue";
 import Pagination from '../../components/Pagination.vue';
 import CustomModal from "../../components/CustomModal.vue";
 import EditFormTarifa from "./EditFormTarifa.vue";
+import CAutoComplete from "../../components/CAutoComplete.vue";
 import axios from "axios";
 
 export default {
@@ -88,7 +89,8 @@ export default {
         CustomDropodown,
         Pagination,
         CustomModal,
-        EditFormTarifa
+        EditFormTarifa,
+        CAutoComplete
     },
     data() {
         return {
@@ -136,17 +138,17 @@ export default {
         fillDropTypeVehicle() {
             const typesVehicles = this.prices.filter((obj, index, self) =>
             self.findIndex(o => o.tipoDeVehiculo === obj.tipoDeVehiculo) === index)
-                .map((obj) => ({ value: obj.tipoDeVehiculo }));
+                .map((obj) => (obj.tipoDeVehiculo));
             return typesVehicles;
         },
         fillDropInsurers() {
             const insurers = this.prices.filter((obj, index, self) => 
             self.findIndex(o => o.aseguradora === obj.aseguradora) === index)
-                .map((obj) => ({ value: obj.aseguradora }));
+                .map((obj) => (obj.aseguradora));
             return insurers;
         },
         tableCells() {
-            return this.filteredTarifas.map((item,index) => ({
+            return this.filteredTarifas.map((item) => ({
                 id: item.id,
                 tipoDeVehiculo: item.tipoDeVehiculo,
                 aseguradora: item.aseguradora,

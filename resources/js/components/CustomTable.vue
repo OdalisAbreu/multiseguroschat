@@ -16,7 +16,7 @@
                 </td>
                 <td v-if="withOption" class="px-3 py-4">
                     <div>
-                        <slot :selectedId="value.id" name="options"></slot>
+                        <slot name="options"></slot>
                     </div>
                 </td>
             </tr>
