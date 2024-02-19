@@ -1,13 +1,15 @@
 <template>
     <div class="m-2">
-        <v-autocomplete
-            :v-model="modelValue"
+        <v-combobox
+            :value="modelValue"
             :label="label"
             :items="items"
             :auto-select-first="true"
             :clear-on-select="true"
-            @input="$emit('update:modelValue', $event.target.value)"
-        ></v-autocomplete>
+            :clearable="true"
+            variant='solo-filled'
+            @update:modelValue="$emit('update:modelValue', $event);"
+        ></v-combobox>
     </div>
 </template>
 
@@ -19,11 +21,13 @@ export default {
         items:Array,
         modelValue:String
     },
-    data(){
-        return{
-            selectedItem:"",
+    methods: {
+    },
+    data() {
+        return {
+            search: ''
         }
-    }
+    },
 }
 </script>
 
