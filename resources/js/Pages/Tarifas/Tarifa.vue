@@ -48,7 +48,7 @@
                     @endIndex="onEndIndex"
                 />
             </div>
-            <CustomModal v-if="showModal" :headerTitle="'Editar Servicio'">
+            <CustomModal v-if="showModal" :headerTitle="'Editar Servicio'" @closed-modal="showModal = false">
                 <template v-slot:body>
                     <EditFormTarifa :data="itemToEdit[0]"/>
                 </template>
@@ -117,7 +117,7 @@ export default {
             }
         },
         async editForm() {
-            const response = await axios.put(`/api/V1/prices/${this.itemIdToEdit}`,this.prices[0])
+            const response = await axios.put(`/api/V1/prices/${this.itemIdToEdit}`,this.itemToEdit[0])
             console.log(response.data);
         },
         filterTarifa() {
