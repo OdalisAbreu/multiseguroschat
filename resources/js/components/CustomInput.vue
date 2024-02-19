@@ -5,7 +5,7 @@
             <span v-if="isObligatory" class="text-red-400 inl">*</span>
         </label>
         <input
-            class="rounded-lg w-full border-gray-300"
+            class="rounded-lg w-full border border-gray-300"
             :class="{'invalid': error}"
             :id="id"
             :labelName="labelName"

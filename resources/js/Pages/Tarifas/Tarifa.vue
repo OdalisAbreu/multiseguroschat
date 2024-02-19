@@ -39,11 +39,8 @@
                     :data="paginatedData"
                     :isVisible="filteredTarifas.length"
                     :withOption="true"
+                    @edit-item="handleEditItem"
                 >
-                    <template v-slot:options>
-                        <a class="font-medium text-green-600 ligth:text-blue-500 hover:underline" @click="showModal = true" @selectedId="openModal"> Editar</a>
-                        <a class="font-medium text-red-600 ligth:text-blue-500 hover:underline"> Eliminar</a>
-                    </template>
                 </CustomTable>
                 <Pagination 
                     :data="tableCells"
@@ -53,10 +50,10 @@
             </div>
             <CustomModal v-if="showModal" :headerTitle="'Editar Servicio'">
                 <template v-slot:body>
-                    <EditFormTarifa :data="prices"/>
+                    <EditFormTarifa :data="itemToEdit[0]"/>
                 </template>
                 <template v-slot:footer>
-                    <CustomButton :Text="'Editar'"/>
+                    <CustomButton :Text="'Editar'" @click="editForm"/>
                     <CustomButton :Text="'Cerrar'" @click="showModal = false"/>
                 </template>
             </CustomModal>
@@ -103,6 +100,7 @@ export default {
             starIndex:0,
             endIndex:10,
             showModal: false,
+            itemIdToEdit:""
         };
     },
     mounted() {
@@ -118,6 +116,10 @@ export default {
                 console.error("Error al obtener los precios:", error);
             }
         },
+        async editForm() {
+            const response = await axios.put(`/api/V1/prices/${this.itemIdToEdit}`,this.prices[0])
+            console.log(response.data);
+        },
         filterTarifa() {
             this.filteredTarifas = this.prices.filter((price) =>
                 price?.tipoDeVehiculo.toLowerCase().includes(this.typeVehicleSearch.toLowerCase()) &&
@@ -130,8 +132,9 @@ export default {
         onEndIndex(endIndex){
             this.endIndex = endIndex
         },
-        openModal(value){
-            console.log(value);
+        handleEditItem(itemId){
+            this.showModal = true
+            this.itemIdToEdit = itemId
         },
     },
     computed: {
@@ -160,6 +163,9 @@ export default {
         },
         paginatedData(){
             return this.tableCells.slice(this.starIndex,this.endIndex)
+        },
+        itemToEdit(){
+            return this.prices.filter(item => item.id === this.itemIdToEdit)
         }
     },
 };

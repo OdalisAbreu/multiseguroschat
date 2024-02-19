@@ -9,14 +9,15 @@
                 </th>
             </tr>
         </thead>
-        <tbody v-for="item in data" :key="item.id">
-            <tr class="odd:bg-white odd:ligth:bg-gray-900 even:bg-gray-50 even:ligth:bg-gray-800 border-b ligth:border-gray-700">
+        <tbody>
+            <tr v-for="item in data" :key="item.id" class="odd:bg-white odd:ligth:bg-gray-900 even:bg-gray-50 even:ligth:bg-gray-800 border-b ligth:border-gray-700">
                 <td v-for="value in item" :key="value.id" scope="col" class="px-3 py-4">
                     {{ value }}
                 </td>
                 <td v-if="withOption" class="px-3 py-4">
                     <div>
-                        <slot name="options"></slot>
+                        <a class="font-medium text-green-600 ligth:text-blue-500 hover:underline" @click="$emit('edit-item', item.id)"> Editar</a>
+                        <a class="font-medium text-red-600 ligth:text-blue-500 hover:underline"> Eliminar</a>
                     </div>
                 </td>
             </tr>
