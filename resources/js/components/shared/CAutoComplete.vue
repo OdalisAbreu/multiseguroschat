@@ -1,36 +1,38 @@
 <template>
-    <div class="m-2">
-        <v-combobox
-            :value="modelValue"
-            :label="label"
-            :items="items"
-            :auto-select-first="true"
-            :clear-on-select="true"
-            :clearable="true"
-            variant='solo-filled'
+    <div class="relative mx-2 min-w-48">
+        <label
+            for="first_name"
+            class="block mb-2 text-sm font-medium text-gray-900 light:text-black"
+            >{{ label }}</label
+        >
+        <ModelSelect
+            :options="options"
+            :v-model="modelValue"
+            :placeholder="placeholder"
+            :isDisabled="disabled"
             @update:modelValue="$emit('update:modelValue', $event);"
-        ></v-combobox>
+            @searchchange="$emit('searchchange', $event)"
+        />
     </div>
 </template>
 
 <script>
+import { ModelSelect } from "vue-search-select";
+import "vue-search-select/dist/VueSearchSelect.css";
+
 export default {
-    name:'CAutoComplete',
-    props:{
-        label:String,
-        items:Array,
-        modelValue:String
+    name: "CAutoComplete",
+    components: {
+        ModelSelect,
     },
-    methods: {
+    props: {
+        label: String,
+        options: Array,
+        modelValue: String,
+        disabled: Boolean,
+        placeholder: String
     },
-    data() {
-        return {
-            search: ''
-        }
-    },
-}
+};
 </script>
 
-<style>
-
-</style>
+<style></style>

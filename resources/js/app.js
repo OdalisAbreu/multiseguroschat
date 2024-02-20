@@ -4,10 +4,6 @@ import { createApp, h } from 'vue';
 import { createInertiaApp } from '@inertiajs/inertia-vue3';
 import { InertiaProgress } from '@inertiajs/progress';
 import { autoAnimatePlugin } from '@formkit/auto-animate/vue'
-import 'vuetify/styles'
-import { createVuetify } from 'vuetify'
-import * as components from 'vuetify/components'
-import * as directives from 'vuetify/directives'
 
 const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel';
 
@@ -25,10 +21,6 @@ function resetSessionTimer() {
     time = 0
 }
 
-const vuetify = createVuetify({
-    components,
-    directives,
-  })
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
@@ -36,7 +28,6 @@ createInertiaApp({
     setup({ el, app, props, plugin }) {
         return createApp({ render: () => h(app, props) })
             .use(plugin, autoAnimatePlugin)
-            .use(vuetify)
             .mixin({
                 methods: { route },
                 mounted() {

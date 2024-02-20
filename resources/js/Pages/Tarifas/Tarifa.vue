@@ -10,9 +10,18 @@
             <div
                 class="p-3 px-5 sm:px-5 md:px-5 xl:px-5 bg-slate-100 rounded-xl border-2 border-gray-300 mb-4 max-w-4xl mx-auto">
                 <div class="flex">
-                    <CAutoComplete class="w-1/3" v-model="typeVehicleSearch" :label="'Tipo de Vehiculo'"
-                        :items="fillDropTypeVehicle" />
-                    <CAutoComplete class="w-1/3" v-model="insurerSearch" :label="'Aseguradora'" :items="fillDropInsurers" />
+                   <CAutoComplete class="w-1/3" 
+                        v-model="typeVehicleSearch" 
+                        :label="'Tipo de Vehiculo'" 
+                        :options="fillDropTypeVehicle" 
+                        @searchchange="(searchText)=>{typeVehicleSearch = searchText}"
+                    />
+                   <CAutoComplete class="w-1/3" 
+                        v-model="insurerSearch" 
+                        :label="'Aseguradora'" 
+                        :options="fillDropInsurers" 
+                        @searchchange="(searchText)=>{insurerSearch = searchText}"
+                    />
                     <div class="w-1/3">
                         <CustomButton class="float-rigth" :Text="'Buscar'" @submitButton="filterTarifa" />
                     </div>
@@ -62,7 +71,7 @@ export default {
         Pagination,
         CustomModal,
         EditFormTarifa,
-        CAutoComplete
+        CAutoComplete,
     },
     data() {
         return {
@@ -92,7 +101,7 @@ export default {
             }
         },
         async editForm() {
-            const response = await axios.put(`/api/V1/prices/${this.itemIdToEdit}`, this.prices[0])
+            const response = await axios.put(`/api/V1/prices/${this.itemIdToEdit}`, this.itemToEdit[0])
             console.log(response.data);
         },
         filterTarifa() {
@@ -116,13 +125,13 @@ export default {
         fillDropTypeVehicle() {
             const typesVehicles = this.prices.filter((obj, index, self) =>
                 self.findIndex(o => o.tipoDeVehiculo === obj.tipoDeVehiculo) === index)
-                .map((obj) => (obj.tipoDeVehiculo));
+                .map((obj) => ({value:obj.tipoDeVehiculo, text:obj.tipoDeVehiculo}));
             return typesVehicles;
         },
         fillDropInsurers() {
             const insurers = this.prices.filter((obj, index, self) =>
                 self.findIndex(o => o.aseguradora === obj.aseguradora) === index)
-                .map((obj) => (obj.aseguradora));
+                .map((obj) => ({value:obj.aseguradora, text:obj.aseguradora}));
             return insurers;
         },
         tableCells() {

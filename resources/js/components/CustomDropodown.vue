@@ -1,5 +1,5 @@
 <template>
-    <div class="relative mx-2 min-w-48" @blur="showOptions = false">
+    <div class="relative mx-2 min-w-48">
         <label
             for="first_name"
             class="block mb-2 text-sm font-medium text-gray-900 light:text-black"
