@@ -84,7 +84,7 @@ export default {
             starIndex: 0,
             endIndex: 10,
             showModal: false,
-            itemIdToEdit: ""
+            itemIdToEdit: "",
         };
     },
     mounted() {
@@ -101,8 +101,10 @@ export default {
             }
         },
         async editForm() {
-            const response = await axios.put(`/api/V1/prices/${this.itemIdToEdit}`, this.itemToEdit[0])
-            console.log(response.data);
+            const {data} = await axios.put(`/api/V1/prices/${this.itemIdToEdit}`, this.itemToEdit[0])
+            if(data.success){
+                this.showModal = false
+            }
         },
         filterTarifa() {
             this.filteredTarifas = this.prices.filter((price) =>
@@ -125,7 +127,7 @@ export default {
         fillDropTypeVehicle() {
             const typesVehicles = this.prices.filter((obj, index, self) =>
                 self.findIndex(o => o.tipoDeVehiculo === obj.tipoDeVehiculo) === index)
-                .map((obj) => ({value:obj.tipoDeVehiculo, text:obj.tipoDeVehiculo}));
+                .map((obj) => ({value:obj.tipoDeVehiculo , text:obj.tipoDeVehiculo}));
             return typesVehicles;
         },
         fillDropInsurers() {

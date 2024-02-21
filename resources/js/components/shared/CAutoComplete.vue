@@ -7,7 +7,7 @@
         >
         <ModelSelect
             :options="options"
-            :v-model="modelValue"
+            v-model="search"
             :placeholder="placeholder"
             :isDisabled="disabled"
             @update:modelValue="$emit('update:modelValue', $event);"
@@ -32,6 +32,11 @@ export default {
         disabled: Boolean,
         placeholder: String
     },
+    data(){
+        return {
+            search: ''
+        }
+    }
 };
 </script>
 

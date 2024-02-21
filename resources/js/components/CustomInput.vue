@@ -2,7 +2,7 @@
     <div class="w-full flex flex-col lg:items-center mt-1">
         <label class="pt-1 font-bold w-auto">
             {{ labelName }}
-            <span v-if="isObligatory" class="text-red-400 inl">*</span>
+            <span v-if="required" class="text-red-400 inl">*</span>
         </label>
         <input
             class="rounded-lg w-full border border-gray-300"
@@ -13,6 +13,7 @@
             :type="typeInput"
             :placeholder="placeholder"
             :disabled="disabled"
+            :readonly="readonly"
             @input="$emit('update:modelValue', $event.target.value)"
         />
         <div class="relative w-full">
@@ -30,13 +31,14 @@ export default {
     props: {
         id: String,
         labelName: { type: String, required: true, default: "Label"},
-        modelValue: { type: String, required: true },
-        isObligatory: { type: Boolean, default: false,},
+        modelValue: { type: [String,Number, null] },
+        required: { type: Boolean, default: false,},
         typeInput: { type: String, default: "text"},
         placeholder: {type: String, default: ""},
         errorMessage:String,
         error:Boolean,
-        disabled:Boolean
+        disabled:Boolean,
+        readonly:Boolean
 
     },
     data() {

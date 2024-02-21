@@ -5,53 +5,67 @@
         v-model="data.tipoDeVehiculo"
         :label-name="'Nombre'"
         :typeInput="'text'"
+        :readonly="true"
+        :disabled="true"
     />
     <CustomInput
         class="whitespace-nowrap"
         :label-name="'Codigo de la General de Seguros'"
         :typeInput="'text'"
+        :readonly="true"
+        :disabled="true"
     />
     </div>
     <div class="grid gap-2 grid-cols-3">
         <CustomInput
             v-model="data.priceThreeMonths"
             :label-name="'Precio (3 Meses)'"
-            :typeInput="'text'"
+            :typeInput="'number'"
         />
         <CustomInput
             v-model="data.priceSixMonths"
             :label-name="'Precio (6 Meses)'"
-            :typeInput="'text'"
+            :typeInput="'number'"
         />
         <CustomInput
             v-model="data.priceTwelveMonths"
             :label-name="'Precio (12 Meses)'"
-            :typeInput="'text'"
+            :typeInput="'number'"
         />
         <CustomInput
             v-model="data.DanosPropiedadAjena"
             :label-name="'DPA'"
             :typeInput="'text'"
+            :readonly="true"
+            :disabled="true"
         />
         <CustomInput
             v-model="data.ResponsabilidadCivil"
             :label-name="'RC'"
             :typeInput="'text'"
+            :readonly="true"
+            :disabled="true"
         />
         <CustomInput
             v-model="data.ResponsabilidadCivil2"
             :label-name="'RC2'"
             :typeInput="'text'"
+            :readonly="true"
+            :disabled="true"
         />
         <CustomInput
             v-model="data.FianzaJudicial"
             :label-name="'FJ'"
             :typeInput="'text'"
+            :readonly="true"
+            :disabled="true"
         />
         <CustomInput
             v-model="data.UnaPersona"
             :label-name="'AP'"
             :typeInput="'text'"
+            :readonly="true"
+            :disabled="true"
         />
     </div>
 </div>
@@ -59,6 +73,8 @@
     v-model="data.placas"
     :label-name="'Identificador de Placas'"
     :typeInput="'text'"
+    :readonly="true"
+    :disabled="true"
 />
 </template>
 
@@ -71,7 +87,7 @@ export default {
         CustomInput,
     },
     props:{
-        data:Array,
+        data:Object,
     }
 
 }

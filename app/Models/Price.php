@@ -9,6 +9,8 @@ class Price extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['insurances_id', 'vehicle_type_id', 'priceThreeMonths', 'priceSixMonths','priceTwelveMonths'];
+
     public function insurace(){
         return $this->belongsTo(Insurance::class);
     }
