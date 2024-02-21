@@ -10,8 +10,7 @@
             v-model="search"
             :placeholder="placeholder"
             :isDisabled="disabled"
-            @update:modelValue="$emit('update:modelValue', $event);"
-            @searchchange="$emit('searchchange', $event)"
+            @update:modelValue="updateModelValue"
         />
     </div>
 </template>
@@ -34,7 +33,13 @@ export default {
     },
     data(){
         return {
-            search: ''
+            search: ""
+        }
+    },
+    methods: {
+        updateModelValue(newValue) {
+            this.search = newValue || "";
+            this.$emit("update:modelValue", this.search);
         }
     }
 };

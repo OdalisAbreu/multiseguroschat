@@ -14,13 +14,11 @@
                         v-model="typeVehicleSearch" 
                         :label="'Tipo de Vehiculo'" 
                         :options="fillDropTypeVehicle" 
-                        @searchchange="(searchText)=>{typeVehicleSearch = searchText}"
                     />
                    <CAutoComplete class="w-1/3" 
                         v-model="insurerSearch" 
                         :label="'Aseguradora'" 
                         :options="fillDropInsurers" 
-                        @searchchange="(searchText)=>{insurerSearch = searchText}"
                     />
                     <div class="w-1/3">
                         <CustomButton class="float-rigth" :Text="'Buscar'" @submitButton="filterTarifa" />
