@@ -2,6 +2,12 @@
     <CustomHeader :width="25" />
     <div class="bg-gray-200 pb-6">
         <div class="p-3 relative rounded-xl bg-white mx-3 z-40 min-h-screen">
+            <div class="w-36 float-right mr-10">
+                <CustomButton
+                    :Text="'Cerrar Sesión'"
+                    @click="logout"
+                />
+            </div>
             <div>
                 <div class="text-black text-left font-bold text-2xl sm:text-2xl md:text-3xl xl:text-3xl my-6">
                     Busqueda de Tarifas de Seguros
@@ -58,15 +64,16 @@ import axios from "axios";
 export default {
     name: "Tarifa",
     components: {
-        CustomButton,
-        CustomHeader,
-        CustomTable,
-        Footer,
-        Pagination,
-        CustomModal,
-        EditFormTarifa,
-        CAutoComplete,
-    },
+    CustomButton,
+    CustomHeader,
+    CustomTable,
+    Footer,
+    Pagination,
+    CustomModal,
+    EditFormTarifa,
+    CAutoComplete,
+    CustomButton
+},
     data() {
         return {
             prices: [],
@@ -115,6 +122,9 @@ export default {
         handleEditItem(itemId) {
             this.showModal = true
             this.itemIdToEdit = itemId
+        },
+        logout() {
+            this.$inertia.post(route('logout'));
         },
     },
     computed: {
