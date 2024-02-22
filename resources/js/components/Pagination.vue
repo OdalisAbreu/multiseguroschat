@@ -33,7 +33,7 @@
             <path fill-rule="evenodd" d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z" clip-rule="evenodd" />
           </svg>
         </button>
-        <div v-for="num in totalPage" :key="num">
+        <div v-for="num in showPages" :key="num">
           <a class="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
               :class="{'bg-blue-600 pointer-events-none' : num === currentPage}"
               @click="goToPage(num)"
@@ -111,7 +111,11 @@ export default {
         return this.totalPage
       }
       else{
-        return 0
+        debugger
+        const maxButtonVisible = 9;
+        const startPage = Math.max(1, this.currentPage - Math.floor(maxButtonVisible / 2));
+        const endPage = Math.min(this.totalPage, startPage + maxButtonVisible - 1);
+        return Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i)
       } 
     }
   }

@@ -45,11 +45,9 @@
 </template>
 
 <script>
-import SearchInput from "../../components/SearchInput.vue";
 import CustomButton from "../../components/CustomButton.vue";
 import CustomHeader from "../../components/CustomHeader.vue";
 import CustomTable from "../../components/CustomTable.vue";
-import CustomDropodown from "../../components/CustomDropodown.vue";
 import Footer from "../../components/Footer.vue";
 import Pagination from '../../components/Pagination.vue';
 import CustomModal from "../../components/CustomModal.vue";
@@ -61,11 +59,9 @@ export default {
     name: "Tarifa",
     components: {
         CustomButton,
-        SearchInput,
         CustomHeader,
         CustomTable,
         Footer,
-        CustomDropodown,
         Pagination,
         CustomModal,
         EditFormTarifa,
