@@ -31,7 +31,7 @@
                     </div>
 
                 </div>
-                <CustomTable :headers="tableHeaders" :data="paginatedData" :isVisible="filteredTarifas.length"
+                <CustomTable :headers="tableHeaders" :data="paginatedData" :isVisible="filteredTarifas.length != 0"
                     :withOption="true" @edit-item="handleEditItem">
                 </CustomTable>
                 <Pagination :data="tableCells" @starIndex="onStarIndex" @endIndex="onEndIndex" />
@@ -47,7 +47,7 @@
             </CustomModal>
         </div>
     </div>
-    <Footer class="fixed inset-y-0" />
+    <Footer/>
 </template>
 
 <script>

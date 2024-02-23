@@ -52,7 +52,7 @@ export default {
     background-color: pink;
     border: solid 1px red;
 }
-input[type="text"]:disabled {
+input:disabled {
     background: #f2f2f2;
     color: #ccc;
 }
