@@ -73,7 +73,7 @@ export default {
     EditFormTarifa,
     CAutoComplete,
     CustomButton
-},
+    },
     data() {
         return {
             prices: [],

@@ -90,6 +90,11 @@ export default {
   watch:{
     currentPage(){
       this.emitPaginatedData()
+    },
+    totalItems(){
+      if(this.totalItems < this.itemPerPage || this.totalItems < this.endIndex) {
+        this.currentPage = 1
+      }
     }
   },
   computed:{
