@@ -148,7 +148,7 @@ export default {
                 priceThreeMonths: item.priceThreeMonths,
                 priceSixMonths: item.priceSixMonths,
                 priceTwelveMonths: item.priceTwelveMonths,
-                state: item.state
+                state: item.state == 'si'? 'activo' : 'inactivo'
             }))
         },
         paginatedData() {
