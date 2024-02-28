@@ -239,8 +239,8 @@ class ClientsController extends Controller
         ));
 
         $response = curl_exec($curl);
-
         curl_close($curl);
+        sleep(5);
         return $response;
     }
 

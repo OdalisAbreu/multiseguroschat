@@ -191,7 +191,7 @@ class InvoicesController extends Controller
                 'username' => 'sendiu_desarrollo',
                 'password' => 'Admin1234'
             ]);
-            sleep(2);
+            sleep(5);
             $token = $token->json();
             //------------------------------------------------------------------------------
 
@@ -242,10 +242,10 @@ class InvoicesController extends Controller
 
             curl_close($curl);
             $poliza = json_decode($response);
-            sleep(1);
+            sleep(10);
         } catch (\Exception $e) {
 
-            Log::error("Generar poliza -> clientId: " . $invoices->client_id, [$e->getMessage()]);
+            Log::error("Generar poliza -> clientId: " . $invoices->client_id, $e->getMessage());
 
             $this->enviarMensaje('18294428902', 'text', '*ERROR AL GENERAR POLIZA* para el cliente Id: ' . $invoices->client_id . ' *FAVOR DE VERIFICAR EL ERROR*');
             $this->enviarMensaje('18092092008', 'text', '*ERROR AL GENERAR POLIZA* para el cliente Id: ' . $invoices->client_id . ' *FAVOR DE VERIFICAR EL ERROR*');
