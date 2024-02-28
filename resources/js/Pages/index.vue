@@ -42,28 +42,27 @@
                 class="desktop:h-[660px] laptop:align-middle laptop:flex laptop:flex-col laptop:h-[480px] laptop:justify-center laptop:ml-[500px] laptop:mx-auto laptop:pt-0 pb-6 pt-56 tablet:h-[550px] tablet:pt-80 tablet:w-[500px]"
             >
                 <div class="tablet:mx-10 text-white">
-                <p class="font-normal text-base">
-                    Tu seguro al alcance de tu mano:
-                </p>
                 <!-- <p class="font-semibold text-3xl">
                     Rápido, simple y seguro a través de WhatsApp.
                 </p> -->
                 <h1 style="font-family: Inter,Arial,Helvetica,sans-serif;font-weight: 600;font-size: 1.875rem;line-height: 2.25rem;margin: 0;color:#ffffff;">
-                    Rápido, simple y seguro a través de WhatsApp.
+                    Rápido y fácil a través de WhatsApp.
                 </h1>
                 </div>
+                <div class="row">
+                </div>
                 <a
-                class="bg-[#1EC503] border-2 border-white flex flex-row gap-3 h-14 items-center justify-start mt-4 overflow-hidden pl-5 pr-3 py-3 rounded-lg shrink-0 tablet:ml-10 text-white w-52"
+                class="bg-[#1EC503] border-2 border-white flex flex-row gap-3 h-14 items-center justify-start mt-4 overflow-hidden pl-5 pr-3 py-3 rounded-lg shrink-0 tablet:ml-10 text-white w-80"
                 href="https://api.whatsapp.com/send?phone=18494722428&text=Hola"
                 target="_blank"
                 >
-                <div class="align-middle flex flex-row">
-                    <img
+                <img
                     class="h-8 mr-1 w-8"
                     alt="whatsapp"
                     src="images/whatsapp.f2a9acdc.svg"
-                    />
-                    <span class="font-bold text-2xl">Escríbenos</span>
+                />
+                <div class="align-middle flex flex-row">
+                    <span class="font-bold text-2xl">¡Cómpralo Ahora!</span>
                 </div>
                 </a>
             </div>
@@ -73,9 +72,8 @@
         <div class="my-container">
         <section id="details" class="bg-white w-full">
             <div class="mt-6 text-[#1D4ED8]">
-            <p class="font-medium text-base">Rápida interacción</p>
             <p class="font-bold text-xl">
-                Dile adiós a la espera y asegura tu auto al instante
+                Dile adiós a la espera y asegura tu vehículo al instante
             </p>
             </div>
             <div
