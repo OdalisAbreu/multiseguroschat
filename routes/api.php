@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\V1\ClientsController;
+use App\Http\Controllers\Api\V1\PriceCOntroller;
 use App\Http\Controllers\DiscountsController;
 use App\Http\Controllers\InvoicesController;
 use Illuminate\Http\Request;
@@ -36,6 +37,7 @@ Route::get('V1/validarVista/{idClient}/{vista}', [ClientsController::class, 'val
 Route::get('V1/validarCesion/{id}', [ClientsController::class, 'validarCesion']);
 Route::post('V1/invoices', [InvoicesController::class, 'getInvoices']);
 Route::get('V1/invoice/{id}', [InvoicesController::class, 'getInvoice']);
+Route::resource('V1/prices', PriceCOntroller::class);
 
 //------------------------------------Uso Interno ----------------------------------------------------------------
 Route::resource('internal/codigoDescuento', DiscountsController::class);

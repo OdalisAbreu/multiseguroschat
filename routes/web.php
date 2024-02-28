@@ -28,6 +28,10 @@ Route::get('/welcome', function () {
     ]);
 });*/
 
+Route::get('/tarifas', function () {
+    return Inertia::render('Tarifas/Tarifa');
+})->middleware('auth');
+
 Route::get('/', function () {
     return Inertia::render('index');
 });
