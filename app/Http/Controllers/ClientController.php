@@ -2,20 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\cities;
 use App\Models\Client;
 use App\Models\Municipalities;
 use App\Models\Province;
 use App\Models\Vehicle_brands;
 use App\Models\Vehicle_models;
 use App\Models\Vehicle_type_tarif;
-use Faker\Provider\sv_SE\Municipality;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
-use PhpParser\Node\Stmt\TryCatch;
 
 
 class ClientController extends Controller
@@ -27,20 +24,20 @@ class ClientController extends Controller
      */
     public function index()
     {
-
+        $url = 'http://multiseguros.com.do:5050';
         //Esto no va
         $token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyTmFtZSI6InNlbmRpdV9kZXNhcnJvbGxvIiwibmJmIjoxNjU1NDgwODg5LCJleHAiOjE2NTYwODU2ODksImlhdCI6MTY1NTQ4MDg4OX0.z0KshbCzm9aQiFR7rDYp3sqJacbZ7R6aKZ6zcq2w8Ok';
-        /*$token = Http::post('http://multiseguros.com.do:5050/api/User/Authenticate',[
+        /*$token = Http::post($url.'/api/User/Authenticate',[
             'username' => 'sendiu_desarrollo',
             'password' => 'Admin1234'
         ]);*/
-        $tipos = Http::withToken($token)->get('http://multiseguros.com.do:5050/api/Seguros/VehicleType');
+        $tipos = Http::withToken($token)->get($url . '/api/Seguros/VehicleType');
         $tipos = $tipos->json();
 
-        $marcas = Http::withToken($token)->get('http://multiseguros.com.do:5050/api/Seguros/Make');
+        $marcas = Http::withToken($token)->get($url . '/api/Seguros/Make');
         $marcas = $marcas->json();
 
-        $modelos = Http::withToken($token)->get('http://multiseguros.com.do:5050/api/Seguros/Model');
+        $modelos = Http::withToken($token)->get($url . '/api/Seguros/Model');
         $modelos = $modelos->json();
 
         return Inertia::render('Vehiculo/index', [
@@ -51,9 +48,8 @@ class ClientController extends Controller
         ]);
     }
 
-    public function show($phone)
+    public function show($phone) // VISTA 1 EDITAR CLIENTE
     {
-
         $string = array("-", " ");
         $phone = str_replace($string, "", $phone); // Quita los espacios en blanco y los guiones
 
@@ -76,10 +72,7 @@ class ClientController extends Controller
                 $clientProvince['id'] = 0;
             }
             $Clientepais = DB::select('select * from nacionalidad where id = ' . $client->nacionalidad);
-
-
-            Log::info("cliente", [$client]);
-
+            Log::info("Cliente -> clientId: " . $client->id, [$client]);
             return Inertia::render('Clients/Edit', [
                 'client' => $client,
                 'cities' => $cities,
@@ -96,7 +89,7 @@ class ClientController extends Controller
         }
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $id) // VISTA 1 ACTUALIZAR CLIENTE
     {
         $request->validate([
             'name' => 'required'
@@ -153,16 +146,17 @@ class ClientController extends Controller
 
     public function seller(Request $request)
     {
+        $url = 'http://multiseguros.com.do:5050';
 
         $token = $request['token'];
 
-        $tipos = Http::withToken($token)->get('http://multiseguros.com.do:5050/api/Seguros/Make');
+        $tipos = Http::withToken($token)->get($url . '/api/Seguros/Make');
         $tipos = $tipos->json();
 
-        $marcas = Http::withToken($token)->get('http://multiseguros.com.do:5050/api/Seguros/Make');
+        $marcas = Http::withToken($token)->get($url . '/api/Seguros/Make');
         $marcas = $marcas->json();
 
-        $modelos = Http::withToken($token)->get('http://multiseguros.com.do:5050/api/Seguros/Model');
+        $modelos = Http::withToken($token)->get($url . '/api/Seguros/Model');
         $modelos = $modelos->json();
 
         return Inertia::render('Vehiculo/index', [
@@ -174,7 +168,6 @@ class ClientController extends Controller
     }
     public function clientReturn(Request $request)
     {
-
         return Inertia::render('Clients/Edit', [
             'client' => $request->client,
             'cities' => $request->cities,

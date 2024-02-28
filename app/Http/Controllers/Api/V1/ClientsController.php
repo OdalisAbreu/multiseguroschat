@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use App\Models\Client;
 use App\Models\Invoices;
+use DateTime;
+use DateTimeZone;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Symfony\Component\CssSelector\Parser\Token;
@@ -45,7 +47,6 @@ class ClientsController extends Controller
         $client->idConversacion = $request->idConversacion;
         $client->session = 'A';
         $client->save();
-        Log::info("Crear cliente", $client);
         if ($client) {
             return ['status' => '00', 'message' => 'Usuario creado correctamente', 'cantidadPoliza' => 0];
         } else {
@@ -70,7 +71,7 @@ class ClientsController extends Controller
             Log::info("Activar Sesión", ["id" => $client->id, "session" => $client->session]);
 
             // Calcula la cantidad de poliza
-            $invoince = Invoices::where('client_id', $client->cardnumber)->count(); //
+            $invoince = Invoices::where([['client_id', $client->id], ['payment_status', 'ACCEPT']])->count(); //
 
             return [
                 'status' => '00',
@@ -173,18 +174,18 @@ class ClientsController extends Controller
     }
     public function savePolizaImage(Request $request)
     {
-        $invoince = Invoices::find($request->idPoliza);
-        $invoince->imagenPoliza = $request->image;
-        $invoince->save();
+        // $invoince = Invoices::find($request->idPoliza);
+        // $invoince->imagenPoliza = $request->image;
+        // $invoince->save();
 
-        $imagen = str_replace('data:image/png;base64,', '', $request->image,);
-        $bin = base64_decode($imagen);
-        $im = imageCreateFromString($bin);
-        if (!$im) {
-            die('Base64 value is not a valid image');
-        }
-        $img_file = 'polizas/' . $request->idPoliza . '.png';
-        imagepng($im, $img_file, 0);
+        // $imagen = str_replace('data:image/png;base64,', '', $request->image,);
+        // $bin = base64_decode($imagen);
+        // $im = imageCreateFromString($bin);
+        // if (!$im) {
+        //     die('Base64 value is not a valid image');
+        // }
+        // $img_file = 'polizas/' . $request->idPoliza . '.png';
+        // imagepng($im, $img_file, 0);
 
         return [
             'status' => 'OK'
@@ -245,7 +246,6 @@ class ClientsController extends Controller
 
     public function enviarMensajeBotCitie(Request $request)
     {
-        // return $request->phone . '  ' . $request->type . '     ' . $request->text;
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
@@ -396,5 +396,12 @@ class ClientsController extends Controller
                 'status' => false
             ];
         }
+    }
+    public function accesoCarnet($id)
+    {
+        //Asignar a la variable $horaAcceso la hora actual en Santo Domingo
+        $horaAcceso = new DateTime('now', new DateTimeZone('America/Santo_Domingo'));
+        $horaAcceso = $horaAcceso->format('Y-m-d H:i:s');
+        Log::info("Acceso Carnet -> clientId: " . $id, ["horaAcceso" => $horaAcceso, "clientId" => $id]);
     }
 }

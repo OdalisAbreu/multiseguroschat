@@ -14,6 +14,7 @@ use App\Models\Vehicle_type_tarif;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use PhpParser\Node\Stmt\Return_;
 
 use function PHPUnit\Framework\isEmpty;
@@ -26,14 +27,14 @@ class PoliciesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, $marcaid)
+    public function index(Request $request, $marcaid) //Vista 2 Vehiculos
     {
-        $tipo = '';
-        $tipoName = '';
-        $modelo = '';
-        $modeloName = '';
-        $marca = '';
-        $marcaName = '';
+        // $tipo = '';
+        // $tipoName = '';
+        // $modelo = '';
+        // $modeloName = '';
+        // $marca = '';
+        // $marcaName = '';
         //return $request->modelos;
         // Si llegan string no realiza la búsqueda del nombre porque ya viene en la variable base
         if (!is_string($request->tipo)) {
@@ -62,6 +63,8 @@ class PoliciesController extends Controller
                 $marcaName = $marca['DESCRIPCION'];
                 $marcaid = $marca['ID'];
                 break;
+            } else {
+                $marcaName = $marca['DESCRIPCION'];
             }
         }
         //Validar si el valor de tipo, modelo y marca viene del edit, para poder porcesar el ID de cada uno
@@ -148,10 +151,11 @@ class PoliciesController extends Controller
                 'FianzaJudicial'
             )
             ->get();
+        Log::info("Vehiculo -> clientId: " . $request->client['id'], [$car]);
         return Inertia::render('Policy/index', [
             'car' => $car,
             'sellers' => $seller,
-            'clien_id' => $request->clien_id,
+            'clien_id' => $request->client['id'],
             'cities' => $request->cities,
             'provinces' => $request->provinces,
             'clientProvince' => $request->clientProvince,
@@ -164,16 +168,18 @@ class PoliciesController extends Controller
         ]);
     }
 
-    public function  show(Request $request)
+    public function  show(Request $request) //VISTA 4 SERVICIOS
     {
-        // return $request->servicios;
+        //Log::debug($request->json());
         $services = array();
         $totalServicios = 0;
-        $tipo = Vehicle_type_tarif::find($request->car['tipo']);
-        $marca = Vehicle_brands::find($request->car['marca']);
-        $modelo = Vehicle_models::find($request->car['modelo']);
+        $tipo = Vehicle_type_tarif::where('nombre', $request->car['tipoName'])->first();
+        $marca = Vehicle_brands::where('DESCRIPCION', $request->car['marcaName'])->first();
+        $modelo = Vehicle_models::where([['descripcion', $request->car['modeloName']], ['IDMARCA', $marca['ID']]])->first();
         $price = Price::where([['insurances_id', $request->insurre['insurance_id']], ['vehicle_type_id', $request->car['tipo']]])->get();
-
+        $car = $request->car;
+        $car['marca'] = $marca['ID'];
+        $car['modelo'] = $modelo['ID'];
 
 
         foreach ($request->servicios as $serviciosActivo) {
@@ -200,8 +206,10 @@ class PoliciesController extends Controller
         //$totalGeneral = $totalServicios + $request->seller[0][$time];
         $totalGeneral = $totalServicios + $price[0][$time];
         //********************************************************************************
+
         $codigosDescuento = Discounts::where('active', '1')->get();
         $urlReturn = 'https://seguroschat.com/api/statusPayment';
+        Log::info("URL -> clientId: " . $request->client['id'], ["urlReturn" => $urlReturn]);
         $servicios = [];
         foreach ($services as $service) {
             array_push($servicios, $service['id']);
@@ -209,18 +217,19 @@ class PoliciesController extends Controller
         $serviciosString = json_encode($servicios); //transforma los id de los servicios para guardarlos en la Base de Datos 
         //Buscar si hay algun proceso de compra inconcluso
         //return $request->date;
+        Log::debug($car);
         $invoice =  Invoices::where([['client_id', $request->client['id']], ['payment_status', 'pending']])->first();
         if ($invoice) {
             $invoice = Invoices::find($invoice->id);
             $invoice->policyTime = $policyTime;
-            $invoice->chassis = $request->car['chasis'];
-            $invoice->licensePlate = $request->car['placa'];
-            $invoice->year = $request->car['year'];
+            $invoice->chassis = $car['chasis'];
+            $invoice->licensePlate = $car['placa'];
+            $invoice->year = $car['year'];
             $invoice->totalGeneral = $totalGeneral;
             $invoice->sellers_id = $request->insurre['insurance_id'];;
-            $invoice->car_tipe = $request->car['tipo'];
-            $invoice->car_brand = $request->car['marca'];
-            $invoice->car_model = $request->car['modelo'];
+            $invoice->car_tipe = $car['tipo'];
+            $invoice->car_brand = $car['marca'];
+            $invoice->car_model = $car['modelo'];
             $invoice->client_id = $request->client['id'];
             $invoice->services = $serviciosString;
             $invoice->discount_id = 0;
@@ -230,14 +239,14 @@ class PoliciesController extends Controller
         } else {
             $invoice = new Invoices();
             $invoice->policyTime = $policyTime;
-            $invoice->chassis = $request->car['chasis'];
-            $invoice->licensePlate = $request->car['placa'];
-            $invoice->year = $request->car['year'];
+            $invoice->chassis = $car['chasis'];
+            $invoice->licensePlate = $car['placa'];
+            $invoice->year = $car['year'];
             $invoice->totalGeneral = $totalGeneral;
             $invoice->sellers_id = $request->insurre['insurance_id'];;
-            $invoice->car_tipe = $request->car['tipo'];
-            $invoice->car_brand = $request->car['marca'];
-            $invoice->car_model = $request->car['modelo'];
+            $invoice->car_tipe = $car['tipo'];
+            $invoice->car_brand = $car['marca'];
+            $invoice->car_model = $car['modelo'];
             $invoice->client_id = $request->client['id'];
             $invoice->services = $serviciosString;
             $invoice->discount_id = 0;
@@ -245,8 +254,16 @@ class PoliciesController extends Controller
             $invoice->policyInitDate = $request->date;
             $invoice->save();
         }
+        Log::info("Servicios -> clientId: " . $request->client['id'], [$services]);
+        $insurre = $request->insurre;
+        if (env('APP_ENV') != 'production') {
+            $insurre['merchanttype'] = '7997';
+            $insurre['merchantnumber'] =  '349000000';
+            $insurre['merchantterminal'] = '58585858';
+            $insurre['payment_url'] = 'https://lab.cardnet.com.do/authorize';
+        }
         return Inertia::render('Policy/edit', [
-            'car' => $request->car,
+            'car' => $car,
             'tarifa' => $request->tarifa,
             'sellers' => $request->sellers,
             'seller' => $request->sellers[0],
@@ -258,7 +275,7 @@ class PoliciesController extends Controller
             'cliente' => $request->client,
             'service' => $services,
             'services' => $request->services,
-            'insurre' => $request->insurre,
+            'insurre' => $insurre,
             'client' => $request->client,
             'tipos' => $request->tipos,
             'modelos' => $request->modelos,
@@ -309,7 +326,7 @@ class PoliciesController extends Controller
     }
 
 
-    public function services($insurresId, $time, Request $request)
+    public function services($insurresId, $time, Request $request) //VISTA 3 ASEGURADORA
     {
         $plazo = '';
         if ($time == '') {
@@ -349,6 +366,7 @@ class PoliciesController extends Controller
                 $polizaValor = $seller[$time];
             }
         }
+        Log::info("Aseguradora -> clientId: " . $request->clien_id, ["Aseguradora" => $insurres[0]->nombre, "Poliza" => $polizaValor, "policyTime" => $time]);
         return Inertia::render('Policy/create', [
             'car' => $request->car,
             'sellers' => $request->seller,

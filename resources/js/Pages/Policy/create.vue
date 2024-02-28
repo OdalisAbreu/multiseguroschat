@@ -201,7 +201,6 @@ export default {
                 console.log(error.response);
             });
 
-        console.log(this.client)
         //------------------ Guardar Vista por el cliente -------------------------------------
         axios.get(
                 "/api/V1/validarVista/"+this.client.id+"/Servicios Opcionales"
@@ -220,7 +219,7 @@ export default {
     },
     methods: {
         submit() {
-           // this.Loading = true
+            this.Loading = true
             this.$inertia.post(this.route('servicespolicy'), this.form)
         },
         clientReturn() {

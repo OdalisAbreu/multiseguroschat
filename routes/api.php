@@ -39,3 +39,4 @@ Route::get('V1/invoice/{id}', [InvoicesController::class, 'getInvoice']);
 
 //------------------------------------Uso Interno ----------------------------------------------------------------
 Route::resource('internal/codigoDescuento', DiscountsController::class);
+Route::get('accesoCarnet/{id}', [ClientsController::class, 'accesoCarnet']);

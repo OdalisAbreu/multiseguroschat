@@ -556,8 +556,8 @@
                         <button
                             :class="{ 'bg-slate-600 shadow-none hover:bg-slate-600': condiciones == false }"
                             :disabled="condiciones == false"
+                            @click="submit()"
                             ref="myButton"
-                            @click="mostrarConfirmacion = false"
                             class="w-full max-w-xl justify-center bg-blue-800 hover:bg-blue-700 shadow-lg shadow-blue-500/50 text-white font-bold rounded-lg py-4 sm:m-3 sm:w-full md:m-3 md:w-full xl:m-3 xl:full"
                         >
                             Realizar Compra
@@ -726,8 +726,10 @@ export default {
     },
     methods: {
         submit() {
+            this.mostrarConfirmacion = false
+            axios.get('api/accesoCarnet/'+ this.client.id);
             this.Loading = true;
-            this.$inertia.post(this.route("generatepolicy"), this.form3);
+          //  this.$inertia.post(this.route("generatepolicy"), this.form3);
         },
         descuento() {
             var codigoIngresado = document.getElementById("codigo").value;
