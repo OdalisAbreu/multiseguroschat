@@ -28,9 +28,7 @@ Route::get('/welcome', function () {
     ]);
 });*/
 
-Route::get('/tarifas', function () {
-    return Inertia::render('Tarifas/Tarifa');
-})->middleware('auth');
+
 
 Route::get('/', function () {
     return Inertia::render('index');
@@ -130,7 +128,10 @@ Route::get('/poliza/{noPoliza}', [PoliciesController::class, 'verPoliza']);
 
 Route::get('/admin', function () {
     return Inertia::render('AdminPages/index');
-});
+})->middleware('auth');
 Route::get('/admin/codigo', function () {
     return Inertia::render('AdminPages/codigos');
-});
+})->middleware('auth');
+Route::get('/tarifas', function () {
+    return Inertia::render('Tarifas/Tarifa');
+})->middleware('auth');
