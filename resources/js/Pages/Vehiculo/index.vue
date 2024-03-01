@@ -44,7 +44,7 @@
                 >
                     <a
                         @click="clientReturn()"
-                        class="p-2 min-h-48 min-w-48 rounded-full bg-blue-800"
+                        class="p-2 rounded-full bg-blue-800"
                     >
                         <img
                             src="../../../../public/ima/edit.png"
