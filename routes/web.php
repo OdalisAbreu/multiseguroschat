@@ -28,6 +28,10 @@ Route::get('/welcome', function () {
     ]);
 });*/
 
+Route::get('/vehicles', function () {
+    return Inertia::render('AdminPages/vehicles/index');
+});
+
 Route::get('/', function () {
     return Inertia::render('index');
 });

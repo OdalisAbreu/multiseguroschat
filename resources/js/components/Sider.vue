@@ -1,9 +1,9 @@
 <script setup>
-//import { Inertia } from "@inertiajs/inertia";
+import { Inertia } from "@inertiajs/inertia";
 import { Link } from "@inertiajs/inertia-vue3";
 
 const logout = () => {
-    Inertia.get(route('logoutApp'))
+    Inertia.post(route('logout'));
 }
 
 </script>
@@ -24,6 +24,13 @@ const logout = () => {
         <div
             class="flex md:pr-10 gap-2 items-center hover:bg-blue-400 w-full justify-start border-l-2 border-b-2 border-black py-2 pl-4">
             <p>Codigo de Descuento</p>
+            <img class="w-5 sm:absolute sm:right-4" src="../../assets/consultaSocioLogo.png" alt="Consulta Socio Logo" />
+        </div>
+        </Link>
+        <Link href="/tarifas"> 
+        <div
+            class="flex md:pr-10 gap-2 items-center hover:bg-blue-400 w-full justify-start border-l-2 border-b-2 border-black py-2 pl-4">
+            <p>Tarifas</p>
             <img class="w-5 sm:absolute sm:right-4" src="../../assets/consultaSocioLogo.png" alt="Consulta Socio Logo" />
         </div>
         </Link>
@@ -64,14 +71,16 @@ const logout = () => {
                 <p>Consultar Usuarios</p>
                 <img class="w-6 sm:absolute sm:right-4" src="../../assets/adminSocio.png" alt="Consulta Invitado Logo" />
             </div>
-        </Link>
-        <button @click="logout" class="w-full">
+        </Link>-->
+        <div class="w-full">
             <div
-                class="flex md:pr-10 gap-2 items-center hover:bg-blue-500 w-full justify-start border-l-2 border-b-2 border-black py-2 pl-4">
+                class="flex md:pr-10 gap-2 items-center hover:bg-blue-500 w-full justify-start border-l-2 border-b-2 border-black py-2 pl-4"
+                @click="logout"
+                >
                 <p>Logout</p>
                 <img class="w-5 sm:absolute sm:right-4" src="../../assets/LogOut.png" alt="Consulta Invitado Logo" />
             </div>
-        </button>-->
+        </div>
 
     </div>
 </template>
@@ -93,6 +102,6 @@ export default {
             .catch((error) => {
                 console.log(error.response);
             });*/
-    }
+    },
 }
 </script>
