@@ -1,20 +1,13 @@
 <template>
 <div class="w-full bg-white p-2 border border-gray-200 rounded-lg shadow ligth:bg-gray-800 ligth:border-gray-700">
-    <div class="grid gap-2 grid-cols-2">
+    <div class="grid gap-2 grid-cols-1">
         <CustomInput
-        v-model="data.tipoDeVehiculo"
-        :label-name="'Nombre'"
-        :typeInput="'text'"
-        :readonly="true"
-        :disabled="true"
-    />
-    <CustomInput
-        class="whitespace-nowrap"
-        :label-name="'Codigo de la General de Seguros'"
-        :typeInput="'text'"
-        :readonly="true"
-        :disabled="true"
-    />
+            v-model="data.tipoDeVehiculo"
+            :label-name="'Nombre'"
+            :typeInput="'text'"
+            :readonly="true"
+            :disabled="true"
+        />
     </div>
     <div class="grid gap-2 grid-cols-3">
         <CustomInput

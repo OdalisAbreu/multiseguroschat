@@ -1198,6 +1198,9 @@ select {
 .col-span-9 {
   grid-column: span 9 / span 9;
 }
+.float-right {
+  float: right;
+}
 .float-left {
   float: left;
 }
@@ -1328,6 +1331,9 @@ select {
 .mr-1 {
   margin-right: 0.25rem;
 }
+.mr-10 {
+  margin-right: 2.5rem;
+}
 .mr-14 {
   margin-right: 3.5rem;
 }
@@ -1336,6 +1342,9 @@ select {
 }
 .mr-3 {
   margin-right: 0.75rem;
+}
+.mr-4 {
+  margin-right: 1rem;
 }
 .ms-auto {
   margin-inline-start: auto;
@@ -1556,6 +1565,10 @@ select {
 }
 .w-full {
   width: 100%;
+}
+.w-min {
+  width: -moz-min-content;
+  width: min-content;
 }
 .w-screen {
   width: 100vw;
@@ -2641,6 +2654,10 @@ select {
   --tw-bg-opacity: 1;
   background-color: rgb(229 231 235 / var(--tw-bg-opacity));
 }
+.hover\:bg-gray-300:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(209 213 219 / var(--tw-bg-opacity));
+}
 .hover\:bg-gray-50:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(249 250 251 / var(--tw-bg-opacity));
@@ -2704,9 +2721,6 @@ select {
 .hover\:text-indigo-100:hover {
   --tw-text-opacity: 1;
   color: rgb(224 231 255 / var(--tw-text-opacity));
-}
-.hover\:underline:hover {
-  text-decoration-line: underline;
 }
 .hover\:shadow-xl:hover {
   --tw-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
