@@ -182,9 +182,11 @@ class InvoicesController extends Controller
             "insuranceCarrierId" => $invoices->sellers_id,
             "services" => $invoices->services,
             "policyStartDate" => $invoices->policyInitDate,
-            "policyValidity" => $invoices->policyTime
+            "policyValidity" => $invoices->policyTime,
+            "Total" =>  round($invoices->totalGeneral)
         ];
         Log::info("peticion de poliza -> clientId: " . $invoices->client_id, [$json]);
+
         try {
             //----------------Generar Token----------------------------------------------------
             $token = Http::post($this->url . '/api/User/Authenticate', [
@@ -242,14 +244,13 @@ class InvoicesController extends Controller
 
             curl_close($curl);
             $poliza = json_decode($response);
-            sleep(1);
+            sleep(7);
         } catch (\Exception $e) {
-
-            Log::error("Generar poliza -> clientId: " . $invoices->client_id, [$e->getMessage()]);
+            Log::error("Generar poliza -> clientId: " . $invoices->client_id, ['error' => $e->getMessage()]);
 
             $this->enviarMensaje('18294428902', 'text', '*ERROR AL GENERAR POLIZA* para el cliente Id: ' . $invoices->client_id . ' *FAVOR DE VERIFICAR EL ERROR*');
             $this->enviarMensaje('18092092008', 'text', '*ERROR AL GENERAR POLIZA* para el cliente Id: ' . $invoices->client_id . ' *FAVOR DE VERIFICAR EL ERROR*');
-            $this->enviarMensaje($client[0]->phonenumber, 'text', '*ERROR AL GENERAR POLIZA* para el cliente Id: ' . $invoices->client_id . ' *FAVOR DE VERIFICAR EL ERROR*');
+            $this->enviarMensaje($client[0]->phonenumber, 'text', 'Estamos validando sus Datos por favor espere un momento');
             return Inertia::render('end', [
                 'ResponseCode' => $request->ResponseCode,
                 'TransactionID' => $request->TransactionID,

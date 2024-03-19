@@ -23,7 +23,7 @@
                 </div>
 
                 <div class="flex flex-col justify-end gap-1 items-center cursor-pointer">
-                    <a @click="clientReturn()" class="p-2 min-h-48 min-w-48 rounded-full bg-blue-800">
+                    <a @click="clientReturn()" class="p-2 rounded-full bg-blue-800">
                         <img src="../../../../public/ima/edit.png" alt="Editar">
 
                     </a>
@@ -38,7 +38,7 @@
                     <p> {{ car.marcaName }} {{ car.modeloName }}, {{ car.year }}</p>
                 </div>
                 <div class="flex flex-col justify-end gap-1 items-center cursor-pointer">
-                    <a @click="cartReturn()" class="p-2 min-h-48 min-w-48 rounded-full bg-blue-800">
+                    <a @click="cartReturn()" class="p-2 rounded-full bg-blue-800">
                         <img src="../../../../public/ima/edit.png" alt="Editar">
                     </a>
                     <p class="text-blue-800 bottom-2 font-bold text-sm">Editar</p>
@@ -54,7 +54,7 @@
                     </p>
                 </div>
                 <div class="absolute right-5 mt-2 flex flex-col justify-end gap-1 items-center cursor-pointer">
-                    <a @click="caseguradoraReturn()" class="p-2 min-h-48 min-w-48 rounded-full bg-blue-800">
+                    <a @click="caseguradoraReturn()" class="p-2 rounded-full bg-blue-800">
                         <img src="../../../../public/ima/edit.png" alt="Editar">
                     </a>
                     <p class="text-blue-800 bottom-2 font-bold text-sm">Editar</p>
