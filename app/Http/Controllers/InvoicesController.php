@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AccesToken;
 use App\Models\Client;
 use App\Models\Discounts;
 use App\Models\Insurance;
@@ -186,17 +187,9 @@ class InvoicesController extends Controller
             "Total" =>  round($invoices->totalGeneral)
         ];
         Log::info("peticion de poliza -> clientId: " . $invoices->client_id, [$json]);
-
+        //Capturar el ultimo token de la tabla acces_tokens creado
+        $token_acces = AccesToken::orderBy('created_at', 'desc')->first();
         try {
-            //----------------Generar Token----------------------------------------------------
-            $token = Http::post($this->url . '/api/User/Authenticate', [
-                'username' => 'sendiu_desarrollo',
-                'password' => 'Admin1234'
-            ]);
-            sleep(2);
-            $token = $token->json();
-            //------------------------------------------------------------------------------
-
             $curl = curl_init();
             curl_setopt_array($curl, array(
                 CURLOPT_URL => $this->url . '/api/Seguros/Policy',
@@ -235,21 +228,21 @@ class InvoicesController extends Controller
                                     "Total": ' . round($invoices->totalGeneral) . '
                                 }',
                 CURLOPT_HTTPHEADER => array(
-                    'Authorization: Bearer ' . $token['token'],
+                    'Authorization: Bearer ' . $token_acces->token,
                     'Content-Type: application/json'
                 ),
             ));
 
             $response = curl_exec($curl);
-
             curl_close($curl);
+            Log::info("Generar poliza -> clientId: " . $invoices->client_id, ['Respuesta API', $response]);
             $poliza = json_decode($response);
             sleep(7);
         } catch (\Exception $e) {
             Log::error("Generar poliza -> clientId: " . $invoices->client_id, ['error' => $e->getMessage()]);
 
             $this->enviarMensaje('18294428902', 'text', '*ERROR AL GENERAR POLIZA* para el cliente Id: ' . $invoices->client_id . ' *FAVOR DE VERIFICAR EL ERROR*');
-            $this->enviarMensaje('18092092008', 'text', '*ERROR AL GENERAR POLIZA* para el cliente Id: ' . $invoices->client_id . ' *FAVOR DE VERIFICAR EL ERROR*');
+            // $this->enviarMensaje('18092092008', 'text', '*ERROR AL GENERAR POLIZA* para el cliente Id: ' . $invoices->client_id . ' *FAVOR DE VERIFICAR EL ERROR*');
             $this->enviarMensaje($client[0]->phonenumber, 'text', 'Estamos validando sus Datos por favor espere un momento');
             return Inertia::render('end', [
                 'ResponseCode' => $request->ResponseCode,
@@ -282,20 +275,7 @@ class InvoicesController extends Controller
 
         //--------------------------------------------------------------------------------------------
 
-        //--------------------Desactivar Descuento----------------------------------------------------
-        // if ($invoice->discount_id > 0) {
-        //     $descuento = Discounts::find($invoice->discount_id);
-        //     $descuento->active = 0;
-        //     $descuento->update();
-        // }
 
-        //-------------------------------------------------------------------------------------------
-        /*   echo 'ResponseCode:'. $request->ResponseCode. '<br/>';
-            echo 'TransactionID:'. $request->TransactionID. '<br/>';
-            echo 'RemoteResponseCode:'. $request->RemoteResponseCode. '<br/>';
-            echo 'AuthorizationCode:'. $request->AuthorizationCode. '<br/>';
-            echo 'RetrivalReferenceNumber:'. $request->RetrivalReferenceNumber. '<br/>';
-            echo 'TxToken:'. $request->TxToken. '<br/>';*/
         return Inertia::render('end', [
             'ResponseCode' => $request->ResponseCode,
             'TransactionID' => $request->TransactionID,
