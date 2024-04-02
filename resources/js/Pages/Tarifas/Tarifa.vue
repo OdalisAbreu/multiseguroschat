@@ -110,11 +110,11 @@ export default {
             try {
                 const {data} = await axios.put(`/api/V1/prices/${this.itemIdToEdit}`, this.itemToEdit[0])
                 if(data.success){
-                    swal("Se Edito Correctamente", "success");
+                    swal("Exelente!","Se Edito Correctamente", "success");
                 }
                 this.showModal = false
             } catch (error) {
-                swal("No se puedo editar el registro", "error");
+                swal('Error',"No se puedo editar el registro", "error");
             }
         },
         filterTarifa() {
