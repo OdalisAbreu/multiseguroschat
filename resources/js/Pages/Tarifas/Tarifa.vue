@@ -37,6 +37,9 @@
                 <Pagination :data="tableCells" @starIndex="onStarIndex" @endIndex="onEndIndex" />
             </div>
             <CustomModal v-if="showModal" :headerTitle="'Editar Servicio'" @closed-modal="showModal = false">
+                <ActionMessage v-if="editSuccess" on>
+                    Se edito Correctamente
+                </ActionMessage>
                 <template v-slot:body>
                     <EditFormTarifa :data="itemToEdit[0]" />
                 </template>
@@ -59,20 +62,21 @@ import Pagination from '../../components/Pagination.vue';
 import CustomModal from "../../components/CustomModal.vue";
 import EditFormTarifa from "./EditFormTarifa.vue";
 import CAutoComplete from "../../components/shared/CAutoComplete.vue";
+import swal from 'sweetalert';
 import axios from "axios";
 
 export default {
     name: "Tarifa",
     components: {
-    CustomButton,
-    CustomHeader,
-    CustomTable,
-    Footer,
-    Pagination,
-    CustomModal,
-    EditFormTarifa,
-    CAutoComplete,
-    CustomButton
+        CustomButton,
+        CustomHeader,
+        CustomTable,
+        Footer,
+        Pagination,
+        CustomModal,
+        EditFormTarifa,
+        CAutoComplete,
+        CustomButton,
     },
     data() {
         return {
@@ -86,6 +90,7 @@ export default {
             endIndex: 10,
             showModal: false,
             itemIdToEdit: "",
+            editSuccess:false
         };
     },
     mounted() {
@@ -102,9 +107,14 @@ export default {
             }
         },
         async editForm() {
-            const {data} = await axios.put(`/api/V1/prices/${this.itemIdToEdit}`, this.itemToEdit[0])
-            if(data.success){
+            try {
+                const {data} = await axios.put(`/api/V1/prices/${this.itemIdToEdit}`, this.itemToEdit[0])
+                if(data.success){
+                    swal("Exelente!","Se Edito Correctamente", "success");
+                }
                 this.showModal = false
+            } catch (error) {
+                swal('Error',"No se puedo editar el registro", "error");
             }
         },
         filterTarifa() {
