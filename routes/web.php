@@ -111,7 +111,7 @@ Route::get('/test', function () {
 Route::get('/error', function () {
     return Inertia::render('Welcome', [
         'ResponseCode' => 00,
-        'TransactionID' => 446,
+        'TransactionID' => 1028,
         'RemoteResponseCode' => 00,
         'AuthorizationCode' => 409615,
         'RetrivalReferenceNumber' => 000000000033,

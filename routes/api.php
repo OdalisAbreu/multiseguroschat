@@ -44,3 +44,4 @@ Route::get('generateoken', [AccesTokenController::class, 'generateToken']);
 //------------------------------------Uso Interno ----------------------------------------------------------------
 Route::resource('internal/codigoDescuento', DiscountsController::class);
 Route::get('accesoCarnet/{id}', [ClientsController::class, 'accesoCarnet']);
+Route::get('desactivarSesionClientes', [ClientsController::class, 'desactivarSesionClientes']);

@@ -139,6 +139,11 @@ class InvoicesController extends Controller
 
         //---------------------------------------------------------------------------------
 
+        // Validar que la seccion esta activa
+        if ($client[0]->session == 'I') {
+            return Inertia::render('index');
+        }
+
 
         //--------Procesar Poliza ----------------------------------------------
         $name = $client[0]->name;
@@ -159,40 +164,44 @@ class InvoicesController extends Controller
         $modelos = Vehicle_models::find($invoices->car_model);
         $modelo = $modelos->descripcion;
         $tipo = Vehicle_type_tarif::find($invoices->car_tipe);
+        $servises = json_decode($invoices->services);
+        $servicio = implode('-', $servises);
+        //convertir de $invoices->policyInitDate a yyyy-mm-dd
+        $date = date_create($invoices->policyInitDate);
+        $policyInitDate = date_format($date, 'Y-m-d');
 
-        $json = [
-            "sellerInternalId" => "102054-' . $request->AuthorizationCode . '",
-            "vehicle" => [
-                "vehicleTypeId" => $invoices->car_tipe,
-                "vehicleMakeId" => $invoices->car_brand,
-                "vehicleModelId" => $invoices->car_model,
-                "year" => $invoices->year,
-                "chassis" => $invoices->chassis,
-                "licensePlate" => $invoices->licensePlate
-            ],
-            "insured" => [
-                "name" => $name,
-                "lastName" => $lastname,
-                "identificationCardNumber" => $cardnumber,
-                "passportNumber" => $passportnumber,
-                "emailAddress" => $email,
-                "phoneNumber" => $phonenumber,
-                "residenceAddress" => $adrress,
-                "cityOfResidence" => $city
-            ],
-            "insuranceCarrierId" => $invoices->sellers_id,
-            "services" => $invoices->services,
-            "policyStartDate" => $invoices->policyInitDate,
-            "policyValidity" => $invoices->policyTime,
-            "Total" =>  round($invoices->totalGeneral)
-        ];
+        $json = array(
+            'usuario' => 'sendiu_desarrollo',
+            'clave' => 'Admin1234',
+            'xID' => "102054-$request->AuthorizationCode",
+            'nombres' => $name,
+            'apellidos' => $lastname,
+            'cedula' => $cardnumber,
+            'pasaporte' => $passportnumber,
+            'telefono1' => $phonenumber,
+            'email' => $email,
+            'direccion' => $adrress,
+            'ciudad' => $city,
+            'nacionalidad' => '',
+            'tipo' => $invoices->car_tipe,
+            'marca' => $invoices->car_brand,
+            'modelo' => $invoices->car_model,
+            'year' => $invoices->year,
+            'chassis' => $invoices->chassis,
+            'placa' => $invoices->licensePlate,
+            'aseguradora' => $invoices->sellers_id,
+            'fecha_inicio' => $policyInitDate,
+            'serv_adc' => $servicio,
+            'vigencia_poliza' => $invoices->policyTime,
+            'total' => round($invoices->totalGeneral),
+            'plan' => '1',
+        );
         Log::info("peticion de poliza -> clientId: " . $invoices->client_id, [$json]);
-        //Capturar el ultimo token de la tabla acces_tokens creado
-        $token_acces = AccesToken::orderBy('created_at', 'desc')->first();
         try {
             $curl = curl_init();
+
             curl_setopt_array($curl, array(
-                CURLOPT_URL => $this->url . '/api/Seguros/Policy',
+                CURLOPT_URL => 'https://multiseguros.com.do/ws_dev/Seguros/GET_Poliza_Total.php',
                 CURLOPT_RETURNTRANSFER => true,
                 CURLOPT_ENCODING => '',
                 CURLOPT_MAXREDIRS => 10,
@@ -200,44 +209,46 @@ class InvoicesController extends Controller
                 CURLOPT_FOLLOWLOCATION => true,
                 CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
                 CURLOPT_CUSTOMREQUEST => 'POST',
-                CURLOPT_POSTFIELDS => '{
-                                    "sellerInternalId": "102054-' . $request->AuthorizationCode . '",
-                                    "vehicle": {
-                                        "vehicleTypeId": ' . $invoices->car_tipe . ',
-                                        "vehicleMakeId": ' . $invoices->car_brand . ',
-                                        "vehicleModelId": ' . $invoices->car_model . ',
-                                        "year": ' . $invoices->year . ',
-                                        "chassis": "' . $invoices->chassis . '",
-                                        "licensePlate": "' . $invoices->licensePlate . '"
-                                    },
-                                    "insured": {
-                                        "name": "' . $name . '",
-                                        "lastName": "' . $lastname . '",
-                                        "identificationCardNumber": "' . $cardnumber . '",
-                                        "passportNumber": "' . $passportnumber . '",
-                                        "emailAddress": "' . $email . '",
-                                        "phoneNumber": ' . $phonenumber . ',
-                                        "residenceAddress": "' . $adrress . '",
-                                        "cityOfResidence": "' . $city . '",
-                                        "nationality": ""
-                                    },
-                                    "insuranceCarrierId": ' . $invoices->sellers_id . ',
-                                    "services":  ' . $invoices->services . ',
-                                    "policyStartDate": "' . $invoices->policyInitDate . '",
-                                    "policyValidity": ' . $invoices->policyTime . ',
-                                    "Total": ' . round($invoices->totalGeneral) . '
-                                }',
-                CURLOPT_HTTPHEADER => array(
-                    'Authorization: Bearer ' . $token_acces->token,
-                    'Content-Type: application/json'
-                ),
+                CURLOPT_POSTFIELDS => $json,
             ));
 
             $response = curl_exec($curl);
+
             curl_close($curl);
-            Log::info("Generar poliza -> clientId: " . $invoices->client_id, ['Respuesta API', $response]);
-            $poliza = json_decode($response);
-            sleep(7);
+            sleep(3);
+            $parts = explode('/', $response);
+            if ($parts[0] == '00') {
+                $poliza = [
+                    'status' => $parts[0],
+                    'message' => $parts[1],
+                    'transactionId' => $parts[2],
+                    'fecha' => $parts[3],
+                    'insurancePolicyNumber' => $parts[4],
+                ];
+                $poliza = (object) $poliza;
+            } else {
+                Log::info("peticion de poliza sin procesar -> clientId: " . $invoices->client_id, [$response]);
+                $this->enviarMensaje('18294428902', 'text', '*ERROR AL GENERAR POLIZA POR MS/SCH 2* para el cliente Id: ' . $invoices->client_id . ' *FAVOR DE VERIFICAR EL ERROR*');
+                $this->enviarMensaje($client[0]->phonenumber, 'text', 'Estamos validando sus Datos por favor espere un momento');
+                return Inertia::render('end', [
+                    'ResponseCode' => $request->ResponseCode,
+                    'TransactionID' => $request->TransactionID,
+                    'RemoteResponseCode' => $request->RemoteResponseCode,
+                    'AuthorizationCode' => $request->AuthorizationCode,
+                    'RetrivalReferenceNumber' => $request->RetrivalReferenceNumber,
+                    'TxToken' =>  $request->TxToken,
+                    'transactionId' => 00,
+                    'logo' => $seller['logo'],
+                    'Poliza' => 00,
+                    'Client' => $client[0],
+                    'Marca' => $marca,
+                    'Modelo' => $modelo,
+                    'Aseguradora' => $seller['nombre'],
+                    'invoice' => $invoices,
+                    'tipo' => $tipo
+                ]);
+            }
+            Log::info("peticion de poliza -> clientId: " . $invoices->client_id, [$poliza]);
         } catch (\Exception $e) {
             Log::error("Generar poliza -> clientId: " . $invoices->client_id, ['error' => $e->getMessage()]);
 

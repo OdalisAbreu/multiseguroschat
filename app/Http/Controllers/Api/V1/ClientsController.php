@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use App\Models\Client;
 use App\Models\Invoices;
+use App\Services\Respond\RespondService;
 use DateTime;
 use DateTimeZone;
 use Illuminate\Http\Request;
@@ -194,7 +195,6 @@ class ClientsController extends Controller
     public function enviarIdPolizaBotCity($idPoliza, $celular)
     {
         //-------------------------------------------- Eviar a BotCity-------------------------------------------------//
-
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
@@ -237,17 +237,17 @@ class ClientsController extends Controller
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => 'GET',
         ));
-
         $response = curl_exec($curl);
-
         curl_close($curl);
         return $response;
     }
 
     public function enviarMensajeBotCitie(Request $request)
     {
-        $curl = curl_init();
+        $respond =  new RespondService;
+        $respond->AddTagContact($request->phone, 'cosulta_poliza_api');
 
+        $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_URL => 'https://api.respond.io/v2/contact/phone:+' . $request->phone . '/message',
             CURLOPT_RETURNTRANSFER => true,
@@ -403,5 +403,14 @@ class ClientsController extends Controller
         $horaAcceso = new DateTime('now', new DateTimeZone('America/Santo_Domingo'));
         $horaAcceso = $horaAcceso->format('Y-m-d H:i:s');
         Log::info("Acceso Carnet -> clientId: " . $id, ["horaAcceso" => $horaAcceso, "clientId" => $id]);
+    }
+
+    public function desactivarSesionClientes()
+    {
+        //desactivar la sesiones activas  
+        $yesterday = date('Y-m-d', strtotime('-1 day'));
+        return  Client::whereDate('updated_at', '<', $yesterday)
+            ->where('session', 'A')
+            ->update(['session' => 'I']);
     }
 }
