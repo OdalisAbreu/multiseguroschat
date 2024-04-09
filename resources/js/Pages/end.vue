@@ -249,6 +249,10 @@ export default defineComponent({
         axios.get(
             "/api/V1/generarPdf/" + this.invoice.police_transactionId
         );
+        //esperar 5 segundos despues de generar el pdf
+        setTimeout(() => {
+            this.display = "none";
+        }, 5000);
         //--------------------------- Actualiza el codigo de descuento en multiseguros-----------------------------------------//
         axios.get(
             "/api/V1/UpdateDescuento/" + this.invoice.id

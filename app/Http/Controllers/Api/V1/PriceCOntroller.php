@@ -89,7 +89,6 @@ class PriceCOntroller extends Controller
     public function update(Request $request, $id)
     {
         $price = Price::find($id);
-        $price = Price::find($id);
         if (!$price) {
             return response()->json([
                 'success' => false,

@@ -11,6 +11,7 @@ use App\Models\Vehicle_brands;
 use App\Models\Vehicle_models;
 use App\Models\Vehicle_type_tarif;
 use App\Services\InvoicesServices;
+use App\Services\Respond\RespondService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
@@ -136,6 +137,7 @@ class InvoicesController extends Controller
         $invoices = Invoices::find($request->TransactionID);
         $seller = Insurance::find($invoices['sellers_id']);
         $client = Client::where('id', $invoices->client_id)->get();
+        $respond =  new RespondService;
 
         //---------------------------------------------------------------------------------
 
@@ -174,10 +176,10 @@ class InvoicesController extends Controller
             'usuario' => 'sendiu_desarrollo',
             'clave' => 'Admin1234',
             'xID' => "102054-$request->AuthorizationCode",
-            'nombres' => $name,
-            'apellidos' => $lastname,
+            'nombres' => strtoupper($name),
+            'apellidos' => strtoupper($lastname),
             'cedula' => $cardnumber,
-            'pasaporte' => $passportnumber,
+            'pasaporte' => strtoupper($passportnumber),
             'telefono1' => $phonenumber,
             'email' => $email,
             'direccion' => $adrress,
@@ -187,8 +189,8 @@ class InvoicesController extends Controller
             'marca' => $invoices->car_brand,
             'modelo' => $invoices->car_model,
             'year' => $invoices->year,
-            'chassis' => $invoices->chassis,
-            'placa' => $invoices->licensePlate,
+            'chassis' => strtoupper($invoices->chassis),
+            'placa' => strtoupper($invoices->licensePlate),
             'aseguradora' => $invoices->sellers_id,
             'fecha_inicio' => $policyInitDate,
             'serv_adc' => $servicio,
@@ -228,6 +230,7 @@ class InvoicesController extends Controller
                 $poliza = (object) $poliza;
             } else {
                 Log::info("peticion de poliza sin procesar -> clientId: " . $invoices->client_id, [$response]);
+                $respond->AddTagContact('18294428902', 'errorEnviarPoliza');
                 $this->enviarMensaje('18294428902', 'text', '*ERROR AL GENERAR POLIZA POR MS/SCH 2* para el cliente Id: ' . $invoices->client_id . ' *FAVOR DE VERIFICAR EL ERROR*');
                 $this->enviarMensaje($client[0]->phonenumber, 'text', 'Estamos validando sus Datos por favor espere un momento');
                 return Inertia::render('end', [
@@ -251,7 +254,7 @@ class InvoicesController extends Controller
             Log::info("peticion de poliza -> clientId: " . $invoices->client_id, [$poliza]);
         } catch (\Exception $e) {
             Log::error("Generar poliza -> clientId: " . $invoices->client_id, ['error' => $e->getMessage()]);
-
+            $respond->AddTagContact('18294428902', 'errorEnviarPoliza');
             $this->enviarMensaje('18294428902', 'text', '*ERROR AL GENERAR POLIZA* para el cliente Id: ' . $invoices->client_id . ' *FAVOR DE VERIFICAR EL ERROR*');
             // $this->enviarMensaje('18092092008', 'text', '*ERROR AL GENERAR POLIZA* para el cliente Id: ' . $invoices->client_id . ' *FAVOR DE VERIFICAR EL ERROR*');
             $this->enviarMensaje($client[0]->phonenumber, 'text', 'Estamos validando sus Datos por favor espere un momento');

@@ -218,9 +218,7 @@ class ClientsController extends Controller
         $response = curl_exec($curl);
 
         curl_close($curl);
-        echo $response;
-
-
+        Log::info('Respond Enviar Poliza:', ['response' => $response]);
         return 'OK';
     }
 
@@ -239,6 +237,7 @@ class ClientsController extends Controller
         ));
         $response = curl_exec($curl);
         curl_close($curl);
+        Log::info('Generar Pdf:', ['response' => $response]);
         return $response;
     }
 
@@ -268,10 +267,9 @@ class ClientsController extends Controller
                 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTgyMywic3BhY2VJZCI6MTQ3NDAxLCJvcmdJZCI6MjAzNDYsInR5cGUiOiJhcGkiLCJpYXQiOjE2ODI1Mzc0MTZ9.dsECELGyYJd9XF_PkkM-W8W-qUPnow3VdFeHnM2XiSo'
             ),
         ));
-
         $response = curl_exec($curl);
-
         curl_close($curl);
+        Log::info('Respond Enviar Mensaje:', ['response' => $response]);
         return json_decode($response);
     }
     public function enviarArchivoBotCitie(Request $request)
@@ -304,9 +302,8 @@ class ClientsController extends Controller
         ));
 
         $response = curl_exec($curl);
-
         curl_close($curl);
-        echo $response;
+        Log::info('Respond Enviar Archivo:', ['response' => $response]);
     }
     public function confirmarPositivo($phone)
     {
