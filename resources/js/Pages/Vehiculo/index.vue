@@ -69,37 +69,7 @@
                 </div>
 
                 <form @submit.prevent="submit" class="flex flex-col">
-                    <label class="pt-1 justify-start font-bold"
-                        >Tipo de Vehículo
-                        <span class="text-red-400 inl">*</span></label
-                    >
-
-                    <select
-                        class="rounded-lg w-full border-gray-300"
-                        v-model="form.tipo"
-                        required
-                    >
-                        <option
-                            :value="car.tipoName"
-                            disabled
-                            selected
-                            hidden
-                            v-if="car.tipoName != ''"
-                        >
-                            {{ car.tipoName }}
-                        </option>
-                        <option value="" disabled selected hidden v-else>
-                            TIPO DE VEHÍCULO
-                        </option>
-                        <option
-                            v-for="tipo in tipos"
-                            :value="tipo.id"
-                            :key="tipo.id"
-                        >
-                            {{ tipo.nombre }}
-                        </option>
-                    </select>
-
+                   
                     <!-- <model-list-select
                         class="selectSearch"
                         v-model="form.tipo"
@@ -193,6 +163,38 @@
                        </model-list-select>
                     </div>                
                     <span v-if="v$.form.modelo.$error" class="text-red-500">{{ v$.form.modelo.$errors[0].$message }}</span>
+                     
+                    <label class="pt-1 justify-start font-bold"
+                        >Tipo de Vehículo
+                        <span class="text-red-400 inl">*</span></label
+                    >
+
+                    <select
+                        class="rounded-lg w-full border-gray-300"
+                        v-model="form.tipo"
+                        required
+                    >
+                        <option
+                            :value="car.tipoName"
+                            disabled
+                            selected
+                            hidden
+                            v-if="car.tipoName != ''"
+                        >
+                            {{ car.tipoName }}
+                        </option>
+                        <option value="" disabled selected hidden v-else>
+                            TIPO DE VEHÍCULO
+                        </option>
+                        <option
+                            v-for="tipo in vehicletype"
+                            :value="tipo.id"
+                            :key="tipo.id"
+                        >
+                            {{ tipo.Name }}
+                        </option>
+                    </select>
+
 
                     <label class="pt-1 font-bold"
                         >Año <span class="text-red-400 inl">*</span></label
@@ -342,6 +344,7 @@ export default {
             selectedBrand: this.car.marca,
             filteredModelos: [], 
             showModeloDropdown: false,
+            vehicletype: []
         };
     },
     setup: () => ({ v$: useVuelidate() }),
@@ -400,6 +403,13 @@ export default {
         onUnmounted(() => {
             clearTimeout(timeoutId);
         });
+    },
+    watch: {
+        'form.modelo': function (){
+            if(!this.form.modelo)
+                return
+            this.getTypeVehicle();
+        }
     },
     methods: {
         async submit() {
@@ -476,7 +486,16 @@ export default {
         },
         cleanSpaces(){
             this.form.chasis = this.form.chasis.trim()
-        }
+        },
+        async getTypeVehicle() {
+            try {
+                const response = await axios.get(`/getTypeVehicle/${this.form.modelo}`);
+                const data = response.data;
+                this.vehicletype = data
+            } catch (error) {
+                console.error(error);
+            }
+        },
 /*         showConfirmation(event) {
             event.preventDefault();
             event.returnValue = ""; // Necesario para mostrar el mensaje en algunos navegadores antiguos

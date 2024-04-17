@@ -43,6 +43,7 @@ Route::get('/Politicas', function () {
 });
 
 Route::resource('client', ClientController::class);
+Route::get('getTypeVehicle/{modeloId}', [ClientController::class, 'getTypeVehicle']);
 Route::post('policy/{marcaid}', [PoliciesController::class, 'index'])->name('policy');
 Route::post('services/{insuresId}/{time}', [PoliciesController::class, 'services'])->name('services');
 Route::post('servicespolicy', [PoliciesController::class, 'show'])->name('servicespolicy');

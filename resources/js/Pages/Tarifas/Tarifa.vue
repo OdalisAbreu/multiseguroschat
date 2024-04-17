@@ -110,7 +110,7 @@ export default {
             try {
                 const {data} = await axios.put(`/api/V1/prices/${this.itemIdToEdit}`, this.itemToEdit[0])
                 if(data.success){
-                    swal("Exelente","Se editó correctamente", "success");
+                    swal("Excelente","Se editó correctamente", "success");
                 }
                 this.showModal = false
             } catch (error) {

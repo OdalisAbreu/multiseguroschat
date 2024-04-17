@@ -8,6 +8,7 @@ use App\Models\Province;
 use App\Models\Vehicle_brands;
 use App\Models\Vehicle_models;
 use App\Models\Vehicle_type_tarif;
+use App\Models\Vehicletype;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
@@ -181,5 +182,15 @@ class ClientController extends Controller
             'clientepais' => $request->clientepais,
             'paises' => $request->paises
         ]);
+    }
+    public function getTypeVehicle($modeloId)
+    {
+        $vehicleType =  DB::table('vehicletypes as vt')
+            ->select('vt.id', 'vt.Name', 'vt_m.type')
+            ->join('vehicletype_vehiclemodels as vt_m', 'vt.Id', '=', 'vt_m.vehicleTypeId')
+            ->where('vt_m.vehicleModelId', $modeloId)
+            ->get();
+
+        return $vehicleType;
     }
 }
