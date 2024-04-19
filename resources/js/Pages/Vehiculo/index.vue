@@ -226,13 +226,15 @@
                     >
                     <input
                         class="rounded-lg w-full border-gray-300"
+                        :class="{'invalid': v$.form.placa.$error}"
                         style="text-transform: uppercase"
                         type="text"
                         maxlength="10"
                         placeholder="PLACA"
                         v-model="form.placa"
-                        required
                     />
+                    <span v-if="v$.form.placa.$error" class="text-red-500">{{ v$.form.placa.$errors[0].$message }}</span>
+
                     <label class="pt-1 font-bold"
                         >No. de Chasis <span class="text-red-400 inl">*</span>
                     </label>
@@ -344,7 +346,7 @@ export default {
             selectedBrand: this.car.marca,
             filteredModelos: [], 
             showModeloDropdown: false,
-            vehicletype: []
+            vehicletype: [],
         };
     },
     setup: () => ({ v$: useVuelidate() }),
@@ -358,7 +360,11 @@ export default {
                 },
                 modelo: {
                     required: helpers.withMessage('El campo no puede estar vacio', required),
-                }, 
+                },
+                placa: {
+                    required: helpers.withMessage('El campo no puede estar vacio', required),
+                    isValidPlate: helpers.withMessage('Esta no es un placa valida',() => this.selectedPlate.some(item => this.form.placa.toLowerCase().startsWith(item.toLowerCase())))
+                },
                 chasis:{
                     required: helpers.withMessage('El campo no puede estar vacio', required),
                     alphaNum: helpers.withMessage('no puede escribir caracteres especiales',helpers.regex(/^[a-zA-Z0-9\\-]+$/)),
@@ -409,6 +415,13 @@ export default {
             if(!this.form.modelo)
                 return
             this.getTypeVehicle();
+        },
+    },
+    computed:{
+        selectedPlate(){
+          let selected = this.vehicletype.find(item => item.id === this.form?.tipo)
+          const plateArray = selected?.Plate.split(',')
+          return plateArray
         }
     },
     methods: {
