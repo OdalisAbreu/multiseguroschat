@@ -172,7 +172,6 @@
                     <select
                         class="rounded-lg w-full border-gray-300"
                         v-model="form.tipo"
-                        required
                     >
                         <option
                             :value="car.tipoName"
@@ -250,6 +249,13 @@
                     />
                     <span v-if="v$.form.chasis.$error" class="text-red-500">{{ v$.form.chasis.$errors[0].$message }}</span>
                     
+                    
+                    <div class="flex items-center mt-2" v-if="showCheckBox">
+                        <input id="link-checkbox" type="checkbox" v-model="checked" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 light:focus:ring-blue-600 light:ring-offset-gray-800 focus:ring-2 light:bg-gray-700 light:border-gray-600">
+                        <label for="link-checkbox" class="ms-2 text-sm font-medium text-gray-900 light:text-gray-300">Confirmo que este numero de placa es válido</label>
+                    </div>
+
+
                     <div
                         class="w-full mt-5 mx-5 my-4 justify-self-center self-center text-center"
                     >
@@ -264,6 +270,7 @@
                             Continuar
                         </button>
                     </div>
+
                 </form>
             </div>
         </section>
@@ -347,6 +354,7 @@ export default {
             filteredModelos: [], 
             showModeloDropdown: false,
             vehicletype: [],
+            checked: false,
         };
     },
     setup: () => ({ v$: useVuelidate() }),
@@ -363,7 +371,7 @@ export default {
                 },
                 placa: {
                     required: helpers.withMessage('El campo no puede estar vacio', required),
-                    isValidPlate: helpers.withMessage('Esta no es un placa valida',() => this.selectedPlate.some(item => this.form.placa.toLowerCase().startsWith(item.toLowerCase())))
+                    isValidPlate: helpers.withMessage('Esta no es un placa valida',() => this.selectedPlate.some(item => this.form.placa.toLowerCase().startsWith(item.toLowerCase())) || this.checked)
                 },
                 chasis:{
                     required: helpers.withMessage('El campo no puede estar vacio', required),
@@ -422,6 +430,12 @@ export default {
           let selected = this.vehicletype.find(item => item.id === this.form?.tipo)
           const plateArray = selected?.Plate.split(',')
           return plateArray
+        },
+        showCheckBox() {
+            if(this.v$.form.placa.$error && this.form.placa.length)
+                return true
+            else if(this.checked)
+                return true
         }
     },
     methods: {
