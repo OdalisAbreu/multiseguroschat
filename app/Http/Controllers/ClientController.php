@@ -182,4 +182,15 @@ class ClientController extends Controller
             'paises' => $request->paises
         ]);
     }
+
+    public function getTypeVehicle($modeloId)
+    {
+        $vehicleType =  DB::table('vehicletypes as vt')
+            ->select('vt.id', 'vt.Name as nombre', 'vt.Plate', 'vt_m.type')
+            ->join('vehicletype_vehiclemodels as vt_m', 'vt.Id', '=', 'vt_m.vehicleTypeId')
+            ->where('vt_m.vehicleModelId', $modeloId)
+            ->get();
+
+        return $vehicleType;
+    }
 }
