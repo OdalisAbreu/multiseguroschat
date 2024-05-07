@@ -5,6 +5,7 @@ use App\Http\Controllers\InvoicesController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PoliciesController;
 use App\Http\Controllers\ErrorLogController;
+use App\Http\Controllers\BlockedClientController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -43,7 +44,14 @@ Route::get('/Politicas', function () {
     return Inertia::render('Politicas');
 });
 
-Route::resource('client', ClientController::class);
+Route::get('Blocked', function () {
+    return Inertia::render('Blocked');
+})->name('blockedview');
+
+Route::middleware(['blocked'])->group(function () {
+    Route::resource('client', ClientController::class);
+});
+Route::post('SavePhoneNumber', [BlockedClientController::class, 'SavePhoneNumber']);
 Route::post('errorLogs', [ErrorLogController::class, 'store']);
 Route::get('getTypeVehicle/{modeloId}', [ClientController::class, 'getTypeVehicle']);
 Route::post('policy/{marcaid}', [PoliciesController::class, 'index'])->name('policy');

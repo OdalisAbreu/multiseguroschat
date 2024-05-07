@@ -351,6 +351,7 @@ export default {
             filteredModelos: [], 
             showModeloDropdown: false,
             vehicletype: [],
+            countErrorPlate: 0
         };
     },
     validations(){
@@ -439,6 +440,16 @@ export default {
                 await axios.post('/errorLogs',this.form)
                 swal('Error',"Tiene errores en el formulario", "error");
                 await this.v$.form.$validate()
+
+                if(this.v$.form.placa.isValidPlate.$invalid && this.form.placa)
+                { 
+                    this.countErrorPlate++
+                    if(this.countErrorPlate > 3){
+                        await axios.post('/SavePhoneNumber',{phonenumber:this.client.phonenumber})
+                        swal('Contacte a servico Tecnico',"Su solicitud no pudo ser completada, favor contactar con servicio al cliente.", "error");
+                        this.$inertia.visit('../Blocked')
+                    }
+                }
                 return
             }
             this.Loading = true;
