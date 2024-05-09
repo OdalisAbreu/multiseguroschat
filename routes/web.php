@@ -52,6 +52,7 @@ Route::middleware(['blocked'])->group(function () {
     Route::resource('client', ClientController::class);
 });
 Route::post('SavePhoneNumber', [BlockedClientController::class, 'SavePhoneNumber']);
+Route::post('IsRestricted', [BlockedClientController::class, 'IsRestricted']);
 Route::post('errorLogs', [ErrorLogController::class, 'store']);
 Route::get('getTypeVehicle/{modeloId}', [ClientController::class, 'getTypeVehicle']);
 Route::post('policy/{marcaid}', [PoliciesController::class, 'index'])->name('policy');

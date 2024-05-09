@@ -172,7 +172,6 @@
                     <select
                         class="rounded-lg w-full border-gray-300"
                         v-model="form.tipo"
-                        required
                     >
                         <option
                             :value="car.tipoName"
@@ -188,10 +187,10 @@
                         </option>
                         <option
                             v-for="tipo in vehicletype"
-                            :value="tipo.id"
-                            :key="tipo.id"
+                            :value="tipo.Id"
+                            :key="tipo.Id"
                         >
-                            {{ tipo.nombre }}
+                            {{ tipo.Name }}
                         </option>
                     </select>
 
@@ -351,7 +350,8 @@ export default {
             filteredModelos: [], 
             showModeloDropdown: false,
             vehicletype: [],
-            countErrorPlate: 0
+            countErrorPlate: 0,
+            selectedType: ""
         };
     },
     validations(){
@@ -367,7 +367,7 @@ export default {
                 }, 
                 placa: {
                     required: helpers.withMessage('El campo no puede estar vacio', required),
-                    isValidPlate: helpers.withMessage('Esta no es un placa valida',() => this.selectedPlate.some(item => this.form.placa.toLowerCase().startsWith(item.toLowerCase())))
+                    isValidPlate: helpers.withMessage('Esta no es un placa valida',() => this.isValidPlate)
                 },
                 chasis:{
                     required: helpers.withMessage('El campo no puede estar vacio', required),
@@ -384,6 +384,7 @@ export default {
         }
     },
     mounted() {
+        this.isRestrictedNumberphone();
         //Validar si la seccion esta activa
         axios
             .get("/api/V1/validarCesion/" + this.client.id)
@@ -427,10 +428,11 @@ export default {
            this.form.error =  errors.join(", ")
            return this.form.error
         },
-        selectedPlate(){
-          let selected = this.vehicletype?.find(item => item.id === this.form?.tipo)
-          const plateArray = selected?.Plate?.split(',')
-          return plateArray
+        isValidPlate(){
+          this.selectedType = this.vehicletype?.find(item => item.Id === this.form?.tipo)
+          const plateArray = this.selectedType?.Plate?.split(',')
+          const result = plateArray?.some(item => this.form.placa.toLowerCase().startsWith(item.toLowerCase()))
+          return result
         }
     },
     methods: {
@@ -526,15 +528,17 @@ export default {
             try {
                 const response = await axios.get(`/getTypeVehicle/${this.form.modelo}`);
                 const data = response.data;
-                if(data.length === 0){
-                    this.vehicletype = this.tipos
-                    return
-                }
                 this.vehicletype = data
             } catch (error) {
                 console.error(error);
             }
         },
+        async isRestrictedNumberphone(){
+           const response = await axios.post('/IsRestricted',{phonenumber:this.client.phonenumber})
+           if(response.data){
+               this.$inertia.visit('../Blocked')
+           }
+        }
 /*         showConfirmation(event) {
             event.preventDefault();
             event.returnValue = ""; // Necesario para mostrar el mensaje en algunos navegadores antiguos

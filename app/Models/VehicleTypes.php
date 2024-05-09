@@ -5,9 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ErrorLogs extends Model
+class VehicleTypes extends Model
 {
-    protected $table = 'error_log';
-
+    protected $table = 'vehicletypes';
     use HasFactory;
 }

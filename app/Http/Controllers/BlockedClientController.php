@@ -17,10 +17,16 @@ class BlockedClientController extends Controller
         $blockedClient = new BlockedClient();
         $blockedClient->phoneNumber = $request->phonenumber;
         $blockedClient->save();
-        return response()->json(['message' => 'Datos Guardados correctamente','resp' => $blockedClient],200);
+        return response()->json(['message' => 'Datos Guardados correctamente','resp'],200);
     }
 
-    public function getPhoneNumberBlocked($phoneNumber){
+    public function IsRestricted(Request $request){
 
+        if (BlockedClient::where('phoneNumber', $request->phonenumber)->exists()) {
+            
+            return response()->json(true,200);
+        }
+        return response()->json(false,200);
     }
+
 }

@@ -8,6 +8,7 @@ use App\Models\Province;
 use App\Models\Vehicle_brands;
 use App\Models\Vehicle_models;
 use App\Models\Vehicle_type_tarif;
+use App\Models\VehicleTypes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
@@ -185,12 +186,17 @@ class ClientController extends Controller
 
     public function getTypeVehicle($modeloId)
     {
-        $vehicleType =  DB::table('vehicletypes as vt')
-            ->select('vt.id', 'vt.Name as nombre', 'vt.Plate', 'vt_m.type')
-            ->join('vehicletype_vehiclemodels as vt_m', 'vt.Id', '=', 'vt_m.vehicleTypeId')
-            ->where('vt_m.vehicleModelId', $modeloId)
-            ->get();
+            
+        $vehicleType = VehicleTypes::select('vehicletypes.Id', 'vehicletypes.Name', 'vehicletypes.Plate', 'vehicletype_vehiclemodels.type')
+        ->join('vehicletype_vehiclemodels', 'vehicletypes.Id', '=', 'vehicletype_vehiclemodels.vehicleTypeId')
+        ->where('vehicletype_vehiclemodels.vehicleModelId', $modeloId)
+        ->get();
 
-        return $vehicleType;
+        if($vehicleType->isEmpty())
+        {
+            $vehicleType = VehicleTypes::All();
+        } 
+    
+        return $vehicleType; 
     }
 }
