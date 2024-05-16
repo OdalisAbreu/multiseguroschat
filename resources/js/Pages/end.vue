@@ -250,60 +250,60 @@ export default defineComponent({
             "/api/V1/generarPdf/" + this.invoice.police_transactionId
         );
         //esperar 5 segundos despues de generar el pdf
-        setTimeout(() => {
-            this.display = "none";
-        }, 5000);
         //--------------------------- Actualiza el codigo de descuento en multiseguros-----------------------------------------//
         axios.get(
             "/api/V1/UpdateDescuento/" + this.invoice.id
         );
-        //--------------------------- Enviar Mensaje al cliente -------------------------------//
-        console.log(this.Client.phonenumber);
-        axios
-            .post("/api/V1/enviarMensajeBotCitie", {
-                type: "text",
-                text: "¡Tu póliza está lista! Gracias por comprar en *SegurosChat*.🕐 _En breve estarás recibiendo tus documentos.._",
-                phone: this.Client.phonenumber,
-            })
-            .then((response) => {
-                console.log(response.data);
-            })
-            .catch((error) => {
-                console.log(error.response);
-            });
-
-        //------------------- Enviar PDF WhatsApp del cliente -----------------------------//
-        console.log(this.invoice.police_number);
-        axios
-            .post("/api/V1/enviarArchivoBotCitie", {
-                // .post("/api/V1/enviarArchivoBotCitie", {
-                type: "file",
-                url:
-                    "https://multiseguros.com.do/ws_dev/TareasProg/PDF/IMPRIMIR/" +
-                    this.invoice.police_number +
-                    ".pdf",
-                phone: this.Client.phonenumber,
-            })
-            .then((response) => {
-                console.log(response.data);
-            })
-            .catch((error) => {
-                console.log(error.response);
-            });
-
-        axios
-            .post("/api/V1/enviarArchivoBotCitie", {
-                // .post("/api/V1/enviarArchivoBotCitie", {
-                type: "file",
-                url: "https://multiseguros.com.do/ws_dev/TareasProg/PDF/IMPRIMIR/Terminos_Poliza.pdf",
-                phone: this.Client.phonenumber,
-            })
-            .then((response) => {
-                console.log(response.data);
-            })
-            .catch((error) => {
-                console.log(error.response);
-            });
+        setTimeout(() => {
+            this.display = "none";
+            //--------------------------- Enviar Mensaje al cliente -------------------------------//
+            console.log(this.Client.phonenumber);
+            axios
+                .post("/api/V1/enviarMensajeBotCitie", {
+                    type: "text",
+                    text: "¡Tu póliza está lista! Gracias por comprar en *SegurosChat*.🕐 _En breve estarás recibiendo tus documentos.._",
+                    phone: this.Client.phonenumber,
+                })
+                .then((response) => {
+                    console.log(response.data);
+                })
+                .catch((error) => {
+                    console.log(error.response);
+                });
+    
+            //------------------- Enviar PDF WhatsApp del cliente -----------------------------//
+            console.log(this.invoice.police_number);
+            axios
+                .post("/api/V1/enviarArchivoBotCitie", {
+                    // .post("/api/V1/enviarArchivoBotCitie", {
+                    type: "file",
+                    url:
+                        "https://multiseguros.com.do/ws_dev/TareasProg/PDF/IMPRIMIR/" +
+                        this.invoice.police_number +
+                        ".pdf",
+                    phone: this.Client.phonenumber,
+                })
+                .then((response) => {
+                    console.log(response.data);
+                })
+                .catch((error) => {
+                    console.log(error.response);
+                });
+    
+            axios
+                .post("/api/V1/enviarArchivoBotCitie", {
+                    // .post("/api/V1/enviarArchivoBotCitie", {
+                    type: "file",
+                    url: "https://multiseguros.com.do/ws_dev/TareasProg/PDF/IMPRIMIR/Terminos_Poliza.pdf",
+                    phone: this.Client.phonenumber,
+                })
+                .then((response) => {
+                    console.log(response.data);
+                })
+                .catch((error) => {
+                    console.log(error.response);
+                });
+        }, 10000);
         //------------------------ Confirmar la Transaccion --------------------------------//
         axios.get(
             "/api/V1/confirmarPositivo/" + this.Client.phonenumber

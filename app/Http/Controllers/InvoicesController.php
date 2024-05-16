@@ -217,7 +217,7 @@ class InvoicesController extends Controller
             $response = curl_exec($curl);
 
             curl_close($curl);
-            sleep(3);
+            sleep(1);
             $parts = explode('/', $response);
             if ($parts[0] == '00') {
                 $poliza = [
@@ -229,27 +229,59 @@ class InvoicesController extends Controller
                 ];
                 $poliza = (object) $poliza;
             } else {
-                Log::info("peticion de poliza sin procesar -> clientId: " . $invoices->client_id, [$response]);
-                $respond->AddTagContact('18294428902', 'errorEnviarPoliza');
-                $this->enviarMensaje('18294428902', 'text', '*ERROR AL GENERAR POLIZA POR MS/SCH 2* para el cliente Id: ' . $invoices->client_id . ' *FAVOR DE VERIFICAR EL ERROR*');
-                $this->enviarMensaje($client[0]->phonenumber, 'text', 'Estamos validando sus Datos por favor espere un momento');
-                return Inertia::render('end', [
-                    'ResponseCode' => $request->ResponseCode,
-                    'TransactionID' => $request->TransactionID,
-                    'RemoteResponseCode' => $request->RemoteResponseCode,
-                    'AuthorizationCode' => $request->AuthorizationCode,
-                    'RetrivalReferenceNumber' => $request->RetrivalReferenceNumber,
-                    'TxToken' =>  $request->TxToken,
-                    'transactionId' => 00,
-                    'logo' => $seller['logo'],
-                    'Poliza' => 00,
-                    'Client' => $client[0],
-                    'Marca' => $marca,
-                    'Modelo' => $modelo,
-                    'Aseguradora' => $seller['nombre'],
-                    'invoice' => $invoices,
-                    'tipo' => $tipo
-                ]);
+                Log::info("peticion de poliza sin procesar 1 -> clientId: " . $invoices->client_id, [$response]);
+                sleep(20);
+                $curl2 = curl_init();
+
+                curl_setopt_array($curl2, array(
+                    CURLOPT_URL => 'https://multiseguros.com.do/ws_dev/Seguros/GET_Poliza_Total.php',
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_ENCODING => '',
+                    CURLOPT_MAXREDIRS => 10,
+                    CURLOPT_TIMEOUT => 0,
+                    CURLOPT_FOLLOWLOCATION => true,
+                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    CURLOPT_CUSTOMREQUEST => 'POST',
+                    CURLOPT_POSTFIELDS => $json,
+                ));
+
+                $response2 = curl_exec($curl2);
+
+                curl_close($curl2);
+                sleep(1);
+                $parts2 = explode('/', $response2);
+                if ($parts2[0] == '00') {
+                    $poliza = [
+                        'status' => $parts2[0],
+                        'message' => $parts2[1],
+                        'transactionId' => $parts2[2],
+                        'fecha' => $parts2[3],
+                        'insurancePolicyNumber' => $parts2[4],
+                    ];
+                    $poliza = (object) $poliza;
+                } else {
+                    Log::info("peticion de poliza sin procesar 2 -> clientId: " . $invoices->client_id, [$response]);
+                    $respond->AddTagContact('18294428902', 'errorEnviarPoliza');
+                    $this->enviarMensaje('18294428902', 'text', '*ERROR AL GENERAR POLIZA POR MS/SCH 2* para el cliente Id: ' . $invoices->client_id . ' *FAVOR DE VERIFICAR EL ERROR*');
+                    $this->enviarMensaje($client[0]->phonenumber, 'text', 'Estamos validando sus Datos por favor espere un momento');
+                    return Inertia::render('end', [
+                        'ResponseCode' => $request->ResponseCode,
+                        'TransactionID' => $request->TransactionID,
+                        'RemoteResponseCode' => $request->RemoteResponseCode,
+                        'AuthorizationCode' => $request->AuthorizationCode,
+                        'RetrivalReferenceNumber' => $request->RetrivalReferenceNumber,
+                        'TxToken' =>  $request->TxToken,
+                        'transactionId' => 00,
+                        'logo' => $seller['logo'],
+                        'Poliza' => 00,
+                        'Client' => $client[0],
+                        'Marca' => $marca,
+                        'Modelo' => $modelo,
+                        'Aseguradora' => $seller['nombre'],
+                        'invoice' => $invoices,
+                        'tipo' => $tipo
+                    ]);
+                }
             }
             Log::info("peticion de poliza -> clientId: " . $invoices->client_id, [$poliza]);
         } catch (\Exception $e) {
