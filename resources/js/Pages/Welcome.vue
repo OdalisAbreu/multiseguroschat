@@ -59,13 +59,7 @@ export default {
                     RemoteResponseCode: this.RemoteResponseCode,
                     AuthorizationCode: this.AuthorizationCode,
                     RetrivalReferenceNumber: this.RetrivalReferenceNumber,
-                    TxToken: this.TxToke
-                    /*ResponseCode: '00',
-                    TransactionID: '91',
-                    RemoteResponseCode: '00',
-                    AuthorizationCode: '055209',
-                    RetrivalReferenceNumber: '000000000004',
-                    TxToken: '000000000001'*/
+                    TxToken: this.TxToken
                 }
             }
         },

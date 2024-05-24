@@ -4,6 +4,7 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\InvoicesController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PoliciesController;
+use App\Http\Controllers\ProvisionalErrorPoliciesController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -111,7 +112,7 @@ Route::get('/test', function () {
 Route::get('/error', function () {
     return Inertia::render('Welcome', [
         'ResponseCode' => 00,
-        'TransactionID' => 1028,
+        'TransactionID' => 1311,
         'RemoteResponseCode' => 00,
         'AuthorizationCode' => 409615,
         'RetrivalReferenceNumber' => 000000000033,
@@ -135,3 +136,4 @@ Route::get('/admin/codigo', function () {
 Route::get('/tarifas', function () {
     return Inertia::render('Tarifas/Tarifa');
 })->middleware('auth');
+Route::get('/admin/errorPolicies', [ProvisionalErrorPoliciesController::class, 'index'])->middleware('auth');

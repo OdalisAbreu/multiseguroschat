@@ -243,8 +243,12 @@ class ClientsController extends Controller
 
     public function enviarMensajeBotCitie(Request $request)
     {
-        $respond =  new RespondService;
-        $respond->AddTagContact($request->phone, 'cosulta_poliza_api');
+        $idClient = Client::where('phonenumber', $request->phone)->first();
+        $invoince = Invoices::where('client_id', $idClient->id)->get()->last();
+        if ($invoince->payment_status == 'ACCEPT') {
+            $respond =  new RespondService;
+            $respond->AddTagContact($request->phone, 'cosulta_poliza_api');
+        }
 
         $curl = curl_init();
         curl_setopt_array($curl, array(
