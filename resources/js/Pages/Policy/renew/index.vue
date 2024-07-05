@@ -96,7 +96,7 @@
                         {{ data.invoice.licensePlate }}
                     </label>
                 </div>
-</section>
+        </section>
 
             <section
                 class="flex flex-col bg-slate-100 rounded-xl border-2 border-gray-300 mb-2 px-4 p-3 max-w-4xl mx-auto mt-3"
@@ -669,10 +669,117 @@
                 </div>
             </section>
 
+           <section
+                class="flex flex-col justify-center items-center bg-slate-100 rounded-xl border-2 border-gray-300 mb-2 max-w-4xl mx-auto">
 
+                <div class="p-3">
+                    <div class="text-black font-bold text-center text-2xl sm:text-2xl md:text-3xl xl:text-3xl">Servicios
+                        Opcionales </div>
+                </div>
 
+                <form @submit.prevent="submit">
+                    <div class="mx-4 flex flex-col max-w-sm rounded-lg gap-2">
+                        <div class="relative flex justify-between items-center p-2 bg-white border border-gray-300 rounded-xl"
+                            v-for="service in data.services" :key="service.id">
+                            <div class="flex justify-start items-center">
+                                <div>
+                                    <input type="checkbox" class=" checked:bg-blue-800 p-1 mx-3 rounded-full" :checked="suma"
+                                        :value="service.id" v-model="form.servicios" name="poliza">
+                                </div>
+                                <div class="flex h-28 flex-col justify-center items-start">
+                                    <label class="text-start">{{ service.nombre  }}</label>
+    
+                                    <label class="font-bold">RD$ {{
+                                        new
+                                            Intl.NumberFormat('en-IN').format(service.seismeses)
+                                    }}.00
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <!-- Imagenes para automoviles -->
+                            <img v-if="service.nombre    == 'Casa del Conductor'" src="../../../../../public/ima/conductor.png" alt="Conductor">
+                            <img v-if="service.nombre    == 'Asistencia Vial (Grua)'" src="../../../../../public/ima/grua.png" alt="Grua">
+                            <img class="mr-1" v-if="service.nombre   == 'Aumento Fianza Hasta RD$1,000,000 (Veh. Livianos)'" src="../../../../../public/ima/plus.png" alt="mas">
+                            <img v-if="service.nombre    == 'Accidentes Personales RD$100,000'" src="../../../../../public/ima/accidente.png" alt="mas">
+                            <img v-if="service.nombre    == 'Ultimos Gastos RD$50,000'" src="../../../../../public/ima/gastos.png" alt="mas">
+                            <img v-if="service.nombre    == 'Plan Premium Automoviles(500/500/1,000,000 y 1 Millón FJ)'" alt="premium">
 
-<div
+                        </div>
+                        <div class="w-full mx-5 my-2 justify-self-center self-center text-center">
+                        </div>
+                    </div>
+                    <br>
+                </form>
+            </section>
+            <section
+                class="flex flex-col items-start justify-center bg-slate-100 rounded-xl border-2 border-gray-300 py-3 max-w-4xl mx-auto"
+            >
+                 <div
+                    class="w-full font-bold rounded overflow-x-hidden border-t flex flex-col gap-2 text-lg justify-between pt-4 mt-4 pl-3"
+                >
+                    <p>
+                        Sub Total:
+                        {{
+                            total.toLocaleString("es-DO", {
+                                style: "currency",
+                                currency: "DOP",
+                            })
+                        }}
+                    </p>
+
+                    <div class="w-full flex justify-center items-center">
+                        <button
+                            v-if="!Descuento"
+                            v-on:click="Descuento = true"
+                            href="#"
+                            class="text-center px-6 py-2 bg-blue-800 hover:bg-blue-700 text-white text-sm italic"
+                        >
+                            Tengo código de descuento
+                        </button>
+
+                        <div
+                            v-if="Descuento"
+                            class="flex flex-wrap justify-center items-center"
+                        >
+                            <input
+                                class="border-blue-800"
+                                type="text"
+                                placeholder="CÓDIGO DE DESCUENTO"
+                                name="codigo"
+                                id="codigo"
+                            />
+                            <button
+                                v-on:click="descuento()"
+                                class="max-w-xl px-6 py-2 text-center bg-blue-800 text-white text-lg font-bold"
+                            >
+                                Aplicar
+                            </button>
+                        </div>
+                    </div>
+
+                    <p v-if="Descuento">
+                        Descuento:
+                        {{
+                            form.descontar.toLocaleString("es-DO", {
+                                style: "currency",
+                                currency: "DOP",
+                            })
+                        }}
+                    </p>
+                    <p>
+                        Total a pagar:
+                        {{
+                            total.toLocaleString("es-DO", {
+                                style: "currency",
+                                currency: "DOP",
+                            })
+                        }}
+                    </p>
+                </div>
+            </section>
+
+            <div
                 class="flex flex-col items-center justify-center border-2 border-blue-800 bg-white max-w-4xl mt-6 rounded-xl mx-auto px-6 py-3 shadow-lg shadow-blue-500/50"
             >
                 <p
@@ -835,7 +942,6 @@
                     </div>
                 </form>
             </div>
-               
             </section>
             <Footer />
         </section>
@@ -923,9 +1029,12 @@ export default {
             checkedItems: Array,
             showCheckboxes: false,
             sellerSeleccionado: null,
+            ServicesPrice: 0,
+            total: 0,
             form: {
                 descontar: 0,
                 totalGeneral: this.data.invoice.totalGeneral,
+                servicios: [],
                 descuento: '',
                 price: this.data.policePrice + '00',
             }

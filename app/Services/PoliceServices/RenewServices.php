@@ -23,7 +23,7 @@ class RenewServices
 
     public function renew($invoiceID)
     {
-        $totalServicios = 0;
+        $services = array();
         $data = [];
         $car = [];
         $invoice = Invoices::find($invoiceID);
@@ -34,8 +34,7 @@ class RenewServices
         $cuponCode = Discounts::where('active', '1')->get();
         $sellerPrice = Price::where([['insurances_id', $invoice->sellers_id], ['vehicle_type_id', $invoice->car_tipe]])->first();
         $sellerCardnetCredencial = ModelsDataPaymentGateway::where('insurance_id', $invoice->sellers_id)->first();
-        $servicios = Service::where([['activo', 'si'], ['insurances_id', $invoice->sellers_id]])->get();
-
+        $services = Service::where([['insurances_id', $invoice->sellers_id], ['activo', 'si']])->get();
         $seller = DB::table('insurances')
             ->join('prices', 'prices.insurances_id', 'insurances.id')
             ->join('vehicle_type_tarifs', 'vehicle_type_tarifs.id', 'prices.vehicle_type_id')
@@ -91,6 +90,7 @@ class RenewServices
             $data['urlReturn'] = 'https://demo.seguroschat.com/api/statusPayment';
         }
 
+        $data['services'] = $services;
         $data['invoice'] = $invoice;
         $data['client'] = $client;
         $data['car'] = $car;

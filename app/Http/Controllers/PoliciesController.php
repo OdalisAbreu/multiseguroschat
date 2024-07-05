@@ -450,7 +450,7 @@ class PoliciesController extends Controller
     public function updatePolicy($invoiceID)
     {
         $data = $this->renewServices->renew($invoiceID);
-        // return $data;
+        //return $data;
         return Inertia::render('Policy/renew/index', [
             'data' => $data,
         ]);
