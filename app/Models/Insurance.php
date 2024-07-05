@@ -9,7 +9,8 @@ class Insurance extends Model
 {
     use HasFactory;
 
-    public function prices(){
+    public function prices()
+    {
         return $this->hasMany(Price::class);
     }
 }

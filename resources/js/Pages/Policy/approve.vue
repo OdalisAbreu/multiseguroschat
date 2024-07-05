@@ -153,7 +153,6 @@ export default {
             this.$inertia.post(this.route('generatepolicy'), this.form)
         },
         descuento() {
-            console.log('Entro')
             var codigoIngresado = document.getElementById('codigo').value
             var count = 0
             var percentage = 0

@@ -8,8 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Invoices extends Model
 {
     use HasFactory;
-    public function client()
-    {
-        return $this->belongsTo(Client::class);
-    }
+    // protected $fillable = [
+    //     'client_id',
+    // ];
+    // public function client()
+    // {
+    //     return $this->belongsTo(Client::class, 'client_id');
+    // }
+
+    // public function brand()
+    // {
+    //     return $this->belongsTo(Vehicle_brands::class, 'car_brand');
+    // }
 }

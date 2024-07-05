@@ -313,7 +313,6 @@
                 >
                     <h3 class="text-lg">Servicios Opcionales</h3>
                 </div>
-
                 <div
                     v-for="servicio in service"
                     :key="servicio.id"

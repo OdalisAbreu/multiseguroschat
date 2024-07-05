@@ -11,6 +11,7 @@ use App\Models\Service;
 use App\Models\Vehicle_brands;
 use App\Models\Vehicle_models;
 use App\Models\Vehicle_type_tarif;
+use App\Services\PoliceServices\RenewServices;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -22,20 +23,14 @@ use function PHPUnit\Framework\isNull;
 
 class PoliciesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    protected $renewServices;
+
+    public function __construct()
+    {
+        $this->renewServices = new RenewServices();
+    }
     public function index(Request $request, $marcaid) //Vista 2 Vehiculos
     {
-        // $tipo = '';
-        // $tipoName = '';
-        // $modelo = '';
-        // $modeloName = '';
-        // $marca = '';
-        // $marcaName = '';
-        //return $request->modelos;
         // Si llegan string no realiza la búsqueda del nombre porque ya viene en la variable base
         if (!is_string($request->tipo)) {
             foreach ($request->tipos as $tipo) {
@@ -181,7 +176,7 @@ class PoliciesController extends Controller
         $car['marca'] = $marca['ID'];
         $car['modelo'] = $modelo['ID'];
 
-
+        // return $request->services;
         foreach ($request->servicios as $serviciosActivo) {
             foreach ($request->services as $servicio) {
                 if ($servicio['id'] == $serviciosActivo) {
@@ -450,5 +445,14 @@ class PoliciesController extends Controller
     {
 
         return Inertia::render('poliza');
+    }
+
+    public function updatePolicy($invoiceID)
+    {
+        $data = $this->renewServices->renew($invoiceID);
+        // return $data;
+        return Inertia::render('Policy/renew/index', [
+            'data' => $data,
+        ]);
     }
 }

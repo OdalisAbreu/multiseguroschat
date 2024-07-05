@@ -65,6 +65,11 @@ Route::post('carReturn', [PoliciesController::class, 'carReturn'])->name('carRet
 Route::post('caseguradoraReturn', [PoliciesController::class, 'caseguradoraReturn'])->name('caseguradoraReturn'); //caseguradoraReturn
 Route::post('serviciosReturn', [PoliciesController::class, 'serviciosReturn'])->name('serviciosReturn'); //serviciosReturn
 
+//---------------------------------------------------------------------------------------
+
+//--------------------------Actualizar Polizas -------------------------------------------
+Route::get('updatePolicy/{invoiceId}', [PoliciesController::class, 'updatePolicy'])->name('updatePolicy');
+//---------------------------------------------------------------------------------------
 //-----------------------------Redired a Index si intenta actualizar en un punto ----------------------------------
 Route::get('policy/{marcaid}', function () {
     return Inertia::render('index');
