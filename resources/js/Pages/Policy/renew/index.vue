@@ -5,8 +5,11 @@
     >
         <Header :width="100" />
 
-             <section class="p-3 relative rounded-xl bg-white mx-3 z-50 mt-4">
-                 <div v-if="Loading" class="fixed inset-0 flex items-center justify-center z-50" >
+        <section class="p-3 relative rounded-xl bg-white mx-3 z-50 mt-4">
+            <div
+                v-if="Loading"
+                class="fixed inset-0 flex items-center justify-center z-50"
+            >
                 <svg
                     aria-hidden="true"
                     role="status"
@@ -25,7 +28,7 @@
                     />
                 </svg>
             </div>
-         <section
+            <section
                 class="flex flex-col items-start justify-center bg-slate-100 rounded-xl border-2 border-gray-300 py-3 max-w-4xl mx-auto"
             >
                 <div
@@ -36,7 +39,9 @@
 
                 <div class="w-full flex gap-2 pl-3">
                     <b class="w-1/2">Asegurado:</b>
-                    <p class="w-1/2">{{ data.client.name }} {{ data.client.lastname }}</p>
+                    <p class="w-1/2">
+                        {{ data.client.name }} {{ data.client.lastname }}
+                    </p>
                 </div>
 
                 <div class="w-full flex gap-2 pl-3">
@@ -96,7 +101,7 @@
                         {{ data.invoice.licensePlate }}
                     </label>
                 </div>
-        </section>
+            </section>
 
             <section
                 class="flex flex-col bg-slate-100 rounded-xl border-2 border-gray-300 mb-2 px-4 p-3 max-w-4xl mx-auto mt-3"
@@ -138,7 +143,6 @@
                                     <div
                                         class="w-full flex justify-around items-center gap-1 mb-1"
                                     >
-
                                         <div
                                             class="relative w-1/2 flex flex-col justify-around items-stretch"
                                         >
@@ -364,7 +368,10 @@
 
                                             <div
                                                 class="w-full flex items-center font-bold text-sm text-blue-700 pl-1 md:px-4 lg:px-10"
-                                                v-if="data.sellers[0].UnaPersona > 0"
+                                                v-if="
+                                                    data.sellers[0].UnaPersona >
+                                                    0
+                                                "
                                             >
                                                 <p class="w-8/12 text-left">
                                                     Una Persona:
@@ -382,8 +389,8 @@
                                             <div
                                                 class="w-full flex items-center font-bold text-sm text-blue-700 pl-1 md:px-4 lg:px-10"
                                                 v-if="
-                                                    data.sellers[0].FianzaJudicial >
-                                                    0
+                                                    data.sellers[0]
+                                                        .FianzaJudicial > 0
                                                 "
                                             >
                                                 <p class="w-8/12 text-left">
@@ -504,7 +511,10 @@
 
                                             <div
                                                 class="w-full flex items-center font-bold text-sm text-blue-700 pl-1 md:px-4 lg:px-10"
-                                                v-if="data.sellers[0].UnaPersona > 0"
+                                                v-if="
+                                                    data.sellers[0].UnaPersona >
+                                                    0
+                                                "
                                             >
                                                 <p class="w-8/12 text-left">
                                                     Una Persona:
@@ -522,8 +532,8 @@
                                             <div
                                                 class="w-full flex items-center font-bold text-sm text-blue-700 pl-1 md:px-4 lg:px-10"
                                                 v-if="
-                                                    data.sellers[0].FianzaJudicial >
-                                                    0
+                                                    data.sellers[0]
+                                                        .FianzaJudicial > 0
                                                 "
                                             >
                                                 <p class="w-8/12 text-left">
@@ -554,8 +564,6 @@
                                             class="flex justify-center items-center gap-x-2 py-1"
                                         >
                                             Ver Limites y Coberturas
-
-                                           
                                         </div>
 
                                         <div
@@ -626,7 +634,10 @@
 
                                             <div
                                                 class="w-full flex items-center font-bold text-sm text-blue-700 pl-1 md:px-4 lg:px-10"
-                                                v-if="data.sellers[0].UnaPersona > 0"
+                                                v-if="
+                                                    data.sellers[0].UnaPersona >
+                                                    0
+                                                "
                                             >
                                                 <p class="w-8/12 text-left">
                                                     Una Persona:
@@ -644,8 +655,8 @@
                                             <div
                                                 class="w-full flex items-center font-bold text-sm text-blue-700 pl-1 md:px-4 lg:px-10"
                                                 v-if="
-                                                    data.sellers[0].FianzaJudicial >
-                                                    0
+                                                    data.sellers[0]
+                                                        .FianzaJudicial > 0
                                                 "
                                             >
                                                 <p class="w-8/12 text-left">
@@ -669,59 +680,136 @@
                 </div>
             </section>
 
-           <section
-                class="flex flex-col justify-center items-center bg-slate-100 rounded-xl border-2 border-gray-300 mb-2 max-w-4xl mx-auto">
-
+            <section
+                class="flex flex-col justify-center items-center bg-slate-100 rounded-xl border-2 border-gray-300 mb-2 max-w-4xl mx-auto"
+            >
                 <div class="p-3">
-                    <div class="text-black font-bold text-center text-2xl sm:text-2xl md:text-3xl xl:text-3xl">Servicios
-                        Opcionales </div>
+                    <div
+                        class="text-black font-bold text-center text-2xl sm:text-2xl md:text-3xl xl:text-3xl"
+                    >
+                        Servicios Opcionales
+                    </div>
                 </div>
 
                 <form @submit.prevent="submit">
                     <div class="mx-4 flex flex-col max-w-sm rounded-lg gap-2">
-                        <div class="relative flex justify-between items-center p-2 bg-white border border-gray-300 rounded-xl"
-                            v-for="service in data.services" :key="service.id">
+                        <div
+                            class="relative flex justify-between items-center p-2 bg-white border border-gray-300 rounded-xl"
+                            v-for="service in data.services"
+                            :key="service.id"
+                        >
                             <div class="flex justify-start items-center">
                                 <div>
-                                    <input type="checkbox" class=" checked:bg-blue-800 p-1 mx-3 rounded-full" :checked="suma"
-                                        :value="service.id" v-model="form.servicios" name="poliza">
+                                    <input
+                                        type="checkbox"
+                                        class="checked:bg-blue-800 p-1 mx-3 rounded-full"
+                                        @change="
+                                            handleCheckboxChange(service, time)
+                                        "
+                                        :value="service.id"
+                                        v-model="form.servicios"
+                                        name="poliza"
+                                        :disabled="
+                                            time != 'seismeses' &&
+                                            time != 'docemeses'
+                                        "
+                                    />
                                 </div>
-                                <div class="flex h-28 flex-col justify-center items-start">
-                                    <label class="text-start">{{ service.nombre  }}</label>
-    
-                                    <label class="font-bold">RD$ {{
-                                        new
-                                            Intl.NumberFormat('en-IN').format(service.seismeses)
-                                    }}.00
+                                <div
+                                    class="flex h-28 flex-col justify-center items-start"
+                                >
+                                    <label class="text-start">{{
+                                        service.nombre
+                                    }}</label>
+
+                                    <label
+                                        v-if="time === 'seismeses'"
+                                        class="font-bold"
+                                        >RD$
+                                        {{
+                                            new Intl.NumberFormat(
+                                                "en-IN"
+                                            ).format(service.seismeses)
+                                        }}.00
+                                    </label>
+                                    <label
+                                        v-else-if="time === 'docemeses'"
+                                        class="font-bold"
+                                        >RD$
+                                        {{
+                                            new Intl.NumberFormat(
+                                                "en-IN"
+                                            ).format(service.docemeses)
+                                        }}.00
+                                    </label>
+                                    <label v-else class="font-bold"
+                                        >RD$0.00
                                     </label>
                                 </div>
                             </div>
-                            
-                            <!-- Imagenes para automoviles -->
-                            <img v-if="service.nombre    == 'Casa del Conductor'" src="../../../../../public/ima/conductor.png" alt="Conductor">
-                            <img v-if="service.nombre    == 'Asistencia Vial (Grua)'" src="../../../../../public/ima/grua.png" alt="Grua">
-                            <img class="mr-1" v-if="service.nombre   == 'Aumento Fianza Hasta RD$1,000,000 (Veh. Livianos)'" src="../../../../../public/ima/plus.png" alt="mas">
-                            <img v-if="service.nombre    == 'Accidentes Personales RD$100,000'" src="../../../../../public/ima/accidente.png" alt="mas">
-                            <img v-if="service.nombre    == 'Ultimos Gastos RD$50,000'" src="../../../../../public/ima/gastos.png" alt="mas">
-                            <img v-if="service.nombre    == 'Plan Premium Automoviles(500/500/1,000,000 y 1 Millón FJ)'" alt="premium">
 
+                            <!-- Imagenes para automoviles -->
+                            <img
+                                v-if="service.nombre == 'Casa del Conductor'"
+                                src="../../../../../public/ima/conductor.png"
+                                alt="Conductor"
+                            />
+                            <img
+                                v-if="
+                                    service.nombre == 'Asistencia Vial (Grua)'
+                                "
+                                src="../../../../../public/ima/grua.png"
+                                alt="Grua"
+                            />
+                            <img
+                                class="mr-1"
+                                v-if="
+                                    service.nombre ==
+                                    'Aumento Fianza Hasta RD$1,000,000 (Veh. Livianos)'
+                                "
+                                src="../../../../../public/ima/plus.png"
+                                alt="mas"
+                            />
+                            <img
+                                v-if="
+                                    service.nombre ==
+                                    'Accidentes Personales RD$100,000'
+                                "
+                                src="../../../../../public/ima/accidente.png"
+                                alt="mas"
+                            />
+                            <img
+                                v-if="
+                                    service.nombre == 'Ultimos Gastos RD$50,000'
+                                "
+                                src="../../../../../public/ima/gastos.png"
+                                alt="mas"
+                            />
+                            <img
+                                v-if="
+                                    service.nombre ==
+                                    'Plan Premium Automoviles(500/500/1,000,000 y 1 Millón FJ)'
+                                "
+                                alt="premium"
+                            />
                         </div>
-                        <div class="w-full mx-5 my-2 justify-self-center self-center text-center">
-                        </div>
+                        <div
+                            class="w-full mx-5 my-2 justify-self-center self-center text-center"
+                        ></div>
                     </div>
-                    <br>
+                    <br />
                 </form>
             </section>
             <section
                 class="flex flex-col items-start justify-center bg-slate-100 rounded-xl border-2 border-gray-300 py-3 max-w-4xl mx-auto"
             >
-                 <div
+                <div
                     class="w-full font-bold rounded overflow-x-hidden border-t flex flex-col gap-2 text-lg justify-between pt-4 mt-4 pl-3"
                 >
                     <p>
                         Sub Total:
                         {{
-                            total.toLocaleString("es-DO", {
+                            subTotal.toLocaleString("es-DO", {
                                 style: "currency",
                                 currency: "DOP",
                             })
@@ -770,7 +858,7 @@
                     <p>
                         Total a pagar:
                         {{
-                            total.toLocaleString("es-DO", {
+                            (subTotal + total).toLocaleString("es-DO", {
                                 style: "currency",
                                 currency: "DOP",
                             })
@@ -794,8 +882,14 @@
                     de CardNet®. Las primas son cobradas directamente por la
                     aseguradora seleccionada.
                 </p>
-                <img class="inline w-64 px-6" src="../../../../../public/ima/cardnetLogo.png" />
-                <img class="inline pt-4 w-64 px-8" src="../../../../../public/ima/tarjetas.png" />
+                <img
+                    class="inline w-64 px-6"
+                    src="../../../../../public/ima/cardnetLogo.png"
+                />
+                <img
+                    class="inline pt-4 w-64 px-8"
+                    src="../../../../../public/ima/tarjetas.png"
+                />
                 <span
                     class="flex gap-x-1 justify-center items-start max-w-sm text-justify mt-8"
                     ><img
@@ -811,7 +905,6 @@
             <div
                 class="mx-5 my-1 justify-self-center self-center text-center mt-6"
             >
-
                 <form
                     :action="`${data.payment_url}`"
                     method="POST"
@@ -886,7 +979,7 @@
                         v-model="data.invoice.id"
                     />
                     <input
-                        type="hidden"   
+                        type="hidden"
                         name="Amount"
                         id="Amount"
                         v-model="form.price"
@@ -931,7 +1024,10 @@
                         class="w-full mt-5 mx-5 my-4 pb-8 justify-self-center self-center text-center"
                     >
                         <button
-                            :class="{ 'bg-slate-600 shadow-none hover:bg-slate-600': condiciones == false }"
+                            :class="{
+                                'bg-slate-600 shadow-none hover:bg-slate-600':
+                                    condiciones == false,
+                            }"
                             :disabled="condiciones == false"
                             @click="submit()"
                             ref="myButton"
@@ -942,26 +1038,25 @@
                     </div>
                 </form>
             </div>
-            </section>
-            <Footer />
         </section>
+        <Footer />
+    </section>
 </template>
 
 <script>
-import { Head, Link } from '@inertiajs/inertia-vue3';
-import Header from '../../../components/Header.vue';
-import Footer from '../../../components/Footer.vue';
+import { Head, Link } from "@inertiajs/inertia-vue3";
+import Header from "../../../components/Header.vue";
+import Footer from "../../../components/Footer.vue";
 import VueDatePicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
 import { ref, onUnmounted } from "vue";
-
 
 export default {
     components: {
         Footer,
         Header,
         Head,
-        Link
+        Link,
     },
     props: {
         Loading: Boolean,
@@ -981,25 +1076,36 @@ export default {
     },
     methods: {
         descuento() {
-            var codigoIngresado = document.getElementById('codigo').value
-            var count = 0
-            var percentage = 0
+            var codigoIngresado = document.getElementById("codigo").value;
+            var count = 0;
+            var percentage = 0;
             this.data.cuponCode.forEach(function (codigo) {
                 if (codigoIngresado == codigo.code) {
-                    count++
-                    percentage = codigo.discount_amount
+                    count++;
+                    percentage = codigo.discount_amount;
                 }
             });
-            this.form.descontar = Math.round(this.totalGeneral * percentage / 100)
-            var aplicado = this.totalGeneral - this.form.descontar
+            this.form.descontar = Math.round(
+                (this.totalGeneral * percentage) / 100
+            );
+            var aplicado = this.totalGeneral - this.form.descontar;
             if (count > 0) {
-                this.form.totalGeneral = aplicado
+                this.form.totalGeneral = aplicado;
             } else {
-                alert('Código vencido o invalido, favor de verificar su código e introducirlo nuevamente')
-                document.getElementById('codigo').value = ''
+                alert(
+                    "Código vencido o invalido, favor de verificar su código e introducirlo nuevamente"
+                );
+                document.getElementById("codigo").value = "";
             }
         },
-         marcarItem(selectedSeller, buttonId, selectedIndex) {
+        sumaSubTotal(monto) {
+            this.subTotal = Number(monto);
+            console.log(this.subTotal);
+        },
+        sumaTotal(sumarMonto, restarMonto) {
+            this.total = this.total + sumarMonto - restarMonto;
+        },
+        marcarItem(selectedSeller, buttonId, selectedIndex) {
             this.checkedItems.forEach((seller, index) => {
                 if (seller.id !== selectedSeller.id || index != selectedIndex) {
                     seller.isChecked = false;
@@ -1010,14 +1116,33 @@ export default {
                     seller.isChecked = true;
                     seller.selectedButton = buttonId;
                 }
+
+                if (this.time == "seismeses") {
+                    this.sumaSubTotal(seller.seismeses);
+                } else if (this.time == "docemeses") {
+                    this.sumaSubTotal(seller.docemeses);
+                }
+                this.total = 0;
+                this.form.servicios = [];
             });
         },
-         submit() {
-//            this.mostrarConfirmacion = false
-            axios.get('api/accesoCarnet/'+ this.data.client.id);
+        handleCheckboxChange(service, time) {
+            const isChecked = this.form.servicios.includes(service.id);
+            const value =
+                time === "seismeses" ? service.seismeses : service.docemeses;
+
+            if (isChecked) {
+                this.sumaTotal(value, 0);
+            } else {
+                this.sumaTotal(0, value);
+            }
+        },
+        submit() {
+            //            this.mostrarConfirmacion = false
+            axios.get("api/accesoCarnet/" + this.data.client.id);
             this.Loading = true;
-          //  this.$inertia.post(this.route("generatepolicy"), this.form3);
-        }
+            //  this.$inertia.post(this.route("generatepolicy"), this.form3);
+        },
     },
     data() {
         return {
@@ -1031,14 +1156,16 @@ export default {
             sellerSeleccionado: null,
             ServicesPrice: 0,
             total: 0,
+            subTotal: 0,
+            time: "",
             form: {
                 descontar: 0,
                 totalGeneral: this.data.invoice.totalGeneral,
                 servicios: [],
-                descuento: '',
-                price: this.data.policePrice + '00',
-            }
-        }
+                descuento: "",
+                price: this.data.policePrice + "00",
+            },
+        };
     },
-}
+};
 </script>
