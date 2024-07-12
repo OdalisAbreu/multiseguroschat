@@ -809,7 +809,7 @@
                     <p>
                         Sub Total:
                         {{
-                            subTotal.toLocaleString("es-DO", {
+                            newSubTotal.toLocaleString("es-DO", {
                                 style: "currency",
                                 currency: "DOP",
                             })
@@ -840,6 +840,8 @@
                             <button
                                 v-on:click="descuento()"
                                 class="max-w-xl px-6 py-2 text-center bg-blue-800 text-white text-lg font-bold"
+                                :disabled="isButtonDisabled" 
+                                
                             >
                                 Aplicar
                             </button>
@@ -849,7 +851,7 @@
                     <p v-if="Descuento">
                         Descuento:
                         {{
-                            form.descontar.toLocaleString("es-DO", {
+                            descontar.toLocaleString("es-DO", {
                                 style: "currency",
                                 currency: "DOP",
                             })
@@ -858,7 +860,7 @@
                     <p>
                         Total a pagar:
                         {{
-                            (subTotal + total).toLocaleString("es-DO", {
+                            (totalGeneral).toLocaleString("es-DO", {
                                 style: "currency",
                                 currency: "DOP",
                             })
@@ -906,11 +908,12 @@
                 class="mx-5 my-1 justify-self-center self-center text-center mt-6"
             >
                 <form
-                    :action="`${data.payment_url}`"
-                    method="POST"
-                    name="CardNet"
-                    class="CardNet flex flex-col justify-center items-center"
-                    id="CardNet"
+                      :action="`${data.payment_url}`"
+                        method="POST"
+                        name="CardNet"
+                        class="CardNet flex flex-col justify-center items-center"
+                        id="CardNet"
+                        ref="CardNet"
                 >
                     <input
                         type="hidden"
@@ -970,22 +973,22 @@
                         type="hidden"
                         name="OrdenId"
                         id="OrdenId"
-                        v-model="data.invoice.id"
+                        v-model="orderId"
                     />
                     <input
                         type="hidden"
                         name="TransactionId"
                         id="TransactionId"
-                        v-model="data.invoice.id"
+                        v-model="orderId"
                     />
                     <input
                         type="hidden"
                         name="Amount"
                         id="Amount"
-                        v-model="form.price"
+                        :value="(totalGeneral) + '00' "
                     />
                     <input type="hidden" name="Tax" id="Tax" Value="00" />
-                    <!--<input type="text" name="Tax" id="Tax" v-model="form.tax" />-->
+                    <!--<input type="hidden" name="Tax" id="Tax" v-model="form.tax" />-->
                     <input
                         type="hidden"
                         name="MerchantName"
@@ -1020,23 +1023,23 @@
                         </p>
                     </div>
 
-                    <div
-                        class="w-full mt-5 mx-5 my-4 pb-8 justify-self-center self-center text-center"
-                    >
-                        <button
-                            :class="{
-                                'bg-slate-600 shadow-none hover:bg-slate-600':
-                                    condiciones == false,
-                            }"
-                            :disabled="condiciones == false"
-                            @click="submit()"
-                            ref="myButton"
-                            class="w-full max-w-xl justify-center bg-blue-800 hover:bg-blue-700 shadow-lg shadow-blue-500/50 text-white font-bold rounded-lg py-4 sm:m-3 sm:w-full md:m-3 md:w-full xl:m-3 xl:full"
-                        >
-                            Realizar Compra
-                        </button>
-                    </div>
                 </form>
+                <div
+                    class="w-full mt-5 mx-5 my-4 pb-8 justify-self-center self-center text-center"
+                >
+                    <button
+                        :class="{
+                            'bg-slate-600 shadow-none hover:bg-slate-600':
+                                condiciones == false,
+                        }"
+                        :disabled="condiciones == false"
+                        @click="submit()"
+                        ref="myButton"
+                        class="w-full max-w-xl justify-center bg-blue-800 hover:bg-blue-700 shadow-lg shadow-blue-500/50 text-white font-bold rounded-lg py-4 sm:m-3 sm:w-full md:m-3 md:w-full xl:m-3 xl:full"
+                    >
+                        Realizar Compra
+                    </button>
+                </div>
             </div>
         </section>
         <Footer />
@@ -1079,18 +1082,23 @@ export default {
             var codigoIngresado = document.getElementById("codigo").value;
             var count = 0;
             var percentage = 0;
+            var id = 0;
             this.data.cuponCode.forEach(function (codigo) {
                 if (codigoIngresado == codigo.code) {
+                    id= codigo.id;
                     count++;
                     percentage = codigo.discount_amount;
                 }
             });
-            this.form.descontar = Math.round(
+            this.discount_id = id;
+            this.descontar = Math.round(
                 (this.totalGeneral * percentage) / 100
             );
-            var aplicado = this.totalGeneral - this.form.descontar;
+            var aplicado = this.totalGeneral - this.descontar;
             if (count > 0) {
-                this.form.totalGeneral = aplicado;
+                //Deshabilitar btnDescuento
+                 this.isButtonDisabled = true;
+                this.totalGeneral = aplicado;
             } else {
                 alert(
                     "Código vencido o invalido, favor de verificar su código e introducirlo nuevamente"
@@ -1100,10 +1108,13 @@ export default {
         },
         sumaSubTotal(monto) {
             this.subTotal = Number(monto);
-            console.log(this.subTotal);
+            this.totalGeneral =  Number(monto);
+            this.newSubTotal = this.totalGeneral 
         },
         sumaTotal(sumarMonto, restarMonto) {
             this.total = this.total + sumarMonto - restarMonto;
+            this.newSubTotal = this.subTotal + this.total
+            this.totalGeneral = this.subTotal + this.total
         },
         marcarItem(selectedSeller, buttonId, selectedIndex) {
             this.checkedItems.forEach((seller, index) => {
@@ -1138,10 +1149,34 @@ export default {
             }
         },
         submit() {
-            //            this.mostrarConfirmacion = false
-            axios.get("api/accesoCarnet/" + this.data.client.id);
+            axios.get("/api/accesoCarnetUpdate/" + this.data.client.id);
             this.Loading = true;
-            //  this.$inertia.post(this.route("generatepolicy"), this.form3);
+            // console.log('entro');
+           if (this.time == ""){
+               alert("Favor de seleccionar la vigencia de tu seguro");
+               return;
+           }
+           if(this.time == "seismeses"){
+               this.data.time = 6
+           }else{
+               this.data.time = 12
+           }
+            this.data.policePrice = this.totalGeneral;
+            this.data.newServices = this.form.servicios;
+            this.data.discount_id = this.discount_id;
+            axios.post( "/api/UpdatePolice", this.data)
+            .then((response) => {
+                    console.log(response);
+                    this.orderId = response.data.id;
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
+                .finally(() => {
+                    this.Loading = false;
+                    this.$refs.CardNet.submit();//Envía el formulario
+                });
+             
         },
     },
     data() {
@@ -1151,17 +1186,22 @@ export default {
             quitarBorde: false,
             marcado: false,
             Loading: false,
+            isButtonDisabled: false,
             checkedItems: Array,
             showCheckboxes: false,
             sellerSeleccionado: null,
+            orderId: this.data.invoice.id,
+            totalGeneral: 0,
+            newSubTotal: 0,
+            descontar: 0,
             ServicesPrice: 0,
+            discount_id: 0,
             total: 0,
             subTotal: 0,
             time: "",
             form: {
-                descontar: 0,
-                totalGeneral: this.data.invoice.totalGeneral,
                 servicios: [],
+                descontar: 0,
                 descuento: "",
                 price: this.data.policePrice + "00",
             },

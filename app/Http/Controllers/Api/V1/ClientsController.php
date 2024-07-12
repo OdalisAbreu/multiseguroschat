@@ -406,6 +406,13 @@ class ClientsController extends Controller
         Log::info("Acceso Carnet -> clientId: " . $id, ["horaAcceso" => $horaAcceso, "clientId" => $id]);
     }
 
+    public function accesoCarnetUpdate($id)
+    {
+        $horaAcceso = new DateTime('now', new DateTimeZone('America/Santo_Domingo'));
+        $horaAcceso = $horaAcceso->format('Y-m-d H:i:s');
+        Log::info("Acceso Carnet Update -> clientId: " . $id, ["horaAcceso" => $horaAcceso, "clientId" => $id]);
+    }
+
     public function desactivarSesionClientes()
     {
         //desactivar la sesiones activas  
