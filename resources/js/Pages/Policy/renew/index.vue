@@ -1154,6 +1154,7 @@ export default {
             // console.log('entro');
            if (this.time == ""){
                alert("Favor de seleccionar la vigencia de tu seguro");
+               this.Loading = false;
                return;
            }
            if(this.time == "seismeses"){
