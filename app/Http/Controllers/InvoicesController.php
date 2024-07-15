@@ -250,7 +250,7 @@ class InvoicesController extends Controller
                     'AuthorizationCode' => $request->AuthorizationCode,
                     'RetrivalReferenceNumber' => $request->RetrivalReferenceNumber,
                     'TxToken' =>  $request->TxToken,
-                    'urlBase' => env('APP_URL'),
+                    'urlBase' => env('MULTISEGUROS_URL'),
                     'transactionId' => 00,
                     'logo' => $seller['logo'],
                     'Poliza' => 00,
