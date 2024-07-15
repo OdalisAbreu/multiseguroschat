@@ -16,7 +16,7 @@
                 <img class="text-center w-36" :src="logo" />
                 <iframe
                     :src="
-                        'https://multiseguros.com.do/SegurosChat/Admin/Sist.Sucursal/Seguro/poliza.php?id=' +
+                        urlBase + '/SegurosChat/Admin/Sist.Sucursal/Seguro/poliza.php?id=' +
                         transactionId
                     "
                     width="100%"
@@ -185,6 +185,7 @@ export default defineComponent({
         Aseguradora: String,
         invoice: Array,
         tipo: Array,
+        urlBase: String,
     },
     mounted() {
         //------------------ Guardar Vista por el cliente -------------------------------------
