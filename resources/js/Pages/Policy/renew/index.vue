@@ -773,7 +773,7 @@
                             <img
                                 v-if="
                                     service.nombre ==
-                                    'Accidentes Personales RD$100,000'
+                                    'Accidentes Personales RD$100,000' || service.nombre == 'Centro del Automovilista'
                                 "
                                 src="../../../../../public/ima/accidente.png"
                                 alt="mas"

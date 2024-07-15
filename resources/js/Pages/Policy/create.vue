@@ -94,7 +94,7 @@
                             <img v-if="service.serviceName == 'Casa del Conductor'" src="../../../../public/ima/conductor.png" alt="Conductor">
                             <img v-if="service.serviceName == 'Asistencia Vial (Grua)'" src="../../../../public/ima/grua.png" alt="Grua">
                             <img class="mr-1" v-if="service.serviceName == 'Aumento Fianza Hasta RD$1,000,000 (Veh. Livianos)'" src="../../../../public/ima/plus.png" alt="mas">
-                            <img v-if="service.serviceName == 'Accidentes Personales RD$100,000'" src="../../../../public/ima/accidente.png" alt="mas">
+                            <img v-if="service.serviceName == 'Accidentes Personales RD$100,000' || service.serviceName == 'Centro del Automovilista'" src="../../../../public/ima/accidente.png" alt="mas">
                             <img v-if="service.serviceName == 'Ultimos Gastos RD$50,000'" src="../../../../public/ima/gastos.png" alt="mas">
                             <img v-if="service.serviceName == 'Plan Premium Automoviles(500/500/1,000,000 y 1 Millón FJ)'" alt="premium">
 
