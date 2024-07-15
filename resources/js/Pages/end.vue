@@ -16,7 +16,7 @@
                 <img class="text-center w-36" :src="logo" />
                 <iframe
                     :src="
-                        urlBase + '/SegurosChat/Admin/Sist.Sucursal/Seguro/poliza.php?id=' +
+                        urlBase + '/Admin/Sist.Sucursal/Seguro/poliza.php?id=' +
                         transactionId
                     "
                     width="100%"
