@@ -151,7 +151,7 @@ class InvoicesController extends Controller
         }
         $urlBase = "https://multiseguros.com.do/SegurosChat";
 
-        if (env('APP_ENV') == 'production') {
+        if (env('APP_ENV') != 'production') {
             $urlBase = "https://multiseguros.com.do/DemoSegurosChat";
         }
 
