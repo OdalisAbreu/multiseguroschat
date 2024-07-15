@@ -256,6 +256,7 @@ class PoliciesController extends Controller
             $insurre['merchantnumber'] =  '349000000';
             $insurre['merchantterminal'] = '58585858';
             $insurre['payment_url'] = 'https://lab.cardnet.com.do/authorize';
+            $urlReturn = 'https://demo.seguroschat.com/api/statusPayment';
         }
         return Inertia::render('Policy/edit', [
             'car' => $car,
