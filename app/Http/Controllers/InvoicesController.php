@@ -243,6 +243,12 @@ class InvoicesController extends Controller
                 $respond->AddTagContact('18294428902', 'errorEnviarPoliza');
                 $this->enviarMensaje('18294428902', 'text', '*ERROR AL GENERAR POLIZA POR MS/SCH 2* para el cliente Id: ' . $invoices->client_id . ' *FAVOR DE VERIFICAR EL ERROR*');
                 $this->enviarMensaje($client[0]->phonenumber, 'text', 'Estamos validando sus Datos por favor espere un momento');
+                $urlBase = "https://multiseguros.com.do/SegurosChat";
+
+                if (env('APP_ENV') == 'production') {
+                    $urlBase = "https://multiseguros.com.do/DemoSegurosChat";
+                }
+
                 return Inertia::render('end', [
                     'ResponseCode' => $request->ResponseCode,
                     'TransactionID' => $request->TransactionID,
@@ -250,7 +256,7 @@ class InvoicesController extends Controller
                     'AuthorizationCode' => $request->AuthorizationCode,
                     'RetrivalReferenceNumber' => $request->RetrivalReferenceNumber,
                     'TxToken' =>  $request->TxToken,
-                    'urlBase' => env('MULTISEGUROS_URL'),
+                    'urlBase' => $urlBase,
                     'transactionId' => 00,
                     'logo' => $seller['logo'],
                     'Poliza' => 00,
