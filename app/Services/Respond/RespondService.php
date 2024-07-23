@@ -17,10 +17,10 @@ class RespondService
             ->post('https://api.respond.io/v2/contact/phone:+' . $phoneCustomer . '/tag', [
                 $tags
             ]);
-        if ($response->successful()) {
-            Log::info('add tag contact:', ['responseData' => $response->json()]);
-        } else {
-            Log::error('add tag contact:', ['responseData' => $response->status()]);
-        }
+        // if ($response->successful()) {
+        //     Log::info('add tag contact:', ['responseData' => $response->json()]);
+        // } else {
+        //     Log::error('add tag contact:', ['responseData' => $response->status()]);
+        // }
     }
 }
