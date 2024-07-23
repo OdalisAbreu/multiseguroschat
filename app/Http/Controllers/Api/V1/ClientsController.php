@@ -218,7 +218,6 @@ class ClientsController extends Controller
         $response = curl_exec($curl);
 
         curl_close($curl);
-        Log::info('Respond Enviar Poliza:', ['response' => $response]);
         return 'OK';
     }
 
@@ -237,7 +236,6 @@ class ClientsController extends Controller
         ));
         $response = curl_exec($curl);
         curl_close($curl);
-        Log::info('Generar Pdf:', ['response' => $response]);
         return $response;
     }
 
@@ -273,7 +271,6 @@ class ClientsController extends Controller
         ));
         $response = curl_exec($curl);
         curl_close($curl);
-        Log::info('Respond Enviar Mensaje:', ['response' => $response]);
         return json_decode($response);
     }
     public function enviarArchivoBotCitie(Request $request)
@@ -307,7 +304,6 @@ class ClientsController extends Controller
 
         $response = curl_exec($curl);
         curl_close($curl);
-        Log::info('Respond Enviar Archivo:', ['response' => $response]);
     }
     public function confirmarPositivo($phone)
     {
@@ -376,7 +372,6 @@ class ClientsController extends Controller
         $client = Client::where('id', $idClient)->first();
         $client->vista = $vista;
         $client->save();
-        Log::info("Validar Vista", ["id" => $client->id, "vista" => $client->vista]);
         return $client;
     }
     public function validarCesion($id)
@@ -416,8 +411,8 @@ class ClientsController extends Controller
     public function desactivarSesionClientes()
     {
         //desactivar la sesiones activas  
-        $yesterday = date('Y-m-d', strtotime('-1 day'));
-        return  Client::whereDate('updated_at', '<', $yesterday)
+        $oneFourHoursAgo = date('Y-m-d H:i:s', strtotime('-1 hours'));
+        return  Client::whereDate('updated_at', '<', $oneFourHoursAgo)
             ->where('session', 'A')
             ->update(['session' => 'I']);
     }
