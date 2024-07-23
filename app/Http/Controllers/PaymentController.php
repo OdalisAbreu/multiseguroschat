@@ -154,7 +154,6 @@ class PaymentController extends Controller
         $invoice->payment_status = 'peding';
         $invoice->save();
         return $invoice;
-        Log::info("inovice -> id: " . $invoice->client_id, [$invoice]);
         if (env('APP_ENV' == 'production')) {
             $merchanttype = $request->insurre['merchanttype'];
             $merchantnumber =  $request->insurre['merchantnumber'];

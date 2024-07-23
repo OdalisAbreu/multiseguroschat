@@ -72,7 +72,6 @@ class ClientController extends Controller
                 $clientProvince['id'] = 0;
             }
             $Clientepais = DB::select('select * from nacionalidad where id = ' . $client->nacionalidad);
-            Log::info("Cliente -> clientId: " . $client->id, [$client]);
             return Inertia::render('Clients/Edit', [
                 'client' => $client,
                 'cities' => $cities,
