@@ -36,36 +36,26 @@
             v-model="data.DanosPropiedadAjena"
             :label-name="'DPA'"
             :typeInput="'text'"
-            :readonly="true"
-            :disabled="true"
         />
         <CustomInput
             v-model="data.ResponsabilidadCivil"
             :label-name="'RC'"
             :typeInput="'text'"
-            :readonly="true"
-            :disabled="true"
         />
         <CustomInput
             v-model="data.ResponsabilidadCivil2"
             :label-name="'RC2'"
             :typeInput="'text'"
-            :readonly="true"
-            :disabled="true"
         />
         <CustomInput
             v-model="data.FianzaJudicial"
             :label-name="'FJ'"
             :typeInput="'text'"
-            :readonly="true"
-            :disabled="true"
         />
         <CustomInput
             v-model="data.UnaPersona"
             :label-name="'AP'"
             :typeInput="'text'"
-            :readonly="true"
-            :disabled="true"
         />
     </div>
 </div>

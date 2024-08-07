@@ -107,6 +107,8 @@ export default {
             }
         },
         async editForm() {
+
+            console.log(this.itemToEdit[0])
             try {
                 const {data} = await axios.put(`/api/V1/prices/${this.itemIdToEdit}`, this.itemToEdit[0])
                 if(data.success){
