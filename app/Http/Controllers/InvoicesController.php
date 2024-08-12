@@ -389,6 +389,8 @@ class InvoicesController extends Controller
             $invoice->TxToken =  $request->TxToken;
             $invoice->update();
 
+            Log::debug('Actualizando estado de la transacción');
+
             return Inertia::render('Welcome', [
                 'ResponseCode' => $request->ResponseCode,
                 'TransactionID' => $request->TransactionID,
