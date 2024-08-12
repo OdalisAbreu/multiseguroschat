@@ -18,9 +18,11 @@ use Illuminate\Support\Env;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
+use Opcodes\LogViewer\Logs\Log as LogsLog;
 use phpDocumentor\Reflection\Types\Resource_;
 
 use function PHPUnit\Framework\isNull;
+use function Psy\debug;
 
 class InvoicesController extends Controller
 {
@@ -135,6 +137,7 @@ class InvoicesController extends Controller
 
     public function statusPaymentCardNet(Request $request)
     {
+        Log::debug("Entro en la funcion statusPaymentCardNet");
         //-----------------Consulta las tablas para generar las polizas----------------
         $invoices = Invoices::find($request->TransactionID);
         $seller = Insurance::find($invoices['sellers_id']);
@@ -169,6 +172,8 @@ class InvoicesController extends Controller
         }
         $adrress = $client[0]->adrress;
         $city = $client[0]->city;
+
+        Log::debug("Punto Intermedio");
 
         $marcas = Vehicle_brands::find($invoices->car_brand);
         $marca = $marcas->DESCRIPCION;
