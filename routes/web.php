@@ -68,6 +68,7 @@ Route::post('serviciosReturn', [PoliciesController::class, 'serviciosReturn'])->
 //---------------------------------------------------------------------------------------
 
 //--------------------------Actualizar Polizas -------------------------------------------
+Route::get('seePolicy/{phone}', [PoliciesController::class, 'seePolicy'])->name('seePolicy');
 Route::get('updatePolicy/{invoiceId}', [PoliciesController::class, 'updatePolicy'])->name('updatePolicy');
 //---------------------------------------------------------------------------------------
 //-----------------------------Redired a Index si intenta actualizar en un punto ----------------------------------

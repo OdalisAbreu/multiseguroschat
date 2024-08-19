@@ -10,23 +10,28 @@
                         <img class="w-8 cursor-pointer" src="../../../public/ima/menu.png" alt="Menu">
                     </div>
                 </div>
-
-                <div class="flex justify-around text-sm bg-blue-800 mt-2 text-white mb-2">
-                    <p>Asegurado</p>
-                    <p>Vehículo</p>
-                    <p>Aseguradora</p>
-                    <p>Pago</p>
-                </div>
-
-                <div class="mx-3 sm:mx-20 lg:mx-20 xl:mx-20">
-                    <div class="bg-slate-800 opacity-50 rounded-full">
-                        <div class="bg-cyan-400 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-l-full progress"
-                            :style="{ width: width + '%' }">
+                <div v-if="width > 0">
+                    <div class="flex justify-around text-sm bg-blue-800 mt-2 text-white mb-2">
+                        <p>Asegurado</p>
+                        <p>Vehículo</p>
+                        <p>Aseguradora</p>
+                        <p>Pago</p>
+                    </div>
+    
+                    <div class="mx-3 sm:mx-20 lg:mx-20 xl:mx-20">
+                        <div class="bg-slate-800 opacity-50 rounded-full">
+                            <div class="bg-cyan-400 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-l-full progress"
+                                :style="{ width: width + '%' }">
+                            </div>
                         </div>
                     </div>
                 </div>
+                <div v-if="name" class="mt-4 text-white text-center text-xl font-black">
+                      Bienvenido(a) <br /> {{ name }}
+                   </div>
             </div>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" class="absolute z-0">
+
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" class="absolute z-0" style="margin-top: -1px;">
                 <path fill="rgb(30 64 175)" fill-opacity="1"
                     d="M0,224L120,202.7C240,181,480,139,720,138.7C960,139,1200,181,1320,202.7L1440,224L1440,0L1320,0C1200,0,960,0,720,0C480,0,240,0,120,0L0,0Z">
                 </path>
@@ -54,7 +59,14 @@ import { booleanLiteral, interfaceDeclaration } from '@babel/types';
 export default {
     name: "Header",
     props: {
-        width: Number, /* Prop para asignar tamaño a barra en navegacion */
+        width: {
+            type: Number,
+            default: -1
+        }, /* Prop para asignar tamaño a barra en navegacion */
+        name: { 
+            type: String, 
+            default: "" 
+        }   /* Prop para asignar nombre a barra en navegacion */
     },
 }
 </script>

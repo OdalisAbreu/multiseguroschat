@@ -143,7 +143,8 @@ class PoliciesController extends Controller
                 'ResponsabilidadCivil',
                 'ResponsabilidadCivil2',
                 'UnaPersona',
-                'FianzaJudicial'
+                'FianzaJudicial',
+                'note_cobertura'
             )
             ->get();
         return Inertia::render('Policy/index', [
@@ -441,13 +442,21 @@ class PoliciesController extends Controller
 
         return Inertia::render('poliza');
     }
-
+    //---------------------------------------------------------------------------------------------------------------------------
     public function updatePolicy($invoiceID)
     {
         $data = $this->renewServices->renew($invoiceID);
         //return $data;
         return Inertia::render('Policy/renew/index', [
             'data' => $data,
+        ]);
+    }
+
+    public function seePolicy($phone)
+    {
+        $data = [];
+        return Inertia::render('Policy/renew/seePolices', [
+            'data' => $data
         ]);
     }
 }

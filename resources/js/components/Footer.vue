@@ -1,6 +1,6 @@
 <template>
     <section
-        class="flex flex-col justify-center items-center text-center py-4 bg-gray-300"
+        class="flex flex-col justify-center items-center text-center py-4 bg-gray-300 "
     >
         <div class="cursor-pointer text-gray-700 hover:text-blue-800">
             <p>
@@ -232,3 +232,4 @@ export default {
     },
 };
 </script>
+
