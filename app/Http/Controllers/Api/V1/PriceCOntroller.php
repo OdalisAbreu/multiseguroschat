@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Models\Insurance;
 use App\Models\Price;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -12,7 +13,7 @@ class PriceCOntroller extends Controller
     public function index()
     {
         $prices =  DB::table('prices as P')
-            ->select('P.id as id', 'I.nombre as aseguradora', 'I.id as aseguradoraId', 'VTT.veh_tipo as tipoDeVehiculoId', 'VTT.nombre as tipoDeVehiculo', 'VTT.activo as state', 'VTT.placas', 'priceThreeMonths', 'priceSixMonths', 'priceTwelveMonths', 'DanosPropiedadAjena', 'ResponsabilidadCivil', 'ResponsabilidadCivil2', 'UnaPersona', 'FianzaJudicial')
+            ->select('P.id as id', 'I.nombre as aseguradora', 'I.id as aseguradoraId', 'I.note_cobertura', 'VTT.veh_tipo as tipoDeVehiculoId', 'VTT.nombre as tipoDeVehiculo', 'VTT.activo as state', 'VTT.placas', 'priceThreeMonths', 'priceSixMonths', 'priceTwelveMonths', 'DanosPropiedadAjena', 'ResponsabilidadCivil', 'ResponsabilidadCivil2', 'UnaPersona', 'FianzaJudicial')
             ->join('vehicle_type_tarifs as VTT', 'VTT.id', '=', 'P.vehicle_type_id')
             ->join('insurances as I', 'I.id', '=', 'P.insurances_id')
             ->where('I.activo', 'si')
@@ -54,7 +55,7 @@ class PriceCOntroller extends Controller
     public function show($id)
     {
         $resultado = DB::table('prices as P')
-            ->select('P.id as id', 'I.nombre as aseguradora', 'VTT.nombre as tipoDeVehiculo', 'priceThreeMonths', 'priceSixMonths', 'priceTwelveMonths', 'DanosPropiedadAjena', 'ResponsabilidadCivil', 'ResponsabilidadCivil2', 'UnaPersona', 'FianzaJudicial')
+            ->select('P.id as id', 'I.nombre as aseguradora', 'I.note_cobertura', 'VTT.nombre as tipoDeVehiculo', 'priceThreeMonths', 'priceSixMonths', 'priceTwelveMonths', 'DanosPropiedadAjena', 'ResponsabilidadCivil', 'ResponsabilidadCivil2', 'UnaPersona', 'FianzaJudicial')
             ->join('vehicle_type_tarifs as VTT', 'VTT.id', '=', 'P.vehicle_type_id')
             ->join('insurances as I', 'I.id', '=', 'P.insurances_id')
             ->where('P.id', $id)
@@ -65,6 +66,9 @@ class PriceCOntroller extends Controller
 
     public function update(Request $request, $id)
     {
+        $aseguradora = Insurance::find($request->aseguradoraId);
+        $aseguradora->note_cobertura = $request->note_cobertura;
+        $aseguradora->save();
         $price = Price::find($id);
         if (!$price) {
             return response()->json([

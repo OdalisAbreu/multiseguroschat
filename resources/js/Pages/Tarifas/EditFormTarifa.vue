@@ -8,13 +8,6 @@
         :readonly="true"
         :disabled="true"
     />
-    <CustomInput
-        class="whitespace-nowrap"
-        :label-name="'Codigo de la General de Seguros'"
-        :typeInput="'text'"
-        :readonly="true"
-        :disabled="true"
-    />
     </div>
     <div class="grid gap-2 grid-cols-3">
         <CustomInput
@@ -58,6 +51,10 @@
             :typeInput="'text'"
         />
     </div>
+    <div class="mt-2">
+        <label class="pt-1 font-bold">Notas</label>
+        <textarea v-model="data.note_cobertura" class="w-full h-24 border border-gray-300 rounded-lg p-2" rows="5" cols="40"></textarea>
+    </div>
 </div>
 <CustomInput
     v-model="data.placas"
@@ -77,7 +74,7 @@ export default {
         CustomInput,
     },
     props:{
-        data:Object,
+        data:Object
     }
 
 }
