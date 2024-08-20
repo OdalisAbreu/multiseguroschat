@@ -41,7 +41,7 @@
                     Se edito Correctamente
                 </ActionMessage>
                 <template v-slot:body>
-                    <EditFormTarifa :data="itemToEdit[0]" />
+                    <EditFormTarifa :data="itemToEdit[0]"/>
                 </template>
                 <template v-slot:footer>
                     <CustomButton :Text="'Editar'" @click="editForm" />
@@ -101,7 +101,7 @@ export default {
             try {
                 const response = await axios.get("/api/V1/prices");
                 this.prices = response.data;
-                this.filteredTarifas = this.prices
+                this.filteredTarifas = this.prices;
             } catch (error) {
                 console.error("Error al obtener los precios:", error);
             }
@@ -116,6 +116,7 @@ export default {
                 }
                 this.showModal = false
             } catch (error) {
+                console.log(error.response)
                 swal('Error',"No se puedo editar el registro", "error");
             }
         },
