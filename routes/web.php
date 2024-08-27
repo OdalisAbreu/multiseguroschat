@@ -93,16 +93,7 @@ Route::get('/end', function () {
 Route::get('/test', function () {
     return Inertia::render('Welcome');
 });
-Route::get('/error', function () {
-    return Inertia::render('Welcome', [
-        'ResponseCode' => 00,
-        'TransactionID' => 1311,
-        'RemoteResponseCode' => 00,
-        'AuthorizationCode' => 409615,
-        'RetrivalReferenceNumber' => 000000000033,
-        'TxToken' =>  'txn-8fe8af21ca484614b70eddd0286fa8ce'
-    ]);
-});
+
 //Salida para la Poliza
 Route::get('/poliza/{noPoliza}', [PoliciesController::class, 'verPoliza']);
 //Route::post('statusPayment', [InvoicesController::class, 'waitingRoom'])->name('statusPayment'); //Ir al area de cargar
