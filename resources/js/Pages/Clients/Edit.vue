@@ -216,17 +216,17 @@
                         v-model="form.email"
                     />
 
-                    <label class="pt-1 font-bold"
-                        >Dirección
-                        <span class="text-red-400 inl">*</span></label
-                    >
-                    <input
-                        class="rounded-lg w-full border-gray-300"
-                        type="text"
-                        placeholder="Dirección"
-                        v-model="form.adrress"
-                        required
-                    />
+
+                   <CustomInput
+                    v-model= "form.adrress"
+                    labelName="Direccion"
+                    typeInput="text"
+                    placeholder="Direccion"
+                    :is-obligatory="true"
+                    :error="v$.form.adrress.$error"
+                    :error-message=" v$.form.adrress?.$errors[0]?.$message"
+                   />
+
                     <label class="pt-1 font-bold">Provincia <span class="text-red-400">*</span></label>
                     <div class="relative w-full"> 
                         <input
@@ -241,7 +241,7 @@
                             @blur="handleBlur"
                             @change="filterCities"
                         />
-                        <span v-if="v$.form.provincia.$error" class="text-red-500">{{ v$.form.provincia.$errors[0].$message }}</span>
+                        <span v-if="v$.form.provincia.$error" class="text-red-500">{{ v$.form.provincia?.$errors[0]?.$message }}</span>
 
                         <div v-if="filteredProvinces.length > 0 && showDropdown" class="absolute z-10 mt-1 w-full bg-white border border-gray-300 rounded-lg shadow-md" style="max-height: 425px; overflow-y: auto; bottom: 100%;">
                             <ul class="py-2">
@@ -307,16 +307,10 @@
                     </model-list-select> -->
 
                     
-                    <div
-                        class="w-full mt-5 mx-5 my-4 justify-self-center self-center text-center"
-                    >
-                        <button
-                            :disabled="isCityEmpty || isprovinciaEmpty"
-                            class="w-full max-w-xl justify-center bg-blue-800 hover:bg-blue-700 shadow-lg shadow-blue-500/50 text-white font-bold rounded-lg py-4 mt-5 sm:m-3 sm:w-full md:m-3 md:w-full xl:m-3 xl:full"
-                        >
-                            Continuar
-                        </button>
-                    </div>
+                   <CustomButton
+                   :disabled="isCityEmpty || isprovinciaEmpty"
+                    Text="Continuar"
+                   />
                 </form>
             </div>
         </div>
@@ -328,6 +322,8 @@
 import { Head, Link } from "@inertiajs/inertia-vue3";
 import Header from "../../components/Header.vue";
 import Footer from "../../components/Footer.vue";
+import CustomButton from "../../components/CustomButton.vue";
+import CustomInput from "../../components/CustomInput.vue";
 import { ModelListSelect } from "vue-search-select";
 import "vue-search-select/dist/VueSearchSelect.css";
 import { ref, onUnmounted } from "vue";
@@ -342,7 +338,9 @@ export default {
         Head,
         Link,
         ModelListSelect,
-    },
+        CustomButton,
+        CustomInput
+    }, 
     props: {
         client: Object,
         cities: Object,
@@ -399,6 +397,7 @@ export default {
             filteredProvinces: [], 
             showDropdown: false,
             blurTimeout: null,
+            hola:{hi:"hola mundo"}
         };
     },
     setup: () => ({ v$: useVuelidate() }),
@@ -421,6 +420,9 @@ export default {
                     isValidProvince: helpers.withMessage('Seleccione una de las opciones',() => this.form.provinces.some(province => province.descrip == this.province))
                 },
                 city:{
+                    required: helpers.withMessage('El campo no puede estar vacio', required),
+                },
+                adrress:{
                     required: helpers.withMessage('El campo no puede estar vacio', required),
                 }
             },

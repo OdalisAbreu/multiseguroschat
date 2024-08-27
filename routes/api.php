@@ -1,9 +1,12 @@
 <?php
 
+use App\Http\Controllers\AccesTokenController;
 use App\Http\Controllers\Api\V1\ClientsController;
+use App\Http\Controllers\Api\V1\PolicyRenewController;
 use App\Http\Controllers\Api\V1\PriceCOntroller;
 use App\Http\Controllers\DiscountsController;
 use App\Http\Controllers\InvoicesController;
+use App\Services\PoliceServices\RenewServices;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -38,7 +41,11 @@ Route::get('V1/validarCesion/{id}', [ClientsController::class, 'validarCesion'])
 Route::post('V1/invoices', [InvoicesController::class, 'getInvoices']);
 Route::get('V1/invoice/{id}', [InvoicesController::class, 'getInvoice']);
 Route::resource('V1/prices', PriceCOntroller::class);
+Route::get('generateoken', [AccesTokenController::class, 'generateToken']);
 
 //------------------------------------Uso Interno ----------------------------------------------------------------
 Route::resource('internal/codigoDescuento', DiscountsController::class);
 Route::get('accesoCarnet/{id}', [ClientsController::class, 'accesoCarnet']);
+Route::get('accesoCarnetUpdate/{id}', [ClientsController::class, 'accesoCarnetUpdate']);
+Route::get('desactivarSesionClientes', [ClientsController::class, 'desactivarSesionClientes']);
+Route::post('UpdatePolice', [PolicyRenewController::class, 'UpdatePolice']);

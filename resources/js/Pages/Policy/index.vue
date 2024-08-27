@@ -8,6 +8,8 @@ const isOpen = ref(false);
 const isOpen2 = ref(false);
 
 const isOpen3 = ref(false);
+
+const isOpen4 = ref(false);
 </script>
 
 <template>
@@ -303,7 +305,8 @@ const isOpen3 = ref(false);
                                                     !coberturaMultiS &&
                                                     index == 0 &&
                                                     index != 1 &&
-                                                    index != 2
+                                                    index != 2 &&
+                                                    index != 3
                                                 "
                                                 class="w-3"
                                                 src="../../../../public/images/down.png"
@@ -393,7 +396,6 @@ const isOpen3 = ref(false);
                                                     }}
                                                 </p>
                                             </div>
-
                                             <div
                                                 class="w-full flex items-center font-bold text-sm text-blue-700 pl-1 md:px-4 lg:px-10"
                                                 v-if="
@@ -411,6 +413,11 @@ const isOpen3 = ref(false);
                                                                 .FianzaJudicial
                                                         ).toLocaleString()
                                                     }}
+                                                </p>
+                                            </div>
+                                           <div class="w-full flex items-center font-bold text-sm text-blue-700 pl-1 md:px-4 lg:px-10 mt-4" v-if="seller.note_cobertura">
+                                                <p class="text-left">
+                                                    <p class="text-left" v-html="seller.note_cobertura"></p>
                                                 </p>
                                             </div>
                                         </div>
@@ -443,7 +450,8 @@ const isOpen3 = ref(false);
                                                     !coberturaSura &&
                                                     index == 1 &&
                                                     index != 0 &&
-                                                    index != 2
+                                                    index != 2 &&
+                                                    index != 3
                                                 "
                                                 class="w-3"
                                                 src="../../../../public/images/down.png"
@@ -553,6 +561,11 @@ const isOpen3 = ref(false);
                                                     }}
                                                 </p>
                                             </div>
+                                            <div class="w-full flex items-center font-bold text-sm text-blue-700 pl-1 md:px-4 lg:px-10 mt-4" v-if="seller.note_cobertura">
+                                                <p class="text-left">
+                                                    <p class="text-left" v-html="seller.note_cobertura"></p>
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
 
@@ -560,7 +573,7 @@ const isOpen3 = ref(false);
                                         v-auto-animate
                                         v-if="index == 2"
                                         v-on:click="
-                                            coberturaAtrio = !coberturaAtrio
+                                            coberturaAtrioPremium = !coberturaAtrioPremium
                                         "
                                         class="cursor-pointer w-full flex flex-col justify-center items-center rounded-xl text-xs bg-white text-blue-700 border border-blue-700 font-bold mb-2 text-center gap-x-1"
                                     >
@@ -572,7 +585,7 @@ const isOpen3 = ref(false);
 
                                             <img
                                                 v-if="
-                                                    coberturaAtrio && index == 2
+                                                    coberturaAtrioPremium && index == 2
                                                 "
                                                 class="w-3"
                                                 src="../../../../public/images/Up.png"
@@ -580,10 +593,11 @@ const isOpen3 = ref(false);
                                             />
                                             <img
                                                 v-if="
-                                                    !coberturaAtrio &&
+                                                    !coberturaAtrioPremium &&
                                                     index == 2 &&
                                                     index != 0 &&
-                                                    index != 1
+                                                    index != 1 &&
+                                                    index != 3
                                                 "
                                                 class="w-3"
                                                 src="../../../../public/images/down.png"
@@ -692,6 +706,155 @@ const isOpen3 = ref(false);
                                                         ).toLocaleString()
                                                     }}
                                                 </p>
+                                            </div>
+                                            <div class="w-full flex items-center font-bold text-sm text-blue-700 pl-1 md:px-4 lg:px-10 mt-4" v-if="seller.note_cobertura">
+                                                <p class="text-left">
+                                                    <p class="text-left" v-html="seller.note_cobertura"></p>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div
+                                        v-auto-animate
+                                        v-if="index == 3"
+                                        v-on:click="
+                                            coberturaSuraPremium = !coberturaSuraPremium
+                                        "
+                                        class="cursor-pointer w-full flex flex-col justify-center items-center rounded-xl text-xs bg-white text-blue-700 border border-blue-700 font-bold mb-2 text-center gap-x-1"
+                                    >
+                                        <div
+                                            @click="isOpen4 = !isOpen4"
+                                            class="flex justify-center items-center gap-x-2 py-1"
+                                        >
+                                            Ver Limites y Coberturas
+
+                                            <img
+                                                v-if="
+                                                    coberturaSuraPremium && index == 3
+                                                "
+                                                class="w-3"
+                                                src="../../../../public/images/Up.png"
+                                                alt="Up"
+                                            />
+                                            <img
+                                                v-if="
+                                                    !coberturaSuraPremium &&
+                                                    index == 3 &&
+                                                    index != 2 &&
+                                                    index != 0 &&
+                                                    index != 1
+                                                "
+                                                class="w-3"
+                                                src="../../../../public/images/down.png"
+                                                alt="Down"
+                                            />
+                                        </div>
+
+                                        <div
+                                            v-if="isOpen4"
+                                            class="w-full flex flex-col justify-center items-center text-center mb-2 bg-white p-1 rounded-md"
+                                        >
+                                            <div
+                                                class="w-full flex items-center font-bold text-sm text-blue-700 pl-1 md:px-4 lg:px-10"
+                                                v-if="
+                                                    sellers[1]
+                                                        .DanosPropiedadAjena > 0
+                                                "
+                                            >
+                                                <p class="w-8/12 text-left">
+                                                    Daños Propiedad Ajena:
+                                                </p>
+                                                <p class="w-4/12 text-left">
+                                                    RD${{
+                                                        Number(
+                                                            sellers[0]
+                                                                .DanosPropiedadAjena
+                                                        ).toLocaleString()
+                                                    }}
+                                                </p>
+                                            </div>
+
+                                            <div
+                                                class="w-full flex items-center font-bold text-sm text-blue-700 pl-1 md:px-4 lg:px-10"
+                                                v-if="
+                                                    sellers[1]
+                                                        .ResponsabilidadCivil >
+                                                    0
+                                                "
+                                            >
+                                                <p class="w-8/12 text-left">
+                                                    Responsabilidad Civil:
+                                                </p>
+                                                <p class="w-4/12 text-left">
+                                                    RD${{
+                                                        Number(
+                                                            sellers[0]
+                                                                .ResponsabilidadCivil
+                                                        ).toLocaleString()
+                                                    }}
+                                                </p>
+                                            </div>
+
+                                            <div
+                                                class="w-full flex items-center font-bold text-sm text-blue-700 pl-1 md:px-4 lg:px-10"
+                                                v-if="
+                                                    sellers[1]
+                                                        .ResponsabilidadCivil2 >
+                                                    0
+                                                "
+                                            >
+                                                <p class="w-8/12 text-left">
+                                                    Responsabilidad Civil 2:
+                                                </p>
+                                                <p class="w-4/12 text-left">
+                                                    RD${{
+                                                        Number(
+                                                            sellers[0]
+                                                                .ResponsabilidadCivil2
+                                                        ).toLocaleString()
+                                                    }}
+                                                </p>
+                                            </div>
+
+                                            <div
+                                                class="w-full flex items-center font-bold text-sm text-blue-700 pl-1 md:px-4 lg:px-10"
+                                                v-if="sellers[1].UnaPersona > 0"
+                                            >
+                                                <p class="w-8/12 text-left">
+                                                    Una Persona:
+                                                </p>
+                                                <p class="w-4/12 text-left">
+                                                    RD${{
+                                                        Number(
+                                                            sellers[0]
+                                                                .UnaPersona
+                                                        ).toLocaleString()
+                                                    }}
+                                                </p>
+                                            </div>
+
+                                            <div
+                                                class="w-full flex items-center font-bold text-sm text-blue-700 pl-1 md:px-4 lg:px-10"
+                                                v-if="
+                                                    sellers[1].FianzaJudicial >
+                                                    0
+                                                "
+                                            >
+                                                <p class="w-8/12 text-left">
+                                                    Fianza Judicial:
+                                                </p>
+                                                <p class="w-4/12 text-left">
+                                                    RD${{
+                                                        Number(
+                                                            sellers[0]
+                                                                .FianzaJudicial
+                                                        ).toLocaleString()
+                                                    }}
+                                                </p>
+                                            </div>
+                                            <div class="w-full flex items-center font-bold text-sm text-blue-700 pl-1 md:px-4 lg:px-10 mt-4" v-if="seller.note_cobertura">
+                                                  <p class="text-left" v-html="seller.note_cobertura"></p>
                                             </div>
                                         </div>
                                     </div>
@@ -826,6 +989,8 @@ export default {
         coberturaMultiS: false,
         coberturaSura: false,
         coberturaAtrio: false,
+        coberturaSuraPremium: false,
+        coberturaAtrioPremium: false,
     },
     created() {
         this.checkedItems = this.sellers.map((el) => {

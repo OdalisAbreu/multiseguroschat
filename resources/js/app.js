@@ -21,6 +21,7 @@ function resetSessionTimer() {
     time = 0
 }
 
+
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
     resolve: (name) => require(`./Pages/${name}.vue`),

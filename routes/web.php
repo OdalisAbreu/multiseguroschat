@@ -4,6 +4,7 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\InvoicesController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PoliciesController;
+use App\Http\Controllers\ProvisionalErrorPoliciesController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -27,6 +28,8 @@ Route::get('/welcome', function () {
         'phpVersion' => PHP_VERSION,
     ]);
 });*/
+
+
 
 Route::get('/', function () {
     return Inertia::render('index');
@@ -62,6 +65,12 @@ Route::post('carReturn', [PoliciesController::class, 'carReturn'])->name('carRet
 Route::post('caseguradoraReturn', [PoliciesController::class, 'caseguradoraReturn'])->name('caseguradoraReturn'); //caseguradoraReturn
 Route::post('serviciosReturn', [PoliciesController::class, 'serviciosReturn'])->name('serviciosReturn'); //serviciosReturn
 
+//---------------------------------------------------------------------------------------
+
+//--------------------------Actualizar Polizas -------------------------------------------
+Route::get('seePolicy/{phone}', [PoliciesController::class, 'seePolicy'])->name('seePolicy');
+Route::get('updatePolicy/{invoiceId}', [PoliciesController::class, 'updatePolicy'])->name('updatePolicy');
+//---------------------------------------------------------------------------------------
 //-----------------------------Redired a Index si intenta actualizar en un punto ----------------------------------
 Route::get('policy/{marcaid}', function () {
     return Inertia::render('index');
@@ -107,13 +116,13 @@ Route::get('/test', function () {
     return Inertia::render('Welcome');
 });
 Route::get('/error', function () {
-    return Inertia::render('error', [
-        'ResponseCode' => 02,
-        'TransactionID' => 111111,
-        'RemoteResponseCode' => 111111,
-        'AuthorizationCode' => 111111,
-        'RetrivalReferenceNumber' => 111111,
-        'TxToken' =>  111111
+    return Inertia::render('Welcome', [
+        'ResponseCode' => 00,
+        'TransactionID' => 1311,
+        'RemoteResponseCode' => 00,
+        'AuthorizationCode' => 409615,
+        'RetrivalReferenceNumber' => 000000000033,
+        'TxToken' =>  'txn-8fe8af21ca484614b70eddd0286fa8ce'
     ]);
 });
 //Salida para la Poliza
@@ -122,11 +131,15 @@ Route::get('/poliza/{noPoliza}', [PoliciesController::class, 'verPoliza']);
 
 //----------------------------------------------------------------------------
 
-// ------------------------------------- Rotas Administrativas -----------------------------------------
+// ------------------------------------- Rutas Administrativas -----------------------------------------
 
 Route::get('/admin', function () {
     return Inertia::render('AdminPages/index');
-});
+})->middleware('auth');
 Route::get('/admin/codigo', function () {
     return Inertia::render('AdminPages/codigos');
-});
+})->middleware('auth');
+Route::get('/tarifas', function () {
+    return Inertia::render('Tarifas/Tarifa');
+})->middleware('auth');
+Route::get('/admin/errorPolicies', [ProvisionalErrorPoliciesController::class, 'index'])->middleware('auth');

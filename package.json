@@ -38,6 +38,7 @@
         "html-to-image": "^1.11.11",
         "imagen": "^1.0.0",
         "sdq": "^1.0.0",
+        "sweetalert": "^2.1.2",
         "vue-search-select": "^3.1.0"
     }
 }

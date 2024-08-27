@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use App\Models\Client;
 use App\Models\Invoices;
+use App\Services\Respond\RespondService;
 use DateTime;
 use DateTimeZone;
 use Illuminate\Http\Request;
@@ -194,7 +195,6 @@ class ClientsController extends Controller
     public function enviarIdPolizaBotCity($idPoliza, $celular)
     {
         //-------------------------------------------- Eviar a BotCity-------------------------------------------------//
-
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
@@ -218,9 +218,6 @@ class ClientsController extends Controller
         $response = curl_exec($curl);
 
         curl_close($curl);
-        echo $response;
-
-
         return 'OK';
     }
 
@@ -237,17 +234,21 @@ class ClientsController extends Controller
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => 'GET',
         ));
-
         $response = curl_exec($curl);
-
         curl_close($curl);
         return $response;
     }
 
     public function enviarMensajeBotCitie(Request $request)
     {
-        $curl = curl_init();
+        $idClient = Client::where('phonenumber', $request->phone)->first();
+        $invoince = Invoices::where('client_id', $idClient->id)->get()->last();
+        if ($invoince->payment_status == 'ACCEPT') {
+            $respond =  new RespondService;
+            $respond->AddTagContact($request->phone, 'cosulta_poliza_api');
+        }
 
+        $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_URL => 'https://api.respond.io/v2/contact/phone:+' . $request->phone . '/message',
             CURLOPT_RETURNTRANSFER => true,
@@ -268,9 +269,7 @@ class ClientsController extends Controller
                 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTgyMywic3BhY2VJZCI6MTQ3NDAxLCJvcmdJZCI6MjAzNDYsInR5cGUiOiJhcGkiLCJpYXQiOjE2ODI1Mzc0MTZ9.dsECELGyYJd9XF_PkkM-W8W-qUPnow3VdFeHnM2XiSo'
             ),
         ));
-
         $response = curl_exec($curl);
-
         curl_close($curl);
         return json_decode($response);
     }
@@ -304,9 +303,7 @@ class ClientsController extends Controller
         ));
 
         $response = curl_exec($curl);
-
         curl_close($curl);
-        echo $response;
     }
     public function confirmarPositivo($phone)
     {
@@ -375,7 +372,6 @@ class ClientsController extends Controller
         $client = Client::where('id', $idClient)->first();
         $client->vista = $vista;
         $client->save();
-        Log::info("Validar Vista", ["id" => $client->id, "vista" => $client->vista]);
         return $client;
     }
     public function validarCesion($id)
@@ -403,5 +399,21 @@ class ClientsController extends Controller
         $horaAcceso = new DateTime('now', new DateTimeZone('America/Santo_Domingo'));
         $horaAcceso = $horaAcceso->format('Y-m-d H:i:s');
         Log::info("Acceso Carnet -> clientId: " . $id, ["horaAcceso" => $horaAcceso, "clientId" => $id]);
+    }
+
+    public function accesoCarnetUpdate($id)
+    {
+        $horaAcceso = new DateTime('now', new DateTimeZone('America/Santo_Domingo'));
+        $horaAcceso = $horaAcceso->format('Y-m-d H:i:s');
+        Log::info("Acceso Carnet Update -> clientId: " . $id, ["horaAcceso" => $horaAcceso, "clientId" => $id]);
+    }
+
+    public function desactivarSesionClientes()
+    {
+        //desactivar la sesiones activas  
+        $oneFourHoursAgo = date('Y-m-d H:i:s', strtotime('-1 hours'));
+        return  Client::whereDate('updated_at', '<', $oneFourHoursAgo)
+            ->where('session', 'A')
+            ->update(['session' => 'I']);
     }
 }

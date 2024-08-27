@@ -18,7 +18,7 @@
                 >
                     <a
                         @click="clientReturn()"
-                        class="p-2 min-h-48 min-w-48 rounded-full bg-blue-800"
+                        class="p-2 rounded-full bg-blue-800"
                     >
                         <img
                             src="../../../../public/ima/edit.png"
@@ -68,7 +68,7 @@
                 >
                     <a
                         @click="cartReturn()"
-                        class="p-2 min-h-48 min-w-48 rounded-full bg-blue-800"
+                        class="p-2 rounded-full bg-blue-800"
                     >
                         <img
                             src="../../../../public/ima/edit.png"
@@ -97,7 +97,7 @@
                 >
                     <a
                         @click="caseguradoraReturn()"
-                        class="p-2 min-h-48 min-w-48 rounded-full bg-blue-800"
+                        class="p-2 rounded-full bg-blue-800"
                     >
                         <img
                             src="../../../../public/ima/edit.png"
@@ -124,7 +124,7 @@
                         <div class="absolute right-5 mt-7 cursor-pointer">
                             <a
                                 @click="serviciosReturn()"
-                                class="col-2 p-2 min-h-48 min-w-48 flex justify-center items-center rounded-full bg-blue-800"
+                                class="col-2 p-2 flex justify-center items-center rounded-full bg-blue-800"
                             >
                                 <img
                                     src="../../../../public/ima/edit.png"
@@ -313,7 +313,6 @@
                 >
                     <h3 class="text-lg">Servicios Opcionales</h3>
                 </div>
-
                 <div
                     v-for="servicio in service"
                     :key="servicio.id"

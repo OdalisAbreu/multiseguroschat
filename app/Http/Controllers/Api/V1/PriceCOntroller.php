@@ -3,35 +3,27 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Models\Insurance;
 use App\Models\Price;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class PriceCOntroller extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $prices =  DB::table('prices as P')
-            ->select('P.id as id', 'I.nombre as aseguradora', 'VTT.nombre as tipoDeVehiculo', 'priceThreeMonths', 'priceSixMonths', 'priceTwelveMonths', 'DanosPropiedadAjena', 'ResponsabilidadCivil', 'ResponsabilidadCivil2', 'UnaPersona', 'FianzaJudicial')
+            ->select('P.id as id', 'I.nombre as aseguradora', 'I.id as aseguradoraId', 'I.note_cobertura', 'VTT.veh_tipo as tipoDeVehiculoId', 'VTT.nombre as tipoDeVehiculo', 'VTT.activo as state', 'VTT.placas', 'priceThreeMonths', 'priceSixMonths', 'priceTwelveMonths', 'DanosPropiedadAjena', 'ResponsabilidadCivil', 'ResponsabilidadCivil2', 'UnaPersona', 'FianzaJudicial')
             ->join('vehicle_type_tarifs as VTT', 'VTT.id', '=', 'P.vehicle_type_id')
             ->join('insurances as I', 'I.id', '=', 'P.insurances_id')
+            ->where('I.activo', 'si')
             ->get();
         //relacionar con insurance
 
         return $prices;
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
         Price::create([
@@ -60,16 +52,10 @@ class PriceCOntroller extends Controller
         ]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         $resultado = DB::table('prices as P')
-            ->select('P.id as id', 'I.nombre as aseguradora', 'VTT.nombre as tipoDeVehiculo', 'priceThreeMonths', 'priceSixMonths', 'priceTwelveMonths', 'DanosPropiedadAjena', 'ResponsabilidadCivil', 'ResponsabilidadCivil2', 'UnaPersona', 'FianzaJudicial')
+            ->select('P.id as id', 'I.nombre as aseguradora', 'I.note_cobertura', 'VTT.nombre as tipoDeVehiculo', 'priceThreeMonths', 'priceSixMonths', 'priceTwelveMonths', 'DanosPropiedadAjena', 'ResponsabilidadCivil', 'ResponsabilidadCivil2', 'UnaPersona', 'FianzaJudicial')
             ->join('vehicle_type_tarifs as VTT', 'VTT.id', '=', 'P.vehicle_type_id')
             ->join('insurances as I', 'I.id', '=', 'P.insurances_id')
             ->where('P.id', $id)
@@ -78,25 +64,27 @@ class PriceCOntroller extends Controller
         return $resultado;
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
+        $aseguradora = Insurance::find($request->aseguradoraId);
+        $aseguradora->note_cobertura = $request->note_cobertura;
+        $aseguradora->save();
         $price = Price::find($id);
-        $price->update($request->all());
+        if (!$price) {
+            return response()->json([
+                'success' => false,
+                'message' => 'No se encontró el precio con el ID proporcionado'
+            ], 404);
+        }
+        $updated = $price->update($request->all());
+        if ($updated) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Se editó correctamente'
+            ]);
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         $price = Price::find($id);

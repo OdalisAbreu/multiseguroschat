@@ -9,11 +9,15 @@ class Price extends Model
 {
     use HasFactory;
 
-    public function insurace(){
+    protected $fillable = ['insurances_id', 'vehicle_type_id', 'priceThreeMonths', 'priceSixMonths', 'priceTwelveMonths', 'DanosPropiedadAjena', 'ResponsabilidadCivil', 'ResponsabilidadCivil2', 'UnaPersona', 'FianzaJudicial'];
+
+    public function insurace()
+    {
         return $this->belongsTo(Insurance::class);
     }
 
-    public function vehicle_type(){
+    public function vehicle_type()
+    {
         return $this->belongsTo(Vehicle_type_tarif::class);
     }
 }
