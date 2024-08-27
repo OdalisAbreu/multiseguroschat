@@ -11,6 +11,17 @@ class Insurance extends Model
 
     public $timestamps = false;
 
+    protected $fillable = [
+        'name',
+        'prefijo',
+        'id_suplid',
+        'logo',
+        'color',
+        'note_cobertura',
+        'activo',
+        'valores_alternos'
+    ];
+
 
     public function prices()
     {

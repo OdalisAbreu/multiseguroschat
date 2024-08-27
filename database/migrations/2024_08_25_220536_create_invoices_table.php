@@ -1,10 +1,11 @@
 <?php
 
+use Facade\Ignition\Tabs\Tab;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class InvoicesTable extends Migration
+class CreateInvoicesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -31,10 +32,17 @@ class InvoicesTable extends Migration
             $table->string('card_type')->nullable();
             $table->string('transaction_id')->nullable();
             $table->string('transaction_ip')->nullable();
+            $table->integer('discount_id')->default(0);
             $table->string('payment_messeger')->nullable();
             $table->string('auth_trans_ref_no')->nullable();
             $table->string('police_transactionId')->nullable();
             $table->string('police_number')->nullable();
+            $table->string('RemoteResponseCode')->nullable();
+            $table->string('AuthorizationCode')->nullable();
+            $table->string('policyInitDate')->nullable();
+            $table->string('RetrivalReferenceNumber')->nullable();
+            $table->string('TxToken')->nullable();
+            $table->string('imagenPoliza')->nullable();
             $table->timestamps();
         });
     }

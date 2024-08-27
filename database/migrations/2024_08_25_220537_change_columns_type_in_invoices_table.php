@@ -15,9 +15,9 @@ class ChangeColumnsTypeInInvoicesTable extends Migration
     {
         Schema::table('invoices', function (Blueprint $table) {
             //  $table->foreignId('client_id')->change();
-            $table->foreignId('car_tipe')->change();
-            $table->foreignId('car_brand')->change();
-            $table->foreignId('car_model')->change();
+            // $table->foreignId('car_tipe')->change();
+            // $table->foreignId('car_brand')->change();
+            // $table->foreignId('car_model')->change();
         });
     }
 
