@@ -95,7 +95,7 @@ class NewPoliceServices
             $response = curl_exec($curl);
 
             curl_close($curl);
-            sleep(3);
+            sleep(5);
             return $response;
         } catch (Exception $e) {
             Log::error("Error al Generar Poliza:  " . $e);
