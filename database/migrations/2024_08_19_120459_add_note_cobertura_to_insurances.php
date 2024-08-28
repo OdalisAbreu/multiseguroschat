@@ -6,23 +6,12 @@ use Illuminate\Support\Facades\Schema;
 
 class AddNoteCoberturaToInsurances extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::table('insurances', function (Blueprint $table) {
             $table->text('note_cobertura')->nullable()->after('color');
         });
     }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::table('insurances', function (Blueprint $table) {
