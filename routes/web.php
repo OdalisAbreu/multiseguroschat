@@ -9,28 +9,6 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-/*
-Route::get('/welcome', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});*/
-
-
-
 Route::get('/', function () {
     return Inertia::render('index');
 });
@@ -115,16 +93,7 @@ Route::get('/end', function () {
 Route::get('/test', function () {
     return Inertia::render('Welcome');
 });
-Route::get('/error', function () {
-    return Inertia::render('Welcome', [
-        'ResponseCode' => 00,
-        'TransactionID' => 1311,
-        'RemoteResponseCode' => 00,
-        'AuthorizationCode' => 409615,
-        'RetrivalReferenceNumber' => 000000000033,
-        'TxToken' =>  'txn-8fe8af21ca484614b70eddd0286fa8ce'
-    ]);
-});
+
 //Salida para la Poliza
 Route::get('/poliza/{noPoliza}', [PoliciesController::class, 'verPoliza']);
 //Route::post('statusPayment', [InvoicesController::class, 'waitingRoom'])->name('statusPayment'); //Ir al area de cargar

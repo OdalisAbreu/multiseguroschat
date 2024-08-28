@@ -19,11 +19,12 @@ class DataPaymentGateway extends Migration
             $table->string('merchantnumber');
             $table->string('merchantterminal');
             $table->string('client_name');
+            $table->string('payment_url');
 
 
             //FK
             $table->integer('insurance_id');
-            $table->foreign('insurance_id')->references('id')->on('insurances');
+            //$table->foreign('insurance_id')->references('id')->on('insurances');
             $table->integer('payment_gateway_id');
 
             $table->timestamps();
