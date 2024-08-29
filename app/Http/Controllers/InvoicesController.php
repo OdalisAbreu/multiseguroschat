@@ -13,6 +13,7 @@ use App\Models\Vehicle_models;
 use App\Models\Vehicle_type_tarif;
 use App\Services\InvoicesServices;
 use App\Services\PoliceServices\NewPoliceServices;
+use App\Services\PoliceServices\SendPiliceServices;
 use App\Services\Respond\RespondService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Env;
@@ -143,28 +144,27 @@ class InvoicesController extends Controller
         //-----------------Consulta las tablas para generar las polizas----------------
         $invoices = Invoices::find($request->TransactionID);
         $seller = Insurance::find($invoices['sellers_id']);
-        $client = Client::where('id', $invoices->client_id)->get();
-        $respond =  new RespondService;
+        $client = Client::find($invoices->client_id);
         //---------------------------------------------------------------------------------
 
         // Validar que la seccion esta activa
         if (env('APP_ENV') == 'production') {
-            if ($client[0]->session == 'I') {
+            if ($client->session == 'I') {
                 return Inertia::render('index');
             }
         }
-        $urlBase = "https://multiseguros.com.do/SegurosChat";
+        $urlBase = env('MULTISEGUROS_URL');
 
-        if (env('APP_ENV') != 'production') {
-            $urlBase = "https://multiseguros.com.do/DemoSegurosChat";
-        }
-
+        // if (env('APP_ENV') != 'production') {
+        //     $urlBase = "https://multiseguros.com.do/DemoSegurosChat";
+        // }
         $marcas = Vehicle_brands::find($invoices->car_brand);
         $marca = $marcas->DESCRIPCION;
         $modelos = Vehicle_models::find($invoices->car_model);
         $modelo = $modelos->descripcion;
         $tipo = Vehicle_type_tarif::find($invoices->car_tipe);
 
+        Log::debug("Paso a la vista Final");
 
         return Inertia::render('end', [
             'ResponseCode' => $request->ResponseCode,
@@ -176,7 +176,7 @@ class InvoicesController extends Controller
             'transactionId' => $invoices['police_transactionId'],
             'logo' => $seller['logo'],
             'Poliza' => $invoices['police_number'],
-            'Client' => $client[0],
+            'Client' => $client,
             'Marca' => $marca,
             'urlBase' => $urlBase,
             'Modelo' => $modelo,
@@ -243,9 +243,13 @@ class InvoicesController extends Controller
         $invoice->update();
         // ------------------ GENERAR POLIZA ------------------
         $newPoliceServices = new NewPoliceServices($invoice);
-        $newPolice = $newPoliceServices->generatePolice();
-
+        $newPoliceServices->generatePolice();
         //-----------------------------------------------------
+
+        // -------------------- Envia la Poliza al cliente ------------------
+        $sendPilicesServices = new SendPiliceServices($invoice);
+        $sendPilicesServices->handle();
+        //--------------------------------------------------------------------
 
         return Inertia::render('Welcome', [
             'ResponseCode' => $request->ResponseCode,

@@ -65,6 +65,7 @@ class WaitingRoomTest extends TestCase
         ]);
 
         $invoice = Invoices::create([
+            'id' => 1,
             'policyTime' => '12',
             'chassis' => 'Knagu416bha167996',
             'licensePlate' => 'AAA1234',
@@ -142,6 +143,7 @@ class WaitingRoomTest extends TestCase
         ]);
 
         $invoice = Invoices::create([
+            'id' => 1,
             'policyTime' => '12',
             'chassis' => 'Knagu416bha167996',
             'licensePlate' => 'AAA1234',

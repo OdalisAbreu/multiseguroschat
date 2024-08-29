@@ -18,8 +18,8 @@ class NewPoliceServices
     public function __construct(Invoices $invoices)
     {
         $this->invoices = $invoices;
-        $this->respond =  new RespondService();
         $this->client = Client::find($invoices->client_id);
+        $this->respond =  new RespondService($this->client->phonenumber);
     }
 
     public function generatePolice()
@@ -77,11 +77,12 @@ class NewPoliceServices
 
     private function postpolice($json)
     {
+        $url = env('URL_POLIZA') . '/Seguros/GET_Poliza_Total.php';
         try {
             $curl = curl_init();
 
             curl_setopt_array($curl, array(
-                CURLOPT_URL => env('URL_POLIZA'),
+                CURLOPT_URL => $url,
                 CURLOPT_RETURNTRANSFER => true,
                 CURLOPT_ENCODING => '',
                 CURLOPT_MAXREDIRS => 10,
@@ -99,9 +100,6 @@ class NewPoliceServices
             return $response;
         } catch (Exception $e) {
             Log::error("Error al Generar Poliza:  " . $e);
-            // $this->respond->AddTagContact('18294428902', 'errorEnviarPoliza');
-            // $this->respond->enviarMensaje('18294428902', 'text', '*ERROR AL GENERAR POLIZA* para el cliente Id: ' . $this->invoices->client_id . ' *FAVOR DE VERIFICAR EL ERROR*');
-            // $this->respond->enviarMensaje($this->client->phonenumber, 'text', 'Estamos validando sus Datos por favor espere un momento');
         }
     }
 
