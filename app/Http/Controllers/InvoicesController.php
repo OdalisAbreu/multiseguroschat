@@ -140,7 +140,6 @@ class InvoicesController extends Controller
 
     public function statusPaymentCardNet(Request $request)
     {
-        Log::debug("Entro en la funcion statusPaymentCardNet");
         //-----------------Consulta las tablas para generar las polizas----------------
         $invoices = Invoices::find($request->TransactionID);
         $seller = Insurance::find($invoices['sellers_id']);

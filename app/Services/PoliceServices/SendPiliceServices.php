@@ -44,7 +44,6 @@ class SendPiliceServices
             'id_trans' => $idPoliza,
         ]);
         Log::info('generate pdf: ' . $response->body());
-
         if ($response->status() != 200) {
             Log::error('generate pdf error: ' . $response->body());
         }

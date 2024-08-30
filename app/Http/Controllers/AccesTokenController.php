@@ -44,7 +44,6 @@ class AccesTokenController extends Controller
 
         //Guardar en access_token
         AccesToken::create(['token' => $token['token']]);
-        Log::debug("Token generado: ", ['token' => $token['token']]);
         //retornar un estatus ok
         return response()->json(['status' => 'ok'], 200);
     }

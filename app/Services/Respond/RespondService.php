@@ -50,7 +50,6 @@ class RespondService
     public function enviarArchivoBotCitie($type, $urlFile)
     {
         $url = 'https://api.respond.io/v2/contact/phone:+' .  $this->clientPhone . '/message';
-        Log::debug($urlFile);
         $payload = [
             'message' => [
                 'type' => 'attachment',
