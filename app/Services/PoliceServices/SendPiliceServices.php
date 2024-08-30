@@ -26,14 +26,15 @@ class SendPiliceServices
 
     public function handle()
     {
+        Log::debug('Inicio el proceso de la Poliaza');
         $this->generarPdf($this->invoice->police_transactionId); //Genera la Póliza en el servidor para luego enviarla
         sleep(3);
         $this->UpdateDescuento($this->invoice->id);
-
         $this->respondServices->enviarMensaje('text', '¡Tu póliza está lista! Gracias por comprar en *SegurosChat*.🕐 _En breve estarás recibiendo tus documentos.._');
         $this->respondServices->enviarArchivoBotCitie('file', $this->urlBase . '/TareasProg/PDF/IMPRIMIR/' . $this->invoice->police_number . '.pdf');
         $this->respondServices->enviarArchivoBotCitie('file', $this->urlBase . '/TareasProg/PDF/IMPRIMIR/Terminos_Poliza.pdf');
         $this->confirmarPositivo($this->client->phonenumber);
+        Log::debug('Finalizo el proceso de la Poliaza');
     }
     public function generarPdf($idPoliza)
     {
@@ -43,6 +44,10 @@ class SendPiliceServices
             'id_trans' => $idPoliza,
         ]);
         Log::info('generate pdf: ' . $response->body());
+
+        if ($response->status() != 200) {
+            Log::error('generate pdf error: ' . $response->body());
+        }
         return $response->body();
     }
 
@@ -55,8 +60,7 @@ class SendPiliceServices
             $response = Http::withHeaders([
                 'Accept' => '*/*',
                 'User-Agent' => 'Thunder Client (https://www.thunderclient.com)',
-            ])
-                ->get($this->urlBase .  '/update_descount_code.php?transactionId=' . $invoice->police_transactionId . '&code=' . $descuento->code . '&value=' . $descuento->discount_amount);
+            ])->get($this->urlBase .  '/update_descount_code.php?transactionId=' . $invoice->police_transactionId . '&code=' . $descuento->code . '&value=' . $descuento->discount_amount);
         }
     }
     public function confirmarPositivo($phone)
@@ -67,30 +71,5 @@ class SendPiliceServices
             'phone' => $phone
         ]);
         return $response->body();
-
-        // $curl = curl_init();
-
-        // curl_setopt_array($curl, array(
-        //     CURLOPT_URL => 'https://hooks.chatapi.net/workflows/ZECOvvRxmADK/KeeNFnOgboZP',
-        //     CURLOPT_RETURNTRANSFER => true,
-        //     CURLOPT_ENCODING => '',
-        //     CURLOPT_MAXREDIRS => 10,
-        //     CURLOPT_TIMEOUT => 0,
-        //     CURLOPT_FOLLOWLOCATION => true,
-        //     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-        //     CURLOPT_CUSTOMREQUEST => 'POST',
-        //     CURLOPT_POSTFIELDS => '{
-        //                                 "phone":"' . $phone . '"
-        //                             }
-        //                 ',
-        //     CURLOPT_HTTPHEADER => array(
-        //         'Content-Type: application/json'
-        //     ),
-        // ));
-
-        // $response = curl_exec($curl);
-
-        // curl_close($curl);
-        // echo $response;
     }
 }

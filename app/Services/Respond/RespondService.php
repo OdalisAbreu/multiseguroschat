@@ -41,7 +41,9 @@ class RespondService
             'Content-Type' => 'application/json',
             'Authorization' => 'Bearer ' . env('RESPOND_TOKEN'),
         ])->post($url, $payload);
-
+        if ($response->failed()) {
+            Log::error($response);
+        }
         return $response;
     }
 
@@ -64,7 +66,9 @@ class RespondService
             'Content-Type' => 'application/json',
         ])->post($url, $payload);
 
-        Log::debug($response);
+        if ($response->failed()) {
+            Log::error($response);
+        };
 
         return $response->json();
     }
