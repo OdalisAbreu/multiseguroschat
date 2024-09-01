@@ -191,6 +191,7 @@ class InvoicesController extends Controller
 
     public function waitingRoom(Request $request)
     {
+        Log::debug("Paso a la vista Waiting Room");
         $estatus = '';
 
         if ($request->ResponseCode != '00') {
