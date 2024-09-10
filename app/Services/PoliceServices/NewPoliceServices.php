@@ -66,7 +66,7 @@ class NewPoliceServices
         $newPolice = $this->validateStatusPolice($consultPolice, $this->client->phonenumber);
 
         if ($newPolice->status != "00") {
-            Log::info("peticion de poliza sin procesar -> clientId: " . $$this->invoices->client_id, [$consultPolice]);
+            Log::info("peticion de poliza sin procesar -> clientId: " . $this->invoices->client_id, [$consultPolice]);
             return;
         }
         $this->invoices->police_number = $newPolice->insurancePolicyNumber;
@@ -119,7 +119,7 @@ class NewPoliceServices
         } else {
             Log::info("peticion de poliza sin procesar -> clientId: " . $this->invoices->client_id, [$response]);
             $errorPlice = new ProvisionalErrorPolicies();
-            $errorPlice->invoice_id = $$this->invoices->id;
+            $errorPlice->invoice_id = $this->invoices->id;
             $errorPlice->petition = json_encode(['error' => $response, 'phone' => $phone]);
             $errorPlice->error = $response;
             $errorPlice->save();
