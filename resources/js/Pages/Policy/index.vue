@@ -347,7 +347,7 @@ const isOpen4 = ref(false);
                                                 "
                                             >
                                                 <p class="w-8/12 text-left">
-                                                    Responsabilidad Civil:
+                                                    Resp. Civil 1 Persona:
                                                 </p>
                                                 <p class="w-4/12 text-left">
                                                     RD${{
@@ -368,7 +368,7 @@ const isOpen4 = ref(false);
                                                 "
                                             >
                                                 <p class="w-8/12 text-left">
-                                                    Responsabilidad Civil 2:
+                                                    Resp. Civil +1 Persona:
                                                 </p>
                                                 <p class="w-4/12 text-left">
                                                     RD${{
@@ -492,7 +492,7 @@ const isOpen4 = ref(false);
                                                 "
                                             >
                                                 <p class="w-8/12 text-left">
-                                                    Responsabilidad Civil:
+                                                    Resp. Civil 1 Persona:
                                                 </p>
                                                 <p class="w-4/12 text-left">
                                                     RD${{
@@ -513,7 +513,7 @@ const isOpen4 = ref(false);
                                                 "
                                             >
                                                 <p class="w-8/12 text-left">
-                                                    Responsabilidad Civil 2:
+                                                    Resp. Civil +1 Persona:
                                                 </p>
                                                 <p class="w-4/12 text-left">
                                                     RD${{
@@ -638,7 +638,7 @@ const isOpen4 = ref(false);
                                                 "
                                             >
                                                 <p class="w-8/12 text-left">
-                                                    Responsabilidad Civil:
+                                                    Resp. Civil 1 Persona:
                                                 </p>
                                                 <p class="w-4/12 text-left">
                                                     RD${{
@@ -659,7 +659,7 @@ const isOpen4 = ref(false);
                                                 "
                                             >
                                                 <p class="w-8/12 text-left">
-                                                    Responsabilidad Civil 2:
+                                                    Resp. Civil +1 Persona:
                                                 </p>
                                                 <p class="w-4/12 text-left">
                                                     RD${{
@@ -784,7 +784,7 @@ const isOpen4 = ref(false);
                                                 "
                                             >
                                                 <p class="w-8/12 text-left">
-                                                    Responsabilidad Civil:
+                                                    Resp. Civil 1 Persona:
                                                 </p>
                                                 <p class="w-4/12 text-left">
                                                     RD${{
@@ -805,7 +805,7 @@ const isOpen4 = ref(false);
                                                 "
                                             >
                                                 <p class="w-8/12 text-left">
-                                                    Responsabilidad Civil 2:
+                                                    Resp. Civil +1 Persona:
                                                 </p>
                                                 <p class="w-4/12 text-left">
                                                     RD${{
