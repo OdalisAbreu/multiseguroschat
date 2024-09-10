@@ -429,6 +429,10 @@ export default {
         }
     },
     methods: {
+          handleBeforeUnload(event) {
+            event.preventDefault();
+            event.returnValue = 'Si actualizas la página, perderás los datos ingresados. ¿Estás seguro de que deseas continuar?';
+        },
         async submit() {
             const isFormCorrect = await this.v$.form.$validate()
             if(!isFormCorrect || (!this.validateId() && this.selectedDocument))

@@ -148,6 +148,10 @@ export default {
         }
     },
     methods: {
+         handleBeforeUnload(event) {
+            event.preventDefault();
+            event.returnValue = 'Si actualizas la página, perderás los datos ingresados. ¿Estás seguro de que deseas continuar?';
+        },
         submit() {
             this.Loading = true
             this.$inertia.post(this.route('generatepolicy'), this.form)

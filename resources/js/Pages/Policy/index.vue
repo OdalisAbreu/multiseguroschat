@@ -909,7 +909,7 @@ import "@vuepic/vue-datepicker/dist/main.css";
 import { Head, Link } from "@inertiajs/inertia-vue3";
 import Header from "../../components/Header.vue";
 import Footer from "../../components/Footer.vue";
-import { ref, onUnmounted } from "vue";
+import { ref, onUnmounted, onMounted  } from "vue";
 
 let date = ref(new Date());
 
@@ -1002,6 +1002,8 @@ export default {
         });
     },
     mounted() {
+        // Agregar evento beforeunload
+        window.addEventListener('beforeunload', this.handleBeforeUnload);
         //Validar si la seccion esta activa
         axios
             .get("/api/V1/validarCesion/" + this.client.id)
@@ -1041,7 +1043,15 @@ export default {
             clearTimeout(timeoutId);
         });
     },
+    beforeUnmount() {
+        // Remover el evento antes de que se desmonte el componente
+        window.removeEventListener('beforeunload', this.handleBeforeUnload);
+    },
     methods: {
+         handleBeforeUnload(event) {
+            event.preventDefault();
+            event.returnValue = 'Si actualizas la página, perderás los datos ingresados. ¿Estás seguro de que deseas continuar?';
+        },
         procesar: function (insurances_id, time) {
             if (insurances_id && time) {
                 this.form.date = this.form.date.toISOString();

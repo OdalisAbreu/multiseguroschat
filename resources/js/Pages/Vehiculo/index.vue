@@ -272,7 +272,7 @@ import Header from "../../components/Header.vue";
 import Footer from "../../components/Footer.vue";
 import { ModelListSelect } from "vue-search-select";
 import "vue-search-select/dist/VueSearchSelect.css";
-import { ref, onUnmounted } from "vue";
+import { ref, onUnmounted,  onMounted } from "vue";
 import useVuelidate from "@vuelidate/core";
 import { minLength, alphaNum, maxLength, helpers, required} from '@vuelidate/validators'
 
@@ -371,6 +371,8 @@ export default {
         }
     },
     mounted() {
+        window.addEventListener('beforeunload', this.handleBeforeUnload);
+
         //Validar si la seccion esta activa
         axios
             .get("/api/V1/validarCesion/" + this.client.id)
@@ -401,7 +403,15 @@ export default {
             clearTimeout(timeoutId);
         });
     },
+    beforeUnmount() {
+        // Remover el evento antes de que se desmonte el componente
+        window.removeEventListener('beforeunload', this.handleBeforeUnload);
+    },
     methods: {
+        handleBeforeUnload(event) {
+            event.preventDefault();
+            event.returnValue = 'Si actualizas la página, perderás los datos ingresados. ¿Estás seguro de que deseas continuar?';
+        },
         async submit() {
             const isFormCorrect = await this.v$.form.$validate()
             if(!isFormCorrect)
