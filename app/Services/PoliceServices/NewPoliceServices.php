@@ -63,7 +63,7 @@ class NewPoliceServices
         );
         Log::info("peticion de poliza -> clientId: " . $this->invoices->client_id, [$json]);
         $consultPolice =  $this->postpolice($json);
-        $newPolice = $this->validateStatusPolice($consultPolice);
+        $newPolice = $this->validateStatusPolice($consultPolice, $this->client->phonenumber);
 
         if ($newPolice->status != "00") {
             Log::info("peticion de poliza sin procesar -> clientId: " . $$this->invoices->client_id, [$consultPolice]);
@@ -103,7 +103,7 @@ class NewPoliceServices
         }
     }
 
-    private function validateStatusPolice($response)
+    private function validateStatusPolice($response, $phone)
     {
 
         $parts = explode('/', $response);
@@ -117,16 +117,16 @@ class NewPoliceServices
             ];
             $poliza = (object) $poliza;
         } else {
-            Log::info("peticion de poliza sin procesar -> clientId: " . $$this->invoices->client_id, [$response]);
+            Log::info("peticion de poliza sin procesar -> clientId: " . $this->invoices->client_id, [$response]);
             $errorPlice = new ProvisionalErrorPolicies();
             $errorPlice->invoice_id = $$this->invoices->id;
-            $errorPlice->petition = json_encode($json);
+            $errorPlice->petition = json_encode(['error' => $response, 'phone' => $phone]);
             $errorPlice->error = $response;
             $errorPlice->save();
 
             $this->respond->AddTagContact('18294428902', 'errorEnviarPoliza');
-            $this->respond->enviarMensaje('18294428902', 'text', '*ERROR AL GENERAR POLIZA POR MS/SCH 2* para el cliente Id: ' . $invoices->client_id . ' *FAVOR DE VERIFICAR EL ERROR*');
-            $this->respond->enviarMensaje($client[0]->phonenumber, 'text', 'Estamos validando sus Datos por favor espere un momento');
+            $this->respond->enviarMensaje('18294428902', 'text', '*ERROR AL GENERAR POLIZA POR MS/SCH 2 *FAVOR DE VERIFICAR EL ERROR*');
+            $this->respond->enviarMensaje($phone, 'text', 'Estamos validando sus Datos por favor espere un momento');
             $poliza = [
                 'status' => 10,
                 'message' => $response,
