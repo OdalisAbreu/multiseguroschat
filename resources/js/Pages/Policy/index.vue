@@ -385,7 +385,7 @@ const isOpen4 = ref(false);
                                                 v-if="sellers[1].UnaPersona > 0"
                                             >
                                                 <p class="w-8/12 text-left">
-                                                    Una Persona:
+                                                    Accidentes Personales:
                                                 </p>
                                                 <p class="w-4/12 text-left">
                                                     RD${{
@@ -530,7 +530,7 @@ const isOpen4 = ref(false);
                                                 v-if="sellers[1].UnaPersona > 0"
                                             >
                                                 <p class="w-8/12 text-left">
-                                                    Una Persona:
+                                                    Accidentes Personales:
                                                 </p>
                                                 <p class="w-4/12 text-left">
                                                     RD${{
@@ -676,7 +676,7 @@ const isOpen4 = ref(false);
                                                 v-if="sellers[2].UnaPersona > 0"
                                             >
                                                 <p class="w-8/12 text-left">
-                                                    Una Persona:
+                                                    Accidentes Personales:
                                                 </p>
                                                 <p class="w-4/12 text-left">
                                                     RD${{
@@ -822,7 +822,7 @@ const isOpen4 = ref(false);
                                                 v-if="sellers[3].UnaPersona > 0"
                                             >
                                                 <p class="w-8/12 text-left">
-                                                    Una Persona:
+                                                    Accidentes Personales:
                                                 </p>
                                                 <p class="w-4/12 text-left">
                                                     RD${{
