@@ -59,7 +59,7 @@
                 <img
                     class="h-8 mr-1 w-8"
                     alt="whatsapp"
-                    src="images/whatsapp.f2a9acdc.svg"
+                    src="/images/whatsapp.f2a9acdc.svg"
                 />
                 <div class="align-middle flex flex-row">
                     <span class="font-bold text-2xl">¡Cómpralo Ahora!</span>
@@ -85,12 +85,12 @@
                 >
                 <div class="align-middle flex flex-row laptop:flex-col">
                     <img
-                    src="images/dot.a0a322d2.svg"
+                    src="/images/dot.a0a322d2.svg"
                     alt="dot"
                     class="hidden laptop:block laptop:mx-auto laptop:my-10"
                     />
                     <img
-                    src="images/shield.ad2eed6c.svg"
+                    src="/images/shield.ad2eed6c.svg"
                     alt="elige aseguradora"
                     class="laptop:mx-auto laptop:w-36 w-20"
                     />
@@ -117,12 +117,12 @@
                 >
                 <div class="align-middle flex flex-row laptop:flex-col">
                     <img
-                    src="images/dot.a0a322d2.svg"
+                    src="/images/dot.a0a322d2.svg"
                     alt="dot"
                     class="hidden laptop:block laptop:mx-auto laptop:my-10"
                     />
                     <img
-                    src="images/payment.4f5ca0bc.svg"
+                    src="/images/payment.4f5ca0bc.svg"
                     alt="paga online"
                     class="laptop:mx-auto laptop:w-36 w-20"
                     />
@@ -149,12 +149,12 @@
                 >
                 <div class="align-middle flex flex-row laptop:flex-col">
                     <img
-                    src="images/dot.a0a322d2.svg"
+                    src="/images/dot.a0a322d2.svg"
                     alt="dot"
                     class="hidden laptop:block laptop:mx-auto laptop:my-10"
                     />
                     <img
-                    src="images/mobile.c1215233.svg"
+                    src="/images/mobile.c1215233.svg"
                     alt="solo con tu móvil"
                     class="laptop:mx-auto laptop:w-36 w-20"
                     />
@@ -181,12 +181,12 @@
                 >
                 <div class="align-middle flex flex-row laptop:flex-col">
                     <img
-                    src="images/dot.a0a322d2.svg"
+                    src="/images/dot.a0a322d2.svg"
                     alt="dot"
                     class="hidden laptop:block laptop:mx-auto laptop:my-10"
                     />
                     <img
-                    src="images/law.2309f6ca.svg"
+                    src="/images/law.2309f6ca.svg"
                     alt="seguro de ley"
                     class="laptop:mx-auto laptop:w-36 w-20"
                     />
@@ -212,26 +212,26 @@
         <section class="pt-20" style="margin-top: 0px">
             <div class="flex justify-evenly">
             <div class="logo mr-2">
-                <img src="images/logoSURA.png" alt="sura-logo" style="width: 250px; height: 100px;"/>
+                <img src="/images/logoSURA.png" alt="sura-logo" style="width: 250px; height: 100px;"/>
             </div>
             <div class="logo mr-2">
-                <img src="images/logoONE_Alliance.png" alt="onealliance-logo" style="width: 250px; height: 100px;"/>
+                <img src="/images/logoONE_Alliance.png" alt="onealliance-logo" style="width: 250px; height: 100px;"/>
             </div>            
             </div>
         </section>
         <section class="pt-20">
             <div class="flex justify-evenly">
             <div class="logo mr-2">
-                <img src="images/cardnet-logo.8aa24da3.png" alt="cardnet-logo" />
+                <img src="/images/cardnet-logo.8aa24da3.png" alt="cardnet-logo" />
             </div>
             <div class="logo mr-2">
-                <img src="images/visa-logo.e04e3fbc.png" alt="visa-logo" />
+                <img src="/images/visa-logo.e04e3fbc.png" alt="visa-logo" />
             </div>
             <div class="logo mr-2">
-                <img src="images/mastercard-logo.82b90e41.png" alt="mastercard-logo" />
+                <img src="/images/mastercard-logo.82b90e41.png" alt="mastercard-logo" />
             </div>
             <div class="logo">
-                <img src="images/amex-logo.950d6655.png" alt="amex-logo" />
+                <img src="/images/amex-logo.950d6655.png" alt="amex-logo" />
             </div>
             </div>
         </section>
@@ -251,7 +251,7 @@
                 target="_blank"
             >
                 <img
-                src="images/whatsapp.f2a9acdc.svg"
+                src="/images/whatsapp.f2a9acdc.svg"
                 alt="whatsapp"
                 class="mx-auto w-14"
                 />
@@ -265,7 +265,7 @@
                 target="_blank"
             >
                 <img
-                src="images/Instagram.4dc2d318.svg"
+                src="/images/Instagram.4dc2d318.svg"
                 alt="Instagram"
                 class="h-14 mx-auto p-1 w-14"
                 />
@@ -279,7 +279,7 @@
                 target="_blank"
             >
                 <img
-                src="images/Facebook.37b64d85.svg"
+                src="/images/Facebook.37b64d85.svg"
                 alt="Facebook"
                 class="mx-auto w-14"
                 />
