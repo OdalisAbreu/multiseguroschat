@@ -8,7 +8,23 @@ use Illuminate\Database\Eloquent\Model;
 class Vehicle_type_tarif extends Model
 {
     use HasFactory;
-    public function prices(){
+
+    protected $fillable = [
+        'nombre',
+        'veh_tipo',
+        'tresmeses',
+        'seismeses',
+        'doceMeses',
+        'activo'
+    ];
+
+    public function prices()
+    {
         return $this->hasMany(Price::class);
+    }
+
+    public function invoices()
+    {
+        return $this->hasMany(Invoices::class);
     }
 }

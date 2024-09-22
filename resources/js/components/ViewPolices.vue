@@ -1,53 +1,177 @@
 <template>
-    <section class="flex flex-col items-start justify-center bg-slate-100 rounded-xl border-2 border-gray-300 py-3 max-w-4xl mx-auto p-8">
-        <div class="flex flex-row"> 
+    <section v-if="shouldDisplayPolice" class="flex flex-col items-start justify-center bg-slate-100 rounded-xl border-2 border-gray-300 py-3 max-w-lg mx-auto p-6">
+        <div class="flex flex-row justify-between w-full"> 
             <div class="flex-col">
-                <div class="text-green-600 font-bold text-2xl sm:text-2xl md:text-3xl xl:text-3xl">
-                    <span v-if="type == 'view'">Descargar Pólizas</span>
-                     <span v-if="type == 'renew'">Renovar Póliza</span>   
+                <div class="font-bold text-xl sm:text-xl md:text-xl xl:text-2xl">
+                    <span>{{ police.type.nombre }}</span>
                 </div>
-                <div class="text-Gray-800 font-bold text-xl sm:text-xl md:text-2xl xl:text-2xl">
-                    BMW - 320 AUTO-AT-009876
+                <div class="text-gray-800 font-bold text-md sm:text-md md:text-md xl:text-xl">
+                    {{ police.brand.DESCRIPCION }} - {{ police.model.descripcion }}
+                </div>
+                <div :class="['text-md sm:text-md md:text-md xl:text-xl font-bold', textColor]">
+                    FIN DE VIGENCIA: {{ policyEndDate }}
                 </div>
             </div>
-            <div class="pl-10">
-                <a class="" v-if="type == 'view'">
-                        <svg width="70px" height="70px" viewBox="0 0 24 24" class="text-green-600" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M14.0315 13.1643C14.355 12.9056 14.8269 12.958 15.0857 13.2815C15.3444 13.6049 15.292 14.0769 14.9685 14.3357L12.4746 16.3308C12.3459 16.4361 12.1816 16.4994 12.0025 16.5L12.0001 16.5L11.9937 16.5C11.8177 16.4985 11.6561 16.4364 11.5288 16.3335L9.03151 14.3357C8.70806 14.0769 8.65562 13.6049 8.91438 13.2815C9.17313 12.958 9.6451 12.9056 9.96855 13.1643L11.2501 14.1896V10.75C11.2501 10.3358 11.5858 10 12.0001 10C12.4143 10 12.7501 10.3358 12.7501 10.75V14.1895L14.0315 13.1643Z" fill="currentColor"/>
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M7 2.25C5.48122 2.25 4.25 3.48122 4.25 5V19C4.25 20.5188 5.48122 21.75 7 21.75H17C18.5188 21.75 19.75 20.5188 19.75 19V8.1979C19.75 7.83178 19.6352 7.47488 19.4217 7.17745L16.4085 2.97955C16.0798 2.52157 15.5506 2.25 14.9868 2.25H7ZM5.75 5C5.75 4.30964 6.30964 3.75 7 3.75H14.25V8.14705C14.25 8.56126 14.5858 8.89705 15 8.89705H18.25V19C18.25 19.6904 17.6904 20.25 17 20.25H7C6.30964 20.25 5.75 19.6904 5.75 19V5Z" fill="currentColor"/>
-                        </svg>
-                </a>
-                <a class="" v-if="type == 'renew'">
-                    <svg  width="70px" height="70px" viewBox="0 0 100 100" class="text-green-600" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M7.569,80.581c0.115,0.02,0.23,0.029,0.344,0.029c0.831,0,1.594-0.521,1.883-1.326c0.313-0.871,7.783-21.322,39.755-21.322
-                                c1.686,0,3.949,0.059,4.949,0.175v8.066c0,2.469,1.753,4.917,4.079,6.239c0.806,0.458,1.792,0.689,2.684,0.689
-                                c2.219,0,4.094-1.414,5.551-2.551c0.435-0.34,0.877-0.66,1.224-0.883c1.374-0.883,2.738-1.836,4.043-2.759
-                                c0.711-0.502,1.429-1.004,2.141-1.493c3.639-2.497,7.289-5.12,10.814-7.656l1.271-0.913c0.477-0.342,0.962-0.678,1.446-1.014
-                                c0.39-0.271,0.778-0.541,1.103-0.771c2.688-1.756,6.032-3.941,6.032-8.069c0-3.968-2.773-5.857-5.956-8.026l-2.104-1.49
-                                c-1.848-1.312-3.697-2.624-5.562-3.909c-2.031-1.4-4.07-2.89-6.043-4.331c-2.283-1.669-4.646-3.395-7.037-5.013
-                                c-0.337-0.229-0.683-0.491-1.04-0.762c-1.627-1.23-3.952-2.796-6.526-2.535c-3.458,0.341-6.118,3.902-6.118,6.885v8.994
-                                c0-0.009-0.561-0.016-1.074-0.016C30.335,36.82,5.787,47.8,5.787,78.613C5.787,79.585,6.612,80.414,7.569,80.581z M53.676,40.82
-                                c1.405,0,2.233-0.135,2.242-0.135c0.045,0.003,0.092-0.186,0.137-0.186H57c1.104,0,1.5-0.515,1.5-1.619V27.842
-                                c0-1.182,1.314-2.786,2.51-2.904c1.042-0.103,2.396,0.836,3.596,1.745c0.416,0.314,0.883,0.618,1.274,0.884
-                                c2.332,1.578,4.695,3.282,6.951,4.93c1.994,1.457,4.072,2.964,6.148,4.395c1.851,1.275,3.692,2.577,5.525,3.878l2.143,1.516
-                                c3.385,2.306,4.238,3.104,4.238,4.739c0,1.68-1.301,2.813-4.28,4.763c-0.375,0.265-0.754,0.527-1.133,0.791
-                                c-0.502,0.348-1.002,0.695-1.497,1.051l-1.272,0.915c-3.508,2.523-7.136,5.133-10.739,7.605c-0.728,0.5-1.452,1.013-2.178,1.525
-                                c-1.269,0.896-2.581,1.824-3.879,2.658c-0.501,0.322-1.005,0.715-1.492,1.096c-0.974,0.76-2.185,1.704-3.027,1.704
-                                c-0.196,0-0.632-0.053-0.833-0.168c-1.062-0.604-2.055-1.739-2.055-2.761v-9.92c0-1.037-0.543-1.903-1.577-1.992
-                                c-2.514-0.219-4.869-0.329-7.247-0.329c-22.062,0-33.52,9.183-39.099,16.192C15.517,43.089,44.305,40.82,53.676,40.82z"/>
+            <div class="flex flex-col justify-end items-center cursor-pointer">
+                <a class="p-3 rounded-full bg-blue-800" @click="policeUpdate(police.id)">
+                    <svg height="30px" width="30px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+                            viewBox="0 0 28 28" xml:space="preserve">
+                        <g>
+                            <g id="reload">
+                                <g>
+                                    <path style="fill:#FFFFFF;" d="M22,16c0,4.41-3.586,8-8,8s-8-3.59-8-8s3.586-8,8-8l2.359,0.027l-1.164,1.164l2.828,2.828
+                                        L24.035,6l-6.012-6l-2.828,2.828L16.375,4H14C7.375,4,2,9.371,2,16s5.375,12,12,12s12-5.371,12-12H22z"/>
+                                </g>
+                            </g>
+                        </g>
                     </svg>
                 </a>
+                <p class="text-blue-800 font-bold text-sm">Renovar</p>
+            </div>
+            
+        </div>
+        <div v-auto-animate @click="cobertura = !cobertura" class="cursor-pointer w-full flex flex-col justify-center items-center rounded-xl text-xs bg-white text-blue-700 border border-blue-700 font-bold mb-2 text-center gap-x-1 mt-2">
+            <div @click="isOpen = !isOpen" class="flex justify-center items-center gap-x-2 py-1">
+                Ver Detalle de póliza
+                <img class="w-3"  v-if="cobertura" src="/images/Up.png" alt="Up" />
+                <img class="w-3" v-if="!cobertura" src="/images/down.png" alt="Down"/>
+            </div>
+
+            <div v-if="isOpen" class="w-full flex flex-col justify-center items-center text-center mb-2 bg-white p-1 rounded-md">
+                <div class="w-full flex items-center font-bold text-sm text-blue-700 pl-1 md:px-4 lg:px-10">
+                    <p class="w-7/12 text-left">
+                        TIPO:
+                    </p>
+                    <p class="w-5/12 text-left">
+                        {{ police.type.nombre }}
+                    </p>
+                </div>
+
+                <div class="w-full flex items-center font-bold text-sm text-blue-700 pl-1 md:px-4 lg:px-10">
+                    <p class="w-7/12 text-left">
+                        MARCA:
+                    </p>
+                    <p class="w-5/12 text-left">
+                        {{ police.brand.DESCRIPCION }}
+                    </p>
+                </div>
+
+                <div class="w-full flex items-center font-bold text-sm text-blue-700 pl-1 md:px-4 lg:px-10">
+                    <p class="w-7/12 text-left">
+                        MODELO:
+                    </p>
+                    <p class="w-5/12 text-left">
+                        {{ police.model.descripcion }}
+                    </p>
+                </div>
+
+                <div class="w-full flex items-center font-bold text-sm text-blue-700 pl-1 md:px-4 lg:px-10">
+                    <p class="w-7/12 text-left">
+                       AÑO:
+                    </p>
+                    <p class="w-5/12 text-left">
+                        {{ police.year }}
+                    </p>
+                </div>
+                <div class="w-full flex items-center font-bold text-sm text-blue-700 pl-1 md:px-4 lg:px-10">
+                    <p class="w-7/12 text-left">
+                        CHASSIS:
+                    </p>
+                    <p class="w-5/12 text-left relative group">
+                        <span>{{ truncatedChassis }}</span>
+                        <span class="absolute left-0 bg-gray-800 text-white text-xs rounded-lg py-1 px-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            {{ chassis }}
+                        </span>
+                    </p>
+                </div>
+                    <div class="w-full flex items-center font-bold text-sm text-blue-700 pl-1 md:px-4 lg:px-10">
+                    <p class="w-7/12 text-left">
+                        PLACA:
+                    </p>
+                    <p class="w-5/12 text-left">
+                        {{ police.licensePlate }}
+                    </p>
+                </div>
             </div>
         </div>
     </section>
+
 </template>
 <script>
 
 export default {
     name: "ViewPolices",
     props: {
-        type: String /* Prop para determinar el tipo de vista de poliza */
+        type: String, 
+        police: Object
 
     },
+    data() {
+        return {
+            chassis: this.police.chassis,
+        };
+    },
+     computed: {
+        truncatedChassis() {
+            return this.chassis.substring(0, 8) + '...';
+        },
+        // Cálculo de la fecha de fin de vigencia
+        policyEndDate() {
+            const initDate = new Date(this.police.policyInitDate);
+            const monthsToAdd = this.police.policyTime;
+
+            initDate.setMonth(initDate.getMonth() + monthsToAdd);
+            
+            const day = String(initDate.getDate()).padStart(2, '0');
+            const month = String(initDate.getMonth() + 1).padStart(2, '0');
+            const year = initDate.getFullYear();
+            
+            return `${day}-${month}-${year}`;
+        },
+
+                // Filtrar si la póliza debe mostrarse (si tiene menos de 3 meses de vencida)
+        shouldDisplayPolice() {
+            const currentDate = new Date();
+            const threeMonthsAgo = new Date();
+            threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3); // Fecha de hace 3 meses
+            
+            const policyEndDate = new Date(this.police.policyInitDate);
+            policyEndDate.setMonth(policyEndDate.getMonth() + this.police.policyTime);
+            
+            // Verificar si la póliza tiene menos de 3 meses de vencida
+            return policyEndDate >= threeMonthsAgo;
+        },
+
+        textColor() {
+            const initDate = new Date(this.police.policyInitDate);
+            const monthsToAdd = this.police.policyTime;
+            initDate.setMonth(initDate.getMonth() + monthsToAdd);
+            
+            const currentDate = new Date();
+            const timeDiff = initDate - currentDate;
+            const daysRemaining = Math.ceil(timeDiff / (1000 * 60 * 60 * 24)); // Convertir a días
+
+            if (daysRemaining <= 7) {
+                return 'text-red-500'; // Rojo si le falta una semana o menos
+            } else if (daysRemaining <= 30) {
+                return 'text-yellow-500'; // Amarillo si le falta un mes o menos
+            } else {
+                return 'text-green-500'; // Verde para el resto
+            }
+        },
+    }, 
+    methods: {
+        policeUpdate(idPolice) {
+            this.$inertia.get(route('updatePolicy', idPolice));
+        },
+    },
+    mounted() {
+        console.log(this.police);
+    }
 }
+</script>
+<script setup>
+import { ref } from "vue";
+const isOpen = ref(false);
+const cobertura = ref(false);
 </script>

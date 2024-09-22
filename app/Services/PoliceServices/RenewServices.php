@@ -17,9 +17,7 @@ use Illuminate\Support\Facades\DB;
 
 class RenewServices
 {
-    public function __construct()
-    {
-    }
+    public function __construct() {}
 
     public function renew($invoiceID)
     {
@@ -100,6 +98,38 @@ class RenewServices
         $data['policePrice'] = $policePrice;
         $data['clientIp'] = $_SERVER['REMOTE_ADDR'];
 
+        return $data;
+    }
+
+    public function seePolicy($phone)
+    {
+        $client = Client::where('phonenumber', $phone)->first();
+
+        // Verificar si el cliente existe
+        if (!$client) {
+            return [
+                'polices' => [],
+                'client' => null
+            ];
+        }
+
+        $polices = Invoices::where('client_id', $client->id)
+            ->whereNotNull('police_number')
+            ->with('brand', 'model', 'type')
+            ->orderBy('policyInitDate', 'asc')
+            ->get();
+
+        if ($polices->isEmpty()) {
+            return [
+                'polices' => [],
+                'client' => $client
+            ];
+        }
+
+        $data = [
+            'polices' => $polices,
+            'client' => $client
+        ];
         return $data;
     }
 }
