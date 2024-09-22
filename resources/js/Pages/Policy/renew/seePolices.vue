@@ -28,11 +28,12 @@
                 <h2 class="font-bold text-2xl">Renovar Pólizas</h2>
             </div>
             <div v-for="polices in data.polices" :key="polices" class="mb-2">
-                <ViewPolices :type="'renew'" :police="polices"/>
+                <!-- <ViewPolices :type="'renew'" :police="polices"  @all-policies-expired="markAllExpired"/> -->
+                  <ViewPolices :type="'renew'" :police="polices" @policy-status="updatePolicyStatus"/>
 
             </div>
                   <!-- Verificamos si la póliza está vacía -->
-            <div v-if="!data.polices || Object.keys(data.polices).length === 0" class="text-center text-gray-500 font-bold text-xl py-4">
+            <div v-if="!data.polices || Object.keys(data.polices).length === 0 || allPoliciesExpired" class="text-center text-gray-500 font-bold text-xl py-4">
                 No tiene pólizas activas
                 <CustomButton
                    :disabled="false"
@@ -67,10 +68,17 @@ export default {
         data: Array,
     },
     mounted() {
-        //console.log(this.data.client.name);
+        console.log(this.data);
+    },
+    computed: {
+          allPoliciesExpired() {
+            return this.expiredPoliciesCount > 0 && this.activePoliciesCount === 0;
+        },
     },
     data() {
         return {
+           activePoliciesCount: 0, // Número de pólizas activas
+            expiredPoliciesCount: 0, // Número de pólizas vencidas
             name : this.data.client.name ? this.data.client.name : '',
             lastname : this.data.client.lastname ? this.data.client.lastname : '',
         };
@@ -79,6 +87,17 @@ export default {
         policeInit(phonenumber) {
             this.$inertia.get(route('client.show', phonenumber));
         },
+        // Método para manejar el evento de que todas las pólizas están vencidas
+         updatePolicyStatus(isExpired) {
+            if (isExpired) {
+                this.expiredPoliciesCount++;
+            } else {
+                this.activePoliciesCount++;
+            }
+        },
+        // markAllExpired() {
+        //     this.showNoPoliciesMessage = true;
+        // },
     },
 };
 </script>

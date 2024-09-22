@@ -95,7 +95,6 @@
             </div>
         </div>
     </section>
-
 </template>
 <script>
 
@@ -166,7 +165,7 @@ export default {
         },
     },
     mounted() {
-        console.log(this.police);
+       this.$emit('policy-status', !this.shouldDisplayPolice);
     }
 }
 </script>
