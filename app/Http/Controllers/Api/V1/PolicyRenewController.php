@@ -4,10 +4,19 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Models\Invoices;
+use App\Services\PoliceServices\RenewServices;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PolicyRenewController extends Controller
 {
+    protected $renewServices;
+
+    public function __construct()
+    {
+        $this->renewServices = new RenewServices();
+    }
     public function UpdatePolice(Request $request)
     {
         $newServicesString = json_encode($request->newServices);
@@ -34,5 +43,11 @@ class PolicyRenewController extends Controller
         $invoice->save();
 
         return $invoice;
+    }
+
+    public function sendMessengerRenew()
+    {
+        set_time_limit(0);
+        return $this->renewServices->sendMessengerRenew();
     }
 }

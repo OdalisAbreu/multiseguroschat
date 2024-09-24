@@ -43,6 +43,10 @@ Route::get('generateoken', [AccesTokenController::class, 'generateToken']);
 // Route::get('V1/generarPdf/{idPoliza}', [ClientsController::class, 'generarPdf']);
 // Route::post('V1/enviarMensajeBotCitie', [ClientsController::class, 'enviarMensajeBotCitie']);
 
+//------------------------------------Crom Job Renovar Poliza ----------------------------------------------------------------
+
+Route::get('V1/sendMessengerRenew', [PolicyRenewController::class, 'sendMessengerRenew']);
+
 //------------------------------------Uso Interno ----------------------------------------------------------------
 Route::resource('internal/codigoDescuento', DiscountsController::class);
 Route::get('accesoCarnet/{id}', [ClientsController::class, 'accesoCarnet']);

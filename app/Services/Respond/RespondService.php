@@ -9,26 +9,31 @@ class RespondService
 {
 
     private $clientPhone;
+    private $urlBase;
 
     public function __construct($clientPhone)
     {
+        $this->urlBase = 'https://api.respond.io/v2/contact/phone:+';
         $this->clientPhone = $clientPhone;
     }
-    public function AddTagContact($tags)
+    public function AddTagContact($tags, $phone)
     {
         $response = Http::withHeaders([
             'Accept' => 'application/json',
             'Content-Type' => 'application/json',
             'Authorization' => 'Bearer ' . env('RESPOND_TOKEN'),
-        ])
-            ->post('https://api.respond.io/v2/contact/phone:+' . $this->clientPhone . '/tag', [
-                $tags
-            ]);
+        ])->post($this->urlBase . $phone . '/tag', [
+            $tags
+        ]);
+        if ($response->failed()) {
+            Log::error($response);
+        }
+        return $response;
     }
 
     public function enviarMensaje($type, $text)
     {
-        $url = 'https://api.respond.io/v2/contact/phone:+' .  $this->clientPhone . '/message';
+        $url = $this->urlBase . $this->clientPhone . '/message';
         $payload = [
             'message' => [
                 'type' => $type,
@@ -49,7 +54,7 @@ class RespondService
 
     public function enviarArchivoBotCitie($type, $urlFile)
     {
-        $url = 'https://api.respond.io/v2/contact/phone:+' .  $this->clientPhone . '/message';
+        $url = $this->urlBase . $this->clientPhone . '/message';
         $payload = [
             'message' => [
                 'type' => 'attachment',
@@ -70,5 +75,41 @@ class RespondService
         };
 
         return $response->json();
+    }
+    public function getContact()
+    {
+        $url = $this->urlBase  . $this->clientPhone;
+
+        $response = Http::withHeaders([
+            'Accept' => 'application/json',
+            'Content-Type' => 'application/json',
+            'Authorization' => 'Bearer ' . env('RESPOND_TOKEN'),
+        ])->get($url);
+        if ($response->failed()) {
+            Log::error($response);
+        }
+        return $response;
+    }
+
+    public function createContact($name, $lastname)
+    {
+        $url = $this->urlBase . $this->clientPhone;
+        $payload = [
+            'firstName' => $name,
+            'lastName' => $lastname,
+            'phone' => $this->clientPhone,
+            'language' => 'es',
+            'countryCode' => 'DO'
+        ];
+
+        $response = Http::withHeaders([
+            'Accept' => 'application/json',
+            'Content-Type' => 'application/json',
+            'Authorization' => 'Bearer ' . env('RESPOND_TOKEN'),
+        ])->post($url, $payload);
+        if ($response->failed()) {
+            Log::error($response);
+        }
+        return $response;
     }
 }

@@ -12,8 +12,11 @@ use App\Models\Service;
 use App\Models\Vehicle_brands;
 use App\Models\Vehicle_models;
 use App\Models\Vehicle_type_tarif;
+use App\Services\Respond\RespondService;
+use Carbon\Carbon;
 use DataPaymentGateway;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class RenewServices
 {
@@ -131,5 +134,54 @@ class RenewServices
             'client' => $client
         ];
         return $data;
+    }
+
+    public function sendMessengerRenew()
+    {
+        set_time_limit(0);
+        $expiredPolicies = $this->getExpiredPolicies();
+        foreach ($expiredPolicies as $police) {
+            $this->validateClientAdnSendMessage($police->client_id);
+        }
+
+        return $expiredPolicies;
+    }
+
+    private function getExpiredPolicies()
+    {
+        // Obtener la fecha actual
+        $today = Carbon::now();
+
+        // Calcular las fechas exactas a 3 días y 15 días desde hoy
+        $threeDaysFromNow = $today->copy()->addDays(3)->format('Y-m-d');
+        $fifteenDaysFromNow = $today->copy()->addDays(15)->format('Y-m-d');
+
+        // Realizar la consulta con la condición de payment_status = "ACCEPT"
+        $invoices = DB::table('invoices')
+            ->select('*')
+            ->where('payment_status', 'ACCEPT') // Asegurar que payment_status sea "ACCEPT"
+            ->where(function ($query) use ($threeDaysFromNow, $fifteenDaysFromNow) {
+                $query->whereRaw("
+                DATE_ADD(DATE(policyInitDate), INTERVAL policyTime MONTH) = ?
+            ", [$threeDaysFromNow])
+                    ->orWhereRaw("
+                DATE_ADD(DATE(policyInitDate), INTERVAL policyTime MONTH) = ?
+            ", [$fifteenDaysFromNow]);
+            })
+            ->get();
+
+        return $invoices;
+    }
+
+    private function validateClientAdnSendMessage($id)
+    {
+        $client = Client::find($id);
+        $respondServices = new RespondService($client->phonenumber);
+        $contact =  $respondServices->getContact();
+        if ($contact->status() != 200) {
+            $respondServices->createContact($client->name, $client->lastname);
+        }
+        Log::info("Envio nenovar Poliza: " . $client->phonenumber);
+        $respondServices->AddTagContact('renovar_api', $client->phonenumber);
     }
 }

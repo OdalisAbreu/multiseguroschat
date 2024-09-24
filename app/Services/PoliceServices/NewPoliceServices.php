@@ -124,9 +124,9 @@ class NewPoliceServices
             $errorPlice->error = $response;
             $errorPlice->save();
 
-            $this->respond->AddTagContact('18294428902', 'errorEnviarPoliza');
-            $this->respond->enviarMensaje('18294428902', 'text', '*ERROR AL GENERAR POLIZA POR MS/SCH 2 *FAVOR DE VERIFICAR EL ERROR*');
-            $this->respond->enviarMensaje($phone, 'text', 'Estamos validando sus Datos por favor espere un momento');
+            $this->respond->AddTagContact('errorEnviarPoliza', '18294428902');
+            //  $this->respond->enviarMensaje('18294428902', 'text', '*ERROR AL GENERAR POLIZA POR MS/SCH 2 *FAVOR DE VERIFICAR EL ERROR*');
+            $this->respond->enviarMensaje('text', 'Estamos validando sus Datos por favor espere un momento');
             $poliza = [
                 'status' => 10,
                 'message' => $response,
