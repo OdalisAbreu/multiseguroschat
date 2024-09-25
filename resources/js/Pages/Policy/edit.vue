@@ -692,7 +692,6 @@ export default {
         };
     },
     mounted() {
-        //  window.addEventListener('beforeunload', this.handleBeforeUnload);
         //Validar si la seccion esta activa
         console.log(this.date);
         axios
@@ -724,10 +723,7 @@ export default {
             clearTimeout(timeoutId);
         });
     },
-    //  beforeUnmount() {
-    //     // Remover el evento antes de que se desmonte el componente
-    //     window.removeEventListener('beforeunload', this.handleBeforeUnload);
-    // },
+
     methods: {
 
         submit() {
