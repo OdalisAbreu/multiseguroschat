@@ -3,10 +3,12 @@
 namespace App\Services\PoliceServices;
 
 use App\Models\Client;
+use App\Models\Discounts;
 use App\Models\Invoices;
 use App\Models\ProvisionalErrorPolicies;
 use App\Services\Respond\RespondService;
 use Exception;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
 class NewPoliceServices
@@ -72,6 +74,10 @@ class NewPoliceServices
         $this->invoices->police_number = $newPolice->insurancePolicyNumber;
         $this->invoices->police_transactionId = $newPolice->transactionId;
         $this->invoices->save();
+
+        if ($this->invoices->discount_id) {
+            $this->descountCupon($this->invoices);
+        }
         return $newPolice;
     }
 
@@ -134,5 +140,17 @@ class NewPoliceServices
             $poliza = (object) $poliza;
         }
         return $poliza;
+    }
+
+    private function descountCupon($invoice)
+    {
+        if ($invoice->discount_id != 0) {
+            $descuento = Discounts::find($invoice->discount_id);
+            $response = Http::withHeaders([
+                'Accept' => '*/*',
+                'User-Agent' => 'Thunder Client (https://www.thunderclient.com)',
+            ])
+                ->get('https://multiseguros.com.do/ws_schat/update_descount_code.php?transactionId=' . $invoice->police_transactionId . '&code=' . $descuento->code . '&value=' . $descuento->discount_amount);
+        }
     }
 }
