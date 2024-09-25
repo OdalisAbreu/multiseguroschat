@@ -1003,7 +1003,7 @@ export default {
     },
     mounted() {
         // Agregar evento beforeunload
-        window.addEventListener('beforeunload', this.handleBeforeUnload);
+        // window.addEventListener('beforeunload', this.handleBeforeUnload);
         //Validar si la seccion esta activa
         axios
             .get("/api/V1/validarCesion/" + this.client.id)
@@ -1043,15 +1043,15 @@ export default {
             clearTimeout(timeoutId);
         });
     },
-    beforeUnmount() {
-        // Remover el evento antes de que se desmonte el componente
-        window.removeEventListener('beforeunload', this.handleBeforeUnload);
-    },
+    // beforeUnmount() {
+    //     // Remover el evento antes de que se desmonte el componente
+    //     window.removeEventListener('beforeunload', this.handleBeforeUnload);
+    // },
     methods: {
-         handleBeforeUnload(event) {
-            event.preventDefault();
-            event.returnValue = 'Si actualizas la página, perderás los datos ingresados. ¿Estás seguro de que deseas continuar?';
-        },
+        //  handleBeforeUnload(event) {
+        //     event.preventDefault();
+        //     event.returnValue = 'Si actualizas la página, perderás los datos ingresados. ¿Estás seguro de que deseas continuar?';
+        // },
         procesar: function (insurances_id, time) {
             if (insurances_id && time) {
                 this.form.date = this.form.date.toISOString();

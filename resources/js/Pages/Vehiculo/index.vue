@@ -371,7 +371,7 @@ export default {
         }
     },
     mounted() {
-        window.addEventListener('beforeunload', this.handleBeforeUnload);
+        // window.addEventListener('beforeunload', this.handleBeforeUnload);
 
         //Validar si la seccion esta activa
         axios
@@ -403,15 +403,15 @@ export default {
             clearTimeout(timeoutId);
         });
     },
-    beforeUnmount() {
-        // Remover el evento antes de que se desmonte el componente
-        window.removeEventListener('beforeunload', this.handleBeforeUnload);
-    },
+    // beforeUnmount() {
+    //     // Remover el evento antes de que se desmonte el componente
+    //     window.removeEventListener('beforeunload', this.handleBeforeUnload);
+    // },
     methods: {
-        handleBeforeUnload(event) {
-            event.preventDefault();
-            event.returnValue = 'Si actualizas la página, perderás los datos ingresados. ¿Estás seguro de que deseas continuar?';
-        },
+        // handleBeforeUnload(event) {
+        //     event.preventDefault();
+        //     event.returnValue = 'Si actualizas la página, perderás los datos ingresados. ¿Estás seguro de que deseas continuar?';
+        // },
         async submit() {
             const isFormCorrect = await this.v$.form.$validate()
             if(!isFormCorrect)

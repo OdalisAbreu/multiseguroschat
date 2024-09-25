@@ -189,7 +189,7 @@ export default {
         }
     },
     mounted(){
-        window.addEventListener('beforeunload', this.handleBeforeUnload);
+        // window.addEventListener('beforeunload', this.handleBeforeUnload);
                //Validar si la seccion esta activa
        axios.get("/api/V1/validarCesion/" + this.client.id).then((response) => {
                 if(!response.data.status){
@@ -217,15 +217,15 @@ export default {
                 clearTimeout(timeoutId);
             });
     },
-    beforeUnmount() {
-        // Remover el evento antes de que se desmonte el componente
-        window.removeEventListener('beforeunload', this.handleBeforeUnload);
-    },
+    // beforeUnmount() {
+    //     // Remover el evento antes de que se desmonte el componente
+    //     window.removeEventListener('beforeunload', this.handleBeforeUnload);
+    // },
     methods: {
-         handleBeforeUnload(event) {
-            event.preventDefault();
-            event.returnValue = 'Si actualizas la página, perderás los datos ingresados. ¿Estás seguro de que deseas continuar?';
-        },
+        //  handleBeforeUnload(event) {
+        //     event.preventDefault();
+        //     event.returnValue = 'Si actualizas la página, perderás los datos ingresados. ¿Estás seguro de que deseas continuar?';
+        // },
         submit() {
             this.Loading = true
             this.$inertia.post(this.route('servicespolicy'), this.form)
