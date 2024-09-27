@@ -365,9 +365,7 @@ class ClientsController extends Controller
     public function validarCesion($id)
     {
         $client = Client::where('id', $id)->first();
-        return [
-            'status' => true
-        ];
+        return ['status' => true]; // de momento todas las sesiones quedan activas sin importar el estatus
         if ($client) {
             if ($client->session == 'A') {
                 return [
