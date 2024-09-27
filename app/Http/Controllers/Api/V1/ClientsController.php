@@ -365,6 +365,9 @@ class ClientsController extends Controller
     public function validarCesion($id)
     {
         $client = Client::where('id', $id)->first();
+        return [
+            'status' => true
+        ];
         if ($client) {
             if ($client->session == 'A') {
                 return [
