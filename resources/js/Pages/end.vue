@@ -3,8 +3,8 @@
         <Header :width="100" />
         <section class="py-2 pb-6 relative rounded-xl bg-white mx-3 z-40">
             <div class="grid grid-cols-12 gap-1">
-                <div class="col-span-12">
-                    <h3 class="font-bold text-2xl text-center">
+                <div class="col-span-12 text-2xl text-center">
+                    <h3 class="font-bold ">
                         Seguro procesado correctamente
                     </h3>
                     <h4>Tu póliza esta lista</h4>
@@ -49,7 +49,7 @@
     </div>
 
     <!----------------------------------------------IMAGEN PARA BASE64------------------------->
-
+<!-- 
     <div id="image" class="fondo">
         <div class="border-2 border-sky-500 rounded-md tarjeta">
             <div class="header_poliza"></div>
@@ -112,7 +112,7 @@
             <div>Gracias por elegir SegurosChat</div>
             <div class="foother_poliza"></div>
         </div>
-    </div>
+    </div> -->
     <!------------------------------------------------------------------------------------>
 </template>
 
@@ -202,114 +202,104 @@ export default defineComponent({
 
         //Genera la Imagen en Base64
 
-        var node = document.getElementById("image");
+        // var node = document.getElementById("image");
         /*  domtoimage.toPng(node).then((dataUrl) => {
             console.log(dataUrl);
           
         }).catch((error) => {
             console.error("oops, something went wrong!", error);
         });*/
-        var inv = this.invoice.id;
-        toPng(node)
-            .then(function (dataUrl) {
-                var img = new Image();
-                img.src = dataUrl;
-                //  console.log(dataUrl);
-                // document.body.appendChild(img);
+        // var inv = this.invoice.id;
+        // toPng(node)
+        //     .then(function (dataUrl) {
+        //         var img = new Image();
+        //         img.src = dataUrl;
+        //         //  console.log(dataUrl);
+        //         // document.body.appendChild(img);
 
-                axios
-                    .post("/api/V1/savePolizaImage", {
-                        idPoliza: inv,
-                        image: dataUrl,
-                    })
-                    .then((response) => {
-                        console.log(inv);
-                        console.log(esponse.data);
-                    })
-                    .catch((error) => {
-                        console.log(inv);
-                        console.log(error.response);
-                    });
-            })
-            .catch(function (error) {
-                console.error("oops, something went wrong!", error);
-            });
+        //         axios
+        //             .post("/api/V1/savePolizaImage", {
+        //                 idPoliza: inv,
+        //                 image: dataUrl,
+        //             })
+        //             .then((response) => {
+        //                 console.log(inv);
+        //                 console.log(esponse.data);
+        //             })
+        //             .catch((error) => {
+        //                 console.log(inv);
+        //                 console.log(error.response);
+        //             });
+        //     })
+        //     .catch(function (error) {
+        //         console.error("oops, something went wrong!", error);
+        //     });
 
         setTimeout(() => {
             this.display = "none";
         }, 1000);
-
-       /* //--------------------------- Enviar a BotPro-----------------------------------------//
-        axios.get(
-            "/api/V1/enviarIdPolizaBot/" +
-                this.invoice.id +
-                "/" +
-                this.Client.idConversacion
-        );*/
         //--------------------------- Generar PDF-----------------------------------------//
-        axios.get(
-            "/api/V1/generarPdf/" + this.invoice.police_transactionId
-        );
+        // axios.get(
+        //     "/api/V1/generarPdf/" + this.invoice.police_transactionId
+        // );
         //esperar 5 segundos despues de generar el pdf
         //--------------------------- Actualiza el codigo de descuento en multiseguros-----------------------------------------//
-        axios.get(
-            "/api/V1/UpdateDescuento/" + this.invoice.id
-        );
-        setTimeout(() => {
-            this.display = "none";
+        // axios.get(
+        //     "/api/V1/UpdateDescuento/" + this.invoice.id
+        // // );
+        // setTimeout(() => {
+        //     this.display = "none";
             //--------------------------- Enviar Mensaje al cliente -------------------------------//
-            console.log(this.Client.phonenumber);
-            axios
-                .post("/api/V1/enviarMensajeBotCitie", {
-                    type: "text",
-                    text: "¡Tu póliza está lista! Gracias por comprar en *SegurosChat*.🕐 _En breve estarás recibiendo tus documentos.._",
-                    phone: this.Client.phonenumber,
-                })
-                .then((response) => {
-                    console.log(response.data);
-                })
-                .catch((error) => {
-                    console.log(error.response);
-                });
+            // console.log(this.Client.phonenumber);
+            // axios
+            //     .post("/api/V1/enviarMensajeBotCitie", {
+            //         type: "text",
+            //         text: "¡Tu póliza está lista! Gracias por comprar en *SegurosChat*.🕐 _En breve estarás recibiendo tus documentos.._",
+            //         phone: this.Client.phonenumber,
+            //     })
+            //     .then((response) => {
+            //         console.log(response.data);
+            //     })
+            //     .catch((error) => {
+            //         console.log(error.response);
+            //     });
     
             //------------------- Enviar PDF WhatsApp del cliente -----------------------------//
-            console.log(this.invoice.police_number);
-            axios
-                .post("/api/V1/enviarArchivoBotCitie", {
-                    // .post("/api/V1/enviarArchivoBotCitie", {
-                    type: "file",
-                    url:
-                        "https://multiseguros.com.do/ws_dev/TareasProg/PDF/IMPRIMIR/" +
-                        this.invoice.police_number +
-                        ".pdf",
-                    phone: this.Client.phonenumber,
-                })
-                .then((response) => {
-                    console.log(response.data);
-                })
-                .catch((error) => {
-                    console.log(error.response);
-                });
+            // console.log(this.invoice.police_number);
+            // axios
+            //     .post("/api/V1/enviarArchivoBotCitie", {
+            //         type: "file",
+            //         url:
+            //             "https://multiseguros.com.do/ws_dev/TareasProg/PDF/IMPRIMIR/" +
+            //             this.invoice.police_number +
+            //             ".pdf",
+            //         phone: this.Client.phonenumber,
+            //     })
+            //     .then((response) => {
+            //         console.log(response.data);
+            //     })
+            //     .catch((error) => {
+            //         console.log(error.response);
+            //     });
     
-            axios
-                .post("/api/V1/enviarArchivoBotCitie", {
-                    // .post("/api/V1/enviarArchivoBotCitie", {
-                    type: "file",
-                    url: "https://multiseguros.com.do/ws_dev/TareasProg/PDF/IMPRIMIR/Terminos_Poliza.pdf",
-                    phone: this.Client.phonenumber,
-                })
-                .then((response) => {
-                    console.log(response.data);
-                })
-                .catch((error) => {
-                    console.log(error.response);
-                });
-        }, 10000);
+        //     axios
+        //         .post("/api/V1/enviarArchivoBotCitie", {
+        //             type: "file",
+        //             url: "https://multiseguros.com.do/ws_dev/TareasProg/PDF/IMPRIMIR/Terminos_Poliza.pdf",
+        //             phone: this.Client.phonenumber,
+        //         })
+        //         .then((response) => {
+        //             console.log(response.data);
+        //         })
+        //         .catch((error) => {
+        //             console.log(error.response);
+        //         });
+        // }, 10000);
         //------------------------ Confirmar la Transaccion --------------------------------//
-        axios.get(
-            "/api/V1/confirmarPositivo/" + this.Client.phonenumber
-            //"/api/V1/confirmarPositivo/51185"
-        );
+        // axios.get(
+        //     "/api/V1/confirmarPositivo/" + this.Client.phonenumber
+        //     //"/api/V1/confirmarPositivo/51185"
+        // );
         //------------------------ Cierra la sesion del cliente --------------------------------//
         axios.get(
             "/api/V1/desactivarSesion/" + this.Client.id

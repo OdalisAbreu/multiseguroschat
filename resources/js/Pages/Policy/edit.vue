@@ -572,7 +572,7 @@
 import { Head, Link } from "@inertiajs/inertia-vue3";
 import Header from "../../components/Header.vue";
 import Footer from "../../components/Footer.vue";
-import { ref, onUnmounted } from "vue";
+import { ref, onUnmounted, onMounted  } from "vue";
 
 export default {
     components: {
@@ -692,6 +692,7 @@ export default {
         };
     },
     mounted() {
+        //  window.addEventListener('beforeunload', this.handleBeforeUnload);
         //Validar si la seccion esta activa
         console.log(this.date);
         axios
@@ -723,7 +724,15 @@ export default {
             clearTimeout(timeoutId);
         });
     },
+    //  beforeUnmount() {
+    //     // Remover el evento antes de que se desmonte el componente
+    //     window.removeEventListener('beforeunload', this.handleBeforeUnload);
+    // },
     methods: {
+        //  handleBeforeUnload(event) {
+        //     event.preventDefault();
+        //     event.returnValue = 'Si actualizas la página, perderás los datos ingresados. ¿Estás seguro de que deseas continuar?';
+        // },
         submit() {
             this.mostrarConfirmacion = false
             axios.get('api/accesoCarnet/'+ this.client.id);

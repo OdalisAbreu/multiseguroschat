@@ -66,8 +66,7 @@
                 class="flex flex-col justify-center items-center bg-slate-100 rounded-xl border-2 border-gray-300 mb-2 max-w-4xl mx-auto">
 
                 <div class="p-3">
-                    <div class="text-black font-bold text-center text-2xl sm:text-2xl md:text-3xl xl:text-3xl">Servicios
-                        Opcionales </div>
+                    <div class="text-black font-bold text-center text-2xl sm:text-2xl md:text-3xl xl:text-3xl">Servicios Opcionales </div>
                 </div>
 
                 <form @submit.prevent="submit">
@@ -119,7 +118,7 @@ import { Head, Link } from '@inertiajs/inertia-vue3';
 import { watch } from '@vue/runtime-core';
 import Header from '../../components/Header.vue';
 import Footer from '../../components/Footer.vue';
-import { ref, onUnmounted } from 'vue';
+import { ref, onUnmounted, onMounted  } from 'vue';
 
 export default {
     components: {
@@ -190,6 +189,7 @@ export default {
         }
     },
     mounted(){
+        // window.addEventListener('beforeunload', this.handleBeforeUnload);
                //Validar si la seccion esta activa
        axios.get("/api/V1/validarCesion/" + this.client.id).then((response) => {
                 if(!response.data.status){
@@ -217,7 +217,15 @@ export default {
                 clearTimeout(timeoutId);
             });
     },
+    // beforeUnmount() {
+    //     // Remover el evento antes de que se desmonte el componente
+    //     window.removeEventListener('beforeunload', this.handleBeforeUnload);
+    // },
     methods: {
+        //  handleBeforeUnload(event) {
+        //     event.preventDefault();
+        //     event.returnValue = 'Si actualizas la página, perderás los datos ingresados. ¿Estás seguro de que deseas continuar?';
+        // },
         submit() {
             this.Loading = true
             this.$inertia.post(this.route('servicespolicy'), this.form)

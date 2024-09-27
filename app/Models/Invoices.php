@@ -9,6 +9,7 @@ class Invoices extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'id',
         'policyTime',
         'chassis',
         'licensePlate',
@@ -43,8 +44,17 @@ class Invoices extends Model
     //     return $this->belongsTo(Client::class, 'client_id');
     // }
 
-    // public function brand()
-    // {
-    //     return $this->belongsTo(Vehicle_brands::class, 'car_brand');
-    // }
+    public function brand()
+    {
+        return $this->belongsTo(Vehicle_brands::class, 'car_brand', 'ID');
+    }
+
+    public function model()
+    {
+        return $this->belongsTo(Vehicle_models::class, 'car_model', 'ID');
+    }
+    public function type()
+    {
+        return $this->belongsTo(Vehicle_type_tarif::class, 'car_tipe', 'id');
+    }
 }

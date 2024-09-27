@@ -12,14 +12,15 @@ use App\Models\Service;
 use App\Models\Vehicle_brands;
 use App\Models\Vehicle_models;
 use App\Models\Vehicle_type_tarif;
+use App\Services\Respond\RespondService;
+use Carbon\Carbon;
 use DataPaymentGateway;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class RenewServices
 {
-    public function __construct()
-    {
-    }
+    public function __construct() {}
 
     public function renew($invoiceID)
     {
@@ -101,5 +102,86 @@ class RenewServices
         $data['clientIp'] = $_SERVER['REMOTE_ADDR'];
 
         return $data;
+    }
+
+    public function seePolicy($phone)
+    {
+        $client = Client::where('phonenumber', $phone)->first();
+
+        // Verificar si el cliente existe
+        if (!$client) {
+            return [
+                'polices' => [],
+                'client' => null
+            ];
+        }
+
+        $polices = Invoices::where('client_id', $client->id)
+            ->whereNotNull('police_number')
+            ->with('brand', 'model', 'type')
+            ->orderBy('policyInitDate', 'asc')
+            ->get();
+
+        if ($polices->isEmpty()) {
+            return [
+                'polices' => [],
+                'client' => $client
+            ];
+        }
+
+        $data = [
+            'polices' => $polices,
+            'client' => $client
+        ];
+        return $data;
+    }
+
+    public function sendMessengerRenew()
+    {
+        set_time_limit(0);
+        $expiredPolicies = $this->getExpiredPolicies();
+        foreach ($expiredPolicies as $police) {
+            $this->validateClientAdnSendMessage($police->client_id);
+        }
+
+        return $expiredPolicies;
+    }
+
+    private function getExpiredPolicies()
+    {
+        // Obtener la fecha actual
+        $today = Carbon::now();
+
+        // Calcular las fechas exactas a 3 días y 15 días desde hoy
+        $threeDaysFromNow = $today->copy()->addDays(3)->format('Y-m-d');
+        $fifteenDaysFromNow = $today->copy()->addDays(15)->format('Y-m-d');
+
+        // Realizar la consulta con la condición de payment_status = "ACCEPT"
+        $invoices = DB::table('invoices')
+            ->select('*')
+            ->where('payment_status', 'ACCEPT') // Asegurar que payment_status sea "ACCEPT"
+            ->where(function ($query) use ($threeDaysFromNow, $fifteenDaysFromNow) {
+                $query->whereRaw("
+                DATE_ADD(DATE(policyInitDate), INTERVAL policyTime MONTH) = ?
+            ", [$threeDaysFromNow])
+                    ->orWhereRaw("
+                DATE_ADD(DATE(policyInitDate), INTERVAL policyTime MONTH) = ?
+            ", [$fifteenDaysFromNow]);
+            })
+            ->get();
+
+        return $invoices;
+    }
+
+    private function validateClientAdnSendMessage($id)
+    {
+        $client = Client::find($id);
+        $respondServices = new RespondService($client->phonenumber);
+        $contact =  $respondServices->getContact();
+        if ($contact->status() != 200) {
+            $respondServices->createContact($client->name, $client->lastname);
+        }
+        Log::info("Envio nenovar Poliza: " . $client->phonenumber);
+        $respondServices->AddTagContact('renovar_api', $client->phonenumber);
     }
 }

@@ -69,7 +69,7 @@ export default {
         },
         methods:{
             submit(){
-                this.$inertia.post(this.route('generatePolicynew'), this.form)
+              //  this.$inertia.post(this.route('generatePolicynew'), this.form)
             }
         }
 }

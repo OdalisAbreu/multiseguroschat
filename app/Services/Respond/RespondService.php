@@ -7,50 +7,109 @@ use Illuminate\Support\Facades\Log;
 
 class RespondService
 {
-    public function AddTagContact($phoneCustomer, $tags)
+
+    private $clientPhone;
+    private $urlBase;
+
+    public function __construct($clientPhone)
+    {
+        $this->urlBase = 'https://api.respond.io/v2/contact/phone:+';
+        $this->clientPhone = $clientPhone;
+    }
+    public function AddTagContact($tags, $phone)
     {
         $response = Http::withHeaders([
             'Accept' => 'application/json',
             'Content-Type' => 'application/json',
-            'Authorization' => 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTgyMywic3BhY2VJZCI6MTQ3NDAxLCJvcmdJZCI6MjAzNDYsInR5cGUiOiJhcGkiLCJpYXQiOjE2ODI1Mzc0MTZ9.dsECELGyYJd9XF_PkkM-W8W-qUPnow3VdFeHnM2XiSo',
-        ])
-            ->post('https://api.respond.io/v2/contact/phone:+' . $phoneCustomer . '/tag', [
-                $tags
-            ]);
-        // if ($response->successful()) {
-        //     Log::info('add tag contact:', ['responseData' => $response->json()]);
-        // } else {
-        //     Log::error('add tag contact:', ['responseData' => $response->status()]);
-        // }
+            'Authorization' => 'Bearer ' . env('RESPOND_TOKEN'),
+        ])->post($this->urlBase . $phone . '/tag', [
+            $tags
+        ]);
+        if ($response->failed()) {
+            Log::error($response);
+        }
+        return $response;
     }
 
-    public function enviarMensaje($phone, $type, $text)
+    public function enviarMensaje($type, $text)
     {
-        $curl = curl_init();
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => 'https://api.respond.io/v2/contact/phone:+' . $phone . '/message',
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'POST',
-            CURLOPT_POSTFIELDS => '{
-                                        "message": {
-                                                        "type": "' . $type . '",
-                                                        "text": "' . $text . '"
-                                                    }
-                                    }',
-            CURLOPT_HTTPHEADER => array(
-                'Content-Type: application/json',
-                'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTgyMywic3BhY2VJZCI6MTQ3NDAxLCJvcmdJZCI6MjAzNDYsInR5cGUiOiJhcGkiLCJpYXQiOjE2ODI1Mzc0MTZ9.dsECELGyYJd9XF_PkkM-W8W-qUPnow3VdFeHnM2XiSo'
-            ),
-        ));
+        $url = $this->urlBase . $this->clientPhone . '/message';
+        $payload = [
+            'message' => [
+                'type' => $type,
+                'text' => $text,
+            ],
+        ];
 
-        $response = curl_exec($curl);
+        $response = Http::withHeaders([
+            'Accept' => 'application/json',
+            'Content-Type' => 'application/json',
+            'Authorization' => 'Bearer ' . env('RESPOND_TOKEN'),
+        ])->post($url, $payload);
+        if ($response->failed()) {
+            Log::error($response);
+        }
+        return $response;
+    }
 
-        curl_close($curl);
-        return json_decode($response);
+    public function enviarArchivoBotCitie($type, $urlFile)
+    {
+        $url = $this->urlBase . $this->clientPhone . '/message';
+        $payload = [
+            'message' => [
+                'type' => 'attachment',
+                'attachment' => [
+                    'type' => $type,
+                    'url' => $urlFile,
+                ],
+            ],
+        ];
+
+        $response = Http::withHeaders([
+            'Authorization' => 'Bearer ' . env('RESPOND_TOKEN'),
+            'Content-Type' => 'application/json',
+        ])->post($url, $payload);
+
+        if ($response->failed()) {
+            Log::error($response);
+        };
+
+        return $response->json();
+    }
+    public function getContact()
+    {
+        $url = $this->urlBase  . $this->clientPhone;
+
+        $response = Http::withHeaders([
+            'Accept' => 'application/json',
+            'Content-Type' => 'application/json',
+            'Authorization' => 'Bearer ' . env('RESPOND_TOKEN'),
+        ])->get($url);
+        if ($response->failed()) {
+            Log::error($response);
+        }
+        return $response;
+    }
+
+    public function createContact($name, $lastname)
+    {
+        $url = $this->urlBase . $this->clientPhone;
+        $payload = [
+            'firstName' => $name,
+            'lastName' => $lastname,
+            'phone' => $this->clientPhone,
+            'language' => 'es',
+            'countryCode' => 'DO'
+        ];
+
+        $response = Http::withHeaders([
+            'Accept' => 'application/json',
+            'Content-Type' => 'application/json',
+            'Authorization' => 'Bearer ' . env('RESPOND_TOKEN'),
+        ])->post($url, $payload);
+        if ($response->failed()) {
+            Log::error($response);
+        }
+        return $response;
     }
 }

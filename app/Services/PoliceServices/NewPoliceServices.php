@@ -3,10 +3,12 @@
 namespace App\Services\PoliceServices;
 
 use App\Models\Client;
+use App\Models\Discounts;
 use App\Models\Invoices;
 use App\Models\ProvisionalErrorPolicies;
 use App\Services\Respond\RespondService;
 use Exception;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
 class NewPoliceServices
@@ -18,8 +20,8 @@ class NewPoliceServices
     public function __construct(Invoices $invoices)
     {
         $this->invoices = $invoices;
-        $this->respond =  new RespondService();
         $this->client = Client::find($invoices->client_id);
+        $this->respond =  new RespondService($this->client->phonenumber);
     }
 
     public function generatePolice()
@@ -63,25 +65,30 @@ class NewPoliceServices
         );
         Log::info("peticion de poliza -> clientId: " . $this->invoices->client_id, [$json]);
         $consultPolice =  $this->postpolice($json);
-        $newPolice = $this->validateStatusPolice($consultPolice);
+        $newPolice = $this->validateStatusPolice($consultPolice, $this->client->phonenumber);
 
         if ($newPolice->status != "00") {
-            Log::info("peticion de poliza sin procesar -> clientId: " . $$this->invoices->client_id, [$consultPolice]);
+            Log::info("peticion de poliza sin procesar -> clientId: " . $this->invoices->client_id, [$consultPolice]);
             return;
         }
         $this->invoices->police_number = $newPolice->insurancePolicyNumber;
         $this->invoices->police_transactionId = $newPolice->transactionId;
         $this->invoices->save();
+
+        if ($this->invoices->discount_id) {
+            $this->descountCupon($this->invoices);
+        }
         return $newPolice;
     }
 
     private function postpolice($json)
     {
+        $url = env('URL_POLIZA') . '/Seguros/GET_Poliza_Total.php';
         try {
             $curl = curl_init();
 
             curl_setopt_array($curl, array(
-                CURLOPT_URL => env('URL_POLIZA'),
+                CURLOPT_URL => $url,
                 CURLOPT_RETURNTRANSFER => true,
                 CURLOPT_ENCODING => '',
                 CURLOPT_MAXREDIRS => 10,
@@ -99,13 +106,10 @@ class NewPoliceServices
             return $response;
         } catch (Exception $e) {
             Log::error("Error al Generar Poliza:  " . $e);
-            // $this->respond->AddTagContact('18294428902', 'errorEnviarPoliza');
-            // $this->respond->enviarMensaje('18294428902', 'text', '*ERROR AL GENERAR POLIZA* para el cliente Id: ' . $this->invoices->client_id . ' *FAVOR DE VERIFICAR EL ERROR*');
-            // $this->respond->enviarMensaje($this->client->phonenumber, 'text', 'Estamos validando sus Datos por favor espere un momento');
         }
     }
 
-    private function validateStatusPolice($response)
+    private function validateStatusPolice($response, $phone)
     {
 
         $parts = explode('/', $response);
@@ -119,16 +123,16 @@ class NewPoliceServices
             ];
             $poliza = (object) $poliza;
         } else {
-            Log::info("peticion de poliza sin procesar -> clientId: " . $$this->invoices->client_id, [$response]);
+            Log::info("peticion de poliza sin procesar -> clientId: " . $this->invoices->client_id, [$response]);
             $errorPlice = new ProvisionalErrorPolicies();
-            $errorPlice->invoice_id = $$this->invoices->id;
-            $errorPlice->petition = json_encode($json);
+            $errorPlice->invoice_id = $this->invoices->id;
+            $errorPlice->petition = json_encode(['error' => $response, 'phone' => $phone]);
             $errorPlice->error = $response;
             $errorPlice->save();
 
-            $this->respond->AddTagContact('18294428902', 'errorEnviarPoliza');
-            $this->respond->enviarMensaje('18294428902', 'text', '*ERROR AL GENERAR POLIZA POR MS/SCH 2* para el cliente Id: ' . $invoices->client_id . ' *FAVOR DE VERIFICAR EL ERROR*');
-            $this->respond->enviarMensaje($client[0]->phonenumber, 'text', 'Estamos validando sus Datos por favor espere un momento');
+            $this->respond->AddTagContact('errorEnviarPoliza', '18294428902');
+            //  $this->respond->enviarMensaje('18294428902', 'text', '*ERROR AL GENERAR POLIZA POR MS/SCH 2 *FAVOR DE VERIFICAR EL ERROR*');
+            $this->respond->enviarMensaje('text', 'Estamos validando sus Datos por favor espere un momento');
             $poliza = [
                 'status' => 10,
                 'message' => $response,
@@ -136,5 +140,17 @@ class NewPoliceServices
             $poliza = (object) $poliza;
         }
         return $poliza;
+    }
+
+    private function descountCupon($invoice)
+    {
+        if ($invoice->discount_id != 0) {
+            $descuento = Discounts::find($invoice->discount_id);
+            $response = Http::withHeaders([
+                'Accept' => '*/*',
+                'User-Agent' => 'Thunder Client (https://www.thunderclient.com)',
+            ])
+                ->get('https://multiseguros.com.do/ws_schat/update_descount_code.php?transactionId=' . $invoice->police_transactionId . '&code=' . $descuento->code . '&value=' . $descuento->discount_amount);
+        }
     }
 }

@@ -28,11 +28,7 @@ Route::get('V1/aplicardescuento/{id}/{descuento}/{totalGeneral}', [InvoicesContr
 //-----------------------------Generar la Imagen de la poliza ----------------------------------
 Route::get('V1/enviarIdPolizaBot/{idPoliza}/{idConversacion}', [ClientsController::class, 'enviarIdPolizaBot']);
 Route::get('V1/getPolizaImage/{idPoliza}', [ClientsController::class, 'getPolizaImage']);
-Route::post('V1/savePolizaImage', [ClientsController::class, 'savePolizaImage']);
 Route::get('V1/enviarIdPolizaBotCity/{idPoliza}/{celualar}', [ClientsController::class, 'enviarIdPolizaBotCity']);
-Route::get('V1/generarPdf/{idPoliza}', [ClientsController::class, 'generarPdf']);
-Route::post('V1/enviarMensajeBotCitie', [ClientsController::class, 'enviarMensajeBotCitie']);
-Route::post('V1/enviarArchivoBotCitie', [ClientsController::class, 'enviarArchivoBotCitie']);
 Route::get('V1/confirmarPositivo/{phone}', [ClientsController::class, 'confirmarPositivo']);
 Route::get('V1/confirmarNegativo/{phone}', [ClientsController::class, 'confirmarNegativo']);
 Route::get('V1/desactivarSesion/{idClient}', [ClientsController::class, 'desactivarSesion']);
@@ -42,6 +38,14 @@ Route::post('V1/invoices', [InvoicesController::class, 'getInvoices']);
 Route::get('V1/invoice/{id}', [InvoicesController::class, 'getInvoice']);
 Route::resource('V1/prices', PriceCOntroller::class);
 Route::get('generateoken', [AccesTokenController::class, 'generateToken']);
+// Route::post('V1/enviarArchivoBotCitie', [ClientsController::class, 'enviarArchivoBotCitie']);
+// Route::post('V1/savePolizaImage', [ClientsController::class, 'savePolizaImage']);
+// Route::get('V1/generarPdf/{idPoliza}', [ClientsController::class, 'generarPdf']);
+// Route::post('V1/enviarMensajeBotCitie', [ClientsController::class, 'enviarMensajeBotCitie']);
+
+//------------------------------------Crom Job Renovar Poliza ----------------------------------------------------------------
+
+Route::get('V1/sendMessengerRenew', [PolicyRenewController::class, 'sendMessengerRenew']);
 
 //------------------------------------Uso Interno ----------------------------------------------------------------
 Route::resource('internal/codigoDescuento', DiscountsController::class);

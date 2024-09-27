@@ -454,7 +454,7 @@ class PoliciesController extends Controller
 
     public function seePolicy($phone)
     {
-        $data = [];
+        $data = $this->renewServices->seePolicy($phone);
         return Inertia::render('Policy/renew/seePolices', [
             'data' => $data
         ]);

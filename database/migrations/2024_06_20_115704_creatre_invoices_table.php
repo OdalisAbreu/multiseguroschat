@@ -1,11 +1,10 @@
 <?php
 
-use Facade\Ignition\Tabs\Tab;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateInvoicesTable extends Migration
+class CreatreInvoicesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -20,14 +19,14 @@ class CreateInvoicesTable extends Migration
             $table->string('chassis');
             $table->string('licensePlate');
             $table->integer('year');
+            $table->string('client_id');
+            $table->string('payment_status');
             $table->double('totalGeneral')->nullable();
             $table->integer('sellers_id')->nullable();
-            $table->integer('car_tipe');
+            $table->integer('car_tipe')->nullable();
             $table->integer('car_brand')->nullable();
             $table->integer('car_model')->nullable();
-            $table->string('client_id');
-            $table->string('services');
-            $table->string('payment_status');
+            $table->string('services')->nullable();
             $table->string('tranf_number')->nullable();
             $table->string('card_type')->nullable();
             $table->string('transaction_id')->nullable();

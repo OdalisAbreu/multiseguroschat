@@ -347,7 +347,7 @@ const isOpen4 = ref(false);
                                                 "
                                             >
                                                 <p class="w-8/12 text-left">
-                                                    Responsabilidad Civil:
+                                                    Resp. Civil 1 Persona:
                                                 </p>
                                                 <p class="w-4/12 text-left">
                                                     RD${{
@@ -368,7 +368,7 @@ const isOpen4 = ref(false);
                                                 "
                                             >
                                                 <p class="w-8/12 text-left">
-                                                    Responsabilidad Civil 2:
+                                                    Resp. Civil +1 Persona:
                                                 </p>
                                                 <p class="w-4/12 text-left">
                                                     RD${{
@@ -385,7 +385,7 @@ const isOpen4 = ref(false);
                                                 v-if="sellers[1].UnaPersona > 0"
                                             >
                                                 <p class="w-8/12 text-left">
-                                                    Una Persona:
+                                                    Accidentes Personales:
                                                 </p>
                                                 <p class="w-4/12 text-left">
                                                     RD${{
@@ -476,7 +476,7 @@ const isOpen4 = ref(false);
                                                 <p class="w-4/12 text-left">
                                                     RD${{
                                                         Number(
-                                                            sellers[0]
+                                                            sellers[1]
                                                                 .DanosPropiedadAjena
                                                         ).toLocaleString()
                                                     }}
@@ -492,12 +492,12 @@ const isOpen4 = ref(false);
                                                 "
                                             >
                                                 <p class="w-8/12 text-left">
-                                                    Responsabilidad Civil:
+                                                    Resp. Civil 1 Persona:
                                                 </p>
                                                 <p class="w-4/12 text-left">
                                                     RD${{
                                                         Number(
-                                                            sellers[0]
+                                                            sellers[1]
                                                                 .ResponsabilidadCivil
                                                         ).toLocaleString()
                                                     }}
@@ -513,12 +513,12 @@ const isOpen4 = ref(false);
                                                 "
                                             >
                                                 <p class="w-8/12 text-left">
-                                                    Responsabilidad Civil 2:
+                                                    Resp. Civil +1 Persona:
                                                 </p>
                                                 <p class="w-4/12 text-left">
                                                     RD${{
                                                         Number(
-                                                            sellers[0]
+                                                            sellers[1]
                                                                 .ResponsabilidadCivil2
                                                         ).toLocaleString()
                                                     }}
@@ -530,12 +530,12 @@ const isOpen4 = ref(false);
                                                 v-if="sellers[1].UnaPersona > 0"
                                             >
                                                 <p class="w-8/12 text-left">
-                                                    Una Persona:
+                                                    Accidentes Personales:
                                                 </p>
                                                 <p class="w-4/12 text-left">
                                                     RD${{
                                                         Number(
-                                                            sellers[0]
+                                                            sellers[1]
                                                                 .UnaPersona
                                                         ).toLocaleString()
                                                     }}
@@ -555,7 +555,7 @@ const isOpen4 = ref(false);
                                                 <p class="w-4/12 text-left">
                                                     RD${{
                                                         Number(
-                                                            sellers[0]
+                                                            sellers[1]
                                                                 .FianzaJudicial
                                                         ).toLocaleString()
                                                     }}
@@ -612,7 +612,7 @@ const isOpen4 = ref(false);
                                             <div
                                                 class="w-full flex items-center font-bold text-sm text-blue-700 pl-1 md:px-4 lg:px-10"
                                                 v-if="
-                                                    sellers[1]
+                                                    sellers[2]
                                                         .DanosPropiedadAjena > 0
                                                 "
                                             >
@@ -622,7 +622,7 @@ const isOpen4 = ref(false);
                                                 <p class="w-4/12 text-left">
                                                     RD${{
                                                         Number(
-                                                            sellers[0]
+                                                            sellers[2]
                                                                 .DanosPropiedadAjena
                                                         ).toLocaleString()
                                                     }}
@@ -632,18 +632,18 @@ const isOpen4 = ref(false);
                                             <div
                                                 class="w-full flex items-center font-bold text-sm text-blue-700 pl-1 md:px-4 lg:px-10"
                                                 v-if="
-                                                    sellers[1]
+                                                    sellers[2]
                                                         .ResponsabilidadCivil >
                                                     0
                                                 "
                                             >
                                                 <p class="w-8/12 text-left">
-                                                    Responsabilidad Civil:
+                                                    Resp. Civil 1 Persona:
                                                 </p>
                                                 <p class="w-4/12 text-left">
                                                     RD${{
                                                         Number(
-                                                            sellers[0]
+                                                            sellers[2]
                                                                 .ResponsabilidadCivil
                                                         ).toLocaleString()
                                                     }}
@@ -653,18 +653,18 @@ const isOpen4 = ref(false);
                                             <div
                                                 class="w-full flex items-center font-bold text-sm text-blue-700 pl-1 md:px-4 lg:px-10"
                                                 v-if="
-                                                    sellers[1]
+                                                    sellers[2]
                                                         .ResponsabilidadCivil2 >
                                                     0
                                                 "
                                             >
                                                 <p class="w-8/12 text-left">
-                                                    Responsabilidad Civil 2:
+                                                    Resp. Civil +1 Persona:
                                                 </p>
                                                 <p class="w-4/12 text-left">
                                                     RD${{
                                                         Number(
-                                                            sellers[0]
+                                                            sellers[2]
                                                                 .ResponsabilidadCivil2
                                                         ).toLocaleString()
                                                     }}
@@ -673,15 +673,15 @@ const isOpen4 = ref(false);
 
                                             <div
                                                 class="w-full flex items-center font-bold text-sm text-blue-700 pl-1 md:px-4 lg:px-10"
-                                                v-if="sellers[1].UnaPersona > 0"
+                                                v-if="sellers[2].UnaPersona > 0"
                                             >
                                                 <p class="w-8/12 text-left">
-                                                    Una Persona:
+                                                    Accidentes Personales:
                                                 </p>
                                                 <p class="w-4/12 text-left">
                                                     RD${{
                                                         Number(
-                                                            sellers[0]
+                                                            sellers[2]
                                                                 .UnaPersona
                                                         ).toLocaleString()
                                                     }}
@@ -691,7 +691,7 @@ const isOpen4 = ref(false);
                                             <div
                                                 class="w-full flex items-center font-bold text-sm text-blue-700 pl-1 md:px-4 lg:px-10"
                                                 v-if="
-                                                    sellers[1].FianzaJudicial >
+                                                    sellers[2].FianzaJudicial >
                                                     0
                                                 "
                                             >
@@ -701,7 +701,7 @@ const isOpen4 = ref(false);
                                                 <p class="w-4/12 text-left">
                                                     RD${{
                                                         Number(
-                                                            sellers[0]
+                                                            sellers[2]
                                                                 .FianzaJudicial
                                                         ).toLocaleString()
                                                     }}
@@ -758,7 +758,7 @@ const isOpen4 = ref(false);
                                             <div
                                                 class="w-full flex items-center font-bold text-sm text-blue-700 pl-1 md:px-4 lg:px-10"
                                                 v-if="
-                                                    sellers[1]
+                                                    sellers[3]
                                                         .DanosPropiedadAjena > 0
                                                 "
                                             >
@@ -768,7 +768,7 @@ const isOpen4 = ref(false);
                                                 <p class="w-4/12 text-left">
                                                     RD${{
                                                         Number(
-                                                            sellers[0]
+                                                            sellers[3]
                                                                 .DanosPropiedadAjena
                                                         ).toLocaleString()
                                                     }}
@@ -778,18 +778,18 @@ const isOpen4 = ref(false);
                                             <div
                                                 class="w-full flex items-center font-bold text-sm text-blue-700 pl-1 md:px-4 lg:px-10"
                                                 v-if="
-                                                    sellers[1]
+                                                    sellers[3]
                                                         .ResponsabilidadCivil >
                                                     0
                                                 "
                                             >
                                                 <p class="w-8/12 text-left">
-                                                    Responsabilidad Civil:
+                                                    Resp. Civil 1 Persona:
                                                 </p>
                                                 <p class="w-4/12 text-left">
                                                     RD${{
                                                         Number(
-                                                            sellers[0]
+                                                            sellers[3]
                                                                 .ResponsabilidadCivil
                                                         ).toLocaleString()
                                                     }}
@@ -799,18 +799,18 @@ const isOpen4 = ref(false);
                                             <div
                                                 class="w-full flex items-center font-bold text-sm text-blue-700 pl-1 md:px-4 lg:px-10"
                                                 v-if="
-                                                    sellers[1]
+                                                    sellers[3]
                                                         .ResponsabilidadCivil2 >
                                                     0
                                                 "
                                             >
                                                 <p class="w-8/12 text-left">
-                                                    Responsabilidad Civil 2:
+                                                    Resp. Civil +1 Persona:
                                                 </p>
                                                 <p class="w-4/12 text-left">
                                                     RD${{
                                                         Number(
-                                                            sellers[0]
+                                                            sellers[3]
                                                                 .ResponsabilidadCivil2
                                                         ).toLocaleString()
                                                     }}
@@ -819,15 +819,15 @@ const isOpen4 = ref(false);
 
                                             <div
                                                 class="w-full flex items-center font-bold text-sm text-blue-700 pl-1 md:px-4 lg:px-10"
-                                                v-if="sellers[1].UnaPersona > 0"
+                                                v-if="sellers[3].UnaPersona > 0"
                                             >
                                                 <p class="w-8/12 text-left">
-                                                    Una Persona:
+                                                    Accidentes Personales:
                                                 </p>
                                                 <p class="w-4/12 text-left">
                                                     RD${{
                                                         Number(
-                                                            sellers[0]
+                                                            sellers[3]
                                                                 .UnaPersona
                                                         ).toLocaleString()
                                                     }}
@@ -837,7 +837,7 @@ const isOpen4 = ref(false);
                                             <div
                                                 class="w-full flex items-center font-bold text-sm text-blue-700 pl-1 md:px-4 lg:px-10"
                                                 v-if="
-                                                    sellers[1].FianzaJudicial >
+                                                    sellers[3].FianzaJudicial >
                                                     0
                                                 "
                                             >
@@ -847,7 +847,7 @@ const isOpen4 = ref(false);
                                                 <p class="w-4/12 text-left">
                                                     RD${{
                                                         Number(
-                                                            sellers[0]
+                                                            sellers[3]
                                                                 .FianzaJudicial
                                                         ).toLocaleString()
                                                     }}
@@ -909,7 +909,7 @@ import "@vuepic/vue-datepicker/dist/main.css";
 import { Head, Link } from "@inertiajs/inertia-vue3";
 import Header from "../../components/Header.vue";
 import Footer from "../../components/Footer.vue";
-import { ref, onUnmounted } from "vue";
+import { ref, onUnmounted, onMounted  } from "vue";
 
 let date = ref(new Date());
 
@@ -1002,6 +1002,8 @@ export default {
         });
     },
     mounted() {
+        // Agregar evento beforeunload
+        // window.addEventListener('beforeunload', this.handleBeforeUnload);
         //Validar si la seccion esta activa
         axios
             .get("/api/V1/validarCesion/" + this.client.id)
@@ -1041,7 +1043,15 @@ export default {
             clearTimeout(timeoutId);
         });
     },
+    // beforeUnmount() {
+    //     // Remover el evento antes de que se desmonte el componente
+    //     window.removeEventListener('beforeunload', this.handleBeforeUnload);
+    // },
     methods: {
+        //  handleBeforeUnload(event) {
+        //     event.preventDefault();
+        //     event.returnValue = 'Si actualizas la página, perderás los datos ingresados. ¿Estás seguro de que deseas continuar?';
+        // },
         procesar: function (insurances_id, time) {
             if (insurances_id && time) {
                 this.form.date = this.form.date.toISOString();

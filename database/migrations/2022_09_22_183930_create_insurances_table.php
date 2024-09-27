@@ -13,17 +13,17 @@ class CreateInsurancesTable extends Migration
      */
     public function up()
     {
-        // Schema::create('insurances', function (Blueprint $table) {
-        //     $table->id();
-        //     $table->string('name');
-        //     $table->string('prefijo');
-        //     $table->integer('id_suplid');
-        //     $table->string('logo')->nullable();
-        //     $table->string('color')->nullable();
-        //     $table->string('activo')->default('si');
-        //     $table->string('valores_alternos')->nullable();
-        //     $table->timestamps();
-        // });
+        Schema::create('insurances', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('prefijo');
+            $table->integer('id_suplid');
+            $table->string('logo')->nullable();
+            $table->string('color')->nullable();
+            $table->string('activo')->default('si');
+            $table->string('valores_alternos')->nullable();
+            $table->timestamps();
+        });
     }
 
     /**
