@@ -259,7 +259,7 @@
                     <p class="w-1/2 flex justify-start items-center">
                         {{
                             Number(
-                                sellers[0].DanosPropiedadAjena
+                                seller.DanosPropiedadAjena
                             ).toLocaleString("es-DO", {
                                 style: "currency",
                                 currency: "DOP",
@@ -273,7 +273,7 @@
                     <p class="w-1/2 flex justify-start items-center">
                         {{
                             Number(
-                                sellers[0].ResponsabilidadCivil
+                                seller.ResponsabilidadCivil
                             ).toLocaleString("es-DO", {
                                 style: "currency",
                                 currency: "DOP",
@@ -287,7 +287,7 @@
                     <p class="w-1/2 flex justify-start items-center">
                         {{
                             Number(
-                                sellers[0].ResponsabilidadCivil2
+                                seller.ResponsabilidadCivil2
                             ).toLocaleString("es-DO", {
                                 style: "currency",
                                 currency: "DOP",
@@ -300,7 +300,7 @@
                     <b class="w-1/2">Fianza Judicial:</b>
                     <p class="w-1/2">
                         {{
-                            Number(sellers[0].FianzaJudicial).toLocaleString(
+                            Number(seller.FianzaJudicial).toLocaleString(
                                 "es-DO",
                                 { style: "currency", currency: "DOP" }
                             )

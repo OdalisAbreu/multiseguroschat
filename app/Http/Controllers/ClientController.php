@@ -27,7 +27,7 @@ class ClientController extends Controller
         $url = 'http://multiseguros.com.do:5050';
         //Esto no va
         $token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VyTmFtZSI6InNlbmRpdV9kZXNhcnJvbGxvIiwibmJmIjoxNjU1NDgwODg5LCJleHAiOjE2NTYwODU2ODksImlhdCI6MTY1NTQ4MDg4OX0.z0KshbCzm9aQiFR7rDYp3sqJacbZ7R6aKZ6zcq2w8Ok';
-        /*$token = Http::post($url.'/api/User/Authenticate',[
+        /*$ = Http::post($url.'/api/User/Authenticate',[
             'username' => 'sendiu_desarrollo',
             'password' => 'Admin1234'
         ]);*/
