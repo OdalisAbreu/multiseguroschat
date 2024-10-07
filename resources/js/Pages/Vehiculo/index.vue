@@ -69,37 +69,7 @@
                 </div>
 
                 <form @submit.prevent="submit" class="flex flex-col">
-                    <label class="pt-1 justify-start font-bold"
-                        >Tipo de Vehículo
-                        <span class="text-red-400 inl">*</span></label
-                    >
-
-                    <select
-                        class="rounded-lg w-full border-gray-300"
-                        v-model="form.tipo"
-                        required
-                    >
-                        <option
-                            :value="car.tipoName"
-                            disabled
-                            selected
-                            hidden
-                            v-if="car.tipoName != ''"
-                        >
-                            {{ car.tipoName }}
-                        </option>
-                        <option value="" disabled selected hidden v-else>
-                            TIPO DE VEHÍCULO
-                        </option>
-                        <option
-                            v-for="tipo in tipos"
-                            :value="tipo.id"
-                            :key="tipo.id"
-                        >
-                            {{ tipo.nombre }}
-                        </option>
-                    </select>
-
+                    
                     <!-- <model-list-select
                         class="selectSearch"
                         v-model="form.tipo"
@@ -194,6 +164,36 @@
                     </div>                
                     <span v-if="v$.form.modelo.$error" class="text-red-500">{{ v$.form.modelo.$errors[0].$message }}</span>
 
+                    <label class="pt-1 justify-start font-bold"
+                        >Tipo de Vehículo
+                        <span class="text-red-400 inl">*</span></label
+                    >
+
+                    <select
+                        class="rounded-lg w-full border-gray-300"
+                        v-model="form.tipo"
+                    >
+                        <option
+                            :value="car.tipoName"
+                            disabled
+                            selected
+                            hidden
+                            v-if="car.tipoName != ''"
+                        >
+                            {{ car.tipoName }}
+                        </option>
+                        <option value="" disabled selected hidden v-else>
+                            TIPO DE VEHÍCULO
+                        </option>
+                        <option
+                            v-for="tipo in vehicletype"
+                            :value="tipo.Id"
+                            :key="tipo.Id"
+                        >
+                            {{ tipo.Name }}
+                        </option>
+                    </select>
+
                     <label class="pt-1 font-bold"
                         >Año <span class="text-red-400 inl">*</span></label
                     >
@@ -225,12 +225,15 @@
                     <input
                         class="rounded-lg w-full border-gray-300"
                         style="text-transform: uppercase"
+                        :class="{'invalid': v$.form.placa.$error}"
                         type="text"
                         maxlength="10"
                         placeholder="PLACA"
                         v-model="form.placa"
-                        required
                     />
+                    <span v-if="v$.form.placa.$error" class="text-red-500">{{ v$.form.placa.$errors[0].$message }}</span>
+
+
                     <label class="pt-1 font-bold"
                         >No. de Chasis <span class="text-red-400 inl">*</span>
                     </label>
@@ -267,7 +270,7 @@
     <Footer />
 </template>
 <script>
-import { Head, Link } from "@inertiajs/inertia-vue3";
+import { Head, Link, router } from "@inertiajs/inertia-vue3";
 import Header from "../../components/Header.vue";
 import Footer from "../../components/Footer.vue";
 import { ModelListSelect } from "vue-search-select";
@@ -275,6 +278,8 @@ import "vue-search-select/dist/VueSearchSelect.css";
 import { ref, onUnmounted,  onMounted } from "vue";
 import useVuelidate from "@vuelidate/core";
 import { minLength, alphaNum, maxLength, helpers, required} from '@vuelidate/validators'
+import axios from "axios";
+import swal from 'sweetalert';
 
 export default {
     components: {
@@ -299,6 +304,7 @@ export default {
     },
     data() {
         return {
+            v$: useVuelidate(),
             years: [2022, 2021, 2020],
             isTipoCarroEmpty: false,
             isMarcaEmpty: false,
@@ -322,6 +328,7 @@ export default {
                 modelos: this.modelos,
                 clientepais: this.clientepais,
                 paises: this.paises,
+                error: "",
             },
             form2: {
                 cities: this.cities,
@@ -342,9 +349,11 @@ export default {
             selectedBrand: this.car.marca,
             filteredModelos: [], 
             showModeloDropdown: false,
+            vehicletype: [],
+            countErrorPlate: 0,
+            selectedType: ""
         };
     },
-    setup: () => ({ v$: useVuelidate() }),
     validations(){
         return{
 
@@ -356,6 +365,10 @@ export default {
                 modelo: {
                     required: helpers.withMessage('El campo no puede estar vacio', required),
                 }, 
+                placa: {
+                    required: helpers.withMessage('El campo no puede estar vacio', required),
+                    isValidPlate: helpers.withMessage('El formato de la placa no coincide con el tipo de vehiculo suministrado.',() => this.isValidPlate)
+                },
                 chasis:{
                     required: helpers.withMessage('El campo no puede estar vacio', required),
                     alphaNum: helpers.withMessage('no puede escribir caracteres especiales',helpers.regex(/^[a-zA-Z0-9\\-]+$/)),
@@ -403,6 +416,26 @@ export default {
             clearTimeout(timeoutId);
         });
     },
+    watch: {
+        'form.modelo': function (){
+            if(!this.form.modelo)
+                return
+            this.getTypeVehicle();
+        },
+    },
+    computed:{
+        errorTransform () {
+            let errors = this.v$.form.$silentErrors.map(item => item.$uid)
+           this.form.error =  errors.join(", ")
+           return this.form.error
+        },
+        isValidPlate(){
+          this.selectedType = this.vehicletype?.find(item => item.Id === this.form?.tipo)
+          const plateArray = this.selectedType?.Plate?.split(',')
+          const result = plateArray?.some(item => this.form.placa.toLowerCase().startsWith(item.toLowerCase()))
+          return result
+        }
+    },
     // beforeUnmount() {
     //     // Remover el evento antes de que se desmonte el componente
     //     window.removeEventListener('beforeunload', this.handleBeforeUnload);
@@ -413,10 +446,12 @@ export default {
         //     event.returnValue = 'Si actualizas la página, perderás los datos ingresados. ¿Estás seguro de que deseas continuar?';
         // },
         async submit() {
-            const isFormCorrect = await this.v$.form.$validate()
-            if(!isFormCorrect)
-                return;
-
+            const isInvalid = this.v$.form.$invalid
+            if(isInvalid){
+                await axios.post('/errorLogs',this.form)
+                await this.v$.form.$validate()
+                return
+            }
             this.Loading = true;
            this.$inertia.post(this.route("policy", this.form.marca), this.form);
         },
@@ -486,7 +521,16 @@ export default {
         },
         cleanSpaces(){
             this.form.chasis = this.form.chasis.trim()
-        }
+        },
+        async getTypeVehicle() {
+            try {
+                const response = await axios.get(`/getTypeVehicle/${this.form.modelo}`);
+                const data = response.data;
+                this.vehicletype = data
+            } catch (error) {
+                console.error(error);
+            }
+        },
 /*         showConfirmation(event) {
             event.preventDefault();
             event.returnValue = ""; // Necesario para mostrar el mensaje en algunos navegadores antiguos
