@@ -367,7 +367,7 @@ export default {
                 }, 
                 placa: {
                     required: helpers.withMessage('El campo no puede estar vacio', required),
-                    isValidPlate: helpers.withMessage('Esta no es un placa valida',() => this.isValidPlate)
+                    isValidPlate: helpers.withMessage('El formato de la placa no coincide con el tipo de vehiculo suministrado.',() => this.isValidPlate)
                 },
                 chasis:{
                     required: helpers.withMessage('El campo no puede estar vacio', required),
@@ -384,7 +384,6 @@ export default {
         }
     },
     mounted() {
-        this.isRestrictedNumberphone();
         //Validar si la seccion esta activa
         axios
             .get("/api/V1/validarCesion/" + this.client.id)
@@ -440,18 +439,7 @@ export default {
             const isInvalid = this.v$.form.$invalid
             if(isInvalid){
                 await axios.post('/errorLogs',this.form)
-                swal('Error',"Tiene errores en el formulario", "error");
                 await this.v$.form.$validate()
-
-                if(this.v$.form.placa.isValidPlate.$invalid && this.form.placa)
-                { 
-                    this.countErrorPlate++
-                    if(this.countErrorPlate > 3){
-                        await axios.post('/SavePhoneNumber',{phonenumber:this.client.phonenumber})
-                        swal('Contacte a servico Tecnico',"Su solicitud no pudo ser completada, favor contactar con servicio al cliente.", "error");
-                        this.$inertia.visit('../Blocked')
-                    }
-                }
                 return
             }
             this.Loading = true;
@@ -533,12 +521,6 @@ export default {
                 console.error(error);
             }
         },
-        async isRestrictedNumberphone(){
-           const response = await axios.post('/IsRestricted',{phonenumber:this.client.phonenumber})
-           if(response.data){
-               this.$inertia.visit('../Blocked')
-           }
-        }
 /*         showConfirmation(event) {
             event.preventDefault();
             event.returnValue = ""; // Necesario para mostrar el mensaje en algunos navegadores antiguos

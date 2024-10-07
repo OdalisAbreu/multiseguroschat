@@ -509,15 +509,8 @@ export default {
         changeId(){
             this.selectedDocument = !this.selectedDocument
         },
-        async isRestrictedNumberphone(){
-           const response = await axios.post('/IsRestricted',{phonenumber:this.client.phonenumber})
-           if(response.data){
-               this.$inertia.visit('../Blocked')
-           }
-        }
     },
     mounted() {
-        this.isRestrictedNumberphone();
        //Validar si la seccion esta activa
        console.log(this.clientProvince)
        axios.get("/api/V1/validarCesion/" + this.client.id).then((response) => {
