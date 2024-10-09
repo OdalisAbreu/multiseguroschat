@@ -4,7 +4,6 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\InvoicesController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PoliciesController;
-use App\Http\Controllers\ErrorLogController;
 use App\Http\Controllers\ProvisionalErrorPoliciesController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -22,10 +21,7 @@ Route::get('/Politicas', function () {
     return Inertia::render('Politicas');
 });
 
-
 Route::resource('client', ClientController::class);
-Route::post('errorLogs', [ErrorLogController::class, 'store']);
-Route::get('getTypeVehicle/{modeloId}', [ClientController::class, 'getTypeVehicle']);
 Route::post('policy/{marcaid}', [PoliciesController::class, 'index'])->name('policy');
 Route::post('services/{insuresId}/{time}', [PoliciesController::class, 'services'])->name('services');
 Route::post('servicespolicy', [PoliciesController::class, 'show'])->name('servicespolicy');
