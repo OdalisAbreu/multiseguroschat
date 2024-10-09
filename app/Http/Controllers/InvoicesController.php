@@ -140,8 +140,20 @@ class InvoicesController extends Controller
 
     public function statusPaymentCardNet(Request $request)
     {
-        //-----------------Consulta las tablas para generar las polizas----------------
         $invoices = Invoices::find($request->TransactionID);
+
+        Log::debug("Paso Antes de Generar la Poliza");
+        // ------------------ GENERAR POLIZA ------------------
+        $newPoliceServices = new NewPoliceServices($invoices);
+        $newPoliceServices->generatePolice();
+        //-----------------------------------------------------
+        Log::debug("Paso Antes de Enviar la Poliza");
+        // -------------------- Envia la Poliza al cliente ------------------
+        $sendPilicesServices = new SendPiliceServices($invoices);
+        $sendPilicesServices->handle();
+        //--------------------------------------------------------------------
+
+        //-----------------Consulta las tablas para generar las polizas----------------
         $seller = Insurance::find($invoices['sellers_id']);
         $client = Client::find($invoices->client_id);
         //---------------------------------------------------------------------------------
@@ -152,11 +164,11 @@ class InvoicesController extends Controller
                 return Inertia::render('index');
             }
         }
-        $urlBase = env('MULTISEGUROS_URL');
 
         // if (env('APP_ENV') != 'production') {
         //     $urlBase = "https://multiseguros.com.do/DemoSegurosChat";
         // }
+        $urlBase = env('MULTISEGUROS_URL');
         $marcas = Vehicle_brands::find($invoices->car_brand);
         $marca = $marcas->DESCRIPCION;
         $modelos = Vehicle_models::find($invoices->car_model);
@@ -241,16 +253,16 @@ class InvoicesController extends Controller
         $invoice->RetrivalReferenceNumber = $request->RetrivalReferenceNumber;
         $invoice->TxToken =  $request->TxToken;
         $invoice->update();
-        Log::debug("Paso Antes de Generar la Poliza");
-        // ------------------ GENERAR POLIZA ------------------
-        $newPoliceServices = new NewPoliceServices($invoice);
-        $newPoliceServices->generatePolice();
-        //-----------------------------------------------------
-        Log::debug("Paso Antes de Enviar la Poliza");
-        // -------------------- Envia la Poliza al cliente ------------------
-        $sendPilicesServices = new SendPiliceServices($invoice);
-        $sendPilicesServices->handle();
-        //--------------------------------------------------------------------
+        // Log::debug("Paso Antes de Generar la Poliza");
+        // // ------------------ GENERAR POLIZA ------------------
+        // $newPoliceServices = new NewPoliceServices($invoice);
+        // $newPoliceServices->generatePolice();
+        // //-----------------------------------------------------
+        // Log::debug("Paso Antes de Enviar la Poliza");
+        // // -------------------- Envia la Poliza al cliente ------------------
+        // $sendPilicesServices = new SendPiliceServices($invoice);
+        // $sendPilicesServices->handle();
+        // //--------------------------------------------------------------------
 
         return Inertia::render('Welcome', [
             'ResponseCode' => $request->ResponseCode,

@@ -90,7 +90,7 @@ class RenewServices
             $sellerCardnetCredencial['merchantterminal'] = '58585858';
             $data['urlReturn'] = 'https://demo.seguroschat.com/api/statusPayment';
         }
-
+        Log::debug('Paso a la vista De renovar poliza, Cliente: ' . $invoice['client_id']);
         $data['services'] = $services;
         $data['invoice'] = $invoice;
         $data['client'] = $client;
