@@ -241,11 +241,12 @@ class InvoicesController extends Controller
         $invoice->RetrivalReferenceNumber = $request->RetrivalReferenceNumber;
         $invoice->TxToken =  $request->TxToken;
         $invoice->update();
+        Log::debug("Paso Antes de Generar la Poliza");
         // ------------------ GENERAR POLIZA ------------------
         $newPoliceServices = new NewPoliceServices($invoice);
         $newPoliceServices->generatePolice();
         //-----------------------------------------------------
-
+        Log::debug("Paso Antes de Enviar la Poliza");
         // -------------------- Envia la Poliza al cliente ------------------
         $sendPilicesServices = new SendPiliceServices($invoice);
         $sendPilicesServices->handle();
