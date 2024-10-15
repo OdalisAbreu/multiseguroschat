@@ -19,9 +19,9 @@ Route::get('V1/invoice/{poliza}', [InvoicesController::class, 'getInvoice']); //
 Route::get('V1/UpdateDescuento/{id}', [DiscountsController::class, 'UpdateDescuento']); // Actualiza en Multiseguro el codigo de descuento si aplica
 Route::post('statusPayment', [InvoicesController::class, 'waitingRoom']); //Ir al area de cargar
 //-----------------------------Redired a Index si intenta actualizar en un punto ----------------------------------
-Route::get('statusPayment', function () {
-    return Inertia::render('index');
-});
+// Route::get('statusPayment', function () {
+//     return Inertia::render('index');
+// });
 
 Route::get('V1/aplicardescuento/{id}/{descuento}/{totalGeneral}', [InvoicesController::class, 'aplicarDescuento']);
 

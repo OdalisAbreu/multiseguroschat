@@ -172,6 +172,21 @@ class PoliciesController extends Controller
         $modelo = Vehicle_models::where([['descripcion', $request->car['modeloName']], ['IDMARCA', $marca['ID']]])->first();
         $price = Price::where([['insurances_id', $request->insurre['insurance_id']], ['vehicle_type_id', $request->car['tipo']]])->get();
         $car = $request->car;
+
+        // $selectMarca = array_filter($request->marcas, function ($marca) use ($request) {
+        //     return $marca['DESCRIPCION'] == $request->car['marcaName'];
+        // });
+        // $marca = $selectMarca[0];
+
+
+        // $selectModelo = array_filter($request->modelos, function ($modelo) use ($request) {
+        //     return $modelo['descripcion'] == $request->car['modeloName'] and $modelo['IDMARCA'] == $request->car['marca'];
+        // });
+        // $modelo = array_values($selectModelo)[0];
+
+        $seller = array_filter($request->sellers, function ($seller) use ($request) {
+            return $seller['insurances_id'] == $request->insurre['insurance_id'];
+        });
         $car['marca'] = $marca['ID'];
         $car['modelo'] = $modelo['ID'];
 
@@ -254,11 +269,12 @@ class PoliciesController extends Controller
             $insurre['payment_url'] = 'https://lab.cardnet.com.do/authorize';
             $urlReturn = 'https://demo.seguroschat.com/api/statusPayment';
         }
+
         return Inertia::render('Policy/edit', [
             'car' => $car,
             'tarifa' => $request->tarifa,
             'sellers' => $request->sellers,
-            'seller' => $request->sellers[0],
+            'seller' => array_values($seller)[0],
             'totalGeneral' => $totalGeneral,
             'policyTime' => $policyTime,
             'marca' => $marca['DESCRIPCION'],
