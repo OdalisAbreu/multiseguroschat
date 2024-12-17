@@ -27,4 +27,9 @@ class Vehicle_type_tarif extends Model
     {
         return $this->hasMany(Invoices::class);
     }
+
+    public function services()
+    {
+        return $this->hasMany(Service::class);
+    }
 }

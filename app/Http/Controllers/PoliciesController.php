@@ -116,37 +116,73 @@ class PoliciesController extends Controller
                 }
             }
         }
-        $seller = DB::table('insurances')
-            ->join('prices', 'prices.insurances_id', 'insurances.id')
-            ->join('vehicle_type_tarifs', 'vehicle_type_tarifs.id', 'prices.vehicle_type_id')
-            ->join('data_payment_gateway', 'insurances.id', 'data_payment_gateway.insurance_id')
-            ->join('payment_gateway', 'data_payment_gateway.payment_gateway_id', 'payment_gateway.id')
-            ->where([['insurances.activo', 'si'], ['vehicle_type_tarifs.id', $car['tipo']]])
-            ->select(
-                'insurances.nombre AS insurace',
-                'prefijo',
-                'logo',
-                'color',
-                'priceThreeMonths AS tresmeses',
-                'priceSixMonths AS seismeses',
-                'priceTwelveMonths AS docemeses',
-                'vehicle_type_tarifs.nombre AS vehicle_type',
-                'insurances.id AS insurances_id',
-                'vehicle_type_tarifs.id_serv AS servicios',
-                'payment_gateway.value AS payment_gateway',
-                'merchanttype',
-                'merchantnumber',
-                'merchantterminal',
-                'client_name',
-                'vehicle_type_id',
-                'DanosPropiedadAjena',
-                'ResponsabilidadCivil',
-                'ResponsabilidadCivil2',
-                'UnaPersona',
-                'FianzaJudicial',
-                'note_cobertura'
-            )
-            ->get();
+        if ($request->tipoUso == "privado") {
+            Log::debug('privado');
+            $seller = DB::table('insurances')
+                ->join('prices', 'prices.insurances_id', 'insurances.id')
+                ->join('vehicle_type_tarifs', 'vehicle_type_tarifs.id', 'prices.vehicle_type_id')
+                ->join('data_payment_gateway', 'insurances.id', 'data_payment_gateway.insurance_id')
+                ->join('payment_gateway', 'data_payment_gateway.payment_gateway_id', 'payment_gateway.id')
+                ->where([['insurances.activo', 'si'], ['vehicle_type_tarifs.id', $car['tipo']]])
+                ->select(
+                    'insurances.nombre AS insurace',
+                    'prefijo',
+                    'logo',
+                    'color',
+                    'priceThreeMonths AS tresmeses',
+                    'priceSixMonths AS seismeses',
+                    'priceTwelveMonths AS docemeses',
+                    'vehicle_type_tarifs.nombre AS vehicle_type',
+                    'insurances.id AS insurances_id',
+                    'vehicle_type_tarifs.id_serv AS servicios',
+                    'payment_gateway.value AS payment_gateway',
+                    'merchanttype',
+                    'merchantnumber',
+                    'merchantterminal',
+                    'client_name',
+                    'vehicle_type_id',
+                    'DanosPropiedadAjena',
+                    'ResponsabilidadCivil',
+                    'ResponsabilidadCivil2',
+                    'UnaPersona',
+                    'FianzaJudicial',
+                    'note_cobertura'
+                )
+                ->get();
+        } else {
+            Log::debug('publico');
+            $seller = DB::table('insurances')
+                ->join('prices', 'prices.insurances_id', 'insurances.id')
+                ->join('vehicle_type_tarifs', 'vehicle_type_tarifs.id', 'prices.vehicle_type_id')
+                ->join('data_payment_gateway', 'insurances.id', 'data_payment_gateway.insurance_id')
+                ->join('payment_gateway', 'data_payment_gateway.payment_gateway_id', 'payment_gateway.id')
+                ->where([['insurances.activo', 'si'], ['vehicle_type_tarifs.id', $car['tipo']], ['insurances_id', '!=', 6]])
+                ->select(
+                    'insurances.nombre AS insurace',
+                    'prefijo',
+                    'logo',
+                    'color',
+                    'priceThreeMonths AS tresmeses',
+                    'priceSixMonths AS seismeses',
+                    'priceTwelveMonths AS docemeses',
+                    'vehicle_type_tarifs.nombre AS vehicle_type',
+                    'insurances.id AS insurances_id',
+                    'vehicle_type_tarifs.id_serv AS servicios',
+                    'payment_gateway.value AS payment_gateway',
+                    'merchanttype',
+                    'merchantnumber',
+                    'merchantterminal',
+                    'client_name',
+                    'vehicle_type_id',
+                    'DanosPropiedadAjena',
+                    'ResponsabilidadCivil',
+                    'ResponsabilidadCivil2',
+                    'UnaPersona',
+                    'FianzaJudicial',
+                    'note_cobertura'
+                )
+                ->get();
+        }
         return Inertia::render('Policy/index', [
             'car' => $car,
             'sellers' => $seller,

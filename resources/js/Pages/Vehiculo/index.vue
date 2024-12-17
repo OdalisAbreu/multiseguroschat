@@ -194,6 +194,27 @@
                     </div>                
                     <span v-if="v$.form.modelo.$error" class="text-red-500">{{ v$.form.modelo.$errors[0].$message }}</span>
 
+                    <label class="pt-1 justify-start font-bold"
+                        >Tipo de Uso
+                        <span class="text-red-400 inl">*</span></label
+                    >
+
+                    <select
+                        class="rounded-lg w-full border-gray-300"
+                        v-model="form.tipoUso"
+                        required
+                    >
+                        <option value="" disabled selected>
+                            Tipo de Uso
+                        </option>
+                        <option value="publico">
+                            Público
+                        </option>
+                        <option value="privado">
+                            Privado
+                        </option>
+                    </select>
+
                     <label class="pt-1 font-bold"
                         >Año <span class="text-red-400 inl">*</span></label
                     >
@@ -322,6 +343,7 @@ export default {
                 modelos: this.modelos,
                 clientepais: this.clientepais,
                 paises: this.paises,
+                tipoUso: "",
             },
             form2: {
                 cities: this.cities,
@@ -403,20 +425,11 @@ export default {
             clearTimeout(timeoutId);
         });
     },
-    // beforeUnmount() {
-    //     // Remover el evento antes de que se desmonte el componente
-    //     window.removeEventListener('beforeunload', this.handleBeforeUnload);
-    // },
     methods: {
-        // handleBeforeUnload(event) {
-        //     event.preventDefault();
-        //     event.returnValue = 'Si actualizas la página, perderás los datos ingresados. ¿Estás seguro de que deseas continuar?';
-        // },
         async submit() {
             const isFormCorrect = await this.v$.form.$validate()
             if(!isFormCorrect)
                 return;
-
             this.Loading = true;
            this.$inertia.post(this.route("policy", this.form.marca), this.form);
         },
@@ -487,11 +500,6 @@ export default {
         cleanSpaces(){
             this.form.chasis = this.form.chasis.trim()
         }
-/*         showConfirmation(event) {
-            event.preventDefault();
-            event.returnValue = ""; // Necesario para mostrar el mensaje en algunos navegadores antiguos
-            return "¿Estás seguro de que quieres salir? Todos los cambios no guardados se perderán.";
-        }, */
     },    
     beforeUnmount() {
         if (this.mostrarConfirmacion == true) {
