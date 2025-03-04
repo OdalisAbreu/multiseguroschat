@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\InvoicesController;
 use App\Http\Controllers\PaymentController;
@@ -30,11 +31,21 @@ Route::post('generatepolicy', [PaymentController::class, 'cardNet'])->name('gene
 Route::get('car', [ClientController::class, 'index'])->name('car'); //Esto no va
 Route::post('seguros', [ClientController::class, 'seller'])->name('seguros'); //Configurar seguro
 Route::post('statusPayment', [InvoicesController::class, 'statusPayment'])->name('statusPayment'); //Configurar Pago
-Route::post('generatePolicynew', [InvoicesController::class, 'statusPaymentCardNet'])->name('generatePolicynew'); //Genera la poliza
+//Route::post('generatePolicynew', [InvoicesController::class, 'statusPaymentCardNet'])->name('generatePolicynew'); //Genera la poliza
+Route::post('generatePolicynew', [PoliciesController::class, 'policySussces'])->name('generatePolicynew'); //Genera la poliza
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->name('dashboard');
+
+//--------------------------- Vistas Webs --------------------------------------------
+
+Route::get('clients/login', function () {
+    return Inertia::render('Clients/Index');
+});
+Route::post('clients/login', [ClientController::class, 'login'])->name('clients.login');
+
+//---------------------------- End Vistas Webs ----------------------------------------
 
 //--------------------------Retornos-------------------------------------------
 
@@ -105,10 +116,33 @@ Route::get('/poliza/{noPoliza}', [PoliciesController::class, 'verPoliza']);
 Route::get('/admin', function () {
     return Inertia::render('AdminPages/index');
 })->middleware('auth');
+Route::get('/dashboard', function () {
+    return Inertia::render('AdminPages/index');
+})->middleware('auth');
 Route::get('/admin/codigo', function () {
     return Inertia::render('AdminPages/codigos');
 })->middleware('auth');
 Route::get('/tarifas', function () {
     return Inertia::render('Tarifas/Tarifa');
 })->middleware('auth');
+Route::get('/admin/ventas/seguro-unico', [AdminController::class, 'CreateClient'])->middleware('auth');
+Route::post('/admin/client/store', [ClientController::class, 'store'])->middleware('auth')->name('clients.store');
+Route::post('/admin/client/AddClientCar/{brnadId}', [AdminController::class, 'AddClientCar'])->middleware('auth')->name('clients.addcar');
+Route::post('services/{insuresId}/{time}', [AdminController::class, 'services'])->name('clients.services');
+Route::post('confirmPolicy', [AdminController::class, 'confirmPolice'])->middleware('auth')->name('clients.confirmpolicy');
+
+Route::get('/admin/ventas/seguro-flotilla', [AdminController::class, 'CreateEmpresa'])->middleware('auth');
+
 Route::get('/admin/errorPolicies', [ProvisionalErrorPoliciesController::class, 'index'])->middleware('auth');
+
+//------------------------------ Ruta de Pruebas ------------------------------------
+Route::get('Pruebas', function () {
+    return Inertia::render('Welcome', [
+        'ResponseCode' => "00",
+        'TransactionID' => 2303,
+        'RemoteResponseCode' => "00",
+        'AuthorizationCode' => "094777",
+        'RetrivalReferenceNumber' => "000000000134",
+        'TxToken' =>  "txn-2n1GKl28GK0P9dhKJ9iDgdGMVaj"
+    ]);
+});

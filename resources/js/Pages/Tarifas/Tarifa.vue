@@ -1,20 +1,18 @@
 <template>
-    <CustomHeader :width="25" />
+    <section class="w-full h-full pb-8">
+        <div>
+            <Nav :routeName="'Administrador'" class="fixed" />
+        </div>
+        <Sider />
+    </section>
     <div class="bg-gray-200 pb-6">
-        <div class="p-3 relative rounded-xl bg-white mx-3 z-40 min-h-screen">
-            <div class="w-36 float-right mr-10">
-                <CustomButton
-                    :Text="'Cerrar Sesión'"
-                    @click="logout"
-                />
-            </div>
+        <div class="w-screen flex flex-col justify-center items-center pt-20">
             <div>
                 <div class="text-black text-left font-bold text-2xl sm:text-2xl md:text-3xl xl:text-3xl my-6">
                     Busqueda de Tarifas de Seguros
                 </div>
             </div>
-            <div
-                class="p-3 px-5 sm:px-5 md:px-5 xl:px-5 bg-slate-100 rounded-xl border-2 border-gray-300 mb-4 max-w-4xl mx-auto">
+            <div class="p-3 px-5 sm:px-5 md:px-5 xl:px-5 bg-slate-100 rounded-xl border-2 border-gray-300 mb-4 max-w-4xl mx-auto">
                 <div class="flex">
                    <CAutoComplete class="w-1/3" 
                         v-model="typeVehicleSearch" 
@@ -64,6 +62,8 @@ import EditFormTarifa from "./EditFormTarifa.vue";
 import CAutoComplete from "../../components/shared/CAutoComplete.vue";
 import swal from 'sweetalert';
 import axios from "axios";
+import Nav from "../../components/Nav.vue";
+import Sider from "../../Components/Sider.vue";
 
 export default {
     name: "Tarifa",
@@ -77,6 +77,8 @@ export default {
         EditFormTarifa,
         CAutoComplete,
         CustomButton,
+        Nav,
+        Sider
     },
     data() {
         return {

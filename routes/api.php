@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\V1\PolicyRenewController;
 use App\Http\Controllers\Api\V1\PriceCOntroller;
 use App\Http\Controllers\DiscountsController;
 use App\Http\Controllers\InvoicesController;
+use App\Http\Controllers\PoliciesController;
 use App\Services\PoliceServices\RenewServices;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -38,15 +39,13 @@ Route::post('V1/invoices', [InvoicesController::class, 'getInvoices']);
 Route::get('V1/invoice/{id}', [InvoicesController::class, 'getInvoice']);
 Route::resource('V1/prices', PriceCOntroller::class);
 Route::get('generateoken', [AccesTokenController::class, 'generateToken']);
-// Route::post('V1/enviarArchivoBotCitie', [ClientsController::class, 'enviarArchivoBotCitie']);
-// Route::post('V1/savePolizaImage', [ClientsController::class, 'savePolizaImage']);
-// Route::get('V1/generarPdf/{idPoliza}', [ClientsController::class, 'generarPdf']);
-// Route::post('V1/enviarMensajeBotCitie', [ClientsController::class, 'enviarMensajeBotCitie']);
 
 //------------------------------------Crom Job Renovar Poliza ----------------------------------------------------------------
 
 Route::get('V1/sendMessengerRenew', [PolicyRenewController::class, 'sendMessengerRenew']);
 
+//----------------------------------- Generar Poliza ---------------------------------------------------------
+Route::get('V1/generateDocumentPolicy/{police_number}', [PoliciesController::class, 'generateDocumentPolicy']);
 //------------------------------------Uso Interno ----------------------------------------------------------------
 Route::resource('internal/codigoDescuento', DiscountsController::class);
 Route::get('accesoCarnet/{id}', [ClientsController::class, 'accesoCarnet']);

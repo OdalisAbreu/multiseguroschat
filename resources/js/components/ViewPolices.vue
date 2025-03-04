@@ -12,27 +12,35 @@
                     FIN DE VIGENCIA: {{ policyEndDate }}
                 </div>
             </div>
-            <div class="flex flex-col justify-end items-center cursor-pointer">
-                <a class="p-3 rounded-full bg-blue-800" @click="policeUpdate(police.id)">
-                    <svg height="30px" width="30px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
-                            viewBox="0 0 28 28" xml:space="preserve">
-                        <g>
-                            <g id="reload">
-                                <g>
-                                    <path style="fill:#FFFFFF;" d="M22,16c0,4.41-3.586,8-8,8s-8-3.59-8-8s3.586-8,8-8l2.359,0.027l-1.164,1.164l2.828,2.828
-                                        L24.035,6l-6.012-6l-2.828,2.828L16.375,4H14C7.375,4,2,9.371,2,16s5.375,12,12,12s12-5.371,12-12H22z"/>
-                                </g>
-                            </g>
-                        </g>
+
+            <!-- Botones de acción -->
+            <div class="flex flex-row items-center space-x-6">
+                <!-- Botón Renovar -->
+                <div class="flex flex-col items-center">
+                <a class="p-3 rounded-full bg-blue-800 cursor-pointer" @click="policeUpdate(police.id)">
+                    <svg height="30px" width="30px" viewBox="0 0 28 28">
+                    <path style="fill:#FFFFFF;" d="M22,16c0,4.41-3.586,8-8,8s-8-3.59-8-8s3.586-8,8-8l2.359,0.027l-1.164,1.164l2.828,2.828L24.035,6l-6.012-6l-2.828,2.828L16.375,4H14C7.375,4,2,9.371,2,16s5.375,12,12,12s12-5.371,12-12H22z"/>
                     </svg>
                 </a>
                 <p class="text-blue-800 font-bold text-sm">Renovar</p>
+                </div>
+
+                <!-- Botón de descarga de la póliza -->
+                <div class="flex flex-col items-center">
+                <button @click="downloadPolicy(police.police_number)" class="p-3 rounded-full bg-blue-800 cursor-pointer">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#FFFFFF" viewBox="0 0 24 24">
+                    <path d="M12 16l4-5h-3V4h-2v7H8z"></path>
+                    <path d="M20 18v2H4v-2H2v4h20v-4z"></path>
+                    </svg>
+                </button>
+                <p class="text-blue-800 font-bold text-sm">Descargar</p>
+                </div>
             </div>
             
         </div>
         <div v-auto-animate @click="cobertura = !cobertura" class="cursor-pointer w-full flex flex-col justify-center items-center rounded-xl text-xs bg-white text-blue-700 border border-blue-700 font-bold mb-2 text-center gap-x-1 mt-2">
             <div @click="isOpen = !isOpen" class="flex justify-center items-center gap-x-2 py-1">
-                Ver Detalle de póliza
+                Ver Detalle de póliza police.police_number
                 <img class="w-3"  v-if="cobertura" src="/images/Up.png" alt="Up" />
                 <img class="w-3" v-if="!cobertura" src="/images/down.png" alt="Down"/>
             </div>
@@ -102,12 +110,14 @@ export default {
     name: "ViewPolices",
     props: {
         type: String, 
-        police: Object
+        police: Object,
+        urlBase: String,
 
     },
     data() {
         return {
             chassis: this.police.chassis,
+            url: this.urlBase + '/TareasProg/PDF/IMPRIMIR/' + this.police.police_number + '.pdf',
         };
     },
      computed: {
@@ -161,7 +171,15 @@ export default {
     }, 
     methods: {
         policeUpdate(idPolice) {
-            this.$inertia.get(route('updatePolicy', idPolice));
+            this.$inertia.get(route('updatePolicy', police_number));
+        },
+        downloadPolicy(police_number) {
+            const link = document.createElement("a");
+            link.href = "/api/V1/generateDocumentPolicy/" + police_number;  // Cambia la URL a tu endpoint local
+            link.setAttribute("download", "poliza.pdf");
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
         },
     },
     mounted() {

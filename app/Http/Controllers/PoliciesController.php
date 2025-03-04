@@ -15,6 +15,7 @@ use App\Services\PoliceServices\RenewServices;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use PhpParser\Node\Stmt\Return_;
 
@@ -29,6 +30,18 @@ class PoliciesController extends Controller
     {
         $this->renewServices = new RenewServices();
     }
+
+    public function generateDocumentPolicy($police_number)
+    {
+        $url = env('URL_POLIZA') . '/TareasProg/PDF/IMPRIMIR/' . $police_number . '.pdf';
+        Log::debug($url);
+        $response = Http::get($url);
+        Log::debug($response->body());
+        return response($response->body(), 200)
+            ->header('Content-Type', 'application/pdf')
+            ->header('Content-Disposition', 'attachment; filename="poliza.pdf"');
+    }
+
     public function index(Request $request, $marcaid) //Vista 2 Vehiculos
     {
         // Si llegan string no realiza la búsqueda del nombre porque ya viene en la variable base
@@ -507,8 +520,23 @@ class PoliciesController extends Controller
     public function seePolicy($phone)
     {
         $data = $this->renewServices->seePolicy($phone);
+        $urlBase = env('URL_POLIZA');
         return Inertia::render('Policy/renew/seePolices', [
-            'data' => $data
+            'data' => $data,
+            'urlBase' => $urlBase
+        ]);
+    }
+
+    public function policySussces(Request $request)
+    {
+        $invoices = Invoices::find($request->TransactionID);
+        $client = Client::find($invoices->client_id);
+
+        $data = $this->renewServices->seePolicy($client->phonenumber);
+        $urlBase = env('URL_POLIZA');
+        return Inertia::render('Policy/renew/seePolices', [
+            'data' => $data,
+            'urlBase' => $urlBase
         ]);
     }
 }

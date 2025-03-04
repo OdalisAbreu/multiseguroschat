@@ -6,7 +6,7 @@
     <title inertia>{{ config('app.name', 'Laravel') }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no">
     <meta name="description" content="Tu seguro rápido, simple y seguro a través de WhatsApp.">
-    <meta name="keywords" content="seguros, ley, vehículo, asegurado, aseguradora, whatsapp, renovacion, seguro de ley, república dominicana, santo domingo, bavaro, punta cana, santiago, samana, moca, bani, san cristobal, puerto plata, la vega, romana, higuey, bonao, terrenas " /> 
+    <meta name="keywords" content="seguros, ley, vehículo, asegurado, aseguradora, whatsapp, renovacion, seguro de ley, república dominicana, santo domingo, bavaro, punta cana, santiago, samana, moca, bani, san cristobal, puerto plata, la vega, romana, higuey, bonao, terrenas " />
     <meta name="robots" content="index, follow">
     <link rel="alternate" hreflang="es" href="https://www.seguroschat.com/">
     <link rel="alternate" hreflang="x-default" href="https://www.seguroschat.com/">

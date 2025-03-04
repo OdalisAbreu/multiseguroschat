@@ -29,7 +29,7 @@
             </div>
             <div v-for="polices in data.polices" :key="polices" class="mb-2">
                 <!-- <ViewPolices :type="'renew'" :police="polices"  @all-policies-expired="markAllExpired"/> -->
-                  <ViewPolices :type="'renew'" :police="polices" @policy-status="updatePolicyStatus"/>
+                  <ViewPolices :type="'renew'" :police="polices" :urlBase="urlBase" @policy-status="updatePolicyStatus"/>
 
             </div>
                   <!-- Verificamos si la póliza está vacía -->
@@ -66,6 +66,7 @@ export default {
     },
     props: {
         data: Array,
+        urlBase: String,
     },
     mounted() {
         console.log(this.data);

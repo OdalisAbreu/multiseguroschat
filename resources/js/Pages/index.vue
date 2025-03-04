@@ -21,17 +21,32 @@
         />
     </head>
     <body>
-        <section id="header">
-        <div
-            class="align-middle bg-[#1D4ED8] flex flex-row h-20 w-full xl:h-[7rem] xl:min-h-32"
-        >
-            <img
-            class="pl-3 py-4 xl:max-w-[15rem] xl:pl-14 xl:pt-7"
-            alt
-            src="images/seguros-chat11-1@2x.a564a9f9.png"
-            />
-        </div>
+        <section id="header" class="w-full bg-[#1D4ED8]">
+            <div class="flex flex-row items-center justify-between h-20 px-4">
+                <!-- Columna de la imagen -->
+                <div class="w-2/3 flex items-center">
+                <img class="pl-3 py-4 max-h-20" src="images/seguros-chat11-1@2x.a564a9f9.png" alt="Imagen">
+                </div>
+
+                <!-- Columna del dropdown -->
+                <div class="w-1/3 flex items-center justify-end relative" ref="dropdown">
+                <button @click="toggleDropdown" class="bg-white text-blue-700 px-4 py-2 rounded-lg shadow flex items-center">
+                    Comprar Seguro
+                    <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+
+                <!-- Dropdown Menu -->
+                <div v-if="isDropdownOpen" class="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg" style="margin-top: 135px;">
+                    <a href="/clients/login" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Usuario</a>
+                    <a href="/login" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Vendedor</a>
+                    <!-- <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Opción 3</a> -->
+                </div>
+                </div>
+            </div>
         </section>
+
         <div class="bg-[#1D4ED8]">
         <section
             id="hero"
@@ -313,6 +328,7 @@
   </div>
 </template>
 
+
 <style scoped>
 .image {
     background-image: url(../../../public/ima/HeroSection.jpg);
@@ -341,6 +357,7 @@ export default defineComponent({
                 phone: "",
             },
             Loading: false,
+            isDropdownOpen: false, // Estado del dropdown
         };
     },
     methods: {
@@ -348,6 +365,22 @@ export default defineComponent({
             this.Loading = true;
             this.$inertia.get(this.route("client.show", this.form.phone));
         },
+       toggleDropdown(event) {
+            event.stopPropagation(); // Evita que el clic en el botón cierre el menú
+            this.isDropdownOpen = !this.isDropdownOpen;
+        },
+        closeDropdown(event) {
+            // Verifica si el clic fue fuera del dropdown
+            if (this.$refs.dropdown && !this.$refs.dropdown.contains(event.target)) {
+                this.isDropdownOpen = false;
+            }
+        },
+    },
+    mounted() {
+        window.addEventListener("click", this.closeDropdown);
+    },
+    beforeUnmount() {
+        window.removeEventListener("click", this.closeDropdown);
     },
 });
 </script>

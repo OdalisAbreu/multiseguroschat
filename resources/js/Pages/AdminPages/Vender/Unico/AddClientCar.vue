@@ -1,66 +1,14 @@
 <template>
-    <div
-        class="bg-gray-200 pb-6"
-        :class="{ 'animate-pulse': Loading, 'opacity-50': Loading }"
-    >
-        <section class="bg-blue-700">
-            <Header :width="50" />
-        </section>
-
-        <section class="p-3 relative rounded-xl bg-white mx-3 z-50 mt-4">
-            <div
-                v-if="Loading"
-                class="fixed inset-0 flex items-center justify-center z-50"
-            >
-                <svg
-                    aria-hidden="true"
-                    role="status"
-                    class="inline w-12 h-12 text-gray-200 animate-spin dark:text-gray-600"
-                    viewBox="0 0 100 101"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                >
-                    <path
-                        d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
-                        fill="currentColor"
-                    />
-                    <path
-                        d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
-                        fill="#E5E7EB"
-                    />
-                </svg>
-            </div>
-
-            <div
-                class="flex min-h-90 items-center justify-between bg-slate-100 rounded-xl border-2 border-gray-300 p-3 px-5 mb-3 max-w-4xl mx-auto"
-            >
-                <div class="flex flex-col justify-start">
-                    <h3 class="font-bold text-lg">Asegurado</h3>
-                    <p>{{ client.name }} {{ client.lastname }}</p>
-                </div>
-
-                <div
-                    class="flex flex-col justify-end gap-1 items-center cursor-pointer"
-                >
-                    <a
-                        @click="clientReturn()"
-                        class="p-2 rounded-full bg-blue-800"
-                    >
-                        <img
-                            src="../../../../public/ima/edit.png"
-                            alt="Editar"
-                        />
-                    </a>
-                    <p class="text-blue-800 bottom-2 font-bold text-sm">
-                        Editar
-                    </p>
-                </div>
-            </div>
-
-            <div
-                class="flex flex-col p-3 px-5 sm:px-5 md:px-3 xl:px-3 bg-slate-100 rounded-xl border-2 border-gray-300 mb-2 max-w-4xl mx-auto"
-            >
-                <div class="mt-2 py-2">
+    <section class="w-full h-full pb-8">
+        <div>
+            <Nav :routeName="'Administrador'" class="fixed" />
+        </div>
+        <Sider />
+    </section>
+    <section class="w-screen flex flex-col  pt-20 pl-80">
+       <div class="p-3 rounded-xl bg-white mx-3 ">
+            <div class="p-3 px-5 sm:px-5 md:px-5 xl:px-5 bg-slate-100 rounded-xl border-2 border-gray-300 mb-4 max-w-4xl mx-auto">
+                <div class="">
                     <div
                         class="text-left text-2xl font-bold sm:text-2xl md:text-3xl xl:text-3xl"
                     >
@@ -100,19 +48,6 @@
                         </option>
                     </select>
 
-                    <!-- <model-list-select
-                        class="selectSearch"
-                        v-model="form.tipo"
-                        :value="tipos.id"
-                        :list="tipos"
-                        :key="tipos.id"
-                        option-value="id"
-                        option-text="nombre"
-                        placeholder="VEHICULO"
-                        required
-                    >
-                    </model-list-select> -->
-
                     <label class="pt-1 font-bold">Marca <span class="text-red-400">*</span></label>
                     <div class="relative">
                         <input
@@ -142,43 +77,8 @@
                         </div>
                     </div>
 
-                    <!--  <model-list-select
-                        class="selectSearch"
-                        v-model="marca"
-                        :value="marcas.ID"
-                        :list="marcas"
-                        :key="marcas.ID"
-                        option-value="ID"
-                        option-text="DESCRIPCION"
-                        placeholder="MARCA"
-                        required
-                    >
-                    </model-list-select> -->
-
                     <label class="pt-1 font-bold">Modelo <span class="text-red-400 inl">*</span></label>
                     <div class="relative">
-                        <!-- <input
-                            class="rounded-lg w-full border-gray-300"
-                            type="text"
-                            placeholder="MODELO"
-                            v-model="modelo"
-                            @input="filterModelos"
-                            @focus="handleModeloFocus"
-                            @blur="handleModeloBlur"
-                            required
-                        />
-                        <div v-if="filteredModelos.length > 0 && showModeloDropdown" class="absolute z-10 mt-1 w-full bg-white border border-gray-300 rounded-lg shadow-md" style="max-height: 425px; overflow-y: auto;">
-                            <ul class="py-2">
-                                <li
-                                    v-for="modelo in filteredModelos"
-                                    :key="modelo.ID"
-                                    @click="selectModelo(modelo)"
-                                    class="px-4 py-2 cursor-pointer hover:bg-gray-100"
-                                >
-                                    {{ modelo.descripcion }}
-                                </li>
-                            </ul>
-                        </div> -->
                         <model-list-select
                            class="selectSearch"
                            :class="{'invalid': v$.form.modelo.$error}"
@@ -193,7 +93,7 @@
                        </model-list-select>
                     </div>                
                     <span v-if="v$.form.modelo.$error" class="text-red-500">{{ v$.form.modelo.$errors[0].$message }}</span>
-
+<!-- 
                     <label class="pt-1 justify-start font-bold"
                         >Uso
                         <span class="text-red-400 inl">*</span></label
@@ -222,7 +122,7 @@
                         <option value="privado">
                             Transporte Escolar
                         </option>
-                    </select>
+                    </select> -->
 
                     <label class="pt-1 font-bold"
                         >Año <span class="text-red-400 inl">*</span></label
@@ -292,27 +192,30 @@
                     </div>
                 </form>
             </div>
-        </section>
-    </div>
-    <Footer />
+        </div>
+    </section>
 </template>
 <script>
-import { Head, Link } from "@inertiajs/inertia-vue3";
-import Header from "../../components/Header.vue";
-import Footer from "../../components/Footer.vue";
-import { ModelListSelect } from "vue-search-select";
-import "vue-search-select/dist/VueSearchSelect.css";
-import { ref, onUnmounted,  onMounted } from "vue";
-import useVuelidate from "@vuelidate/core";
-import { minLength, alphaNum, maxLength, helpers, required} from '@vuelidate/validators'
+    import  Nav  from "../../../../components/Nav.vue";
+    import  Sider  from "../../../../Components/Sider.vue";
+    import { Head, Link } from "@inertiajs/inertia-vue3";
+    import Header from "../../../../components/Header.vue";
+    import Footer from "../../../../components/Footer.vue";
+    import { ModelListSelect } from "vue-search-select";
+    import "vue-search-select/dist/VueSearchSelect.css";
+    import { ref, onUnmounted,  onMounted } from "vue";
+    import useVuelidate from "@vuelidate/core";
+    import { minLength, alphaNum, maxLength, helpers, required} from '@vuelidate/validators';
 
-export default {
+ export default {
     components: {
         Footer,
         Header,
         Head,
         Link,
         ModelListSelect,
+        Nav,
+        Sider
     },
     props: {
         tipos: Array,
@@ -405,18 +308,18 @@ export default {
         // window.addEventListener('beforeunload', this.handleBeforeUnload);
 
         //Validar si la seccion esta activa
-        axios
-            .get("/api/V1/validarCesion/" + this.client.id)
-            .then((response) => {
-                if (!response.data.status) {
-                    alert("Su cesión se encuentra inactiva");
-                    window.location.href =
-                        "https://api.whatsapp.com/send?phone=18494722428&text=Hola";
-                }
-            })
-            .catch((error) => {
-                console.log(error.response);
-            });
+        // axios
+        //     .get("/api/V1/validarCesion/" + this.client.id)
+        //     .then((response) => {
+        //         if (!response.data.status) {
+        //             alert("Su cesión se encuentra inactiva");
+        //             window.location.href =
+        //                 "https://api.whatsapp.com/send?phone=18494722428&text=Hola";
+        //         }
+        //     })
+        //     .catch((error) => {
+        //         console.log(error.response);
+        //     });
         //------------------ Guardar Vista por el cliente -------------------------------------
         axios.get(
             "/api/V1/validarVista/" + this.client.id + "/Datos del Vehículo"
@@ -424,15 +327,15 @@ export default {
         this.models = this.modelos.filter(
             (model) => model.IDMARCA == this.car.marca
         );
-        const cuentaRegresiva = () => {
-            axios.get("/api/V1/confirmarNegativo/" + this.client.phonenumber);
-        };
+        // const cuentaRegresiva = () => {
+        //     axios.get("/api/V1/confirmarNegativo/" + this.client.phonenumber);
+        // };
 
-        const timeoutId = setTimeout(cuentaRegresiva, 900000);
+        // const timeoutId = setTimeout(cuentaRegresiva, 900000);
 
-        onUnmounted(() => {
-            clearTimeout(timeoutId);
-        });
+        // onUnmounted(() => {
+        //     clearTimeout(timeoutId);
+        // });
     },
     methods: {
         async submit() {
@@ -440,7 +343,7 @@ export default {
             if(!isFormCorrect)
                 return;
             this.Loading = true;
-           this.$inertia.post(this.route("policy", this.form.marca), this.form);
+           this.$inertia.post(this.route("clients.addcar", this.form.marca), this.form);
         },
         clientReturn() {
             this.Loading = true;
@@ -534,3 +437,4 @@ export default {
   border: solid 1px red !important;
 }
 </style>
+

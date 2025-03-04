@@ -1,9 +1,9 @@
 <template>
     <Head title="Log in" />
 
-    <jet-authentication-card>
+    <jet-authentication-card style="background-color: #1D4ED8;">
         <template #logo>
-            <jet-authentication-card-logo />
+            <img class="max-h-20" src="images/seguros-chat11-1@2x.a564a9f9.png" alt="Imagen">
         </template>
 
         <jet-validation-errors class="mb-4" />
@@ -31,13 +31,13 @@
             </div>
 
             <div class="flex items-center justify-end mt-4">
-                <Link v-if="canResetPassword" :href="route('register')" class="underline mr-4 text-sm text-gray-600 hover:text-gray-900">
+                <!-- <Link v-if="canResetPassword" :href="route('register')" class="underline mr-4 text-sm text-gray-600 hover:text-gray-900">
                     Register
                 </Link>
-                
-                <Link v-if="canResetPassword" :href="route('password.request')" class="underline text-sm text-gray-600 hover:text-gray-900">
+                 -->
+                <!-- <Link v-if="canResetPassword" :href="route('password.request')" class="underline text-sm text-gray-600 hover:text-gray-900">
                     Forgot your password?
-                </Link>
+                </Link> -->
 
                 <jet-button class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                     Log in
