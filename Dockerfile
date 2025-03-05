@@ -3,7 +3,7 @@ COPY . /app/
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-FROM php:8.1-apache-buster as dev
+FROM php:8.2-apache-buster as dev
 
 ENV APP_ENV=dev
 ENV APP_DEBUG=true
