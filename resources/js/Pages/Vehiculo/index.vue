@@ -366,7 +366,7 @@ export default {
         }
     },
     created() {
-        for (let year = 2024; year >= 1970; year--) {
+        for (let year = 2025; year >= 1970; year--) {
         this.years.push(year.toString());
         }
     },
@@ -403,15 +403,8 @@ export default {
             clearTimeout(timeoutId);
         });
     },
-    // beforeUnmount() {
-    //     // Remover el evento antes de que se desmonte el componente
-    //     window.removeEventListener('beforeunload', this.handleBeforeUnload);
-    // },
     methods: {
-        // handleBeforeUnload(event) {
-        //     event.preventDefault();
-        //     event.returnValue = 'Si actualizas la página, perderás los datos ingresados. ¿Estás seguro de que deseas continuar?';
-        // },
+
         async submit() {
             const isFormCorrect = await this.v$.form.$validate()
             if(!isFormCorrect)
